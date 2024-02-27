@@ -5,7 +5,6 @@ using UnityEngine;
 public class CameraMovement : MonoBehaviour
 {
     [SerializeField] Transform target;
-    [SerializeField] float smoothSpeed = 0.125f;
     [SerializeField] float dragSpeed = 0.1f;
     [SerializeField] float minXOffset = -2f;
     [SerializeField] float maxXOffset = 2f;
@@ -17,6 +16,15 @@ public class CameraMovement : MonoBehaviour
 
     bool isDragging = false;
 
+    Rigidbody2D myRigidBody;
+    Train train;
+
+    void Awake()
+    {
+        myRigidBody = GetComponent<Rigidbody2D>();
+        train = FindObjectOfType<Train>();
+    }
+
     void Start()
     {
         offset = transform.position - target.localPosition;
@@ -27,12 +35,12 @@ public class CameraMovement : MonoBehaviour
 
     void LateUpdate()
     {
-        if (!isDragging)
-        {
-            Vector3 smoothedPosition = Vector3.Lerp(transform.position, targetPosition, smoothSpeed);
-            transform.position = smoothedPosition;
-        }
-        else
+        float velocity = train.GetVelocity();
+        velocity /= 5;
+
+        myRigidBody.velocity = new Vector2(velocity, myRigidBody.velocity.y);
+        
+        if (isDragging)
         {
             HandleMouseDrag();
         }
@@ -42,6 +50,7 @@ public class CameraMovement : MonoBehaviour
     {
         Vector3 currentMousePosition = Input.mousePosition;
         Vector3 mouseDelta = currentMousePosition - lastMousePosition;
+
         float moveAmount = mouseDelta.x * dragSpeed * Time.deltaTime * -1f;
         float newX = Mathf.Clamp(transform.position.x + moveAmount, target.position.x + minXOffset, target.position.x + maxXOffset);
         transform.position = new Vector3(newX, transform.position.y, transform.position.z);
