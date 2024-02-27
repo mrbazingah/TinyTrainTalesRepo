@@ -46,3 +46,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   coins: 0
   cointext: {fileID: 0}
+  maxSpeed: 90
+  speedText: {fileID: 0}

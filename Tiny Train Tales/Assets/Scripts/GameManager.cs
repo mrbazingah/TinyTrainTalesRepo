@@ -11,7 +11,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] float maxSpeed;
     [SerializeField] TextMeshProUGUI speedText;
 
-    float speed;
+    float velocty;
 
     Train train;
 
@@ -22,9 +22,9 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        speed = train.GetSpeed();
-        float s = Mathf.Floor(speed);
-        speedText.text = s.ToString() + " km/h";
+        velocty = train.GetVelocity();
+        float speed = Mathf.Floor(velocty);
+        speedText.text = speed.ToString() + " km/h";
     }
 
     public void AddCoins(int amountAdded)

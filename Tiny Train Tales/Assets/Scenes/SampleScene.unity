@@ -417,7 +417,7 @@ Transform:
   m_GameObject: {fileID: 519420028}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.2494206, y: -0.15711844, z: -10}
+  m_LocalPosition: {x: 2.2505624, y: -0.15711844, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1256,7 +1256,7 @@ Transform:
   m_GameObject: {fileID: 1608785548}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.2494206, y: -0.15711844, z: -10}
+  m_LocalPosition: {x: 2.2505624, y: -0.15711844, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1877,17 +1877,25 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 4252786864156591855, guid: 99cf9d11154a4484b9363d7ddcdb2782, type: 3}
-      propertyPath: m_Size.x
-      value: 25.19834
-      objectReference: {fileID: 0}
-    - target: {fileID: 4252786864156591855, guid: 99cf9d11154a4484b9363d7ddcdb2782, type: 3}
-      propertyPath: m_Offset.x
-      value: -4.1127195
-      objectReference: {fileID: 0}
+    - target: {fileID: 3108653313170267882, guid: 99cf9d11154a4484b9363d7ddcdb2782, type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 519420031}
     - target: {fileID: 4378805007295876886, guid: 99cf9d11154a4484b9363d7ddcdb2782, type: 3}
       propertyPath: m_Name
       value: Train
+      objectReference: {fileID: 0}
+    - target: {fileID: 5701602394061617698, guid: 99cf9d11154a4484b9363d7ddcdb2782, type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 519420031}
+    - target: {fileID: 7032095932547819714, guid: 99cf9d11154a4484b9363d7ddcdb2782, type: 3}
+      propertyPath: m_Size.x
+      value: 26.366325
+      objectReference: {fileID: 0}
+    - target: {fileID: 7032095932547819714, guid: 99cf9d11154a4484b9363d7ddcdb2782, type: 3}
+      propertyPath: m_Offset.x
+      value: -2.0612302
       objectReference: {fileID: 0}
     - target: {fileID: 7211839878781286953, guid: 99cf9d11154a4484b9363d7ddcdb2782, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1928,18 +1936,6 @@ PrefabInstance:
     - target: {fileID: 7211839878781286953, guid: 99cf9d11154a4484b9363d7ddcdb2782, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7827810439277896617, guid: 99cf9d11154a4484b9363d7ddcdb2782, type: 3}
-      propertyPath: speed
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7827810439277896617, guid: 99cf9d11154a4484b9363d7ddcdb2782, type: 3}
-      propertyPath: decelartion
-      value: 100
-      objectReference: {fileID: 0}
-    - target: {fileID: 7827810439277896617, guid: 99cf9d11154a4484b9363d7ddcdb2782, type: 3}
-      propertyPath: acceleration
-      value: 55
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2002,10 +1998,6 @@ PrefabInstance:
       propertyPath: cointext
       value: 
       objectReference: {fileID: 1837428436}
-    - target: {fileID: 6013072587387181096, guid: d7f2d7e6643153744bbdc766918d5eaf, type: 3}
-      propertyPath: maxSpeed
-      value: 90
-      objectReference: {fileID: 0}
     - target: {fileID: 6013072587387181096, guid: d7f2d7e6643153744bbdc766918d5eaf, type: 3}
       propertyPath: speedText
       value: 

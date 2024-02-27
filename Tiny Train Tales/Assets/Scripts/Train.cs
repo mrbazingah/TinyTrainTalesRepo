@@ -6,8 +6,9 @@ public class Train : MonoBehaviour
 {
     [SerializeField] float acceleration;
     [SerializeField] float decelartion;
+    [SerializeField] float speed;
 
-    float speed;
+    bool isDriving;
 
     Rigidbody2D myRigidbody;
     GameManager gameManager;
@@ -20,20 +21,44 @@ public class Train : MonoBehaviour
 
     void FixedUpdate()
     {
+        Movement();
+    }
+
+    void Update()
+    {
+        MovementInputs();
+    }
+
+    void MovementInputs()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            if (!isDriving)
+            {
+                isDriving = true;
+            }
+            else
+            {
+                isDriving = false;
+            }
+        }
+    }
+
+    void Movement()
+    {
         if (myRigidbody.velocity.x <= 0)
         {
             myRigidbody.velocity = Vector3.zero;
             speed = 0;
         }
 
-        if (Input.GetKey(KeyCode.Space))
+        float maxSpeed = gameManager.GetMaxSpeed();
+
+        if (isDriving && maxSpeed > myRigidbody.velocity.x)
         {
-            float maxSpeed = gameManager.GetMaxSpeed();
-            if (myRigidbody.velocity.x > maxSpeed) { return; }
-            
             speed += acceleration * Time.fixedDeltaTime;
         }
-        else if (!Input.GetKey(KeyCode.Space) && myRigidbody.velocity.x > 0)
+        else if ((!isDriving && myRigidbody.velocity.x > 0) || myRigidbody.velocity.x > maxSpeed)
         {
             speed -= decelartion * Time.fixedDeltaTime;
         }
@@ -41,7 +66,7 @@ public class Train : MonoBehaviour
         myRigidbody.velocity = new Vector2(speed * Time.fixedDeltaTime, myRigidbody.velocity.y);
     }
 
-    public float GetSpeed()
+    public float GetVelocity()
     {
         float s = myRigidbody.velocity.x * 5;
 
