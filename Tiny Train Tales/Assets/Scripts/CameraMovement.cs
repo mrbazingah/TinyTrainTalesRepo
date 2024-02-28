@@ -6,7 +6,7 @@ public class CameraMovement : MonoBehaviour
 {
     [SerializeField] Transform target;
     [SerializeField] float dragSpeed = 0.1f;
-    [SerializeField] float minXOffset = -2f;
+    [SerializeField] float minXPerCart = -2f;
     [SerializeField] float maxXOffset = 2f;
 
     Vector3 offset;
@@ -52,7 +52,7 @@ public class CameraMovement : MonoBehaviour
         Vector3 mouseDelta = currentMousePosition - lastMousePosition;
 
         float moveAmount = mouseDelta.x * dragSpeed * Time.deltaTime * -1f;
-        float newX = Mathf.Clamp(transform.position.x + moveAmount, target.position.x + minXOffset, target.position.x + maxXOffset);
+        float newX = Mathf.Clamp(transform.position.x + moveAmount, target.position.x + minXPerCart, target.position.x + maxXOffset);
         transform.position = new Vector3(newX, transform.position.y, transform.position.z);
         lastMousePosition = currentMousePosition;
     }

@@ -35,13 +35,23 @@ public class Train : MonoBehaviour
         {
             if (!isDriving)
             {
-                isDriving = true;
+                StartTrain();
             }
             else
             {
-                isDriving = false;
+                StopTrain();
             }
         }
+    }
+
+    public void StopTrain()
+    {
+        isDriving = false;
+    }
+
+    public void StartTrain()
+    {
+        isDriving = true;
     }
 
     void Movement()
