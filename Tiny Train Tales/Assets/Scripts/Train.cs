@@ -12,11 +12,13 @@ public class Train : MonoBehaviour
 
     Rigidbody2D myRigidbody;
     GameManager gameManager;
+    BackgroundGenerator background;
 
     void Awake()
     {
         myRigidbody = GetComponent<Rigidbody2D>();
         gameManager = FindObjectOfType<GameManager>();
+        background = FindObjectOfType<BackgroundGenerator>();
     }
 
     void FixedUpdate()
@@ -44,16 +46,6 @@ public class Train : MonoBehaviour
         }
     }
 
-    public void StopTrain()
-    {
-        isDriving = false;
-    }
-
-    public void StartTrain()
-    {
-        isDriving = true;
-    }
-
     void Movement()
     {
         if (myRigidbody.velocity.x <= 0)
@@ -76,9 +68,19 @@ public class Train : MonoBehaviour
         myRigidbody.velocity = new Vector2(speed * Time.fixedDeltaTime, myRigidbody.velocity.y);
     }
 
+    public void StopTrain()
+    {
+        isDriving = false;
+    }
+
+    public void StartTrain()
+    {
+        isDriving = true;
+    }
+
     public float GetVelocity()
     {
-        float s = myRigidbody.velocity.x * 5;
+        float s = myRigidbody.velocity.x;
 
         if (s <= 0)
         {
@@ -86,5 +88,20 @@ public class Train : MonoBehaviour
         }
 
         return s;
+    }
+
+    public float GetAcceleration()
+    {
+        return acceleration;
+    }
+
+    public float GetDecelartion()
+    {
+        return decelartion;
+    }
+
+    public bool GetIsDrving()
+    {
+        return isDriving;
     }
 }

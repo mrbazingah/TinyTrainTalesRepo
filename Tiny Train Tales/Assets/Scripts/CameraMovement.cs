@@ -22,7 +22,6 @@ public class CameraMovement : MonoBehaviour
     void Awake()
     {
         myRigidBody = GetComponent<Rigidbody2D>();
-        train = FindObjectOfType<Train>();
     }
 
     void Start()
@@ -35,11 +34,6 @@ public class CameraMovement : MonoBehaviour
 
     void LateUpdate()
     {
-        float velocity = train.GetVelocity();
-        velocity /= 5;
-
-        myRigidBody.velocity = new Vector2(velocity, myRigidBody.velocity.y);
-        
         if (isDragging)
         {
             HandleMouseDrag();

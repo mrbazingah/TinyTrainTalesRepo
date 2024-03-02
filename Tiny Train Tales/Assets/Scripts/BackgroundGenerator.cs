@@ -6,6 +6,24 @@ public class BackgroundGenerator : MonoBehaviour
 {
     [SerializeField] GameObject blockPrefab;
 
+    float speed;
+
+    Rigidbody2D myRigidbody;
+    Train train;
+    GameManager gameManager;
+
+    void Awake()
+    {
+        myRigidbody = GetComponent<Rigidbody2D>();  
+        train = FindObjectOfType<Train>();
+        gameManager = FindObjectOfType<GameManager>();
+    }
+
+    void FixedUpdate()
+    {
+       
+    }
+
     void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Train"))
