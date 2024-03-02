@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - Train
+  - Block
   layers:
   - Default
   - TransparentFX
