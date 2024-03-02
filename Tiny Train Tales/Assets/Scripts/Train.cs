@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 public class Train : MonoBehaviour
@@ -7,16 +8,18 @@ public class Train : MonoBehaviour
     [SerializeField] float acceleration;
     [SerializeField] float decelartion;
     [SerializeField] float speed;
+    [Space]
+    [SerializeField] Rigidbody2D[] backgroundRigidbody;
 
     bool isDriving;
 
-    Rigidbody2D myRigidbody;
     GameManager gameManager;
 
     void Awake()
     {
-        myRigidbody = GetComponent<Rigidbody2D>();
         gameManager = FindObjectOfType<GameManager>();
+
+        FindRigidbodies();
     }
 
     void FixedUpdate()
@@ -56,29 +59,36 @@ public class Train : MonoBehaviour
 
     void Movement()
     {
-        if (myRigidbody.velocity.x <= 0)
+        if (backgroundRigidbody[0].velocity.x <= 0)
         {
-            myRigidbody.velocity = Vector3.zero;
+            for (int i = 0; i < backgroundRigidbody.Length; i++)
+            {
+                backgroundRigidbody[0].velocity = Vector3.zero;
+            }
+
             speed = 0;
         }
 
         float maxSpeed = gameManager.GetMaxSpeed();
 
-        if (isDriving && maxSpeed > myRigidbody.velocity.x)
+        if (isDriving && maxSpeed > backgroundRigidbody[0].velocity.x)
         {
             speed += acceleration * Time.fixedDeltaTime;
         }
-        else if ((!isDriving && myRigidbody.velocity.x > 0) || myRigidbody.velocity.x > maxSpeed)
+        else if ((!isDriving && backgroundRigidbody[0].velocity.x > 0) || backgroundRigidbody[0].velocity.x > maxSpeed)
         {
             speed -= decelartion * Time.fixedDeltaTime;
         }
 
-        myRigidbody.velocity = new Vector2(speed * Time.fixedDeltaTime, myRigidbody.velocity.y);
+        for (int i = 0; i < backgroundRigidbody.Length; i++)
+        {
+            backgroundRigidbody[i].velocity = new Vector2(speed * Time.fixedDeltaTime, backgroundRigidbody[i].velocity.y);
+        }
     }
 
     public float GetVelocity()
     {
-        float s = myRigidbody.velocity.x * 5;
+        float s = backgroundRigidbody[0].velocity.x * 5;
 
         if (s <= 0)
         {
@@ -86,5 +96,17 @@ public class Train : MonoBehaviour
         }
 
         return s;
+    }
+
+    public void FindRigidbodies()
+    {
+        GameObject[] allBackgrounds = GameObject.FindGameObjectsWithTag("Block");
+
+        backgroundRigidbody = new Rigidbody2D[allBackgrounds.Length];
+
+        for (int i = 0; i < allBackgrounds.Length; i++)
+        {
+            backgroundRigidbody[i] = allBackgrounds[i].GetComponent<Rigidbody2D>();
+        }
     }
 }

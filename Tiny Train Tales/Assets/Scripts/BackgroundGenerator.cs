@@ -6,6 +6,15 @@ public class BackgroundGenerator : MonoBehaviour
 {
     [SerializeField] GameObject blockPrefab;
 
+    Rigidbody2D myRigidbody;
+    Train train;
+
+    void Awake()
+    {
+        myRigidbody = GetComponent<Rigidbody2D>();
+        train = FindObjectOfType<Train>();
+    }
+
     void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Train"))
@@ -23,7 +32,13 @@ public class BackgroundGenerator : MonoBehaviour
     {
         if (other.CompareTag("Train"))
         {
+            train.FindRigidbodies();
             Destroy(gameObject);
         }
+    }
+
+    public Rigidbody2D GetRigidbody()
+    {
+        return myRigidbody;
     }
 }
