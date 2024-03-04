@@ -10,18 +10,17 @@ public class BackgroundGenerator : MonoBehaviour
 
     Rigidbody2D myRigidbody;
     Train train;
-    GameManager gameManager;
 
     void Awake()
     {
-        myRigidbody = GetComponent<Rigidbody2D>();  
+        myRigidbody = GetComponent<Rigidbody2D>();
         train = FindObjectOfType<Train>();
-        gameManager = FindObjectOfType<GameManager>();
     }
 
     void FixedUpdate()
     {
-       
+        speed = train.GetSpeed();
+        myRigidbody.velocity = new Vector2(-speed * Time.fixedDeltaTime, 0);
     }
 
     void OnTriggerEnter2D(Collider2D other)
@@ -42,6 +41,7 @@ public class BackgroundGenerator : MonoBehaviour
         if (other.CompareTag("Train"))
         {
             Destroy(gameObject);
+            train.FindRigidbody();
         }
     }
 }

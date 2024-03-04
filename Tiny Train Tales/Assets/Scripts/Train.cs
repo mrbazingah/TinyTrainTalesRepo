@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
+using UnityEditor;
 using UnityEngine;
 
 public class Train : MonoBehaviour
@@ -7,18 +9,26 @@ public class Train : MonoBehaviour
     [SerializeField] float acceleration;
     [SerializeField] float decelartion;
     [SerializeField] float speed;
+    [SerializeField] float integral;
+    [SerializeField] TextMeshProUGUI timeText;
 
     bool isDriving;
+    float time;
 
-    Rigidbody2D myRigidbody;
+    Rigidbody2D rigidbody;
     GameManager gameManager;
-    BackgroundGenerator background;
 
     void Awake()
     {
-        myRigidbody = GetComponent<Rigidbody2D>();
         gameManager = FindObjectOfType<GameManager>();
-        background = FindObjectOfType<BackgroundGenerator>();
+
+        FindRigidbody();
+    }
+
+    public void FindRigidbody()
+    {
+        GameObject background = GameObject.FindGameObjectWithTag("Block");
+        rigidbody = background.GetComponent<Rigidbody2D>();
     }
 
     void FixedUpdate()
@@ -48,24 +58,34 @@ public class Train : MonoBehaviour
 
     void Movement()
     {
-        if (myRigidbody.velocity.x <= 0)
+        if (rigidbody == null) 
         {
-            myRigidbody.velocity = Vector3.zero;
+            FindRigidbody();
+        }
+
+        if (-rigidbody.velocity.x <= 0)
+        {
+            rigidbody.velocity = Vector3.zero;
             speed = 0;
         }
 
         float maxSpeed = gameManager.GetMaxSpeed();
+        decelartion = maxSpeed * 50 / 3;
 
-        if (isDriving && maxSpeed > myRigidbody.velocity.x)
+        if (isDriving && maxSpeed > -rigidbody.velocity.x)
         {
+            if (-rigidbody.velocity.x < maxSpeed + integral && -rigidbody.velocity.x > maxSpeed - integral) { return; }
+
             speed += acceleration * Time.fixedDeltaTime;
+            time = 0;
         }
-        else if ((!isDriving && myRigidbody.velocity.x > 0) || myRigidbody.velocity.x > maxSpeed)
+        else if ((!isDriving && -rigidbody.velocity.x > 0) || -rigidbody.velocity.x > maxSpeed)
         {
             speed -= decelartion * Time.fixedDeltaTime;
+            time += Time.fixedDeltaTime;
         }
 
-        myRigidbody.velocity = new Vector2(speed * Time.fixedDeltaTime, myRigidbody.velocity.y);
+        timeText.text = time.ToString();
     }
 
     public void StopTrain()
@@ -80,7 +100,7 @@ public class Train : MonoBehaviour
 
     public float GetVelocity()
     {
-        float s = myRigidbody.velocity.x;
+        float s = -rigidbody.velocity.x;
 
         if (s <= 0)
         {
@@ -90,18 +110,8 @@ public class Train : MonoBehaviour
         return s;
     }
 
-    public float GetAcceleration()
+    public float GetSpeed()
     {
-        return acceleration;
-    }
-
-    public float GetDecelartion()
-    {
-        return decelartion;
-    }
-
-    public bool GetIsDrving()
-    {
-        return isDriving;
+        return speed;
     }
 }

@@ -38,9 +38,18 @@ public class GameManager : MonoBehaviour
 
     void HandleMaxSpeed()
     {
-        velocity = train.GetVelocity() * 5;
-        float speed = Mathf.Floor(velocity);
-        speedText.text = speed.ToString() + " km/h";
+        velocity = train.GetVelocity();
+        if (velocity <= 0)
+        {
+            velocity *= 5;
+        }
+        else
+        {
+            velocity = velocity * 5 + 1;
+        }
+
+        velocity = Mathf.Floor(velocity);
+        speedText.text = velocity.ToString() + " km/h";
     }
 
     void HandleDestionationDistance()
