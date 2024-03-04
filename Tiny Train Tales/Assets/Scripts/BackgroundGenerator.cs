@@ -41,6 +41,7 @@ public class BackgroundGenerator : MonoBehaviour
         if (other.CompareTag("Train"))
         {
             Destroy(gameObject);
+            gameObject.SetActive(false);
             train.FindRigidbody();
         }
     }

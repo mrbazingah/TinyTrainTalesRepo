@@ -85,17 +85,8 @@ MonoBehaviour:
   acceleration: 85
   decelartion: 300
   speed: 0
-  backgroundRigidbody:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  integral: 0.05
+  timeText: {fileID: 0}
 --- !u!50 &674656156488779446
 Rigidbody2D:
   serializedVersion: 4

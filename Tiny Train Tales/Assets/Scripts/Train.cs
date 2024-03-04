@@ -10,10 +10,8 @@ public class Train : MonoBehaviour
     [SerializeField] float decelartion;
     [SerializeField] float speed;
     [SerializeField] float integral;
-    [SerializeField] TextMeshProUGUI timeText;
 
     bool isDriving;
-    float time;
 
     Rigidbody2D rigidbody;
     GameManager gameManager;
@@ -77,15 +75,11 @@ public class Train : MonoBehaviour
             if (-rigidbody.velocity.x < maxSpeed + integral && -rigidbody.velocity.x > maxSpeed - integral) { return; }
 
             speed += acceleration * Time.fixedDeltaTime;
-            time = 0;
         }
         else if ((!isDriving && -rigidbody.velocity.x > 0) || -rigidbody.velocity.x > maxSpeed)
         {
             speed -= decelartion * Time.fixedDeltaTime;
-            time += Time.fixedDeltaTime;
         }
-
-        timeText.text = time.ToString();
     }
 
     public void StopTrain()
