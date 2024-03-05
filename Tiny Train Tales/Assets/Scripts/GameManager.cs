@@ -76,8 +76,20 @@ public class GameManager : MonoBehaviour
         cointext.text = coins.ToString();
     }
 
+    public void Buy(int cost)
+    {
+        if (coins < cost) { return; }
+
+        coins -= cost;
+    }
+
     public float GetMaxSpeed()
     {
         return maxSpeed / 5;
+    }
+
+    public int GetCoins()
+    {
+        return coins;
     }
 }

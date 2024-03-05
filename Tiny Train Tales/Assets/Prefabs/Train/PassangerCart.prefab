@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 1216298657668379615}
   m_Layer: 0
   m_Name: PassangerCart
-  m_TagString: Untagged
+  m_TagString: Car
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -74,7 +74,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1112802073
-  m_SortingLayer: 2
+  m_SortingLayer: 5
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 274a750fbb7074944be78f4be5b5a8e0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -99,8 +99,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a78bf23c45cd304ea14660f57de1463, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  earning: 15
-  time: 10
+  earning: 18
+  time: 12
   coinButton: {fileID: 4694089298547871609}
 --- !u!1 &4343202434033245042
 GameObject:
