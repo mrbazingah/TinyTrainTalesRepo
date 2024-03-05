@@ -6,6 +6,7 @@ public class BackgroundGenerator : MonoBehaviour
 {
     [SerializeField] GameObject blockPrefab;
     [SerializeField] float spawnOffset;
+    [SerializeField] bool canSpawn;
 
     Train train;
 
@@ -16,7 +17,7 @@ public class BackgroundGenerator : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Train"))
+        if (other.CompareTag("Train") && canSpawn)
         {
             SpawnBlock();
         }
