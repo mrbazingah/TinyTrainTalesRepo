@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Cart : MonoBehaviour
+public class Car : MonoBehaviour
 {
     [SerializeField] int earning;
     [SerializeField] float time;

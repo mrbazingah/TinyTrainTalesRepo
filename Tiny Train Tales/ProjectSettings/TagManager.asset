@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Train
   - Block
+  - Car
   layers:
   - Default
   - TransparentFX
@@ -45,6 +46,12 @@ TagManager:
     locked: 0
   - name: Background
     uniqueID: 2261982207
+    locked: 0
+  - name: Tree
+    uniqueID: 3109314077
+    locked: 0
+  - name: Track
+    uniqueID: 508839137
     locked: 0
   - name: Train
     uniqueID: 1112802073

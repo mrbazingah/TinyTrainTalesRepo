@@ -9,20 +9,15 @@ public class CameraMovement : MonoBehaviour
     [SerializeField] float minXPerCart = -2f;
     [SerializeField] float maxXOffset = 2f;
 
+    float minXOffset;
+
     Vector3 offset;
     Vector3 targetPosition;
     Vector3 lastMousePosition;
     Vector3 newTargetPosition;
 
+    int amountOfCars;
     bool isDragging = false;
-
-    Rigidbody2D myRigidBody;
-    Train train;
-
-    void Awake()
-    {
-        myRigidBody = GetComponent<Rigidbody2D>();
-    }
 
     void Start()
     {
@@ -38,6 +33,9 @@ public class CameraMovement : MonoBehaviour
         {
             HandleMouseDrag();
         }
+
+        amountOfCars = GameObject.FindGameObjectsWithTag("Car").Length;
+        minXOffset = amountOfCars * minXPerCart;
     }
 
     void HandleMouseDrag()
@@ -46,7 +44,7 @@ public class CameraMovement : MonoBehaviour
         Vector3 mouseDelta = currentMousePosition - lastMousePosition;
 
         float moveAmount = mouseDelta.x * dragSpeed * Time.deltaTime * -1f;
-        float newX = Mathf.Clamp(transform.position.x + moveAmount, target.position.x + minXPerCart, target.position.x + maxXOffset);
+        float newX = Mathf.Clamp(transform.position.x + moveAmount, target.position.x + minXOffset, target.position.x + maxXOffset);
         transform.position = new Vector3(newX, transform.position.y, transform.position.z);
         lastMousePosition = currentMousePosition;
     }
