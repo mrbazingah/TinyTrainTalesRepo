@@ -13,7 +13,7 @@ public class Train : MonoBehaviour
 
     bool isDriving;
 
-    Rigidbody2D rigidbody;
+    new Rigidbody2D rigidbody;
     GameManager gameManager;
 
     void Awake()

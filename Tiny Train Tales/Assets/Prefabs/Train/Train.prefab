@@ -40,9 +40,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7211839878781286953}
-  - component: {fileID: 7827810439277896617}
   - component: {fileID: 674656156488779446}
   - component: {fileID: 7032095932547819714}
+  - component: {fileID: 7827810439277896617}
   m_Layer: 0
   m_Name: Train
   m_TagString: Train
@@ -70,23 +70,6 @@ Transform:
   - {fileID: 8587760418581165931}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7827810439277896617
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4378805007295876886}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 78251c5bc5defd0408591e95eb8ac687, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  acceleration: 85
-  decelartion: 300
-  speed: 0
-  integral: 0.05
-  timeText: {fileID: 0}
 --- !u!50 &674656156488779446
 Rigidbody2D:
   serializedVersion: 4
@@ -159,6 +142,22 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 34.543022, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &7827810439277896617
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4378805007295876886}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78251c5bc5defd0408591e95eb8ac687, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  acceleration: 85
+  decelartion: 300
+  speed: 0
+  integral: 0.1
 --- !u!1 &5558884406876648256
 GameObject:
   m_ObjectHideFlags: 0
@@ -449,7 +448,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1112802073
-  m_SortingLayer: 2
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: f0a4f3d1af9a68a4da0f70ceac931682, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -476,7 +475,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1120970924442687937, guid: fac21b0e7390ac84bb8c1b5f943e6c2a, type: 3}
       propertyPath: m_TagString
-      value: Train
+      value: Car
       objectReference: {fileID: 0}
     - target: {fileID: 1216298657668379615, guid: fac21b0e7390ac84bb8c1b5f943e6c2a, type: 3}
       propertyPath: earning
@@ -544,6 +543,10 @@ PrefabInstance:
     - target: {fileID: 2264982151788274379, guid: 22a704b3d521a4744b87ff14e50828ca, type: 3}
       propertyPath: m_Name
       value: BistroCart
+      objectReference: {fileID: 0}
+    - target: {fileID: 2264982151788274379, guid: 22a704b3d521a4744b87ff14e50828ca, type: 3}
+      propertyPath: m_TagString
+      value: Car
       objectReference: {fileID: 0}
     - target: {fileID: 3059629456034605871, guid: 22a704b3d521a4744b87ff14e50828ca, type: 3}
       propertyPath: earning
@@ -621,7 +624,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1120970924442687937, guid: fac21b0e7390ac84bb8c1b5f943e6c2a, type: 3}
       propertyPath: m_TagString
-      value: Train
+      value: Car
       objectReference: {fileID: 0}
     - target: {fileID: 1216298657668379615, guid: fac21b0e7390ac84bb8c1b5f943e6c2a, type: 3}
       propertyPath: time

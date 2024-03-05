@@ -47,6 +47,9 @@ TagManager:
   - name: Background
     uniqueID: 2261982207
     locked: 0
+  - name: Dirt
+    uniqueID: 3163567841
+    locked: 0
   - name: Tree
     uniqueID: 3109314077
     locked: 0
