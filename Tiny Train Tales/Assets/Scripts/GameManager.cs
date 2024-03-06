@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class GameManager : MonoBehaviour
 {
     [Header("Coins")]
-    [SerializeField] int coins;
+    [SerializeField] float coins;
     [SerializeField] TextMeshProUGUI cointext;
     [Header("Speed")]
     [SerializeField] float maxSpeed;
@@ -15,6 +15,10 @@ public class GameManager : MonoBehaviour
     [SerializeField] float distance;
     [SerializeField] Slider distanceSlider;
     [SerializeField] TextMeshProUGUI remainingDistanceText;
+    [Header("Passangers")]
+    [SerializeField] int maxPassangers;
+    [SerializeField] int passangers;
+    [SerializeField] TextMeshProUGUI passangerText;
 
     float remainingDistance;
     float velocity;
@@ -34,6 +38,8 @@ public class GameManager : MonoBehaviour
     {
         HandleMaxSpeed();
         HandleDestionationDistance();
+
+        cointext.text = coins.ToString();
     }
 
     void HandleMaxSpeed()
@@ -73,13 +79,15 @@ public class GameManager : MonoBehaviour
     public void AddCoins(int amountAdded)
     {
         coins += amountAdded;
-        cointext.text = coins.ToString();
     }
 
-    public void Buy(int cost)
+    public void AddToMaxSpeed(float amountAdded)
     {
-        if (coins < cost) { return; }
+        maxSpeed += amountAdded;
+    }
 
+    public void Buy(float cost)
+    {
         coins -= cost;
     }
 
@@ -88,8 +96,13 @@ public class GameManager : MonoBehaviour
         return maxSpeed;
     }
 
-    public int GetCoins()
+    public float GetCoins()
     {
         return coins;
+    }
+
+    public int GetMaxPassangers()
+    {
+        return maxPassangers;
     }
 }

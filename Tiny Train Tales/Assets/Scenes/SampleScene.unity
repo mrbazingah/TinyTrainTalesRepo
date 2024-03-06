@@ -923,7 +923,6 @@ MonoBehaviour:
   dragSpeed: 4
   minXPerCart: -4
   maxXOffset: 1
-  player: {fileID: 1295999763}
 --- !u!50 &519420034
 Rigidbody2D:
   serializedVersion: 4
@@ -2155,11 +2154,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1274927031}
   m_CullTransparentMesh: 1
---- !u!1 &1295999763 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4378805007295876886, guid: 99cf9d11154a4484b9363d7ddcdb2782, type: 3}
-  m_PrefabInstance: {fileID: 3698562619360685032}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1384066242 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1169880728037557800, guid: 0bc2a7a8f61a6074bbc7c8ec4a6e053b, type: 3}
@@ -2200,6 +2194,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxSpeedText: {fileID: 34222866}
+  maxPassangersText: {fileID: 2109931888}
 --- !u!4 &1459477807
 Transform:
   m_ObjectHideFlags: 0
@@ -3310,8 +3305,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cost: 300
   costText: {fileID: 1744960585}
-  amount: 80
-  amountText: {fileID: 34222866}
+  costIncrease: 1.25
 --- !u!1 &2109931886
 GameObject:
   m_ObjectHideFlags: 0
@@ -3712,9 +3706,17 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1837428436}
     - target: {fileID: 6013072587387181096, guid: d7f2d7e6643153744bbdc766918d5eaf, type: 3}
+      propertyPath: maxSpeed
+      value: 80
+      objectReference: {fileID: 0}
+    - target: {fileID: 6013072587387181096, guid: d7f2d7e6643153744bbdc766918d5eaf, type: 3}
       propertyPath: speedText
       value: 
       objectReference: {fileID: 875327667}
+    - target: {fileID: 6013072587387181096, guid: d7f2d7e6643153744bbdc766918d5eaf, type: 3}
+      propertyPath: maxPassangers
+      value: 20
+      objectReference: {fileID: 0}
     - target: {fileID: 6013072587387181096, guid: d7f2d7e6643153744bbdc766918d5eaf, type: 3}
       propertyPath: distanceSlider
       value: 

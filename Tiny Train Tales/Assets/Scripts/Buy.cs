@@ -5,13 +5,12 @@ using UnityEngine;
 
 public class Buy : MonoBehaviour
 {
-    [SerializeField] int cost;
+    [SerializeField] float cost;
     [SerializeField] TextMeshProUGUI costText;
-    [Space]
-    [SerializeField] int amount;
-    [SerializeField] TextMeshProUGUI amountText;
+    [SerializeField] float costIncrease;
     
     GameManager gameManager;
+    float coins;
 
     void Awake()
     {
@@ -20,12 +19,14 @@ public class Buy : MonoBehaviour
 
     void Update()
     {
+        coins = gameManager.GetCoins();
         costText.text = cost.ToString();
-        amountText.text = amount.ToString();
     }
 
     public void Buying()
     {
+        if (coins < cost) { return; }
         gameManager.Buy(cost);
+        cost *= costIncrease;
     }
 }
