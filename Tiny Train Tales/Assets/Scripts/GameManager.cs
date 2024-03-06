@@ -85,7 +85,7 @@ public class GameManager : MonoBehaviour
 
     public float GetMaxSpeed()
     {
-        return maxSpeed / 5;
+        return maxSpeed;
     }
 
     public int GetCoins()
