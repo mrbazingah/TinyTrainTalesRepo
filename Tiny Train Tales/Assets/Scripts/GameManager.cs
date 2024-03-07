@@ -32,6 +32,11 @@ public class GameManager : MonoBehaviour
 
         remainingDistance = distance;
         remainingDistanceText.text = distance.ToString() + "km";
+
+        if (PlayerPrefs.HasKey("MaxSpeed"))
+        {
+            maxSpeed = PlayerPrefs.GetFloat("MaxSpeed");
+        }
     }
 
     void Update()
@@ -84,6 +89,7 @@ public class GameManager : MonoBehaviour
     public void AddToMaxSpeed(float amountAdded)
     {
         maxSpeed += amountAdded;
+        PlayerPrefs.SetFloat("MaxSpeed", maxSpeed);
     }
 
     public void Buy(float cost)

@@ -1,15 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class UpgradeManager : MonoBehaviour
 {
     [SerializeField] TextMeshProUGUI maxSpeedText;
+    [SerializeField] TextMeshProUGUI costText;
+    [SerializeField] float cost;
     [SerializeField] float addToMaxSpeed;
     [Space]
     [SerializeField] TextMeshProUGUI maxPassangersText;
     [SerializeField] float addToMaxPassangers;
+    [Space]
+    [SerializeField] float costIncrease;
 
     float maxSpeed;
     float maxPassangers;
@@ -32,6 +37,14 @@ public class UpgradeManager : MonoBehaviour
 
     public void UpgradeMaxSpeed()
     {
+        float coins = gameManager.GetCoins();
+        if (coins < cost) { return; }
+
+        gameManager.Buy(cost);
+        cost *= costIncrease;
+        cost = Mathf.Floor(cost);
+        costText.text = cost.ToString();
+
         gameManager.AddToMaxSpeed(addToMaxSpeed);
     }
 }
