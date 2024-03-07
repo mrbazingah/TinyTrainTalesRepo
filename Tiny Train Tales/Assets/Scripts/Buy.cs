@@ -28,5 +28,6 @@ public class Buy : MonoBehaviour
         if (coins < cost) { return; }
         gameManager.Buy(cost);
         cost *= costIncrease;
+        cost = Mathf.Floor(cost);
     }
 }

@@ -6,8 +6,10 @@ using UnityEngine;
 public class UpgradeManager : MonoBehaviour
 {
     [SerializeField] TextMeshProUGUI maxSpeedText;
+    [SerializeField] float addToMaxSpeed;
     [Space]
     [SerializeField] TextMeshProUGUI maxPassangersText;
+    [SerializeField] float addToMaxPassangers;
 
     float maxSpeed;
     float maxPassangers;
@@ -26,5 +28,10 @@ public class UpgradeManager : MonoBehaviour
 
         maxPassangers = gameManager.GetMaxPassangers();
         maxPassangersText.text = "Current: " + maxPassangers.ToString();
+    }
+
+    public void UpgradeMaxSpeed()
+    {
+        gameManager.AddToMaxSpeed(addToMaxSpeed);
     }
 }
