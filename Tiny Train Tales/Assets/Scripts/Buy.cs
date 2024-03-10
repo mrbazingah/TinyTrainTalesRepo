@@ -14,6 +14,11 @@ public class Buy : MonoBehaviour
     void Awake()
     {
         gameManager = FindObjectOfType<GameManager>();
+
+        if (PlayerPrefs.HasKey("MaxSpeedCost"))
+        {
+            cost = PlayerPrefs.GetFloat("MaxSpeedCost");
+        }
     }
 
     void Update()
@@ -28,5 +33,7 @@ public class Buy : MonoBehaviour
         cost *= costIncrease;
         cost = Mathf.Floor(cost);
         costText.text = cost.ToString();
+
+        PlayerPrefs.SetFloat("MaxSpeedCost", cost);
     }
 }

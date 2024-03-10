@@ -2198,7 +2198,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxSpeedText: {fileID: 34222866}
   costText: {fileID: 1744960585}
-  cost: 0
+  cost: 300
   addToMaxSpeed: 5
   maxPassangersText: {fileID: 2109931888}
   addToMaxPassangers: 0
@@ -3949,6 +3949,10 @@ PrefabInstance:
       propertyPath: cointext
       value: 
       objectReference: {fileID: 1837428436}
+    - target: {fileID: 6013072587387181096, guid: d7f2d7e6643153744bbdc766918d5eaf, type: 3}
+      propertyPath: distance
+      value: 100000
+      objectReference: {fileID: 0}
     - target: {fileID: 6013072587387181096, guid: d7f2d7e6643153744bbdc766918d5eaf, type: 3}
       propertyPath: maxSpeed
       value: 80
