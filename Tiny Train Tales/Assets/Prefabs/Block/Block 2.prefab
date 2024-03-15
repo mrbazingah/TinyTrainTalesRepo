@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 8862607200864719681}
   m_Layer: 0
   m_Name: Block 2
-  m_TagString: Block
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -121,6 +121,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockPrefab: {fileID: 3708604435559034298}
+  stationBlockPrefab: {fileID: 0}
   spawnOffset: 20
   canSpawn: 0
 --- !u!114 &8862607200864719681

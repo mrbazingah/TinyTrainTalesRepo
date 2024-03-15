@@ -1,5 +1,4 @@
 using TMPro;
-using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,10 +10,12 @@ public class GameManager : MonoBehaviour
     [Header("Speed")]
     [SerializeField] float maxSpeed;
     [SerializeField] TextMeshProUGUI speedText;
-    [Header("Destination")]
+    [Header("Progress")]
     [SerializeField] float distance;
     [SerializeField] Slider distanceSlider;
     [SerializeField] TextMeshProUGUI remainingDistanceText;
+    [Header("Station")]
+    [SerializeField] bool arrivedAtStation;
     [Header("Passangers")]
     [SerializeField] int maxPassangers;
     [SerializeField] int passangers;
@@ -22,6 +23,8 @@ public class GameManager : MonoBehaviour
 
     float remainingDistance;
     float velocity;
+
+    GameObject recentBlock;
 
     Train train;
 
@@ -77,7 +80,7 @@ public class GameManager : MonoBehaviour
         if (remainingDistance <= 0)
         {
             remainingDistance = 0;
-            train.StopTrain();
+            arrivedAtStation = true;
         }
     }
 
@@ -92,9 +95,19 @@ public class GameManager : MonoBehaviour
         PlayerPrefs.SetFloat("MaxSpeed", maxSpeed);
     }
 
+    public void HandleStationSpawn()
+    {
+        
+    }
+
     public void Buy(float cost)
     {
         coins -= cost;
+    }
+
+    public bool GetArrivedAtStation()
+    {
+        return arrivedAtStation;
     }
 
     public float GetMaxSpeed()

@@ -32,6 +32,7 @@ public class Train : MonoBehaviour
     void FixedUpdate()
     {
         Movement();
+        StopAtStation();
     }
 
     void Update()
@@ -82,6 +83,21 @@ public class Train : MonoBehaviour
         }
     }
 
+    void StopAtStation()
+    {
+        bool arrivedAtStation = gameManager.GetArrivedAtStation();
+        if (arrivedAtStation) 
+        {
+            GameObject station = GameObject.FindGameObjectWithTag("Station");
+            float distance = Vector2.Distance(gameObject.transform.position, station.transform.position);
+
+            if (distance < 1)
+            {
+                speed = 0;
+            }
+        }
+    }
+    
     public void StopTrain()
     {
         isDriving = false;
