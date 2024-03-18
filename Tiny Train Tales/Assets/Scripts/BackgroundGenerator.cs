@@ -26,10 +26,12 @@ public class BackgroundGenerator : MonoBehaviour
 
     void SpawnBlock()
     {
-        bool arrivedAtStation = gameManager.GetArrivedAtStation();
-        if (gameObject.tag == "Block" && arrivedAtStation)
+        bool arrivedAtStation = gameManager.GetDestinationReached();
+        bool stationHasSpawned = gameManager.GetStationHasSpawned();
+        if (gameObject.tag == "Block" && arrivedAtStation && !stationHasSpawned)
         {
             Instantiate(stationBlockPrefab, new Vector2(transform.position.x + spawnOffset, transform.position.y), Quaternion.identity);
+            gameManager.HandleStationSpawn(true);
         }
         else
         {

@@ -9,12 +9,14 @@ public class Train : MonoBehaviour
     [SerializeField] float acceleration;
     [SerializeField] float decelartion;
     [SerializeField] float speed;
-    [SerializeField] float integral;
+    [SerializeField] float interval;
 
     bool isDriving;
+    bool hasFoundStation;
 
     new Rigidbody2D rigidbody;
     GameManager gameManager;
+    Station station;
 
     void Awake()
     {
@@ -32,12 +34,12 @@ public class Train : MonoBehaviour
     void FixedUpdate()
     {
         Movement();
-        StopAtStation();
     }
 
     void Update()
     {
         MovementInputs();
+        StopAtStation();
     }
 
     void MovementInputs()
@@ -73,7 +75,7 @@ public class Train : MonoBehaviour
 
         if (isDriving && maxSpeed > -rigidbody.velocity.x)
         {
-            if (-rigidbody.velocity.x < maxSpeed + integral && -rigidbody.velocity.x > maxSpeed - integral) { return; }
+            if (-rigidbody.velocity.x < maxSpeed + interval && -rigidbody.velocity.x > maxSpeed - interval) { return; }
 
             speed += acceleration * Time.fixedDeltaTime;
         }
@@ -85,15 +87,19 @@ public class Train : MonoBehaviour
 
     void StopAtStation()
     {
-        bool arrivedAtStation = gameManager.GetArrivedAtStation();
+        bool arrivedAtStation = gameManager.GetDestinationReached();
         if (arrivedAtStation) 
         {
-            GameObject station = GameObject.FindGameObjectWithTag("Station");
-            float distance = Vector2.Distance(gameObject.transform.position, station.transform.position);
-
-            if (distance < 1)
+            if (station == null)
             {
+                station = FindObjectOfType<Station>();
+            }
+            else if (station.gameObject.transform.position.x < gameObject.transform.position.x)
+            {
+                StopTrain();
                 speed = 0;
+
+                gameManager.HandleArrival(true);
             }
         }
     }

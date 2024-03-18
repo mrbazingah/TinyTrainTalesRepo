@@ -12,10 +12,12 @@ public class GameManager : MonoBehaviour
     [SerializeField] TextMeshProUGUI speedText;
     [Header("Progress")]
     [SerializeField] float distance;
+    [SerializeField] bool destinationReached;
     [SerializeField] Slider distanceSlider;
     [SerializeField] TextMeshProUGUI remainingDistanceText;
     [Header("Station")]
-    [SerializeField] bool arrivedAtStation;
+    [SerializeField] bool stationHasSpawned;
+    [SerializeField] bool hasArrivedAtStation;
     [Header("Passangers")]
     [SerializeField] int maxPassangers;
     [SerializeField] int passangers;
@@ -23,8 +25,6 @@ public class GameManager : MonoBehaviour
 
     float remainingDistance;
     float velocity;
-
-    GameObject recentBlock;
 
     Train train;
 
@@ -80,7 +80,7 @@ public class GameManager : MonoBehaviour
         if (remainingDistance <= 0)
         {
             remainingDistance = 0;
-            arrivedAtStation = true;
+            destinationReached = true;
         }
     }
 
@@ -95,19 +95,47 @@ public class GameManager : MonoBehaviour
         PlayerPrefs.SetFloat("MaxSpeed", maxSpeed);
     }
 
-    public void HandleStationSpawn()
+    public void HandleStationSpawn(bool b)
     {
-        
+        stationHasSpawned = b;
+    }
+
+    public bool GetStationHasSpawned()
+    {
+        return stationHasSpawned;
+    }
+
+    public void HandleArrival(bool b)
+    {
+        hasArrivedAtStation = b;
+    }
+
+    public bool GetHasArrivedAtStation()
+    {
+        return hasArrivedAtStation;
+    }
+
+    public bool GetDestinationReached()
+    {
+        return destinationReached;
+    }
+
+    public void ResetDestination()
+    {
+        distance = 10;
+
+        distanceSlider.value = distance;
+        distanceSlider.maxValue = distance;
+
+        remainingDistance = distance;
+        remainingDistanceText.text = distance.ToString() + "km";
+
+        destinationReached = false;
     }
 
     public void Buy(float cost)
     {
         coins -= cost;
-    }
-
-    public bool GetArrivedAtStation()
-    {
-        return arrivedAtStation;
     }
 
     public float GetMaxSpeed()
