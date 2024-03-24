@@ -34,14 +34,6 @@ public class Station : MonoBehaviour
 
     public void LeaveStastion()
     {
-        stationCanvas.SetActive(false);
-
-        gameManager.HandleStationSpawn(false);
-        gameManager.ResetDestination();
-        gameManager.HandleArrival(false);
-
-        train.StartTrain();
-
         string currentScene = SceneManager.GetActiveScene().name;
         SceneManager.LoadScene(currentScene);
     }
