@@ -30,11 +30,11 @@ public class Station : MonoBehaviour
 
     public void LeaveStastion()
     {
-        string currentScene = SceneManager.GetActiveScene().name;
-        SceneManager.LoadScene(currentScene);
-
         CameraMovement cam = FindObjectOfType<CameraMovement>();
         float camPosX = cam.transform.position.x;
         PlayerPrefs.SetFloat("CamPos", camPosX);
+
+        string currentScene = SceneManager.GetActiveScene().name;
+        SceneManager.LoadScene(currentScene);
     }
 }
