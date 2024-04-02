@@ -31,14 +31,18 @@ public class GameManager : MonoBehaviour
     void Awake()
     {
         train = FindObjectOfType<Train>();
-        distanceSlider.maxValue = distance;
 
+        distanceSlider.maxValue = distance;
         remainingDistance = distance;
         remainingDistanceText.text = distance.ToString() + "km";
 
         if (PlayerPrefs.HasKey("MaxSpeed"))
         {
             maxSpeed = PlayerPrefs.GetFloat("MaxSpeed");
+        }
+        if (PlayerPrefs.HasKey("Coins"))
+        {
+            coins = PlayerPrefs.GetFloat("Coins");
         }
     }
 
@@ -87,6 +91,7 @@ public class GameManager : MonoBehaviour
     public void AddCoins(int amountAdded)
     {
         coins += amountAdded;
+        PlayerPrefs.SetFloat("Coins", coins);
     }
 
     public void AddToMaxSpeed(float amountAdded)
@@ -136,6 +141,7 @@ public class GameManager : MonoBehaviour
     public void Buy(float cost)
     {
         coins -= cost;
+        PlayerPrefs.SetFloat("Coins", coins);
     }
 
     public float GetMaxSpeed()

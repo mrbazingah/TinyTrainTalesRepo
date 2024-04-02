@@ -1,7 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using TMPro;
-using UnityEditor;
 using UnityEngine;
 
 public class Train : MonoBehaviour
@@ -12,7 +8,6 @@ public class Train : MonoBehaviour
     [SerializeField] float interval;
 
     bool isDriving;
-    bool hasFoundStation;
 
     new Rigidbody2D rigidbody;
     GameManager gameManager;
@@ -23,6 +18,7 @@ public class Train : MonoBehaviour
         gameManager = FindObjectOfType<GameManager>();
 
         FindRigidbody();
+        StartTrain();
     }
 
     public void FindRigidbody()
@@ -38,23 +34,7 @@ public class Train : MonoBehaviour
 
     void Update()
     {
-        MovementInputs();
         StopAtStation();
-    }
-
-    void MovementInputs()
-    {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            if (!isDriving)
-            {
-                StartTrain();
-            }
-            else
-            {
-                StopTrain();
-            }
-        }
     }
 
     void Movement()

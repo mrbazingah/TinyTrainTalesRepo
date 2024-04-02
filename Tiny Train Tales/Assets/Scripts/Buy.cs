@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
@@ -7,6 +5,7 @@ public class Buy : MonoBehaviour
 {
     [SerializeField] float cost;
     [SerializeField] float costIncrease;
+    [SerializeField] TextMeshProUGUI costText;
     
     GameManager gameManager;
     float coins;
@@ -15,10 +14,7 @@ public class Buy : MonoBehaviour
     {
         gameManager = FindObjectOfType<GameManager>();
 
-        if (PlayerPrefs.HasKey("MaxSpeedCost"))
-        {
-            cost = PlayerPrefs.GetFloat("MaxSpeedCost");
-        }
+
     }
 
     void Update()
@@ -26,7 +22,7 @@ public class Buy : MonoBehaviour
         coins = gameManager.GetCoins();
     }
 
-    public void Buying(TextMeshProUGUI costText)
+    public void Buying()
     {
         if (coins < cost) { return; }
         gameManager.Buy(cost);

@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -9,12 +7,10 @@ public class Station : MonoBehaviour
 
     bool hasArrived;
 
-    Train train;
     GameManager gameManager;
 
     void Awake()
     {
-        train = FindObjectOfType<Train>();
         gameManager = FindObjectOfType<GameManager>();
     }
 
@@ -36,5 +32,9 @@ public class Station : MonoBehaviour
     {
         string currentScene = SceneManager.GetActiveScene().name;
         SceneManager.LoadScene(currentScene);
+
+        CameraMovement cam = FindObjectOfType<CameraMovement>();
+        float camPosX = cam.transform.position.x;
+        PlayerPrefs.SetFloat("CamPos", camPosX);
     }
 }

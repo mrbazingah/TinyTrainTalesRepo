@@ -1,20 +1,22 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
+using static UnityEditor.Timeline.TimelinePlaybackControls;
 
 public class UpgradeManager : MonoBehaviour
 {
+    [Header("MaxSpeed")]
     [SerializeField] TextMeshProUGUI maxSpeedText;
-    [SerializeField] TextMeshProUGUI costText;
-    [SerializeField] float cost;
+    [SerializeField] TextMeshProUGUI maxSpeedCostText;
+    [SerializeField] float maxSpeedCost;
     [SerializeField] float addToMaxSpeed;
-    [Space]
+    [Header("MaxPassangers")]
     [SerializeField] TextMeshProUGUI maxPassangersText;
+    [SerializeField] TextMeshProUGUI maxPassangerCostText;
+    [SerializeField] float maxPassangerCost;
     [SerializeField] float addToMaxPassangers;
     [Space]
     [SerializeField] float costIncrease;
+    [SerializeField] GameObject upgradeMenu;
 
     float maxSpeed;
     float maxPassangers;
@@ -24,6 +26,28 @@ public class UpgradeManager : MonoBehaviour
     void Awake()
     {
         gameManager = FindObjectOfType<GameManager>();
+
+        if (PlayerPrefs.HasKey("MaxSpeedCost"))
+        {
+            maxSpeedCost = PlayerPrefs.GetFloat("MaxSpeedCost");
+            maxSpeedCostText.text = maxSpeedCost.ToString();
+
+            Debug.Log("Set Cost");
+        }
+        else
+        {
+            PlayerPrefs.SetFloat("MaxSpeedCost", maxSpeedCost);
+        }
+    }
+
+    public void OpenUpgradeMenu()
+    {
+        upgradeMenu.SetActive(true);
+    }
+
+    public void CloseUpgradeMenu()
+    {
+        upgradeMenu.SetActive(false);
     }
 
     void Update()
@@ -38,13 +62,14 @@ public class UpgradeManager : MonoBehaviour
     public void UpgradeMaxSpeed()
     {
         float coins = gameManager.GetCoins();
-        if (coins < cost) { return; }
+        if (coins < maxSpeedCost) { return; }
 
-        gameManager.Buy(cost);
-        cost *= costIncrease;
-        cost = Mathf.Floor(cost);
-        costText.text = cost.ToString();
+        gameManager.Buy(maxSpeedCost);
+        maxSpeedCost *= costIncrease;
+        maxSpeedCost = Mathf.Floor(maxSpeedCost);
+        maxSpeedCostText.text = maxSpeedCost.ToString();
 
+        PlayerPrefs.SetFloat("MaxSpeedCost", maxSpeedCost);
         gameManager.AddToMaxSpeed(addToMaxSpeed);
     }
 }

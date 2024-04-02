@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class CameraMovement : MonoBehaviour
@@ -21,6 +19,12 @@ public class CameraMovement : MonoBehaviour
 
     void Start()
     {
+        if (PlayerPrefs.HasKey("CamPos"))
+        {
+            float camPos = PlayerPrefs.GetFloat("CamPos");
+            transform.position = new Vector3(camPos, transform.position.y, transform.position.z);
+        }
+
         offset = transform.position - target.localPosition;
         offset.z = -10f;
         targetPosition = target.position + offset;

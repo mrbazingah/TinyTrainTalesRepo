@@ -46,8 +46,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   coins: 0
   cointext: {fileID: 0}
-  maxSpeed: 90
+  maxSpeed: 80
   speedText: {fileID: 0}
   distance: 387
+  destinationReached: 0
   distanceSlider: {fileID: 0}
   remainingDistanceText: {fileID: 0}
+  stationHasSpawned: 0
+  hasArrivedAtStation: 0
+  maxPassangers: 20
+  passangers: 0
+  passangerText: {fileID: 0}
