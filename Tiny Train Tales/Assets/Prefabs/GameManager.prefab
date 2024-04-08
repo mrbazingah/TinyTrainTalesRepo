@@ -52,6 +52,7 @@ MonoBehaviour:
   destinationReached: 0
   distanceSlider: {fileID: 0}
   remainingDistanceText: {fileID: 0}
+  cities: []
   stationHasSpawned: 0
   hasArrivedAtStation: 0
   maxPassangers: 20

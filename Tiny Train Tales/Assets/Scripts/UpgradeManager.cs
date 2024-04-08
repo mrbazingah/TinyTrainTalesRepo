@@ -30,12 +30,20 @@ public class UpgradeManager : MonoBehaviour
         {
             maxSpeedCost = PlayerPrefs.GetFloat("MaxSpeedCost");
             maxSpeedCostText.text = maxSpeedCost.ToString();
-
-            Debug.Log("Set Cost");
         }
         else
         {
             PlayerPrefs.SetFloat("MaxSpeedCost", maxSpeedCost);
+        }
+
+        if (PlayerPrefs.HasKey("MaxPassangerCost"))
+        {
+            maxPassangerCost = PlayerPrefs.GetFloat("MaxPassangerCost");
+            maxPassangerCostText.text = maxPassangerCost.ToString();
+        }
+        else
+        {
+            PlayerPrefs.SetFloat("MaxPassangerCost", maxPassangerCost);
         }
     }
 
@@ -70,5 +78,19 @@ public class UpgradeManager : MonoBehaviour
 
         PlayerPrefs.SetFloat("MaxSpeedCost", maxSpeedCost);
         gameManager.AddToMaxSpeed(addToMaxSpeed);
+    }
+
+    public void UpgradeMaxPassangers()
+    {
+        float coins = gameManager.GetCoins();
+        if (coins < maxPassangerCost) { return; }
+
+        gameManager.Buy(maxPassangerCost);
+        maxPassangerCost *= costIncrease;
+        maxPassangerCost = Mathf.Floor(maxPassangerCost);
+        maxPassangerCostText.text = maxPassangerCost.ToString();
+
+        PlayerPrefs.SetFloat("MaxPassangerCost", maxPassangerCost);
+        gameManager.AddToMaxPassangers(addToMaxSpeed);
     }
 }

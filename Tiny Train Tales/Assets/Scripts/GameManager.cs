@@ -15,23 +15,31 @@ public class GameManager : MonoBehaviour
     [SerializeField] bool destinationReached;
     [SerializeField] Slider distanceSlider;
     [SerializeField] TextMeshProUGUI remainingDistanceText;
+    [Space]
+    [SerializeField] TextMeshProUGUI currentCityText;
+    [SerializeField] TextMeshProUGUI destinationCityText;
     [Header("Station")]
     [SerializeField] bool stationHasSpawned;
     [SerializeField] bool hasArrivedAtStation;
     [Header("Passangers")]
-    [SerializeField] int maxPassangers;
-    [SerializeField] int passangers;
+    [SerializeField] float maxPassangers;
+    [SerializeField] float passangers;
     [SerializeField] TextMeshProUGUI passangerText;
 
     float remainingDistance;
     float velocity;
+
+    bool hasCalculatedPassangers;
 
     Train train;
 
     void Awake()
     {
         train = FindObjectOfType<Train>();
+    }
 
+    void Start()
+    {
         distanceSlider.maxValue = distance;
         remainingDistance = distance;
         remainingDistanceText.text = distance.ToString() + "km";
@@ -44,6 +52,10 @@ public class GameManager : MonoBehaviour
         {
             coins = PlayerPrefs.GetFloat("Coins");
         }
+        if (PlayerPrefs.HasKey("MaxPassangers"))
+        {
+            maxPassangers = PlayerPrefs.GetFloat("MaxPassangers");
+        }
     }
 
     void Update()
@@ -52,6 +64,7 @@ public class GameManager : MonoBehaviour
         HandleDestionationDistance();
 
         cointext.text = coins.ToString();
+        passangerText.text = passangers.ToString() + "/" + maxPassangers.ToString();
     }
 
     void HandleMaxSpeed()
@@ -88,6 +101,16 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void AddAndSubtractPassangers()
+    {
+        if (hasCalculatedPassangers) { return; }
+
+        passangers -= (int)Random.Range(0, passangers + 1);
+        passangers += (int)Random.Range(0, maxPassangers + 1);
+
+        hasCalculatedPassangers = true;
+    }
+
     public void AddCoins(int amountAdded)
     {
         coins += amountAdded;
@@ -98,6 +121,12 @@ public class GameManager : MonoBehaviour
     {
         maxSpeed += amountAdded;
         PlayerPrefs.SetFloat("MaxSpeed", maxSpeed);
+    }
+
+    public void AddToMaxPassangers(float amountAdded)
+    {
+        maxPassangers += amountAdded;
+        PlayerPrefs.SetFloat("MaxPassangers", maxPassangers);
     }
 
     public void HandleStationSpawn(bool b)
@@ -113,6 +142,8 @@ public class GameManager : MonoBehaviour
     public void HandleArrival(bool b)
     {
         hasArrivedAtStation = b;
+
+        AddAndSubtractPassangers();
     }
 
     public bool GetHasArrivedAtStation()
@@ -138,6 +169,14 @@ public class GameManager : MonoBehaviour
         destinationReached = false;
     }
 
+    public void newDestination(string newCity, float distanceToCity)
+    {
+        currentCityText.text = destinationCityText.text;
+        destinationCityText.text = newCity;
+
+        distance = distanceToCity;
+    }
+
     public void Buy(float cost)
     {
         coins -= cost;
@@ -154,7 +193,7 @@ public class GameManager : MonoBehaviour
         return coins;
     }
 
-    public int GetMaxPassangers()
+    public float GetMaxPassangers()
     {
         return maxPassangers;
     }
