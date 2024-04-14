@@ -7,6 +7,7 @@ public class GameManager : MonoBehaviour
     [Header("Coins")]
     [SerializeField] float coins;
     [SerializeField] TextMeshProUGUI cointext;
+    [SerializeField] float profitMultiplier = 1;
     [SerializeField] Toggle autoCollectToggle;
     [Header("Speed")]
     [SerializeField] float maxSpeed;
@@ -42,13 +43,18 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+        PlayerPrefsSetUp();
+
         distance = Random.Range(10, distance + 1);
         distance = Mathf.Round(distance);
 
         distanceSlider.maxValue = distance;
         remainingDistance = distance;
         remainingDistanceText.text = distance.ToString() + "km";
+    }
 
+    void PlayerPrefsSetUp()
+    {
         if (PlayerPrefs.HasKey("MaxSpeed"))
         {
             maxSpeed = PlayerPrefs.GetFloat("MaxSpeed");
@@ -65,6 +71,22 @@ public class GameManager : MonoBehaviour
         {
             passangers = PlayerPrefs.GetFloat("Passangers");
         }
+        if (PlayerPrefs.HasKey("AutoCollect"))
+        {
+            int i = PlayerPrefs.GetInt("AutoCollect");
+            if (i == 1)
+            {
+                autoCollectToggle.isOn = true;
+            }
+            else
+            {
+                autoCollectToggle.isOn = false;
+            }
+        }
+        if (PlayerPrefs.HasKey("Profit"))
+        {
+            profitMultiplier = PlayerPrefs.GetFloat("Profit");
+        }
     }
 
     void Update()
@@ -72,6 +94,7 @@ public class GameManager : MonoBehaviour
         HandleMaxSpeed();
         HandleDestionationDistance();
 
+        coins = Mathf.Round(coins);
         cointext.text = coins.ToString();
         passangerText.text = passangers.ToString() + "/" + maxPassangers.ToString();
     }
@@ -92,6 +115,92 @@ public class GameManager : MonoBehaviour
         speedText.text = velocity.ToString() + " km/h";
     }
 
+    public void AddAndSubtractPassangers()
+    {
+        if (hasCalculatedPassangers) { return; }
+
+        int subPassangers = (int)Random.Range(0, passangers + 1);
+        int addPassangers = (int)Random.Range(0, maxPassangers - passangers + 1);
+
+        passangers -= subPassangers;
+        passangers += addPassangers;
+        AddCoins(coinsPerPassanger * subPassangers);
+
+        Debug.Log(subPassangers + " deborded the train");
+        Debug.Log(addPassangers + " borded the train");
+
+        PlayerPrefs.SetFloat("Passangers", passangers);
+
+        hasCalculatedPassangers = true;
+    }
+
+    #region Coins
+    public bool GetAutoCollect()
+    {
+        return autoCollectToggle.isOn;
+    }
+
+    public void OnAutoCollectChange()
+    {
+        if (autoCollectToggle.isOn)
+        {
+            PlayerPrefs.SetInt("AutoCollect", 1);
+        }
+        else
+        {
+            PlayerPrefs.SetInt("AutoCollect", 0);
+        }
+    }
+
+    public void AddCoins(float amountAdded)
+    {
+        coins += amountAdded * profitMultiplier;
+        PlayerPrefs.SetFloat("Coins", coins);
+    }
+
+    public void Buy(float cost)
+    {
+        coins -= cost;
+        PlayerPrefs.SetFloat("Coins", coins);
+    }
+
+    public float GetCoins()
+    {
+        return coins;
+    }
+    #endregion
+
+    #region Upgrades
+    public void AddToMaxSpeed(float amountAdded)
+    {
+        maxSpeed += amountAdded;
+        PlayerPrefs.SetFloat("MaxSpeed", maxSpeed);
+    }
+
+    public void AddToMaxPassangers(float amountAdded)
+    {
+        maxPassangers += amountAdded;
+        PlayerPrefs.SetFloat("MaxPassangers", maxPassangers);
+    }
+
+    public void AddToProfit(float amountAdded)
+    {
+        profitMultiplier += amountAdded;
+        PlayerPrefs.SetFloat("Profit", profitMultiplier);
+    }
+
+    public float GetMaxSpeed()
+    {
+        return maxSpeed;
+    }
+
+    public float GetMaxPassangers()
+    {
+        return maxPassangers;
+    }
+    #endregion
+
+    #region Destination
     void HandleDestionationDistance()
     {
         remainingDistance -= velocity * Time.deltaTime / 60f;
@@ -108,48 +217,6 @@ public class GameManager : MonoBehaviour
             remainingDistance = 0;
             destinationReached = true;
         }
-    }
-
-    public void AddAndSubtractPassangers()
-    {
-        if (hasCalculatedPassangers) { return; }
-
-        int subPassangers = (int)Random.Range(0, passangers + 1);
-        int addPassangers = (int)Random.Range(0, maxPassangers - passangers + 1);
-
-        passangers -= subPassangers;
-        passangers += addPassangers;
-        coins += coinsPerPassanger * subPassangers;
-
-        Debug.Log(subPassangers + " deborded the train");
-        Debug.Log(addPassangers + " borded the train");
-
-        PlayerPrefs.SetFloat("Passangers", passangers);
-
-        hasCalculatedPassangers = true;
-    }
-
-    public bool GetAutoCollect()
-    {
-        return autoCollectToggle;
-    }
-
-    public void AddCoins(int amountAdded)
-    {
-        coins += amountAdded;
-        PlayerPrefs.SetFloat("Coins", coins);
-    }
-
-    public void AddToMaxSpeed(float amountAdded)
-    {
-        maxSpeed += amountAdded;
-        PlayerPrefs.SetFloat("MaxSpeed", maxSpeed);
-    }
-
-    public void AddToMaxPassangers(float amountAdded)
-    {
-        maxPassangers += amountAdded;
-        PlayerPrefs.SetFloat("MaxPassangers", maxPassangers);
     }
 
     public void HandleStationSpawn(bool b)
@@ -200,28 +267,9 @@ public class GameManager : MonoBehaviour
 
         distance = distanceToCity;
     }
+    #endregion
 
-    public void Buy(float cost)
-    {
-        coins -= cost;
-        PlayerPrefs.SetFloat("Coins", coins);
-    }
-
-    public float GetMaxSpeed()
-    {
-        return maxSpeed;
-    }
-
-    public float GetCoins()
-    {
-        return coins;
-    }
-
-    public float GetMaxPassangers()
-    {
-        return maxPassangers;
-    }
-
+    #region Save
     public void SaveCar(bool isActive, string name)
     {
         if (isActive)
@@ -242,4 +290,5 @@ public class GameManager : MonoBehaviour
         PlayerPrefs.SetFloat("Coins", coins);
         PlayerPrefs.SetFloat("Passangers", passangers);
     }
+    #endregion
 }

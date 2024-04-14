@@ -10,6 +10,8 @@ public class Car : MonoBehaviour
     [Space]
     [SerializeField] float autoCollectDelay;
 
+    bool hasAutoCollected;
+
     GameManager gameManager;
     Train train;
 
@@ -36,6 +38,12 @@ public class Car : MonoBehaviour
         {
             gameManager.SaveCar(coinButton.activeInHierarchy, name);
         }
+
+        bool autoCollect = gameManager.GetAutoCollect();
+        if (autoCollect && coinButton.activeInHierarchy && !hasAutoCollected)
+        {
+            StartCoroutine(AutoCollectCoin());
+        }
     }
 
     IEnumerator EarningDelay()
@@ -45,16 +53,12 @@ public class Car : MonoBehaviour
         yield return new WaitForSeconds(time);
 
         coinButton.SetActive(true);
-
-        bool autoCollect = gameManager.GetAutoCollect();
-        if (autoCollect)
-        {
-            StartCoroutine(AutoCollectCoin());
-        }
     }
 
     IEnumerator AutoCollectCoin()
     {
+        hasAutoCollected = true;
+
         yield return new WaitForSeconds(autoCollectDelay);
 
         CollectCoins();
@@ -65,5 +69,6 @@ public class Car : MonoBehaviour
         StartCoroutine(EarningDelay());
 
         gameManager.AddCoins(earning);
+        hasAutoCollected = false;
     }
 }

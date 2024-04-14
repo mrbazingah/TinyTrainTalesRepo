@@ -18,6 +18,11 @@ public class UpgradeManager : MonoBehaviour
     [SerializeField] TextMeshProUGUI accelerationCostText;
     [SerializeField] float accelerationCost;
     [SerializeField] float addToAcceleration;
+    [Header("Profit")]
+    [SerializeField] TextMeshProUGUI profitText;
+    [SerializeField] TextMeshProUGUI proiftCostText;
+    [SerializeField] float profitCost;
+    [SerializeField] float addToProfit;
     [Space]
     [SerializeField] float costIncrease;
     [SerializeField] GameObject upgradeMenu;
@@ -43,32 +48,23 @@ public class UpgradeManager : MonoBehaviour
         {
             maxSpeedCost = PlayerPrefs.GetFloat("MaxSpeedCost");
         }
-        else
-        {
-            PlayerPrefs.SetFloat("MaxSpeedCost", maxSpeedCost);
-        }
-
         if (PlayerPrefs.HasKey("MaxPassangerCost"))
         {
             maxPassangerCost = PlayerPrefs.GetFloat("MaxPassangerCost");
         }
-        else
-        {
-            PlayerPrefs.SetFloat("MaxPassangerCost", maxPassangerCost);
-        }
-
         if (PlayerPrefs.HasKey("AccelerationCost"))
         {
             accelerationCost = PlayerPrefs.GetFloat("AccelerationCost");
         }
-        else
+        if (PlayerPrefs.HasKey("ProfitCost"))
         {
-            PlayerPrefs.SetFloat("AccelerationCost", accelerationCost);
+            profitCost = PlayerPrefs.GetFloat("ProfitCost");
         }
 
         accelerationCostText.text = accelerationCost.ToString();
         maxSpeedCostText.text = maxSpeedCost.ToString();
         maxPassangerCostText.text = maxPassangerCost.ToString();
+        proiftCostText.text = profitCost.ToString();
     }
 
     public void OpenUpgradeMenu()
@@ -133,5 +129,19 @@ public class UpgradeManager : MonoBehaviour
 
         PlayerPrefs.SetFloat("AccelerationCost", accelerationCost);
         train?.AddToAcceleration(addToAcceleration);
+    }
+
+    public void UprgadeProfit()
+    {
+        float coins = gameManager.GetCoins();
+        if (coins < profitCost) { return; }
+
+        gameManager.Buy(profitCost);
+        profitCost *= costIncrease;
+        profitCost = Mathf.Floor(profitCost);
+        proiftCostText.text = profitCost.ToString();
+
+        PlayerPrefs.SetFloat("ProfitCost", profitCost);
+        gameManager?.AddToProfit(addToProfit);
     }
 }
