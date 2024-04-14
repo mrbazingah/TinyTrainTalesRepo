@@ -25,6 +25,11 @@ public class UpgradeManager : MonoBehaviour
     void Awake()
     {
         gameManager = FindObjectOfType<GameManager>();
+    }
+
+    void Start()
+    {
+        upgradeMenu.SetActive(false);
 
         if (PlayerPrefs.HasKey("MaxSpeedCost"))
         {
@@ -77,7 +82,7 @@ public class UpgradeManager : MonoBehaviour
         maxSpeedCostText.text = maxSpeedCost.ToString();
 
         PlayerPrefs.SetFloat("MaxSpeedCost", maxSpeedCost);
-        gameManager.AddToMaxSpeed(addToMaxSpeed);
+        gameManager?.AddToMaxSpeed(addToMaxSpeed);
     }
 
     public void UpgradeMaxPassangers()
@@ -91,6 +96,6 @@ public class UpgradeManager : MonoBehaviour
         maxPassangerCostText.text = maxPassangerCost.ToString();
 
         PlayerPrefs.SetFloat("MaxPassangerCost", maxPassangerCost);
-        gameManager.AddToMaxPassangers(addToMaxSpeed);
+        gameManager?.AddToMaxPassangers(addToMaxSpeed);
     }
 }

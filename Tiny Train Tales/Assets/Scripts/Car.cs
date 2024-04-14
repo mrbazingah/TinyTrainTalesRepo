@@ -5,16 +5,35 @@ public class Car : MonoBehaviour
 {
     [SerializeField] int earning;
     [SerializeField] float time;
-    [Space]
+    [SerializeField] string name;
     [SerializeField] GameObject coinButton;
 
     GameManager gameManager;
+    Train train;
 
     void Awake()
     {
         gameManager = FindObjectOfType<GameManager>();
+        train = FindObjectOfType<Train>();
 
-        StartCoroutine(EarningDelay());
+        int i = PlayerPrefs.GetInt(name);
+        if (i == 1)
+        {
+            coinButton.SetActive(true);
+        }
+        else
+        {
+            StartCoroutine(EarningDelay());
+        }
+    }
+
+    void Update()
+    {
+        float speed = train.GetSpeed();
+        if (speed == 0)
+        {
+            gameManager.SaveCar(coinButton.activeInHierarchy, name);
+        }
     }
 
     IEnumerator EarningDelay()

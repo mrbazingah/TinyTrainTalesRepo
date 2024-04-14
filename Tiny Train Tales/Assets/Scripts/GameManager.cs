@@ -25,6 +25,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] float maxPassangers;
     [SerializeField] float passangers;
     [SerializeField] TextMeshProUGUI passangerText;
+    [SerializeField] float coinsPerPassanger;
 
     float remainingDistance;
     float velocity;
@@ -40,6 +41,9 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+        distance = Random.Range(10, distance + 1);
+        distance = Mathf.Round(distance);
+
         distanceSlider.maxValue = distance;
         remainingDistance = distance;
         remainingDistanceText.text = distance.ToString() + "km";
@@ -55,6 +59,10 @@ public class GameManager : MonoBehaviour
         if (PlayerPrefs.HasKey("MaxPassangers"))
         {
             maxPassangers = PlayerPrefs.GetFloat("MaxPassangers");
+        }
+        if (PlayerPrefs.HasKey("Passangers"))
+        {
+            passangers = PlayerPrefs.GetFloat("Passangers");
         }
     }
 
@@ -105,8 +113,17 @@ public class GameManager : MonoBehaviour
     {
         if (hasCalculatedPassangers) { return; }
 
-        passangers -= (int)Random.Range(0, passangers + 1);
-        passangers += (int)Random.Range(0, maxPassangers + 1);
+        int subPassangers = (int)Random.Range(0, passangers + 1);
+        int addPassangers = (int)Random.Range(0, maxPassangers - passangers + 1);
+
+        passangers -= subPassangers;
+        passangers += addPassangers;
+        coins += coinsPerPassanger * subPassangers;
+
+        Debug.Log(subPassangers + " deborded the train");
+        Debug.Log(addPassangers + " borded the train");
+
+        PlayerPrefs.SetFloat("Passangers", passangers);
 
         hasCalculatedPassangers = true;
     }
@@ -143,6 +160,7 @@ public class GameManager : MonoBehaviour
     {
         hasArrivedAtStation = b;
 
+        SaveAll();
         AddAndSubtractPassangers();
     }
 
@@ -196,5 +214,26 @@ public class GameManager : MonoBehaviour
     public float GetMaxPassangers()
     {
         return maxPassangers;
+    }
+
+    public void SaveCar(bool isActive, string name)
+    {
+        if (isActive)
+        {
+            PlayerPrefs.SetInt(name, 1);
+        }
+        else
+        {
+            PlayerPrefs.SetInt(name, 0);
+        }
+    }
+
+    public void SaveAll()
+    {
+        PlayerPrefs.SetFloat("MaxPassangers", maxPassangers);
+        PlayerPrefs.SetFloat("MaxSpeed", maxSpeed);
+        PlayerPrefs.SetFloat("Coins", coins);
+        PlayerPrefs.SetFloat("Coins", coins);
+        PlayerPrefs.SetFloat("Passangers", passangers);
     }
 }
