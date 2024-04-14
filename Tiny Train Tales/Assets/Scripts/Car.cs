@@ -7,6 +7,8 @@ public class Car : MonoBehaviour
     [SerializeField] float time;
     [SerializeField] string name;
     [SerializeField] GameObject coinButton;
+    [Space]
+    [SerializeField] float autoCollectDelay;
 
     GameManager gameManager;
     Train train;
@@ -43,6 +45,19 @@ public class Car : MonoBehaviour
         yield return new WaitForSeconds(time);
 
         coinButton.SetActive(true);
+
+        bool autoCollect = gameManager.GetAutoCollect();
+        if (autoCollect)
+        {
+            StartCoroutine(AutoCollectCoin());
+        }
+    }
+
+    IEnumerator AutoCollectCoin()
+    {
+        yield return new WaitForSeconds(autoCollectDelay);
+
+        CollectCoins();
     }
 
     public void CollectCoins()

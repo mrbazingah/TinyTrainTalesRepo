@@ -13,18 +13,26 @@ public class UpgradeManager : MonoBehaviour
     [SerializeField] TextMeshProUGUI maxPassangerCostText;
     [SerializeField] float maxPassangerCost;
     [SerializeField] float addToMaxPassangers;
+    [Header("Acceleration")]
+    [SerializeField] TextMeshProUGUI accelerationText;
+    [SerializeField] TextMeshProUGUI accelerationCostText;
+    [SerializeField] float accelerationCost;
+    [SerializeField] float addToAcceleration;
     [Space]
     [SerializeField] float costIncrease;
     [SerializeField] GameObject upgradeMenu;
 
     float maxSpeed;
     float maxPassangers;
+    float acceleration;
 
     GameManager gameManager;
+    Train train;
 
     void Awake()
     {
         gameManager = FindObjectOfType<GameManager>();
+        train = FindObjectOfType<Train>();
     }
 
     void Start()
@@ -34,7 +42,6 @@ public class UpgradeManager : MonoBehaviour
         if (PlayerPrefs.HasKey("MaxSpeedCost"))
         {
             maxSpeedCost = PlayerPrefs.GetFloat("MaxSpeedCost");
-            maxSpeedCostText.text = maxSpeedCost.ToString();
         }
         else
         {
@@ -44,12 +51,24 @@ public class UpgradeManager : MonoBehaviour
         if (PlayerPrefs.HasKey("MaxPassangerCost"))
         {
             maxPassangerCost = PlayerPrefs.GetFloat("MaxPassangerCost");
-            maxPassangerCostText.text = maxPassangerCost.ToString();
         }
         else
         {
             PlayerPrefs.SetFloat("MaxPassangerCost", maxPassangerCost);
         }
+
+        if (PlayerPrefs.HasKey("AccelerationCost"))
+        {
+            accelerationCost = PlayerPrefs.GetFloat("AccelerationCost");
+        }
+        else
+        {
+            PlayerPrefs.SetFloat("AccelerationCost", accelerationCost);
+        }
+
+        accelerationCostText.text = accelerationCost.ToString();
+        maxSpeedCostText.text = maxSpeedCost.ToString();
+        maxPassangerCostText.text = maxPassangerCost.ToString();
     }
 
     public void OpenUpgradeMenu()
@@ -69,6 +88,9 @@ public class UpgradeManager : MonoBehaviour
 
         maxPassangers = gameManager.GetMaxPassangers();
         maxPassangersText.text = "Current: " + maxPassangers.ToString();
+
+        acceleration = train.GetAcceleration();
+        accelerationText.text = "Current: " + acceleration.ToString();
     }
 
     public void UpgradeMaxSpeed()
@@ -96,6 +118,20 @@ public class UpgradeManager : MonoBehaviour
         maxPassangerCostText.text = maxPassangerCost.ToString();
 
         PlayerPrefs.SetFloat("MaxPassangerCost", maxPassangerCost);
-        gameManager?.AddToMaxPassangers(addToMaxSpeed);
+        gameManager?.AddToMaxPassangers(addToMaxPassangers);
+    }
+
+    public void UpgradeAcceleration()
+    {
+        float coins = gameManager.GetCoins();
+        if (coins < accelerationCost) { return; }
+
+        gameManager.Buy(accelerationCost);
+        accelerationCost *= costIncrease;
+        accelerationCost = Mathf.Floor(accelerationCost);
+        accelerationCostText.text = accelerationCost.ToString();
+
+        PlayerPrefs.SetFloat("AccelerationCost", accelerationCost);
+        train?.AddToAcceleration(addToAcceleration);
     }
 }

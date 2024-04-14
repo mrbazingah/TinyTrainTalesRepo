@@ -45,9 +45,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxSpeedText: {fileID: 0}
-  costText: {fileID: 0}
-  cost: 300
+  maxSpeedCostText: {fileID: 0}
+  maxSpeedCost: 300
   addToMaxSpeed: 5
   maxPassangersText: {fileID: 0}
-  addToMaxPassangers: 0
-  costIncrease: 1.25
+  maxPassangerCostText: {fileID: 0}
+  maxPassangerCost: 200
+  addToMaxPassangers: 7
+  accelerationText: {fileID: 0}
+  accelerationCostText: {fileID: 0}
+  accelerationCost: 450
+  addToAcceleration: 5
+  costIncrease: 1.27
+  upgradeMenu: {fileID: 0}

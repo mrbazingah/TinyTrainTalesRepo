@@ -16,9 +16,17 @@ public class Train : MonoBehaviour
     void Awake()
     {
         gameManager = FindObjectOfType<GameManager>();
+    }
 
+    void Start()
+    {
         FindRigidbody();
         StartTrain();
+
+        if (PlayerPrefs.HasKey("Acceleration"))
+        {
+            acceleration = PlayerPrefs.GetFloat("Acceleration");
+        }
     }
 
     public void FindRigidbody()
@@ -104,6 +112,17 @@ public class Train : MonoBehaviour
         }
 
         return s;
+    }
+
+    public void AddToAcceleration(float amountAdded)
+    {
+        acceleration += amountAdded;
+        PlayerPrefs.SetFloat("Acceleration", acceleration);
+    }
+
+    public float GetAcceleration()
+    {
+        return acceleration;
     }
 
     public float GetSpeed()

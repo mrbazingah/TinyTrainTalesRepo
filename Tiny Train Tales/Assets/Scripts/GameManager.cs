@@ -7,6 +7,7 @@ public class GameManager : MonoBehaviour
     [Header("Coins")]
     [SerializeField] float coins;
     [SerializeField] TextMeshProUGUI cointext;
+    [SerializeField] Toggle autoCollectToggle;
     [Header("Speed")]
     [SerializeField] float maxSpeed;
     [SerializeField] TextMeshProUGUI speedText;
@@ -126,6 +127,11 @@ public class GameManager : MonoBehaviour
         PlayerPrefs.SetFloat("Passangers", passangers);
 
         hasCalculatedPassangers = true;
+    }
+
+    public bool GetAutoCollect()
+    {
+        return autoCollectToggle;
     }
 
     public void AddCoins(int amountAdded)
