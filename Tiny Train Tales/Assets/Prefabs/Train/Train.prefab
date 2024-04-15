@@ -155,8 +155,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78251c5bc5defd0408591e95eb8ac687, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  acceleration: 80
-  decelartion: 320
+  acceleration: 60
+  decelartion: 280
   speed: 0
   interval: 0.1
 --- !u!1 &5558884406876648256
@@ -483,12 +483,16 @@ PrefabInstance:
       value: Car 3
       objectReference: {fileID: 0}
     - target: {fileID: 1216298657668379615, guid: fac21b0e7390ac84bb8c1b5f943e6c2a, type: 3}
+      propertyPath: time
+      value: 24
+      objectReference: {fileID: 0}
+    - target: {fileID: 1216298657668379615, guid: fac21b0e7390ac84bb8c1b5f943e6c2a, type: 3}
       propertyPath: carName
       value: Car3
       objectReference: {fileID: 0}
     - target: {fileID: 1216298657668379615, guid: fac21b0e7390ac84bb8c1b5f943e6c2a, type: 3}
       propertyPath: earning
-      value: 44
+      value: 88
       objectReference: {fileID: 0}
     - target: {fileID: 1216298657668379615, guid: fac21b0e7390ac84bb8c1b5f943e6c2a, type: 3}
       propertyPath: autoCollectDelay
@@ -570,12 +574,16 @@ PrefabInstance:
       value: Car 2
       objectReference: {fileID: 0}
     - target: {fileID: 1216298657668379615, guid: fac21b0e7390ac84bb8c1b5f943e6c2a, type: 3}
+      propertyPath: time
+      value: 24
+      objectReference: {fileID: 0}
+    - target: {fileID: 1216298657668379615, guid: fac21b0e7390ac84bb8c1b5f943e6c2a, type: 3}
       propertyPath: carName
       value: Car2
       objectReference: {fileID: 0}
     - target: {fileID: 1216298657668379615, guid: fac21b0e7390ac84bb8c1b5f943e6c2a, type: 3}
       propertyPath: earning
-      value: 35
+      value: 70
       objectReference: {fileID: 0}
     - target: {fileID: 1216298657668379615, guid: fac21b0e7390ac84bb8c1b5f943e6c2a, type: 3}
       propertyPath: autoCollectDelay
@@ -660,12 +668,16 @@ PrefabInstance:
       value: Car 4
       objectReference: {fileID: 0}
     - target: {fileID: 3059629456034605871, guid: 22a704b3d521a4744b87ff14e50828ca, type: 3}
+      propertyPath: time
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 3059629456034605871, guid: 22a704b3d521a4744b87ff14e50828ca, type: 3}
       propertyPath: carName
       value: Car4
       objectReference: {fileID: 0}
     - target: {fileID: 3059629456034605871, guid: 22a704b3d521a4744b87ff14e50828ca, type: 3}
       propertyPath: earning
-      value: 18
+      value: 36
       objectReference: {fileID: 0}
     - target: {fileID: 3059629456034605871, guid: 22a704b3d521a4744b87ff14e50828ca, type: 3}
       propertyPath: autoCollectDelay
@@ -759,7 +771,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1216298657668379615, guid: fac21b0e7390ac84bb8c1b5f943e6c2a, type: 3}
       propertyPath: time
-      value: 8
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 1216298657668379615, guid: fac21b0e7390ac84bb8c1b5f943e6c2a, type: 3}
       propertyPath: carName
@@ -767,7 +779,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1216298657668379615, guid: fac21b0e7390ac84bb8c1b5f943e6c2a, type: 3}
       propertyPath: earning
-      value: 40
+      value: 80
       objectReference: {fileID: 0}
     - target: {fileID: 1216298657668379615, guid: fac21b0e7390ac84bb8c1b5f943e6c2a, type: 3}
       propertyPath: autoCollectDelay

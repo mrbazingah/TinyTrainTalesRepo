@@ -8,23 +8,26 @@ public class UpgradeManager : MonoBehaviour
     [SerializeField] TextMeshProUGUI maxSpeedCostText;
     [SerializeField] float maxSpeedCost;
     [SerializeField] float addToMaxSpeed;
+    [SerializeField] float maxSpeedCostIncrease;
     [Header("MaxPassangers")]
     [SerializeField] TextMeshProUGUI maxPassangersText;
     [SerializeField] TextMeshProUGUI maxPassangerCostText;
     [SerializeField] float maxPassangerCost;
     [SerializeField] float addToMaxPassangers;
+    [SerializeField] float maxPassangerCostIncrease;
     [Header("Acceleration")]
     [SerializeField] TextMeshProUGUI accelerationText;
     [SerializeField] TextMeshProUGUI accelerationCostText;
     [SerializeField] float accelerationCost;
     [SerializeField] float addToAcceleration;
+    [SerializeField] float accelerationCostIncrease;
     [Header("Profit")]
     [SerializeField] TextMeshProUGUI profitText;
     [SerializeField] TextMeshProUGUI proiftCostText;
     [SerializeField] float profitCost;
     [SerializeField] float addToProfit;
+    [SerializeField] float profitCostIncrease;
     [Space]
-    [SerializeField] float costIncrease;
     [SerializeField] GameObject upgradeMenu;
 
     GameManager gameManager;
@@ -91,7 +94,7 @@ public class UpgradeManager : MonoBehaviour
         if (coins < maxSpeedCost) { return; }
 
         gameManager.Buy(maxSpeedCost);
-        maxSpeedCost *= costIncrease;
+        maxSpeedCost *= maxSpeedCostIncrease;
         maxSpeedCost = Mathf.Floor(maxSpeedCost);
         maxSpeedCostText.text = maxSpeedCost.ToString();
 
@@ -105,7 +108,7 @@ public class UpgradeManager : MonoBehaviour
         if (coins < maxPassangerCost) { return; }
 
         gameManager.Buy(maxPassangerCost);
-        maxPassangerCost *= costIncrease;
+        maxPassangerCost *= maxPassangerCostIncrease;
         maxPassangerCost = Mathf.Floor(maxPassangerCost);
         maxPassangerCostText.text = maxPassangerCost.ToString();
 
@@ -119,7 +122,7 @@ public class UpgradeManager : MonoBehaviour
         if (coins < accelerationCost) { return; }
 
         gameManager.Buy(accelerationCost);
-        accelerationCost *= costIncrease;
+        accelerationCost *= accelerationCostIncrease;
         accelerationCost = Mathf.Floor(accelerationCost);
         accelerationCostText.text = accelerationCost.ToString();
 
@@ -133,7 +136,7 @@ public class UpgradeManager : MonoBehaviour
         if (coins < profitCost) { return; }
 
         gameManager.Buy(profitCost);
-        profitCost *= costIncrease;
+        profitCost *= profitCostIncrease;
         profitCost = Mathf.Floor(profitCost);
         proiftCostText.text = profitCost.ToString();
 

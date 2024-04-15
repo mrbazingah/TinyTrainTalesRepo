@@ -49,8 +49,8 @@ public class GameManager : MonoBehaviour
     {
         PlayerPrefsSetUp();
 
-        //distance = Random.Range(10, distance + 1);
-        //distance = Mathf.Round(distance);
+        distance = Random.Range(10, distance + 1);
+        distance = Mathf.Round(distance);
 
         distanceSlider.maxValue = distance;
         remainingDistance = distance;

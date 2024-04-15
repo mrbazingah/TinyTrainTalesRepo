@@ -9458,25 +9458,13 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3104360152833878173, guid: f2929c3dec4229d4dbdbfcf07e0b3dc2, type: 3}
-      propertyPath: profitCost
-      value: 500
-      objectReference: {fileID: 0}
-    - target: {fileID: 3104360152833878173, guid: f2929c3dec4229d4dbdbfcf07e0b3dc2, type: 3}
       propertyPath: profitText
       value: 
       objectReference: {fileID: 1579744556}
     - target: {fileID: 3104360152833878173, guid: f2929c3dec4229d4dbdbfcf07e0b3dc2, type: 3}
-      propertyPath: addToProfit
-      value: 0.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 3104360152833878173, guid: f2929c3dec4229d4dbdbfcf07e0b3dc2, type: 3}
       propertyPath: upgradeMenu
       value: 
       objectReference: {fileID: 1780422905}
-    - target: {fileID: 3104360152833878173, guid: f2929c3dec4229d4dbdbfcf07e0b3dc2, type: 3}
-      propertyPath: costIncrease
-      value: 1.25
-      objectReference: {fileID: 0}
     - target: {fileID: 3104360152833878173, guid: f2929c3dec4229d4dbdbfcf07e0b3dc2, type: 3}
       propertyPath: maxSpeedText
       value: 
@@ -10726,11 +10714,11 @@ PrefabInstance:
     - target: {fileID: 108821408894129729, guid: 99cf9d11154a4484b9363d7ddcdb2782, type: 3}
       propertyPath: m_Camera
       value: 
-      objectReference: {fileID: 519420031}
+      objectReference: {fileID: 0}
     - target: {fileID: 3108653313170267882, guid: 99cf9d11154a4484b9363d7ddcdb2782, type: 3}
       propertyPath: m_Camera
       value: 
-      objectReference: {fileID: 519420031}
+      objectReference: {fileID: 0}
     - target: {fileID: 4378805007295876886, guid: 99cf9d11154a4484b9363d7ddcdb2782, type: 3}
       propertyPath: m_Name
       value: Train
@@ -10738,11 +10726,11 @@ PrefabInstance:
     - target: {fileID: 5701602394061617698, guid: 99cf9d11154a4484b9363d7ddcdb2782, type: 3}
       propertyPath: m_Camera
       value: 
-      objectReference: {fileID: 519420031}
+      objectReference: {fileID: 0}
     - target: {fileID: 6721656310924934650, guid: 99cf9d11154a4484b9363d7ddcdb2782, type: 3}
       propertyPath: m_Camera
       value: 
-      objectReference: {fileID: 519420031}
+      objectReference: {fileID: 0}
     - target: {fileID: 7211839878781286953, guid: 99cf9d11154a4484b9363d7ddcdb2782, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.71
@@ -10782,14 +10770,6 @@ PrefabInstance:
     - target: {fileID: 7211839878781286953, guid: 99cf9d11154a4484b9363d7ddcdb2782, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7827810439277896617, guid: 99cf9d11154a4484b9363d7ddcdb2782, type: 3}
-      propertyPath: decelartion
-      value: 280
-      objectReference: {fileID: 0}
-    - target: {fileID: 7827810439277896617, guid: 99cf9d11154a4484b9363d7ddcdb2782, type: 3}
-      propertyPath: acceleration
-      value: 60
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -13300,10 +13280,6 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1837428436}
     - target: {fileID: 6013072587387181096, guid: d7f2d7e6643153744bbdc766918d5eaf, type: 3}
-      propertyPath: distance
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 6013072587387181096, guid: d7f2d7e6643153744bbdc766918d5eaf, type: 3}
       propertyPath: speedText
       value: 
       objectReference: {fileID: 875327667}
@@ -13323,10 +13299,6 @@ PrefabInstance:
       propertyPath: autoCollectToggle
       value: 
       objectReference: {fileID: 1401247971}
-    - target: {fileID: 6013072587387181096, guid: d7f2d7e6643153744bbdc766918d5eaf, type: 3}
-      propertyPath: coinsPerPassanger
-      value: 35
-      objectReference: {fileID: 0}
     - target: {fileID: 6013072587387181096, guid: d7f2d7e6643153744bbdc766918d5eaf, type: 3}
       propertyPath: destinationCityText
       value: 
