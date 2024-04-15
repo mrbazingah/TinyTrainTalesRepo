@@ -59,7 +59,7 @@ public class Train : MonoBehaviour
         }
 
         float maxSpeed = gameManager.GetMaxSpeed() / 5;
-        decelartion = maxSpeed * 50 / 3;
+        decelartion = maxSpeed * 10;
 
         if (isDriving && maxSpeed > -rigidbody.velocity.x)
         {

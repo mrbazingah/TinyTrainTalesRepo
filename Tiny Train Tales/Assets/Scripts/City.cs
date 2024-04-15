@@ -5,6 +5,8 @@ public class City : MonoBehaviour
 {
     [SerializeField] string cityName;
     [SerializeField] GameObject cityMenu;
+    [Space]
+    [SerializeField] string[] avaliableCites;
 
     public void OpenMenu()
     {
