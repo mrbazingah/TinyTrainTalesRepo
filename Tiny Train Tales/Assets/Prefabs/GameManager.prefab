@@ -46,6 +46,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   coins: 0
   cointext: {fileID: 0}
+  profitMultiplier: 1
   autoCollectToggle: {fileID: 0}
   maxSpeed: 80
   speedText: {fileID: 0}
@@ -60,4 +61,4 @@ MonoBehaviour:
   maxPassangers: 20
   passangers: 0
   passangerText: {fileID: 0}
-  coinsPerPassanger: 30
+  coinsPerPassanger: 50

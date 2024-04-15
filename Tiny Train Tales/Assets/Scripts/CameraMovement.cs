@@ -8,6 +8,7 @@ public class CameraMovement : MonoBehaviour
     [SerializeField] float maxXOffset = 2f;
 
     float minXOffset;
+    bool lockMovement;
 
     Vector3 offset;
     Vector3 targetPosition;
@@ -33,7 +34,7 @@ public class CameraMovement : MonoBehaviour
 
     void LateUpdate()
     {
-        if (isDragging)
+        if (isDragging && !lockMovement)
         {
             HandleMouseDrag();
         }
@@ -67,5 +68,10 @@ public class CameraMovement : MonoBehaviour
 
             isDragging = false;
         }
+    }
+
+    public void LockMovement(bool isLocked)
+    {
+        lockMovement = isLocked;
     }
 }

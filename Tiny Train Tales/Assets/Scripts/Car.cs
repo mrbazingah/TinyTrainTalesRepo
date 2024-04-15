@@ -5,7 +5,7 @@ public class Car : MonoBehaviour
 {
     [SerializeField] int earning;
     [SerializeField] float time;
-    [SerializeField] string name;
+    [SerializeField] string carName;
     [SerializeField] GameObject coinButton;
     [Space]
     [SerializeField] float autoCollectDelay;
@@ -20,7 +20,7 @@ public class Car : MonoBehaviour
         gameManager = FindObjectOfType<GameManager>();
         train = FindObjectOfType<Train>();
 
-        int i = PlayerPrefs.GetInt(name);
+        int i = PlayerPrefs.GetInt(carName);
         if (i == 1)
         {
             coinButton.SetActive(true);
@@ -36,7 +36,7 @@ public class Car : MonoBehaviour
         float speed = train.GetSpeed();
         if (speed == 0)
         {
-            gameManager.SaveCar(coinButton.activeInHierarchy, name);
+            gameManager.SaveCar(coinButton.activeInHierarchy, carName);
         }
 
         bool autoCollect = gameManager.GetAutoCollect();

@@ -27,17 +27,15 @@ public class UpgradeManager : MonoBehaviour
     [SerializeField] float costIncrease;
     [SerializeField] GameObject upgradeMenu;
 
-    float maxSpeed;
-    float maxPassangers;
-    float acceleration;
-
     GameManager gameManager;
     Train train;
+    CameraMovement cam;
 
     void Awake()
     {
         gameManager = FindObjectOfType<GameManager>();
         train = FindObjectOfType<Train>();
+        cam = FindObjectOfType<CameraMovement>();
     }
 
     void Start()
@@ -70,23 +68,21 @@ public class UpgradeManager : MonoBehaviour
     public void OpenUpgradeMenu()
     {
         upgradeMenu.SetActive(true);
+        cam.LockMovement(true);
     }
 
     public void CloseUpgradeMenu()
     {
         upgradeMenu.SetActive(false);
+        cam.LockMovement(false);
     }
 
     void Update()
     {
-        maxSpeed = gameManager.GetMaxSpeed();
-        maxSpeedText.text = "Current: " + maxSpeed.ToString() + " km/h";
-
-        maxPassangers = gameManager.GetMaxPassangers();
-        maxPassangersText.text = "Current: " + maxPassangers.ToString();
-
-        acceleration = train.GetAcceleration();
-        accelerationText.text = "Current: " + acceleration.ToString();
+        maxSpeedText.text = "Current: " + gameManager.GetMaxSpeed().ToString() + " km/h";
+        maxPassangersText.text = "Current: " + gameManager.GetMaxPassangers().ToString();
+        accelerationText.text = "Current: " + train.GetAcceleration().ToString();
+        profitText.text = "Current: " + gameManager.GetProfit().ToString() + "X";
     }
 
     public void UpgradeMaxSpeed()

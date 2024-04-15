@@ -20,6 +20,8 @@ public class GameManager : MonoBehaviour
     [Space]
     [SerializeField] TextMeshProUGUI currentCityText;
     [SerializeField] TextMeshProUGUI destinationCityText;
+    [Space]
+    [SerializeField] GameObject map;
     [Header("Station")]
     [SerializeField] bool stationHasSpawned;
     [SerializeField] bool hasArrivedAtStation;
@@ -35,10 +37,12 @@ public class GameManager : MonoBehaviour
     bool hasCalculatedPassangers;
 
     Train train;
+    CameraMovement cam;
 
     void Awake()
     {
         train = FindObjectOfType<Train>();
+        cam = FindObjectOfType<CameraMovement>();
     }
 
     void Start()
@@ -126,9 +130,6 @@ public class GameManager : MonoBehaviour
         passangers += addPassangers;
         AddCoins(coinsPerPassanger * subPassangers);
 
-        Debug.Log(subPassangers + " deborded the train");
-        Debug.Log(addPassangers + " borded the train");
-
         PlayerPrefs.SetFloat("Passangers", passangers);
 
         hasCalculatedPassangers = true;
@@ -186,6 +187,7 @@ public class GameManager : MonoBehaviour
     public void AddToProfit(float amountAdded)
     {
         profitMultiplier += amountAdded;
+        profitMultiplier = Mathf.Round(profitMultiplier * 10.0f) * 0.1f;
         PlayerPrefs.SetFloat("Profit", profitMultiplier);
     }
 
@@ -197,6 +199,25 @@ public class GameManager : MonoBehaviour
     public float GetMaxPassangers()
     {
         return maxPassangers;
+    }
+
+    public float GetProfit()
+    {
+        return profitMultiplier;
+    }
+    #endregion
+
+    #region Map
+    public void OpenMap()
+    {
+        map.SetActive(true);
+        cam.LockMovement(true);
+    }
+
+    public void CloseMap()
+    {
+        map.SetActive(false);
+        cam.LockMovement(false);
     }
     #endregion
 
@@ -216,6 +237,7 @@ public class GameManager : MonoBehaviour
         {
             remainingDistance = 0;
             destinationReached = true;
+            train.StopTrain();
         }
     }
 

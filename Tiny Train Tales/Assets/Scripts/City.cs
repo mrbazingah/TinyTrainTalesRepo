@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 
 public class City : MonoBehaviour
@@ -8,6 +9,8 @@ public class City : MonoBehaviour
     public void OpenMenu()
     {
         cityMenu?.SetActive(false);
+        TextMeshProUGUI nameText = cityMenu.GetComponent<TextMeshProUGUI>();
+        nameText.text = cityName;
     }
 
     public void CloseMenu()
