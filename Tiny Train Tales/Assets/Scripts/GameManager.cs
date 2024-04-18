@@ -48,14 +48,6 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         PlayerPrefsSetUp();
-
-        distance = Random.Range(10, distance + 1);
-        distance = Mathf.Round(distance);
-
-        distanceSlider.maxValue = distance;
-        remainingDistance = distance;
-        remainingDistanceText.text = distance.ToString() + "km";
-
         map.SetActive(false);
     }
 
@@ -93,6 +85,23 @@ public class GameManager : MonoBehaviour
         {
             profitMultiplier = PlayerPrefs.GetFloat("Profit");
         }
+        if (PlayerPrefs.HasKey("Distance") && PlayerPrefs.HasKey("RemainingDistance"))
+        {
+            distance = PlayerPrefs.GetFloat("Distace");
+            remainingDistance = PlayerPrefs.GetFloat("RemainingDistance");
+        }
+        else
+        {
+            distance = Random.Range(10, distance + 1);
+            distance = Mathf.Round(distance);
+
+            remainingDistance = distance;
+        }
+
+        distanceSlider.maxValue = distance;
+        distanceSlider.value = remainingDistance;
+        remainingDistance = Mathf.Round(remainingDistance);
+        remainingDistanceText.text = remainingDistance.ToString() + "km";
     }
 
     void Update()
@@ -306,6 +315,18 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    void SaveProgress()
+    {
+        PlayerPrefs.SetFloat("Distance", distance);
+        PlayerPrefs.SetFloat("RemainingDistance", remainingDistance);
+    }
+
+    public void ResetDestionation()
+    {
+        PlayerPrefs.DeleteKey("Distance");
+        PlayerPrefs.DeleteKey("RemainingDistance");
+    }
+
     public void SaveAll()
     {
         PlayerPrefs.SetFloat("MaxPassangers", maxPassangers);
@@ -313,6 +334,12 @@ public class GameManager : MonoBehaviour
         PlayerPrefs.SetFloat("Coins", coins);
         PlayerPrefs.SetFloat("Coins", coins);
         PlayerPrefs.SetFloat("Passangers", passangers);
+    }
+
+    void OnApplicationQuit()
+    {
+        SaveProgress();
+        SaveAll();
     }
     #endregion
 }
