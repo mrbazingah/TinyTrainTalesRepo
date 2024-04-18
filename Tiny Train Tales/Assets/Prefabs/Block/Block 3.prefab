@@ -461,7 +461,7 @@ MonoBehaviour:
   blockPrefab: {fileID: 3471238567322333196}
   stationBlockPrefab: {fileID: 0}
   spawnOffset: 20
-  canSpawn: 0
+  canSpawn: 1
 --- !u!114 &6228608435705293624
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -720,8 +720,8 @@ Transform:
   m_GameObject: {fileID: 7631428633730140130}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 2.05, y: -1.32, z: 0.79317665}
-  m_LocalScale: {x: 20, y: 3, z: 1}
+  m_LocalPosition: {x: 2.7955, y: -1.32, z: 0.79317665}
+  m_LocalScale: {x: 21.491154, y: 3, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2735804001946805758}

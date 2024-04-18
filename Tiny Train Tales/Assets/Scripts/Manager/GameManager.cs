@@ -23,6 +23,7 @@ public class GameManager : MonoBehaviour
     [Space]
     [SerializeField] GameObject map;
     [Header("Station")]
+    [SerializeField] GameObject station;
     [SerializeField] bool stationHasSpawned;
     [SerializeField] bool hasArrivedAtStation;
     [Header("Passangers")]
@@ -87,12 +88,13 @@ public class GameManager : MonoBehaviour
         }
         if (PlayerPrefs.HasKey("Distance") && PlayerPrefs.HasKey("RemainingDistance"))
         {
-            distance = PlayerPrefs.GetFloat("Distace");
+            distance = PlayerPrefs.GetFloat("Distance");
             remainingDistance = PlayerPrefs.GetFloat("RemainingDistance");
+            Destroy(station);
         }
         else
         {
-            distance = Random.Range(10, distance + 1);
+            distance = Random.Range(10f, distance + 1f);
             distance = Mathf.Round(distance);
 
             remainingDistance = distance;
@@ -123,7 +125,7 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            velocity = velocity * 5 + 1;
+            velocity = velocity * 5f + 1f;
         }
 
         velocity = Mathf.Floor(velocity);
@@ -198,7 +200,7 @@ public class GameManager : MonoBehaviour
     public void AddToProfit(float amountAdded)
     {
         profitMultiplier += amountAdded;
-        profitMultiplier = Mathf.Round(profitMultiplier * 10.0f) * 0.1f;
+        profitMultiplier = Mathf.Round(profitMultiplier * 100f) / 100f;
         PlayerPrefs.SetFloat("Profit", profitMultiplier);
     }
 
@@ -244,9 +246,9 @@ public class GameManager : MonoBehaviour
             remainingDistanceText.text = remainingDistance.ToString() + "km";
         }
 
-        if (remainingDistance <= 0)
+        if (remainingDistance <= 0f)
         {
-            remainingDistance = 0;
+            remainingDistance = 0f;
             destinationReached = true;
             train.StopTrain();
         }
@@ -268,6 +270,7 @@ public class GameManager : MonoBehaviour
 
         SaveAll();
         AddAndSubtractPassangers();
+        DeleteSavedDestination();
     }
 
     public bool GetHasArrivedAtStation()
@@ -293,7 +296,7 @@ public class GameManager : MonoBehaviour
         destinationReached = false;
     }
 
-    public void newDestination(string newCity, float distanceToCity)
+    public void NewDestination(string newCity, float distanceToCity)
     {
         currentCityText.text = destinationCityText.text;
         destinationCityText.text = newCity;
@@ -321,10 +324,11 @@ public class GameManager : MonoBehaviour
         PlayerPrefs.SetFloat("RemainingDistance", remainingDistance);
     }
 
-    public void ResetDestionation()
+    public void DeleteSavedDestination()
     {
         PlayerPrefs.DeleteKey("Distance");
         PlayerPrefs.DeleteKey("RemainingDistance");
+        PlayerPrefs.DeleteKey("Speed");
     }
 
     public void SaveAll()
@@ -340,6 +344,7 @@ public class GameManager : MonoBehaviour
     {
         SaveProgress();
         SaveAll();
+        train.SaveSpeed();
     }
     #endregion
 }

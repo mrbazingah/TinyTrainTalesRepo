@@ -27,6 +27,10 @@ public class Train : MonoBehaviour
         {
             acceleration = PlayerPrefs.GetFloat("Acceleration");
         }
+        if (PlayerPrefs.HasKey("Speed"))
+        {
+            speed = PlayerPrefs.GetFloat("Speed");
+        }
     }
 
     public void FindRigidbody()
@@ -58,8 +62,8 @@ public class Train : MonoBehaviour
             speed = 0;
         }
 
-        float maxSpeed = gameManager.GetMaxSpeed() / 5;
-        decelartion = maxSpeed * 10;
+        float maxSpeed = gameManager.GetMaxSpeed() / 5f;
+        decelartion = maxSpeed * 10f;
 
         if (isDriving && maxSpeed > -rigidbody.velocity.x)
         {
@@ -67,7 +71,7 @@ public class Train : MonoBehaviour
 
             speed += acceleration * Time.fixedDeltaTime;
         }
-        else if ((!isDriving && -rigidbody.velocity.x > 0) || -rigidbody.velocity.x > maxSpeed)
+        else if ((!isDriving && -rigidbody.velocity.x > 0f) || -rigidbody.velocity.x > maxSpeed)
         {
             speed -= decelartion * Time.fixedDeltaTime;
         }
@@ -106,9 +110,9 @@ public class Train : MonoBehaviour
     {
         float s = -rigidbody.velocity.x;
 
-        if (s <= 0)
+        if (s <= 0f)
         {
-            s = 0;
+            s = 0f;
         }
 
         return s;
@@ -128,5 +132,10 @@ public class Train : MonoBehaviour
     public float GetSpeed()
     {
         return speed;
+    }
+
+    public void SaveSpeed()
+    {
+        PlayerPrefs.SetFloat("Speed", speed);
     }
 }

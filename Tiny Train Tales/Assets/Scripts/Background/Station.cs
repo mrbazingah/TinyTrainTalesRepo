@@ -34,7 +34,7 @@ public class Station : MonoBehaviour
         float camPosX = cam.transform.position.x;
         PlayerPrefs.SetFloat("CamPos", camPosX);
 
-        gameManager.ResetDestination();
+        gameManager.DeleteSavedDestination();
 
         string currentScene = SceneManager.GetActiveScene().name;
         SceneManager.LoadScene(currentScene);
