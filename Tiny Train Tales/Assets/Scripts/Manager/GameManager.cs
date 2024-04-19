@@ -320,6 +320,12 @@ public class GameManager : MonoBehaviour
 
     void SaveProgress()
     {
+        if (remainingDistance <= 0)
+        {
+            DeleteSavedDestination();
+            return;
+        }
+
         PlayerPrefs.SetFloat("Distance", distance);
         PlayerPrefs.SetFloat("RemainingDistance", remainingDistance);
     }
