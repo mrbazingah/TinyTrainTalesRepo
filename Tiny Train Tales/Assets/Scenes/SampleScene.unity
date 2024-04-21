@@ -1479,7 +1479,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -564, y: 369}
+  m_AnchoredPosition: {x: -540.6, y: 369}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &429072360
@@ -1934,7 +1934,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.28235295, g: 0.6745098, b: 0.8862746, a: 0}
+  m_BackGroundColor: {r: 0.14779866, g: 0.629045, b: 1, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -2296,6 +2296,10 @@ PrefabInstance:
     - target: {fileID: 3471238567322333196, guid: 9a931e5dace6dfb4e853e6e89f6180ae, type: 3}
       propertyPath: m_Name
       value: Block 3 (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3471238567322333196, guid: 9a931e5dace6dfb4e853e6e89f6180ae, type: 3}
+      propertyPath: m_TagString
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 8269403196629503852, guid: 9a931e5dace6dfb4e853e6e89f6180ae, type: 3}
       propertyPath: canSpawn
@@ -3336,7 +3340,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -314, y: 88}
-  m_SizeDelta: {x: 80, y: 80}
+  m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &917232501
 MonoBehaviour:
@@ -7029,7 +7033,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -104, y: 90}
+  m_AnchoredPosition: {x: -75.66, y: 90}
   m_SizeDelta: {x: 326.68, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1837428436
@@ -9458,10 +9462,6 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1579744556}
     - target: {fileID: 3104360152833878173, guid: f2929c3dec4229d4dbdbfcf07e0b3dc2, type: 3}
-      propertyPath: addToProfit
-      value: 0.25
-      objectReference: {fileID: 0}
-    - target: {fileID: 3104360152833878173, guid: f2929c3dec4229d4dbdbfcf07e0b3dc2, type: 3}
       propertyPath: upgradeMenu
       value: 
       objectReference: {fileID: 1780422905}
@@ -9473,10 +9473,6 @@ PrefabInstance:
       propertyPath: proiftCostText
       value: 
       objectReference: {fileID: 65905397}
-    - target: {fileID: 3104360152833878173, guid: f2929c3dec4229d4dbdbfcf07e0b3dc2, type: 3}
-      propertyPath: accelerationCost
-      value: 400
-      objectReference: {fileID: 0}
     - target: {fileID: 3104360152833878173, guid: f2929c3dec4229d4dbdbfcf07e0b3dc2, type: 3}
       propertyPath: accelerationText
       value: 
@@ -9497,10 +9493,6 @@ PrefabInstance:
       propertyPath: maxPassangerCostText
       value: 
       objectReference: {fileID: 654572736}
-    - target: {fileID: 3104360152833878173, guid: f2929c3dec4229d4dbdbfcf07e0b3dc2, type: 3}
-      propertyPath: maxPassangerCostIncrease
-      value: 1.2
-      objectReference: {fileID: 0}
     - target: {fileID: 8562949793329675096, guid: f2929c3dec4229d4dbdbfcf07e0b3dc2, type: 3}
       propertyPath: m_Name
       value: UpgradeManager
@@ -13275,10 +13267,6 @@ PrefabInstance:
       propertyPath: cointext
       value: 
       objectReference: {fileID: 1837428436}
-    - target: {fileID: 6013072587387181096, guid: d7f2d7e6643153744bbdc766918d5eaf, type: 3}
-      propertyPath: distance
-      value: 100
-      objectReference: {fileID: 0}
     - target: {fileID: 6013072587387181096, guid: d7f2d7e6643153744bbdc766918d5eaf, type: 3}
       propertyPath: speedText
       value: 
