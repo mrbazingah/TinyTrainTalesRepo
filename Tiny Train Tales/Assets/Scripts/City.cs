@@ -3,10 +3,15 @@ using UnityEngine;
 
 public class City : MonoBehaviour
 {
-    [SerializeField] string cityName;
     [SerializeField] GameObject cityMenu;
-    [Space]
     [SerializeField] string[] avaliableCites;
+
+    string cityName;
+
+    void Start()
+    {
+        cityName = gameObject.name;
+    }
 
     public void OpenMenu()
     {
