@@ -132,22 +132,6 @@ public class GameManager : MonoBehaviour
         speedText.text = velocity.ToString() + " km/h";
     }
 
-    public void AddAndSubtractPassangers()
-    {
-        if (hasCalculatedPassangers) { return; }
-
-        int subPassangers = (int)Random.Range(0, passangers + 1);
-        int addPassangers = (int)Random.Range(0, maxPassangers - passangers + 1);
-
-        passangers -= subPassangers;
-        passangers += addPassangers;
-        AddCoins(coinsPerPassanger * subPassangers);
-
-        PlayerPrefs.SetFloat("Passangers", passangers);
-
-        hasCalculatedPassangers = true;
-    }
-
     #region Coins
     public bool GetAutoCollect()
     {
@@ -271,6 +255,25 @@ public class GameManager : MonoBehaviour
         SaveAll();
         AddAndSubtractPassangers();
         DeleteSavedDestination();
+    }
+
+    public void AddAndSubtractPassangers()
+    {
+        if (hasCalculatedPassangers) { return; }
+
+        int subPassangers = (int)Random.Range(0, passangers + 1);
+        int addPassangers = (int)Random.Range(0, maxPassangers - passangers + 1);
+
+        passangers -= subPassangers;
+        passangers += addPassangers;
+
+        Station station = FindObjectOfType<Station>();
+        station.GetPassangers(subPassangers, addPassangers);
+        AddCoins(coinsPerPassanger * subPassangers);
+
+        PlayerPrefs.SetFloat("Passangers", passangers);
+
+        hasCalculatedPassangers = true;
     }
 
     public bool GetHasArrivedAtStation()

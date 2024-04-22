@@ -1,9 +1,12 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class Station : MonoBehaviour
 {
     [SerializeField] GameObject stationCanvas;
+    [SerializeField] TextMeshProUGUI boardedPassangersText;
+    [SerializeField] TextMeshProUGUI deboardedPassangersText;
 
     bool hasArrived;
 
@@ -26,6 +29,12 @@ public class Station : MonoBehaviour
         {
             stationCanvas.SetActive(true);
         }
+    }
+
+    public void GetPassangers(float subPassangers, float addPassangers)
+    {
+        boardedPassangersText.text = addPassangers.ToString();
+        deboardedPassangersText.text = subPassangers.ToString();
     }
 
     public void LeaveStastion()

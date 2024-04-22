@@ -9486,6 +9486,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2109931888}
     - target: {fileID: 3104360152833878173, guid: f2929c3dec4229d4dbdbfcf07e0b3dc2, type: 3}
+      propertyPath: profitCostIncrease
+      value: 1.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 3104360152833878173, guid: f2929c3dec4229d4dbdbfcf07e0b3dc2, type: 3}
       propertyPath: accelerationCostText
       value: 
       objectReference: {fileID: 1265809140}
@@ -9493,6 +9497,18 @@ PrefabInstance:
       propertyPath: maxPassangerCostText
       value: 
       objectReference: {fileID: 654572736}
+    - target: {fileID: 3104360152833878173, guid: f2929c3dec4229d4dbdbfcf07e0b3dc2, type: 3}
+      propertyPath: maxSpeedCostIncrease
+      value: 1.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3104360152833878173, guid: f2929c3dec4229d4dbdbfcf07e0b3dc2, type: 3}
+      propertyPath: accelerationCostIncrease
+      value: 1.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3104360152833878173, guid: f2929c3dec4229d4dbdbfcf07e0b3dc2, type: 3}
+      propertyPath: maxPassangerCostIncrease
+      value: 1.15
+      objectReference: {fileID: 0}
     - target: {fileID: 8562949793329675096, guid: f2929c3dec4229d4dbdbfcf07e0b3dc2, type: 3}
       propertyPath: m_Name
       value: UpgradeManager
@@ -13287,6 +13303,10 @@ PrefabInstance:
       propertyPath: autoCollectToggle
       value: 
       objectReference: {fileID: 1401247971}
+    - target: {fileID: 6013072587387181096, guid: d7f2d7e6643153744bbdc766918d5eaf, type: 3}
+      propertyPath: coinsPerPassanger
+      value: 40
+      objectReference: {fileID: 0}
     - target: {fileID: 6013072587387181096, guid: d7f2d7e6643153744bbdc766918d5eaf, type: 3}
       propertyPath: destinationCityText
       value: 
