@@ -4,25 +4,50 @@ using UnityEngine;
 public class City : MonoBehaviour
 {
     [SerializeField] GameObject cityMenu;
-    [SerializeField] string[] avaliableCites;
+    [SerializeField] GameObject[] avaliableCites;
 
     string cityName;
+
+    CityMenu cityMenuScript;
+
+    void Awake()
+    {
+        cityMenuScript = FindObjectOfType<CityMenu>();
+    }
 
     void Start()
     {
         cityName = gameObject.name;
+        cityMenu?.SetActive(false);
+    }
+
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Mouse0) && cityMenu.activeInHierarchy)
+        {
+            if (cityMenuScript == null)
+            {
+                cityMenuScript = FindObjectOfType<CityMenu>();
+            }
+
+            bool mouseIsOnMenu = cityMenuScript.GetMouseIsOnMenu();
+            if (!mouseIsOnMenu)
+            {
+                CloseMenu();
+            }
+        }
     }
 
     public void OpenMenu()
     {
-        cityMenu?.SetActive(false);
-        TextMeshProUGUI nameText = cityMenu.GetComponent<TextMeshProUGUI>();
+        cityMenu?.SetActive(true);
+        TextMeshProUGUI nameText = cityMenu.GetComponentInChildren<TextMeshProUGUI>();
         nameText.text = cityName;
     }
 
     public void CloseMenu()
     {
-        cityMenu?.SetActive(true);
+        cityMenu?.SetActive(false);
     }
 
     public void TravelButton()
