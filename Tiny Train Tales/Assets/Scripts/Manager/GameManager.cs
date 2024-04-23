@@ -168,7 +168,15 @@ public class GameManager : MonoBehaviour
         }
 
         velocity = Mathf.Floor(velocity);
-        speedText.text = velocity.ToString() + " km/h";
+
+        if (velocity >= maxSpeed)
+        {
+            speedText.text = maxSpeed.ToString() + " km/h";
+        }
+        else
+        {
+            speedText.text = velocity.ToString() + " km/h";
+        }
     }
 
     public void AddToMaxSpeed(float amountAdded)

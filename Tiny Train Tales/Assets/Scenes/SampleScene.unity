@@ -257,6 +257,76 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 34222864}
   m_CullTransparentMesh: 1
+--- !u!1001 &58706571
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1742859937}
+    m_Modifications:
+    - target: {fileID: 920576882667484129, guid: add178ffe0633914ca6d7a783a262349, type: 3}
+      propertyPath: canSpawn
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7439860005754695904, guid: add178ffe0633914ca6d7a783a262349, type: 3}
+      propertyPath: m_Name
+      value: Block 4 (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7439860005754695904, guid: add178ffe0633914ca6d7a783a262349, type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
+    - target: {fileID: 7863593971807538416, guid: add178ffe0633914ca6d7a783a262349, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -34.39
+      objectReference: {fileID: 0}
+    - target: {fileID: 7863593971807538416, guid: add178ffe0633914ca6d7a783a262349, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -5.35
+      objectReference: {fileID: 0}
+    - target: {fileID: 7863593971807538416, guid: add178ffe0633914ca6d7a783a262349, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.79317665
+      objectReference: {fileID: 0}
+    - target: {fileID: 7863593971807538416, guid: add178ffe0633914ca6d7a783a262349, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7863593971807538416, guid: add178ffe0633914ca6d7a783a262349, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7863593971807538416, guid: add178ffe0633914ca6d7a783a262349, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7863593971807538416, guid: add178ffe0633914ca6d7a783a262349, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7863593971807538416, guid: add178ffe0633914ca6d7a783a262349, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7863593971807538416, guid: add178ffe0633914ca6d7a783a262349, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7863593971807538416, guid: add178ffe0633914ca6d7a783a262349, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: add178ffe0633914ca6d7a783a262349, type: 3}
+--- !u!4 &58706572 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7863593971807538416, guid: add178ffe0633914ca6d7a783a262349, type: 3}
+  m_PrefabInstance: {fileID: 58706571}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &61518921
 GameObject:
   m_ObjectHideFlags: 0
@@ -481,7 +551,7 @@ GameObject:
   - component: {fileID: 116832869}
   - component: {fileID: 116832868}
   m_Layer: 0
-  m_Name: Image
+  m_Name: CoinImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -503,7 +573,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 36, y: -2}
+  m_AnchoredPosition: {x: 54.000034, y: 0}
   m_SizeDelta: {x: 20, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &116832868
@@ -1817,7 +1887,7 @@ RectTransform:
   m_GameObject: {fileID: 445105458}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2.4, y: 2.4, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2107529464}
@@ -1958,7 +2028,7 @@ GameObject:
   - component: {fileID: 478499251}
   - component: {fileID: 478499250}
   m_Layer: 0
-  m_Name: Image
+  m_Name: CoinImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1980,7 +2050,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 36, y: -2}
+  m_AnchoredPosition: {x: 54.000034, y: 0}
   m_SizeDelta: {x: 20, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &478499250
@@ -2246,7 +2316,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &531979695
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2637,7 +2707,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &631040827
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4022,7 +4092,7 @@ GameObject:
   - component: {fileID: 959493995}
   - component: {fileID: 959493994}
   m_Layer: 0
-  m_Name: Image
+  m_Name: CoinImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4044,7 +4114,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 36, y: -2}
+  m_AnchoredPosition: {x: 54, y: 0}
   m_SizeDelta: {x: 20, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &959493994
@@ -7035,7 +7105,7 @@ GameObject:
   - component: {fileID: 1730721404}
   - component: {fileID: 1730721403}
   m_Layer: 0
-  m_Name: Image
+  m_Name: CoinImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7057,7 +7127,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 36, y: -2}
+  m_AnchoredPosition: {x: 54.000034, y: 0}
   m_SizeDelta: {x: 20, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1730721403
@@ -7130,6 +7200,7 @@ Transform:
   - {fileID: 8906471615231345162}
   - {fileID: 1169880726723019684}
   - {fileID: 7658327135926997468}
+  - {fileID: 58706572}
   - {fileID: 1615898837}
   - {fileID: 511035484}
   - {fileID: 1384066242}
@@ -7420,7 +7491,7 @@ MonoBehaviour:
   m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
+  m_ReferenceResolution: {x: 1920, y: 1080}
   m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
