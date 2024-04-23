@@ -31,6 +31,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] float passangers;
     [SerializeField] TextMeshProUGUI passangerText;
     [SerializeField] float coinsPerPassanger;
+    [Header("Cars")]
+    [SerializeField] GameObject[] currentCars;
 
     float remainingDistance;
     float velocity;
@@ -116,22 +118,6 @@ public class GameManager : MonoBehaviour
         passangerText.text = passangers.ToString() + "/" + maxPassangers.ToString();
     }
 
-    void HandleMaxSpeed()
-    {
-        velocity = train.GetVelocity();
-        if (velocity <= 0)
-        {
-            velocity *= 5;
-        }
-        else
-        {
-            velocity = velocity * 5f + 1f;
-        }
-
-        velocity = Mathf.Floor(velocity);
-        speedText.text = velocity.ToString() + " km/h";
-    }
-
     #region Coins
     public bool GetAutoCollect()
     {
@@ -169,6 +155,22 @@ public class GameManager : MonoBehaviour
     #endregion
 
     #region Upgrades
+    void HandleMaxSpeed()
+    {
+        velocity = train.GetVelocity();
+        if (velocity <= 0)
+        {
+            velocity *= 5;
+        }
+        else
+        {
+            velocity = velocity * 5f + 1f;
+        }
+
+        velocity = Mathf.Floor(velocity);
+        speedText.text = velocity.ToString() + " km/h";
+    }
+
     public void AddToMaxSpeed(float amountAdded)
     {
         maxSpeed += amountAdded;
@@ -305,6 +307,22 @@ public class GameManager : MonoBehaviour
         destinationCityText.text = newCity;
 
         distance = distanceToCity;
+    }
+    #endregion
+
+    #region Cars
+    public void AddCar()
+    {
+        GameObject[] tempCars = new GameObject[currentCars.Length + 1];
+        currentCars.CopyTo(tempCars, 0);
+        currentCars = tempCars;
+    }
+
+    public void RemoveCar()
+    {
+        GameObject[] tempCars = new GameObject[currentCars.Length - 1];
+        currentCars.CopyTo(tempCars, 0);
+        currentCars = tempCars;
     }
     #endregion
 
