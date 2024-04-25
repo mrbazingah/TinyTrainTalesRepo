@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using CityNamespace;
 using UnityEngine;
 
+[System.Serializable]
 public class PathFinding : MonoBehaviour
 {
     [SerializeField] City startCity;
@@ -34,8 +35,6 @@ public class PathFinding : MonoBehaviour
 
             if (currentCity == targetCity)
             {
-                // Path found
-                Debug.Log("Path found!");
                 return;
             }
 
@@ -63,8 +62,6 @@ public class PathFinding : MonoBehaviour
                 }
             }
         }
-
-        Debug.Log("Path not found!");
     }
 
     float GetDistance(City cityA, City cityB)

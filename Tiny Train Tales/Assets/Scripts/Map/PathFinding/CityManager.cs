@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
 public class CityManager : MonoBehaviour
 {
     [SerializeField] List<CityNamespace.City> allCities;
