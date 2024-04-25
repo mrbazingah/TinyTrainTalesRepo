@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &3450606250641564517
+--- !u!1 &8303909429183907813
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,60 +8,54 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 226441167980901094}
-  - component: {fileID: 6013072587387181096}
+  - component: {fileID: 7005977987389121768}
+  - component: {fileID: 2477246399508672767}
+  - component: {fileID: 2233884383617630894}
   m_Layer: 0
-  m_Name: GameManager
+  m_Name: PathFinding
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &226441167980901094
+--- !u!4 &7005977987389121768
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3450606250641564517}
+  m_GameObject: {fileID: 8303909429183907813}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 3.3904948, y: 0.5956167, z: -0.41568667}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6013072587387181096
+--- !u!114 &2477246399508672767
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3450606250641564517}
+  m_GameObject: {fileID: 8303909429183907813}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 77d18488882549f49a6dabee514ebe29, type: 3}
+  m_Script: {fileID: 11500000, guid: c8800e2c7762acf41bfb70e0dda3cd46, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  coins: 0
-  cointext: {fileID: 0}
-  profitMultiplier: 1
-  autoCollectToggle: {fileID: 0}
-  maxSpeed: 80
-  speedText: {fileID: 0}
-  distance: 100
-  destinationReached: 0
-  distanceSlider: {fileID: 0}
-  remainingDistanceText: {fileID: 0}
-  currentCityText: {fileID: 0}
-  destinationCityText: {fileID: 0}
-  map: {fileID: 0}
-  station: {fileID: 0}
-  stationHasSpawned: 0
-  hasArrivedAtStation: 0
-  maxPassangers: 20
-  passangers: 0
-  passangerText: {fileID: 0}
-  coinsPerPassanger: 40
-  currentCars: []
+--- !u!114 &2233884383617630894
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8303909429183907813}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 831e1dd431619604c8f03d3553dca0b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  distanceData:
+    distances: []

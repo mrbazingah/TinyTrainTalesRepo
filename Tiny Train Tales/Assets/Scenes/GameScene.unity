@@ -2707,7 +2707,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &631040827
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3849,9 +3849,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cityMenu: {fileID: 531979694}
-  avaliableCites:
-  - {fileID: 2106758136}
-  - {fileID: 0}
 --- !u!114 &928507573
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8024,10 +8021,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cityMenu: {fileID: 531979694}
-  avaliableCites:
-  - {fileID: 2106758136}
-  - {fileID: 928507570}
-  - {fileID: 648816551}
 --- !u!114 &1920226175
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9127,9 +9120,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cityMenu: {fileID: 531979694}
-  avaliableCites:
-  - {fileID: 0}
-  - {fileID: 0}
 --- !u!1 &2107529463
 GameObject:
   m_ObjectHideFlags: 0
@@ -10297,10 +10287,6 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2109931888}
     - target: {fileID: 3104360152833878173, guid: f2929c3dec4229d4dbdbfcf07e0b3dc2, type: 3}
-      propertyPath: profitCostIncrease
-      value: 1.25
-      objectReference: {fileID: 0}
-    - target: {fileID: 3104360152833878173, guid: f2929c3dec4229d4dbdbfcf07e0b3dc2, type: 3}
       propertyPath: accelerationCostText
       value: 
       objectReference: {fileID: 1265809140}
@@ -10308,18 +10294,6 @@ PrefabInstance:
       propertyPath: maxPassangerCostText
       value: 
       objectReference: {fileID: 654572736}
-    - target: {fileID: 3104360152833878173, guid: f2929c3dec4229d4dbdbfcf07e0b3dc2, type: 3}
-      propertyPath: maxSpeedCostIncrease
-      value: 1.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 3104360152833878173, guid: f2929c3dec4229d4dbdbfcf07e0b3dc2, type: 3}
-      propertyPath: accelerationCostIncrease
-      value: 1.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3104360152833878173, guid: f2929c3dec4229d4dbdbfcf07e0b3dc2, type: 3}
-      propertyPath: maxPassangerCostIncrease
-      value: 1.15
-      objectReference: {fileID: 0}
     - target: {fileID: 8562949793329675096, guid: f2929c3dec4229d4dbdbfcf07e0b3dc2, type: 3}
       propertyPath: m_Name
       value: UpgradeManager
@@ -11381,6 +11355,63 @@ Transform:
   - {fileID: 6070459526786647832}
   m_Father: {fileID: 8487525428691676603}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &3044094501900280505
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 7005977987389121768, guid: bbbdb12809f8ad245bcd10b42b90c03e, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 3.3904948
+      objectReference: {fileID: 0}
+    - target: {fileID: 7005977987389121768, guid: bbbdb12809f8ad245bcd10b42b90c03e, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.5956167
+      objectReference: {fileID: 0}
+    - target: {fileID: 7005977987389121768, guid: bbbdb12809f8ad245bcd10b42b90c03e, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.41568667
+      objectReference: {fileID: 0}
+    - target: {fileID: 7005977987389121768, guid: bbbdb12809f8ad245bcd10b42b90c03e, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7005977987389121768, guid: bbbdb12809f8ad245bcd10b42b90c03e, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7005977987389121768, guid: bbbdb12809f8ad245bcd10b42b90c03e, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7005977987389121768, guid: bbbdb12809f8ad245bcd10b42b90c03e, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7005977987389121768, guid: bbbdb12809f8ad245bcd10b42b90c03e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7005977987389121768, guid: bbbdb12809f8ad245bcd10b42b90c03e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7005977987389121768, guid: bbbdb12809f8ad245bcd10b42b90c03e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8303909429183907813, guid: bbbdb12809f8ad245bcd10b42b90c03e, type: 3}
+      propertyPath: m_Name
+      value: PathFinding
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: bbbdb12809f8ad245bcd10b42b90c03e, type: 3}
 --- !u!4 &3078952544360721514
 Transform:
   m_ObjectHideFlags: 0
@@ -14115,10 +14146,6 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1401247971}
     - target: {fileID: 6013072587387181096, guid: d7f2d7e6643153744bbdc766918d5eaf, type: 3}
-      propertyPath: coinsPerPassanger
-      value: 40
-      objectReference: {fileID: 0}
-    - target: {fileID: 6013072587387181096, guid: d7f2d7e6643153744bbdc766918d5eaf, type: 3}
       propertyPath: destinationCityText
       value: 
       objectReference: {fileID: 1472339448}
@@ -14977,6 +15004,7 @@ SceneRoots:
   - {fileID: 729048467}
   - {fileID: 1688613802266039053}
   - {fileID: 7698767031593942036}
+  - {fileID: 3044094501900280505}
   - {fileID: 1984954364}
   - {fileID: 1011250643}
   - {fileID: 1742859937}

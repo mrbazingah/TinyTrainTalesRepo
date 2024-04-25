@@ -1,10 +1,9 @@
 using TMPro;
 using UnityEngine;
 
-public class City : MonoBehaviour
+public class CityNode : MonoBehaviour
 {
     [SerializeField] GameObject cityMenu;
-    [SerializeField] GameObject[] avaliableCites;
 
     string cityName;
 
