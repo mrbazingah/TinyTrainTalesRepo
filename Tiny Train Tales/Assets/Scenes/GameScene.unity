@@ -1004,16 +1004,16 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 250404100}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 2110217142}
+  m_Father: {fileID: 631040827}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -20.3, y: 97.1}
+  m_AnchoredPosition: {x: 31.699963, y: 66.09996}
   m_SizeDelta: {x: 16.666664, y: 10.833335}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &250404102
@@ -1064,7 +1064,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   endCity: {fileID: 928507570}
-  speedOffset: 24000
+  speedOffset: 27000
 --- !u!1 &270790695
 GameObject:
   m_ObjectHideFlags: 0
@@ -2732,18 +2732,19 @@ RectTransform:
   m_GameObject: {fileID: 631040826}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.024056746, y: 0.024056746, z: 0.024056746}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2110217142}
   - {fileID: 552295859}
+  - {fileID: 250404101}
   m_Father: {fileID: 729048467}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
-  m_Pivot: {x: 0, y: 0}
+  m_AnchoredPosition: {x: -25.5, y: 25.4}
+  m_SizeDelta: {x: 800, y: 450.13626}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &631040828
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2783,7 +2784,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 0
+  m_PresetInfoIsWorld: 1
 --- !u!223 &631040830
 Canvas:
   m_ObjectHideFlags: 0
@@ -2793,7 +2794,7 @@ Canvas:
   m_GameObject: {fileID: 631040826}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 1
+  m_RenderMode: 2
   m_Camera: {fileID: 519420031}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
@@ -3744,6 +3745,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cityMenu: {fileID: 531979694}
+  cityNeighbors:
+  - {fileID: 2106758136}
+  - {fileID: 1920226172}
+  cityNeighborsDistances: 8d01000000020000
 --- !u!114 &928507573
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6985,6 +6990,51 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: -26}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &1694749789
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1694749791}
+  - component: {fileID: 1694749790}
+  m_Layer: 0
+  m_Name: CityManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1694749790
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1694749789}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2214bf01f3c4a3e4f865d6a96b81ea6e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentCity: {fileID: 2106758136}
+--- !u!4 &1694749791
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1694749789}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1730721401
 GameObject:
   m_ObjectHideFlags: 0
@@ -7916,6 +7966,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cityMenu: {fileID: 531979694}
+  cityNeighbors:
+  - {fileID: 2106758136}
+  - {fileID: 928507570}
+  cityNeighborsDistances: f200000000020000
 --- !u!114 &1920226175
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8921,6 +8975,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cityMenu: {fileID: 531979694}
+  cityNeighbors: []
+  cityNeighborsDistances: 
 --- !u!114 &2105587786
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9161,6 +9217,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cityMenu: {fileID: 531979694}
+  cityNeighbors:
+  - {fileID: 928507570}
+  - {fileID: 1920226172}
+  cityNeighborsDistances: 8d010000f2000000
 --- !u!1 &2107529463
 GameObject:
   m_ObjectHideFlags: 0
@@ -9365,7 +9425,6 @@ RectTransform:
   m_Children:
   - {fileID: 1879275609}
   - {fileID: 777559362}
-  - {fileID: 250404101}
   m_Father: {fileID: 631040827}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -10300,10 +10359,6 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3104360152833878173, guid: f2929c3dec4229d4dbdbfcf07e0b3dc2, type: 3}
-      propertyPath: profitCost
-      value: 2000
-      objectReference: {fileID: 0}
-    - target: {fileID: 3104360152833878173, guid: f2929c3dec4229d4dbdbfcf07e0b3dc2, type: 3}
       propertyPath: profitText
       value: 
       objectReference: {fileID: 1579744556}
@@ -10311,10 +10366,6 @@ PrefabInstance:
       propertyPath: upgradeMenu
       value: 
       objectReference: {fileID: 1780422905}
-    - target: {fileID: 3104360152833878173, guid: f2929c3dec4229d4dbdbfcf07e0b3dc2, type: 3}
-      propertyPath: maxSpeedCost
-      value: 1000
-      objectReference: {fileID: 0}
     - target: {fileID: 3104360152833878173, guid: f2929c3dec4229d4dbdbfcf07e0b3dc2, type: 3}
       propertyPath: maxSpeedText
       value: 
@@ -10324,17 +10375,9 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 65905397}
     - target: {fileID: 3104360152833878173, guid: f2929c3dec4229d4dbdbfcf07e0b3dc2, type: 3}
-      propertyPath: accelerationCost
-      value: 500
-      objectReference: {fileID: 0}
-    - target: {fileID: 3104360152833878173, guid: f2929c3dec4229d4dbdbfcf07e0b3dc2, type: 3}
       propertyPath: accelerationText
       value: 
       objectReference: {fileID: 2076777957}
-    - target: {fileID: 3104360152833878173, guid: f2929c3dec4229d4dbdbfcf07e0b3dc2, type: 3}
-      propertyPath: maxPassangerCost
-      value: 500
-      objectReference: {fileID: 0}
     - target: {fileID: 3104360152833878173, guid: f2929c3dec4229d4dbdbfcf07e0b3dc2, type: 3}
       propertyPath: maxSpeedCostText
       value: 
@@ -10344,10 +10387,6 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2109931888}
     - target: {fileID: 3104360152833878173, guid: f2929c3dec4229d4dbdbfcf07e0b3dc2, type: 3}
-      propertyPath: profitCostIncrease
-      value: 3500
-      objectReference: {fileID: 0}
-    - target: {fileID: 3104360152833878173, guid: f2929c3dec4229d4dbdbfcf07e0b3dc2, type: 3}
       propertyPath: accelerationCostText
       value: 
       objectReference: {fileID: 1265809140}
@@ -10355,18 +10394,6 @@ PrefabInstance:
       propertyPath: maxPassangerCostText
       value: 
       objectReference: {fileID: 654572736}
-    - target: {fileID: 3104360152833878173, guid: f2929c3dec4229d4dbdbfcf07e0b3dc2, type: 3}
-      propertyPath: maxSpeedCostIncrease
-      value: 1500
-      objectReference: {fileID: 0}
-    - target: {fileID: 3104360152833878173, guid: f2929c3dec4229d4dbdbfcf07e0b3dc2, type: 3}
-      propertyPath: accelerationCostIncrease
-      value: 500
-      objectReference: {fileID: 0}
-    - target: {fileID: 3104360152833878173, guid: f2929c3dec4229d4dbdbfcf07e0b3dc2, type: 3}
-      propertyPath: maxPassangerCostIncrease
-      value: 1000
-      objectReference: {fileID: 0}
     - target: {fileID: 8562949793329675096, guid: f2929c3dec4229d4dbdbfcf07e0b3dc2, type: 3}
       propertyPath: m_Name
       value: UpgradeManager
@@ -11628,6 +11655,10 @@ PrefabInstance:
     - target: {fileID: 7211839878781286953, guid: 99cf9d11154a4484b9363d7ddcdb2782, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7827810439277896617, guid: 99cf9d11154a4484b9363d7ddcdb2782, type: 3}
+      propertyPath: acceleration
+      value: 500
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -14142,12 +14173,8 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1837428436}
     - target: {fileID: 6013072587387181096, guid: d7f2d7e6643153744bbdc766918d5eaf, type: 3}
-      propertyPath: distance
-      value: 397
-      objectReference: {fileID: 0}
-    - target: {fileID: 6013072587387181096, guid: d7f2d7e6643153744bbdc766918d5eaf, type: 3}
       propertyPath: maxSpeed
-      value: 150
+      value: 1500
       objectReference: {fileID: 0}
     - target: {fileID: 6013072587387181096, guid: d7f2d7e6643153744bbdc766918d5eaf, type: 3}
       propertyPath: speedText
@@ -15028,6 +15055,7 @@ SceneRoots:
   - {fileID: 729048467}
   - {fileID: 1688613802266039053}
   - {fileID: 7698767031593942036}
+  - {fileID: 1694749791}
   - {fileID: 1984954364}
   - {fileID: 1011250643}
   - {fileID: 1742859937}

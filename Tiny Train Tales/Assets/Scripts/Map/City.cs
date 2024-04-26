@@ -4,6 +4,8 @@ using UnityEngine;
 public class City : MonoBehaviour
 {
     [SerializeField] GameObject cityMenu;
+    [SerializeField] GameObject[] cityNeighbors;
+    [SerializeField] int[] cityNeighborsDistances;
 
     string cityName;
 
@@ -49,8 +51,13 @@ public class City : MonoBehaviour
         cityMenu?.SetActive(false);
     }
 
-    public void TravelButton()
+    public GameObject[] GetCityNeighbors()
     {
+        return cityNeighbors;
+    }
 
+    public int[] GetCityNeighborsDistance()
+    {
+        return cityNeighborsDistances;
     }
 }

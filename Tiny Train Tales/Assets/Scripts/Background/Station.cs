@@ -11,10 +11,12 @@ public class Station : MonoBehaviour
     bool hasArrived;
 
     GameManager gameManager;
+    CityManager cityManager;
 
     void Awake()
     {
         gameManager = FindObjectOfType<GameManager>();
+        cityManager = FindObjectOfType<CityManager>();
     }
 
     void Start()
@@ -44,6 +46,7 @@ public class Station : MonoBehaviour
         PlayerPrefs.SetFloat("CamPos", camPosX);
 
         gameManager.DeleteSavedDestination();
+        cityManager.SaveCity();
 
         string currentScene = SceneManager.GetActiveScene().name;
         SceneManager.LoadScene(currentScene);

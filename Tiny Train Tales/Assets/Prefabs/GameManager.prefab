@@ -50,13 +50,15 @@ MonoBehaviour:
   autoCollectToggle: {fileID: 0}
   maxSpeed: 80
   speedText: {fileID: 0}
-  distance: 100
+  distance: 397
   destinationReached: 0
   distanceSlider: {fileID: 0}
   remainingDistanceText: {fileID: 0}
   currentCityText: {fileID: 0}
   destinationCityText: {fileID: 0}
   map: {fileID: 0}
+  mapOffset: {x: -25.5, y: 25.4}
+  mapStartPos: {x: 0.55, y: -0.65}
   station: {fileID: 0}
   stationHasSpawned: 0
   hasArrivedAtStation: 0

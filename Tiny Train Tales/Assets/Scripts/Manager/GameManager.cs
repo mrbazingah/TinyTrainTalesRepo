@@ -20,8 +20,10 @@ public class GameManager : MonoBehaviour
     [Space]
     [SerializeField] TextMeshProUGUI currentCityText;
     [SerializeField] TextMeshProUGUI destinationCityText;
-    [Space]
+    [Header("Map")]
     [SerializeField] GameObject map;
+    [SerializeField] Vector2 mapOffset;
+    [SerializeField] Vector2 mapStartPos;
     [Header("Station")]
     [SerializeField] GameObject station;
     [SerializeField] bool stationHasSpawned;
@@ -42,18 +44,21 @@ public class GameManager : MonoBehaviour
     Train train;
     CameraMovement cam;
     UpgradeManager upgrades;
+    CityManager cityManager;
 
     void Awake()
     {
         train = FindObjectOfType<Train>();
         cam = FindObjectOfType<CameraMovement>();
         upgrades = FindObjectOfType<UpgradeManager>();
+        cityManager = FindObjectOfType<CityManager>();
     }
 
     void Start()
     {
+        cityManager.GetNextCity();
         PlayerPrefsSetUp();
-        map.SetActive(false);
+        CloseMap();
     }
 
     void PlayerPrefsSetUp()
@@ -216,13 +221,15 @@ public class GameManager : MonoBehaviour
     #region Map
     public void OpenMap()
     {
-        map.SetActive(true);
+        Vector2 camPos = cam.transform.position;
+
+        map.transform.position = new Vector3(camPos.x, camPos.y, 0f);
         cam.LockMovement(true);
     }
 
     public void CloseMap()
     {
-        map.SetActive(false);
+        map.transform.position = mapOffset;
         cam.LockMovement(false);
     }
     #endregion
@@ -310,10 +317,11 @@ public class GameManager : MonoBehaviour
         destinationReached = false;
     }
 
-    public void NewDestination(string newCity, float distanceToCity)
+
+    public void SetNewDestination(string oldcity, string newCity, float distanceToCity)
     {
-        currentCityText.text = destinationCityText.text;
         destinationCityText.text = newCity;
+        currentCityText.text = oldcity;
 
         distance = distanceToCity;
     }
