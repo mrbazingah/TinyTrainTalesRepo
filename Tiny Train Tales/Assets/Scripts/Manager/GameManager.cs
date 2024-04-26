@@ -98,9 +98,6 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            distance = Random.Range(10f, distance + 1f);
-            distance = Mathf.Round(distance);
-
             remainingDistance = distance;
         }
 
@@ -372,18 +369,20 @@ public class GameManager : MonoBehaviour
 
     public void SaveAll()
     {
+        train.SaveSpeed();
+
         PlayerPrefs.SetFloat("MaxPassangers", maxPassangers);
         PlayerPrefs.SetFloat("MaxSpeed", maxSpeed);
         PlayerPrefs.SetFloat("Coins", coins);
         PlayerPrefs.SetFloat("Coins", coins);
         PlayerPrefs.SetFloat("Passangers", passangers);
+
+        SaveProgress();
     }
 
     void OnApplicationQuit()
     {
-        SaveProgress();
         SaveAll();
-        train.SaveSpeed();
     }
     #endregion
 }

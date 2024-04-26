@@ -13,8 +13,6 @@ public class Buy : MonoBehaviour
     void Awake()
     {
         gameManager = FindObjectOfType<GameManager>();
-
-
     }
 
     void Update()

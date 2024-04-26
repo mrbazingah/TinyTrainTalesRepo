@@ -16,11 +16,11 @@ public class Train : MonoBehaviour
     void Awake()
     {
         gameManager = FindObjectOfType<GameManager>();
+        FindRigidbody();
     }
 
     void Start()
     {
-        FindRigidbody();
         StartTrain();
 
         if (PlayerPrefs.HasKey("Acceleration"))

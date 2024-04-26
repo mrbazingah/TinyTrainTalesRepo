@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class MapTrain : MonoBehaviour
 {
-    [SerializeField] GameObject mapTrain;
-    [SerializeField] GameObject[] cites;
+    [SerializeField] GameObject endCity;
+    [SerializeField] float speedOffset;
 
     float speed;
 
@@ -16,8 +16,10 @@ public class MapTrain : MonoBehaviour
         train = FindObjectOfType<Train>();
     }
 
-    void Update()
+    void FixedUpdate()
     {
-        speed = train.GetVelocity() * 4.3f;
+        speed = train.GetVelocity() / speedOffset / 4f;
+
+        transform.position = Vector3.MoveTowards(transform.position, endCity.transform.position, speed);
     }
 }
