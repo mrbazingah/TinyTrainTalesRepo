@@ -1,7 +1,7 @@
 using TMPro;
 using UnityEngine;
 
-public class CityNode : MonoBehaviour
+public class City : MonoBehaviour
 {
     [SerializeField] GameObject cityMenu;
 

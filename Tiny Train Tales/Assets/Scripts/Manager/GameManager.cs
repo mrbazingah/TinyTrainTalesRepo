@@ -41,11 +41,13 @@ public class GameManager : MonoBehaviour
 
     Train train;
     CameraMovement cam;
+    UpgradeManager upgrades;
 
     void Awake()
     {
         train = FindObjectOfType<Train>();
         cam = FindObjectOfType<CameraMovement>();
+        upgrades = FindObjectOfType<UpgradeManager>();
     }
 
     void Start()
@@ -265,6 +267,8 @@ public class GameManager : MonoBehaviour
         SaveAll();
         AddAndSubtractPassangers();
         DeleteSavedDestination();
+        CloseMap();
+        upgrades.CloseUpgradeMenu();
     }
 
     public void AddAndSubtractPassangers()
