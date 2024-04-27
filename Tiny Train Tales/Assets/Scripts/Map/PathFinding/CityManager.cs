@@ -56,6 +56,8 @@ public class CityManager : MonoBehaviour
         int[] distances = currentCityScript.GetCityNeighborsDistance();
         int currentDistance = distances[nextCity];
 
+        Debug.Log(nextCity.ToString());
+
         if (currentCity == destinationCity)
         {
             GetNextCity();

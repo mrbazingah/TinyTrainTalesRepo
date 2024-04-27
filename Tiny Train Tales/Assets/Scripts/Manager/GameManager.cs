@@ -96,7 +96,7 @@ public class GameManager : MonoBehaviour
         {
             profitMultiplier = PlayerPrefs.GetFloat("Profit");
         }
-        if (PlayerPrefs.HasKey("Distance") && PlayerPrefs.HasKey("RemainingDistance"))
+        if (PlayerPrefs.HasKey("Distance")|| PlayerPrefs.HasKey("RemainingDistance"))
         {
             distance = PlayerPrefs.GetFloat("Distance");
             remainingDistance = PlayerPrefs.GetFloat("RemainingDistance");
@@ -325,6 +325,7 @@ public class GameManager : MonoBehaviour
         currentCityText.text = oldcity;
 
         distance = distanceToCity;
+        PlayerPrefs.SetFloat("Distance", distance);
     }
     #endregion
 

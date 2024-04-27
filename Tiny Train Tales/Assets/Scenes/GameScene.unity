@@ -4262,6 +4262,7 @@ GameObject:
   - component: {fileID: 1040070707}
   - component: {fileID: 1040070706}
   - component: {fileID: 1040070705}
+  - component: {fileID: 1040070708}
   m_Layer: 0
   m_Name: Hamburg
   m_TagString: Untagged
@@ -4331,7 +4332,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1040070706}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1040070708}
+        m_TargetAssemblyTypeName: City, Assembly-CSharp
+        m_MethodName: OpenMenu
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1040070706
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4370,6 +4383,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1040070703}
   m_CullTransparentMesh: 1
+--- !u!114 &1040070708
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1040070703}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 603e6cee8fc7ed2448d59db9c41e1d0a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cityMenu: {fileID: 531979694}
+  cityNeighbors:
+  - {fileID: 2105587783}
+  cityNeighborsDistances: 21010000
 --- !u!1 &1040111316
 GameObject:
   m_ObjectHideFlags: 0
@@ -4726,6 +4755,7 @@ GameObject:
   - component: {fileID: 1106649836}
   - component: {fileID: 1106649835}
   - component: {fileID: 1106649834}
+  - component: {fileID: 1106649837}
   m_Layer: 0
   m_Name: Aarhus
   m_TagString: Untagged
@@ -4795,7 +4825,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1106649835}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1106649837}
+        m_TargetAssemblyTypeName: City, Assembly-CSharp
+        m_MethodName: OpenMenu
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1106649835
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4834,6 +4876,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1106649832}
   m_CullTransparentMesh: 1
+--- !u!114 &1106649837
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1106649832}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 603e6cee8fc7ed2448d59db9c41e1d0a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cityMenu: {fileID: 531979694}
+  cityNeighbors:
+  - {fileID: 2105587783}
+  cityNeighborsDistances: 9c000000
 --- !u!1001 &1114349195
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7974,7 +8032,8 @@ MonoBehaviour:
   cityNeighbors:
   - {fileID: 2106758136}
   - {fileID: 928507570}
-  cityNeighborsDistances: f200000000020000
+  - {fileID: 2105587783}
+  cityNeighborsDistances: f2000000000200001c000000
 --- !u!114 &1920226175
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8980,8 +9039,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cityMenu: {fileID: 531979694}
-  cityNeighbors: []
-  cityNeighborsDistances: 
+  cityNeighbors:
+  - {fileID: 1920226172}
+  - {fileID: 1106649832}
+  - {fileID: 1040070703}
+  cityNeighborsDistances: 1c0000009c00000021010000
 --- !u!114 &2105587786
 MonoBehaviour:
   m_ObjectHideFlags: 0
