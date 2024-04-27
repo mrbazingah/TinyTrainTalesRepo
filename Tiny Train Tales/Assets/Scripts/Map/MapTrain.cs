@@ -6,6 +6,7 @@ public class MapTrain : MonoBehaviour
     [SerializeField] float speedOffset;
 
     float speed;
+    bool hasFoundCity;
 
     Train train;
     CityManager cityManager;
@@ -18,12 +19,18 @@ public class MapTrain : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (cityManager == null)
+        if (!hasFoundCity)
         {
-            cityManager = FindObjectOfType<CityManager>();
+            if (cityManager == null)
+            {
+                cityManager = FindObjectOfType<CityManager>();
+            }
+
+            endCity = cityManager.GetDestinationCity();
+            transform.position = cityManager.GetCurrentCity().transform.position;
+            hasFoundCity = true;
         }
 
-        transform.position = cityManager.GetCurrentCity().transform.position;
         speed = train.GetVelocity() / speedOffset / 4f;
         transform.position = Vector3.MoveTowards(transform.position, endCity.transform.position, speed);
     }

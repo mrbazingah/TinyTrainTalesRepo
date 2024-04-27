@@ -2166,6 +2166,10 @@ PrefabInstance:
       propertyPath: canSpawn
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8254717468608395461, guid: 6197ff145fbefc040a604b86d5eefbab, type: 3}
+      propertyPath: parentObject
+      value: 
+      objectReference: {fileID: 1742859936}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -7020,6 +7024,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentCity: {fileID: 2106758136}
+  destinationCity: {fileID: 0}
 --- !u!4 &1694749791
 Transform:
   m_ObjectHideFlags: 0
@@ -7139,12 +7144,12 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 511035484}
   - {fileID: 8906471615231345162}
   - {fileID: 1169880726723019684}
   - {fileID: 7658327135926997468}
   - {fileID: 58706572}
   - {fileID: 1615898837}
-  - {fileID: 511035484}
   - {fileID: 1384066242}
   - {fileID: 656876175}
   - {fileID: 8487525428691676603}
@@ -10937,6 +10942,10 @@ PrefabInstance:
       propertyPath: canSpawn
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8035754409469916273, guid: 0bc2a7a8f61a6074bbc7c8ec4a6e053b, type: 3}
+      propertyPath: parentObject
+      value: 
+      objectReference: {fileID: 1742859936}
     - target: {fileID: 8345934577106028995, guid: 0bc2a7a8f61a6074bbc7c8ec4a6e053b, type: 3}
       propertyPath: m_Color.b
       value: 0.5647059
@@ -13423,6 +13432,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1742859937}
     m_Modifications:
+    - target: {fileID: 920576882667484129, guid: add178ffe0633914ca6d7a783a262349, type: 3}
+      propertyPath: parentObject
+      value: 
+      objectReference: {fileID: 1742859936}
     - target: {fileID: 7439860005754695904, guid: add178ffe0633914ca6d7a783a262349, type: 3}
       propertyPath: m_Name
       value: Block 4
@@ -14495,6 +14508,10 @@ PrefabInstance:
       propertyPath: canSpawn
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8269403196629503852, guid: 9a931e5dace6dfb4e853e6e89f6180ae, type: 3}
+      propertyPath: parentObject
+      value: 
+      objectReference: {fileID: 1742859936}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

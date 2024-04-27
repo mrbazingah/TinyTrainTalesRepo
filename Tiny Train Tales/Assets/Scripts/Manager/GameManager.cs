@@ -57,6 +57,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         cityManager.GetNextCity();
+        cityManager.UpdateCityTexts(currentCityText, destinationCityText);
         PlayerPrefsSetUp();
         CloseMap();
     }
@@ -366,6 +367,7 @@ public class GameManager : MonoBehaviour
 
         PlayerPrefs.SetFloat("Distance", distance);
         PlayerPrefs.SetFloat("RemainingDistance", remainingDistance);
+        cityManager.SaveDestinationCity();
     }
 
     public void DeleteSavedDestination()
@@ -373,6 +375,7 @@ public class GameManager : MonoBehaviour
         PlayerPrefs.DeleteKey("Distance");
         PlayerPrefs.DeleteKey("RemainingDistance");
         PlayerPrefs.DeleteKey("Speed");
+        PlayerPrefs.DeleteKey("DesitnationCity");
     }
 
     public void SaveAll()

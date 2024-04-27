@@ -46,7 +46,7 @@ public class Station : MonoBehaviour
         PlayerPrefs.SetFloat("CamPos", camPosX);
 
         gameManager.DeleteSavedDestination();
-        cityManager.SaveCity();
+        cityManager.SaveCurrentCity();
 
         string currentScene = SceneManager.GetActiveScene().name;
         SceneManager.LoadScene(currentScene);
