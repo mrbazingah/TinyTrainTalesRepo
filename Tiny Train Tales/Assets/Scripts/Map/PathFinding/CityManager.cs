@@ -1,12 +1,11 @@
 using System.Collections.Generic;
-using System.IO;
 using TMPro;
 using UnityEngine;
 
 public class CityManager : MonoBehaviour
 {
     [SerializeField] GameObject currentCity;
-    [SerializeField] GameObject inBetweenCity;
+    [SerializeField] GameObject currentNextCity;
     [SerializeField] GameObject destinationCity;
     [SerializeField] List<GameObject> path;
 
@@ -35,7 +34,7 @@ public class CityManager : MonoBehaviour
             DontDestroyOnLoad(gameObject);
         }
 
-        if (PlayerPrefs.HasKey("CurrentCity") && PlayerPrefs.HasKey("DestinationCity"))
+        if (PlayerPrefs.HasKey("CurrentNextCity") && PlayerPrefs.HasKey("DestinationCity"))
         {
 
         }
@@ -73,25 +72,29 @@ public class CityManager : MonoBehaviour
 
     public void GetNextCity()
     {
+        if (pathfinding == null)
+        {
+            pathfinding = FindObjectOfType<AStarPathfinding>();
+        }
+
         List<GameObject> path = pathfinding.FindPath(currentCity, destinationCity);
         if (path != null && path.Count > 1)
         {
-            // Next city is the second city in the path
             GameObject nextCity = path[0];
-            destinationCity = nextCity;
+            currentNextCity = nextCity;
 
-            GameObject[] destinationNeighbors = destinationCity.GetComponent<City>().GetCityNeighbors();
+            GameObject[] destinationNeighbors = currentNextCity.GetComponent<City>().GetCityNeighbors();
             for (int i = 0; i < destinationNeighbors.Length; i++)
             {
                 if (currentCity == destinationNeighbors[i])
                 {
-                    int[] distances = destinationCity.GetComponent<City>().GetCityNeighborsDistance();
+                    int[] distances = currentNextCity.GetComponent<City>().GetCityNeighborsDistance();
                     destinationDistance = distances[i];
                     break;
                 }
             }
 
-            gameManager.SetNewDestination(currentCity.name, destinationCity.name, destinationDistance); // Change the last parameter accordingly
+            gameManager.SetNewDestination(currentCity.name, currentNextCity.name, destinationDistance); 
         }
         else
         {
@@ -99,9 +102,9 @@ public class CityManager : MonoBehaviour
         }
     }
 
-    public void SaveCurrentCity()
+    public void SaveCurrentNextCity()
     {
-        PlayerPrefs.SetString("CurrentCity", destinationCity.name);
+        PlayerPrefs.SetString("CurrentNextCity", currentNextCity.name);
     }
 
     public void SaveDestinationCity()
@@ -112,6 +115,11 @@ public class CityManager : MonoBehaviour
     public GameObject GetCurrentCity()
     {
         return currentCity;
+    }
+
+    public GameObject GetCurrentNextCity()
+    {
+        return currentNextCity;
     }
 
     public GameObject GetDestinationCity() 

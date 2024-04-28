@@ -1109,7 +1109,7 @@ GameObject:
   - component: {fileID: 283883249}
   - component: {fileID: 283883252}
   m_Layer: 0
-  m_Name: Frankfurt am Main
+  m_Name: Frankfurt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -12393,6 +12393,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2109931888}
     - target: {fileID: 3104360152833878173, guid: f2929c3dec4229d4dbdbfcf07e0b3dc2, type: 3}
+      propertyPath: profitCostIncrease
+      value: 2500
+      objectReference: {fileID: 0}
+    - target: {fileID: 3104360152833878173, guid: f2929c3dec4229d4dbdbfcf07e0b3dc2, type: 3}
       propertyPath: accelerationCostText
       value: 
       objectReference: {fileID: 1265809140}
@@ -12400,6 +12404,18 @@ PrefabInstance:
       propertyPath: maxPassangerCostText
       value: 
       objectReference: {fileID: 654572736}
+    - target: {fileID: 3104360152833878173, guid: f2929c3dec4229d4dbdbfcf07e0b3dc2, type: 3}
+      propertyPath: maxSpeedCostIncrease
+      value: 700
+      objectReference: {fileID: 0}
+    - target: {fileID: 3104360152833878173, guid: f2929c3dec4229d4dbdbfcf07e0b3dc2, type: 3}
+      propertyPath: accelerationCostIncrease
+      value: 250
+      objectReference: {fileID: 0}
+    - target: {fileID: 3104360152833878173, guid: f2929c3dec4229d4dbdbfcf07e0b3dc2, type: 3}
+      propertyPath: maxPassangerCostIncrease
+      value: 500
+      objectReference: {fileID: 0}
     - target: {fileID: 8562949793329675096, guid: f2929c3dec4229d4dbdbfcf07e0b3dc2, type: 3}
       propertyPath: m_Name
       value: UpgradeManager
@@ -14543,11 +14559,11 @@ PrefabInstance:
     - target: {fileID: 889842926325123238, guid: 3c8095b599aeb244aa6091405e182f32, type: 3}
       propertyPath: currentCity
       value: 
-      objectReference: {fileID: 2106758136}
+      objectReference: {fileID: 1392763032}
     - target: {fileID: 889842926325123238, guid: 3c8095b599aeb244aa6091405e182f32, type: 3}
       propertyPath: destinationCity
       value: 
-      objectReference: {fileID: 1920226172}
+      objectReference: {fileID: 1106649832}
     - target: {fileID: 6788513607071723230, guid: 3c8095b599aeb244aa6091405e182f32, type: 3}
       propertyPath: m_Name
       value: CityManager

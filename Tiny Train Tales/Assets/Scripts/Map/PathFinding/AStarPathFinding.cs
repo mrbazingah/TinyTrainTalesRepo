@@ -1,16 +1,13 @@
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class AStarPathfinding : MonoBehaviour
 {
     public List<GameObject> FindPath(GameObject startCity, GameObject targetCity)
     {
-        // Convert start and target cities to nodes
         Node startNode = new Node(startCity);
         Node targetNode = new Node(targetCity);
 
-        // Initialize open and closed sets
         List<Node> openSet = new List<Node>();
         HashSet<Node> closedSet = new HashSet<Node>();
         openSet.Add(startNode);
@@ -76,7 +73,6 @@ public class AStarPathfinding : MonoBehaviour
 
     static int GetDistance(GameObject cityA, GameObject cityB)
     {
-        // Replace this with your own distance calculation method
         return Mathf.RoundToInt(Vector3.Distance(cityA.transform.position, cityB.transform.position));
     }
 

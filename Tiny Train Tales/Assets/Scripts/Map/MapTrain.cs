@@ -25,6 +25,8 @@ public class MapTrain : MonoBehaviour
             float yPos = PlayerPrefs.GetFloat("MapTrainPosY");
 
             transform.position = new Vector3(xPos, yPos, 0);
+
+            hasFoundCity = true;
         }
     }
 
@@ -37,7 +39,7 @@ public class MapTrain : MonoBehaviour
                 cityManager = FindObjectOfType<CityManager>();
             }
 
-            endCity = cityManager.GetDestinationCity();
+            endCity = cityManager.GetCurrentNextCity();
             transform.position = cityManager.GetCurrentCity().transform.position;
             hasFoundCity = true;
         }
