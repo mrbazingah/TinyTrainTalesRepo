@@ -44,6 +44,12 @@ public class CityManager : MonoBehaviour
         {
             string destinationCityString = PlayerPrefs.GetString("DestinationCity");
             destinationCity = GameObject.Find(destinationCityString);
+
+            if (currentCity == destinationCity)
+            {
+                PlayerPrefs.DeleteKey("DestinationCity");
+                GetNextCity();
+            }
             return;
         }
 

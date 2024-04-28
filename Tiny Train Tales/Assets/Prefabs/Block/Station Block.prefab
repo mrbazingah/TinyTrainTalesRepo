@@ -3550,7 +3550,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockPrefab: {fileID: 6283405741849151963}
-  stationBlockPrefab: {fileID: 0}
+  stationBlockPrefab: {fileID: 5940923491326126880, guid: 6197ff145fbefc040a604b86d5eefbab, type: 3}
   spawnOffset: 20
   canSpawn: 1
 --- !u!114 &8992118996823236403
@@ -3579,6 +3579,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stationCanvas: {fileID: 5644620401827810553}
+  blockPrefab: {fileID: 5940923491326126880, guid: 6197ff145fbefc040a604b86d5eefbab, type: 3}
   boardedPassangersText: {fileID: 6204411608859318840}
   deboardedPassangersText: {fileID: 240933622307920}
 --- !u!1 &6312094397054247926

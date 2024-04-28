@@ -45,6 +45,7 @@ public class GameManager : MonoBehaviour
     CameraMovement cam;
     UpgradeManager upgrades;
     CityManager cityManager;
+    MapTrain mapTrain;
 
     void Awake()
     {
@@ -52,6 +53,7 @@ public class GameManager : MonoBehaviour
         cam = FindObjectOfType<CameraMovement>();
         upgrades = FindObjectOfType<UpgradeManager>();
         cityManager = FindObjectOfType<CityManager>();
+        mapTrain = FindObjectOfType<MapTrain>();
     }
 
     void Start()
@@ -96,11 +98,21 @@ public class GameManager : MonoBehaviour
         {
             profitMultiplier = PlayerPrefs.GetFloat("Profit");
         }
-        if (PlayerPrefs.HasKey("Distance")|| PlayerPrefs.HasKey("RemainingDistance"))
+        if (PlayerPrefs.HasKey("Distance") && PlayerPrefs.HasKey("RemainingDistance"))
         {
             distance = PlayerPrefs.GetFloat("Distance");
             remainingDistance = PlayerPrefs.GetFloat("RemainingDistance");
             Destroy(station);
+        }
+        else if (PlayerPrefs.HasKey("Distance"))
+        {
+            float temp = PlayerPrefs.GetFloat("Distance");
+            if (temp != 0)
+            {
+                distance = temp;
+            }
+
+            remainingDistance = distance;
         }
         else
         {
@@ -382,6 +394,7 @@ public class GameManager : MonoBehaviour
     public void SaveAll()
     {
         train.SaveSpeed();
+        mapTrain.SaveMapTrainPos();
 
         PlayerPrefs.SetFloat("MaxPassangers", maxPassangers);
         PlayerPrefs.SetFloat("MaxSpeed", maxSpeed);

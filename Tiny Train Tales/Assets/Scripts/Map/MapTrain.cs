@@ -17,6 +17,17 @@ public class MapTrain : MonoBehaviour
         cityManager = FindObjectOfType<CityManager>();
     }
 
+    void Start()
+    {
+        if (PlayerPrefs.HasKey("MapTrainPosX"))
+        {
+            float xPos = PlayerPrefs.GetFloat("MapTrainPosX");
+            float yPos = PlayerPrefs.GetFloat("MapTrainPosY");
+
+            transform.position = new Vector3(xPos, yPos, 0);
+        }
+    }
+
     void FixedUpdate()
     {
         if (!hasFoundCity)
@@ -33,5 +44,11 @@ public class MapTrain : MonoBehaviour
 
         speed = train.GetVelocity() / speedOffset / 4f;
         transform.position = Vector3.MoveTowards(transform.position, endCity.transform.position, speed);
+    }
+
+    public void SaveMapTrainPos()
+    {
+        PlayerPrefs.SetFloat("MapTrainX", transform.position.x);
+        PlayerPrefs.SetFloat("MapTrainY", transform.position.y);
     }
 }

@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 public class Station : MonoBehaviour
 {
     [SerializeField] GameObject stationCanvas;
+    [SerializeField] GameObject blockPrefab;
     [SerializeField] TextMeshProUGUI boardedPassangersText;
     [SerializeField] TextMeshProUGUI deboardedPassangersText;
 
@@ -30,6 +31,12 @@ public class Station : MonoBehaviour
         if (hasArrived)
         {
             stationCanvas.SetActive(true);
+        }
+
+        if (gameObject.name == "Station Block(Clone)(Clone)")
+        {
+            Instantiate(blockPrefab, transform.position, Quaternion.identity);
+            Destroy(gameObject);
         }
     }
 
