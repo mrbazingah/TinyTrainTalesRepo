@@ -1,16 +1,25 @@
+using System.Collections.Generic;
+using System.IO;
 using TMPro;
 using UnityEngine;
 
 public class CityManager : MonoBehaviour
 {
     [SerializeField] GameObject currentCity;
+    [SerializeField] GameObject inBetweenCity;
     [SerializeField] GameObject destinationCity;
+    [SerializeField] List<GameObject> path;
+
+    int currentCityIndex;
+    int destinationDistance;
 
     GameManager gameManager;
+    AStarPathfinding pathfinding;
 
     void Awake()
     {
         gameManager = FindObjectOfType<GameManager>();   
+        pathfinding = FindObjectOfType<AStarPathfinding>();
     }
 
     void Start()
@@ -25,52 +34,69 @@ public class CityManager : MonoBehaviour
         {
             DontDestroyOnLoad(gameObject);
         }
+
+        if (PlayerPrefs.HasKey("CurrentCity") && PlayerPrefs.HasKey("DestinationCity"))
+        {
+
+        }
+
+        GameObject startCity = currentCity;
+        GameObject targetCity = destinationCity;
+
+        if (pathfinding != null && startCity != null && targetCity != null)
+        {
+            path = pathfinding.FindPath(startCity, targetCity);
+            if (path != null && path.Count > 0)
+            {
+                currentCityIndex = 0;
+                gameManager.UpdateCityTexts();
+            }
+            else
+            {
+                Debug.LogError("No valid path found!");
+            }
+        }
+        else
+        {
+            Debug.LogError("AStarPathfinding script or start/target cities are null.");
+        }
     }
 
     public void UpdateCityTexts(TextMeshProUGUI currentCityText, TextMeshProUGUI destinationCityText)
     {
-        currentCityText.text = currentCity.name;
-        destinationCityText.text = destinationCity.name;
+        currentCityText.text = path[currentCityIndex].name;
+        if (currentCityIndex < path.Count - 1)
+        {
+            destinationCityText.text = path[currentCityIndex + 1].name;
+        }
     }
 
     public void GetNextCity()
     {
-        if (PlayerPrefs.HasKey("CurrentCity"))
+        List<GameObject> path = pathfinding.FindPath(currentCity, destinationCity);
+        if (path != null && path.Count > 1)
         {
-            string currentCityString = PlayerPrefs.GetString("CurrentCity");
-            currentCity = GameObject.Find(currentCityString);
-        }
-        if (PlayerPrefs.HasKey("DestinationCity"))
-        {
-            string destinationCityString = PlayerPrefs.GetString("DestinationCity");
-            destinationCity = GameObject.Find(destinationCityString);
+            // Next city is the second city in the path
+            GameObject nextCity = path[0];
+            destinationCity = nextCity;
 
-            if (currentCity == destinationCity)
+            GameObject[] destinationNeighbors = destinationCity.GetComponent<City>().GetCityNeighbors();
+            for (int i = 0; i < destinationNeighbors.Length; i++)
             {
-                PlayerPrefs.DeleteKey("DestinationCity");
-                GetNextCity();
+                if (currentCity == destinationNeighbors[i])
+                {
+                    int[] distances = destinationCity.GetComponent<City>().GetCityNeighborsDistance();
+                    destinationDistance = distances[i];
+                    break;
+                }
             }
-            return;
+
+            gameManager.SetNewDestination(currentCity.name, destinationCity.name, destinationDistance); // Change the last parameter accordingly
         }
-
-        City currentCityScript = currentCity.GetComponent<City>();
-        GameObject[] currentCityNeighbors = currentCityScript.GetCityNeighbors();
-
-        int nextCity = (int)Random.Range(0, currentCityNeighbors.Length);
-        destinationCity = currentCityNeighbors[nextCity];
-
-        int[] distances = currentCityScript.GetCityNeighborsDistance();
-        int currentDistance = distances[nextCity];
-
-        Debug.Log(nextCity.ToString());
-
-        if (currentCity == destinationCity)
+        else
         {
-            GetNextCity();
-            return;
+            Debug.Log("No valid path found!");
         }
-
-        gameManager.SetNewDestination(currentCity.name,destinationCity.name, currentDistance);
     }
 
     public void SaveCurrentCity()

@@ -59,9 +59,14 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         cityManager.GetNextCity();
-        cityManager.UpdateCityTexts(currentCityText, destinationCityText);
+        
         PlayerPrefsSetUp();
         CloseMap();
+    }
+
+    public void UpdateCityTexts()
+    {
+        cityManager.UpdateCityTexts(currentCityText, destinationCityText);
     }
 
     void PlayerPrefsSetUp()
