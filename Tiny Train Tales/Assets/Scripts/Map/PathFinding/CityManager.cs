@@ -23,15 +23,10 @@ public class CityManager : MonoBehaviour
 
     void Start()
     {
-        int numberOfCityManagers = FindObjectsOfType<CityManager>().Length;
-        if (numberOfCityManagers > 1)
+        if (PlayerPrefs.HasKey("CurrentNextCity") && PlayerPrefs.HasKey("DestinationCity"))
         {
-            gameObject.SetActive(false);
-            Destroy(gameObject);
-        }
-        else
-        {
-            DontDestroyOnLoad(gameObject);
+            currentCity = GameObject.Find(PlayerPrefs.GetString("CurrentNextCity"));
+            destinationCity = GameObject.Find(PlayerPrefs.GetString("DestinationCity"));
         }
 
         GameObject startCity = currentCity;
@@ -53,37 +48,23 @@ public class CityManager : MonoBehaviour
         {
             Debug.LogError("AStarPathfinding script or start/target cities are null.");
         }
+
+        if (path.Count == 1)
+        {
+            currentNextCity = GameObject.Find(PlayerPrefs.GetString("DestinationCity"));
+        }
+
+        gameManager.UpdateCityTexts();
     }
 
     public void UpdateCityTexts(TextMeshProUGUI currentCityText, TextMeshProUGUI destinationCityText)
     {
-        pathfinding = FindObjectOfType<AStarPathfinding>();
-
-        if (path == null)
-        {
-            path = pathfinding.FindPath(currentCity, destinationCity);
-        }
-
-        currentCityText.text = path[currentCityIndex].name;
-        if (currentCityIndex < path.Count - 1)
-        {
-            destinationCityText.text = path[currentCityIndex + 1].name;
-        }
+        currentCityText.text = currentCity.name;
+        destinationCityText.text = currentNextCity.name;
     }
 
     public void GetNextCity()
     {
-        pathfinding = FindObjectOfType<AStarPathfinding>();
-
-        if (PlayerPrefs.HasKey("CurrentNextCity") && PlayerPrefs.HasKey("DestinationCity"))
-        {
-            currentCity = GameObject.Find(PlayerPrefs.GetString("CurrentNextCity"));
-            currentNextCity = GameObject.Find(PlayerPrefs.GetString("CurrentNextCity"));
-            destinationCity = GameObject.Find(PlayerPrefs.GetString("DestinationCity"));
-
-            currentCityIndex++;
-        }
-
         List<GameObject> path = pathfinding.FindPath(currentCity, destinationCity);
         if (path != null && path.Count > 1)
         {
@@ -101,12 +82,19 @@ public class CityManager : MonoBehaviour
                 }
             }
 
-            gameManager.UpdateCityTexts();
             gameManager.SetNewDestination(currentCity.name, currentNextCity.name, destinationDistance); 
         }
         else
         {
             pathfinding.FindPath(currentCity, destinationCity);
+        }
+    }
+
+    public void DestinationFinished()
+    {
+        if (path.Count == 1)
+        {
+            PlayerPrefs.SetString("FinishedDestination", "Has Finished");
         }
     }
 
