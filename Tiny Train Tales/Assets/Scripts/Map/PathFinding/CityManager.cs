@@ -23,10 +23,21 @@ public class CityManager : MonoBehaviour
 
     void Start()
     {
+        FindPathStart();
+    }
+
+    #region Path Finding
+    void FindPathStart()
+    {
         if (PlayerPrefs.HasKey("CurrentNextCity") && PlayerPrefs.HasKey("DestinationCity"))
         {
             currentCity = GameObject.Find(PlayerPrefs.GetString("CurrentNextCity"));
             destinationCity = GameObject.Find(PlayerPrefs.GetString("DestinationCity"));
+        }
+
+        if (destinationCity == currentCity && currentNextCity == null)
+        {
+            GetRandomCity();
         }
 
         GameObject startCity = currentCity;
@@ -55,6 +66,8 @@ public class CityManager : MonoBehaviour
         }
 
         gameManager.UpdateCityTexts();
+
+        
     }
 
     public void UpdateCityTexts(TextMeshProUGUI currentCityText, TextMeshProUGUI destinationCityText)
@@ -89,6 +102,16 @@ public class CityManager : MonoBehaviour
             pathfinding.FindPath(currentCity, destinationCity);
         }
     }
+    #endregion
+
+    #region Random City
+    public void GetRandomCity()
+    {
+        GameObject[] cityNeighbors = currentCity.GetComponent<City>().GetCityNeighbors();
+        int nextRandomCity = Random.Range(0, cityNeighbors.Length);
+
+        destinationCity = cityNeighbors[nextRandomCity];
+    }
 
     public void DestinationFinished()
     {
@@ -97,7 +120,9 @@ public class CityManager : MonoBehaviour
             PlayerPrefs.SetString("FinishedDestination", "Has Finished");
         }
     }
+    #endregion
 
+    #region Saves and Gets
     public void SaveCurrentCity()
     {
         PlayerPrefs.SetString("CurrentCity", currentCity.name);
@@ -127,4 +152,5 @@ public class CityManager : MonoBehaviour
     { 
         return destinationCity;
     }
+    #endregion
 }
