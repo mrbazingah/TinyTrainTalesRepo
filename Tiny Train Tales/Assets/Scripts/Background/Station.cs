@@ -54,7 +54,6 @@ public class Station : MonoBehaviour
 
         gameManager.DeleteSavedDestination();
         cityManager.SaveCurrentNextCity();
-        PlayerPrefs.DeleteKey("CurrentCity");
 
         string currentScene = SceneManager.GetActiveScene().name;
         SceneManager.LoadScene(currentScene);

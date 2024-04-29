@@ -8,7 +8,6 @@ public class CityManager : MonoBehaviour
     [SerializeField] GameObject currentNextCity;
     [SerializeField] GameObject destinationCity;
     [SerializeField] List<GameObject> path;
-    [SerializeField] int currentCityIndex;
 
     int destinationDistance;
 
@@ -23,51 +22,36 @@ public class CityManager : MonoBehaviour
 
     void Start()
     {
-        FindPathStart();
+        if (PlayerPrefs.GetInt("Finished") == 1)
+        {
+            GetRandomCity();
+        }
+        else
+        {
+            FindPathStart();
+        }
     }
 
     #region Path Finding
     void FindPathStart()
     {
-        if (PlayerPrefs.HasKey("CurrentNextCity") && PlayerPrefs.HasKey("DestinationCity"))
-        {
-            currentCity = GameObject.Find(PlayerPrefs.GetString("CurrentNextCity"));
-            destinationCity = GameObject.Find(PlayerPrefs.GetString("DestinationCity"));
-        }
-
-        if (destinationCity == currentCity && currentNextCity == null)
-        {
-            GetRandomCity();
-        }
-
         GameObject startCity = currentCity;
         GameObject targetCity = destinationCity;
 
         if (pathfinding != null && startCity != null && targetCity != null)
         {
             path = pathfinding.FindPath(startCity, targetCity);
-            if (path != null && path.Count > 0)
-            {
-                currentCityIndex = 0;
-            }
-            else
-            {
-                Debug.LogError("No valid path found!");
-            }
-        }
-        else
-        {
-            Debug.LogError("AStarPathfinding script or start/target cities are null.");
         }
 
         if (path.Count == 1)
         {
-            currentNextCity = GameObject.Find(PlayerPrefs.GetString("DestinationCity"));
+            currentNextCity = destinationCity;
+            PlayerPrefs.SetInt("Finished", 1);
         }
 
-        gameManager.UpdateCityTexts();
+        GetNextCity();
 
-        
+        gameManager.UpdateCityTexts();
     }
 
     public void UpdateCityTexts(TextMeshProUGUI currentCityText, TextMeshProUGUI destinationCityText)
@@ -107,18 +91,27 @@ public class CityManager : MonoBehaviour
     #region Random City
     public void GetRandomCity()
     {
-        GameObject[] cityNeighbors = currentCity.GetComponent<City>().GetCityNeighbors();
-        int nextRandomCity = Random.Range(0, cityNeighbors.Length);
-
-        destinationCity = cityNeighbors[nextRandomCity];
-    }
-
-    public void DestinationFinished()
-    {
-        if (path.Count == 1)
+        if (PlayerPrefs.HasKey("CurrentCity"))
         {
-            PlayerPrefs.SetString("FinishedDestination", "Has Finished");
+            string currentCityString = PlayerPrefs.GetString("CurrentCity");
+            currentCity = GameObject.Find(currentCityString);
         }
+        if (PlayerPrefs.HasKey("DestinationCity"))
+        {
+            string destinationCityString = PlayerPrefs.GetString("DestinationCity");
+            destinationCity = GameObject.Find(destinationCityString);
+            return;
+        }
+
+        City currentCityScript = currentCity.GetComponent<City>();
+        GameObject[] currentCityNeighbors = currentCityScript.GetCityNeighbors();
+
+        int nextCity = (int)Random.Range(0, currentCityNeighbors.Length);
+        destinationCity = currentCityNeighbors[nextCity];
+
+        currentNextCity = destinationCity;
+
+        FindPathStart();
     }
     #endregion
 

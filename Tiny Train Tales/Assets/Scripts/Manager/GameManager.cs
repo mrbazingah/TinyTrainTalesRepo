@@ -58,8 +58,6 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        cityManager.GetNextCity();
-        
         PlayerPrefsSetUp();
         CloseMap();
     }
@@ -392,6 +390,8 @@ public class GameManager : MonoBehaviour
         PlayerPrefs.DeleteKey("Distance");
         PlayerPrefs.DeleteKey("RemainingDistance");
         PlayerPrefs.DeleteKey("Speed");
+        PlayerPrefs.DeleteKey("CurrentCity");
+        PlayerPrefs.DeleteKey("DestinationCity");
     }
 
     public void SaveAll()
@@ -399,6 +399,7 @@ public class GameManager : MonoBehaviour
         train.SaveSpeed();
         mapTrain.SaveMapTrainPos();
         cityManager.SaveDestinationCity();
+        cityManager.SaveCurrentCity();
 
         PlayerPrefs.SetFloat("MaxPassangers", maxPassangers);
         PlayerPrefs.SetFloat("MaxSpeed", maxSpeed);
