@@ -8,8 +8,8 @@ public class CityManager : MonoBehaviour
     [SerializeField] GameObject currentNextCity;
     [SerializeField] GameObject destinationCity;
     [SerializeField] List<GameObject> path;
+    [SerializeField] int currentCityIndex;
 
-    int currentCityIndex;
     int destinationDistance;
 
     GameManager gameManager;
@@ -34,11 +34,6 @@ public class CityManager : MonoBehaviour
             DontDestroyOnLoad(gameObject);
         }
 
-        if (PlayerPrefs.HasKey("CurrentNextCity") && PlayerPrefs.HasKey("DestinationCity"))
-        {
-
-        }
-
         GameObject startCity = currentCity;
         GameObject targetCity = destinationCity;
 
@@ -48,7 +43,6 @@ public class CityManager : MonoBehaviour
             if (path != null && path.Count > 0)
             {
                 currentCityIndex = 0;
-                gameManager.UpdateCityTexts();
             }
             else
             {
@@ -63,6 +57,13 @@ public class CityManager : MonoBehaviour
 
     public void UpdateCityTexts(TextMeshProUGUI currentCityText, TextMeshProUGUI destinationCityText)
     {
+        pathfinding = FindObjectOfType<AStarPathfinding>();
+
+        if (path == null)
+        {
+            path = pathfinding.FindPath(currentCity, destinationCity);
+        }
+
         currentCityText.text = path[currentCityIndex].name;
         if (currentCityIndex < path.Count - 1)
         {
@@ -72,9 +73,15 @@ public class CityManager : MonoBehaviour
 
     public void GetNextCity()
     {
-        if (pathfinding == null)
+        pathfinding = FindObjectOfType<AStarPathfinding>();
+
+        if (PlayerPrefs.HasKey("CurrentNextCity") && PlayerPrefs.HasKey("DestinationCity"))
         {
-            pathfinding = FindObjectOfType<AStarPathfinding>();
+            currentCity = GameObject.Find(PlayerPrefs.GetString("CurrentNextCity"));
+            currentNextCity = GameObject.Find(PlayerPrefs.GetString("CurrentNextCity"));
+            destinationCity = GameObject.Find(PlayerPrefs.GetString("DestinationCity"));
+
+            currentCityIndex++;
         }
 
         List<GameObject> path = pathfinding.FindPath(currentCity, destinationCity);
@@ -94,12 +101,18 @@ public class CityManager : MonoBehaviour
                 }
             }
 
+            gameManager.UpdateCityTexts();
             gameManager.SetNewDestination(currentCity.name, currentNextCity.name, destinationDistance); 
         }
         else
         {
-            Debug.Log("No valid path found!");
+            pathfinding.FindPath(currentCity, destinationCity);
         }
+    }
+
+    public void SaveCurrentCity()
+    {
+        PlayerPrefs.SetString("CurrentCity", currentCity.name);
     }
 
     public void SaveCurrentNextCity()
