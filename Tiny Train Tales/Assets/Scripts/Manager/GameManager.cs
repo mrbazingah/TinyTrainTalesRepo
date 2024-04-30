@@ -390,8 +390,12 @@ public class GameManager : MonoBehaviour
         PlayerPrefs.DeleteKey("Distance");
         PlayerPrefs.DeleteKey("RemainingDistance");
         PlayerPrefs.DeleteKey("Speed");
-        PlayerPrefs.DeleteKey("CurrentCity");
-        PlayerPrefs.DeleteKey("DestinationCity");
+
+        if (PlayerPrefs.HasKey("Finished"))
+        {
+            PlayerPrefs.DeleteKey("CurrentCity");
+            PlayerPrefs.DeleteKey("DestinationCity");
+        }
     }
 
     public void SaveAll()

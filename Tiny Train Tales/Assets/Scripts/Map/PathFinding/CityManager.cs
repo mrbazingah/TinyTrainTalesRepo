@@ -35,6 +35,15 @@ public class CityManager : MonoBehaviour
     #region Path Finding
     void FindPathStart()
     {
+        if (PlayerPrefs.HasKey("CurrentNextCity") && PlayerPrefs.HasKey("DestinationCity"))
+        {
+            string currentCityString = PlayerPrefs.GetString("CurrentNextCity");
+            currentCity = GameObject.Find(currentCityString);
+
+            string destinationCityString = PlayerPrefs.GetString("DestinationCity");
+            destinationCity = GameObject.Find(destinationCityString);
+        }
+
         GameObject startCity = currentCity;
         GameObject targetCity = destinationCity;
 
@@ -65,8 +74,7 @@ public class CityManager : MonoBehaviour
         List<GameObject> path = pathfinding.FindPath(currentCity, destinationCity);
         if (path != null && path.Count > 1)
         {
-            GameObject nextCity = path[0];
-            currentNextCity = nextCity;
+            currentNextCity = path[0];
 
             GameObject[] destinationNeighbors = currentNextCity.GetComponent<City>().GetCityNeighbors();
             for (int i = 0; i < destinationNeighbors.Length; i++)
