@@ -19,26 +19,33 @@ public class Train : MonoBehaviour
         FindRigidbody();
     }
 
-    void Start()
-    {
-        if (PlayerPrefs.HasKey("Acceleration"))
-        {
-            acceleration = PlayerPrefs.GetFloat("Acceleration");
-        }
-        if (PlayerPrefs.HasKey("Speed"))
-        {
-            speed = PlayerPrefs.GetFloat("Speed");
-        }
-
-        StartTrain();
-    }
-
     public void FindRigidbody()
     {
         GameObject background = GameObject.FindGameObjectWithTag("Block");
         rigidbody = background.GetComponent<Rigidbody2D>();
     }
 
+    void Start()
+    {
+        LoadTrain();
+        StartTrain();
+    }
+
+    public void LoadTrain()
+    {
+        TrainData trainData = SaveSystem.LoadTrain();
+
+        acceleration = trainData.acceleration;
+        decelartion = trainData.decelartion;
+        speed = trainData.speed;
+    }
+
+    public void SaveTrain()
+    {
+        SaveSystem.SaveTrain(this);
+    }
+
+    #region Movement
     void FixedUpdate()
     {
         Movement();
@@ -123,6 +130,12 @@ public class Train : MonoBehaviour
         acceleration += amountAdded;
         PlayerPrefs.SetFloat("Acceleration", acceleration);
     }
+    #endregion
+
+    public float GetDecelartion()
+    {
+        return decelartion;
+    }
 
     public float GetAcceleration()
     {
@@ -132,10 +145,5 @@ public class Train : MonoBehaviour
     public float GetSpeed()
     {
         return speed;
-    }
-
-    public void SaveSpeed()
-    {
-        PlayerPrefs.SetFloat("Speed", speed);
     }
 }

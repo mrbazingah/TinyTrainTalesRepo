@@ -270,25 +270,13 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void HandleStationSpawn(bool b)
+    public void SetNewDestination(string oldcity, string newCity, float distanceToCity)
     {
-        stationHasSpawned = b;
-    }
+        destinationCityText.text = newCity;
+        currentCityText.text = oldcity;
 
-    public bool GetStationHasSpawned()
-    {
-        return stationHasSpawned;
-    }
-
-    public void HandleArrival(bool b)
-    {
-        hasArrivedAtStation = b;
-
-        SaveAll();
-        AddAndSubtractPassangers();
-        DeleteSavedDestination();
-        CloseMap();
-        upgrades.CloseUpgradeMenu();
+        distance = distanceToCity;
+        PlayerPrefs.SetFloat("Distance", distance);
     }
 
     public void AddAndSubtractPassangers()
@@ -310,16 +298,6 @@ public class GameManager : MonoBehaviour
         hasCalculatedPassangers = true;
     }
 
-    public bool GetHasArrivedAtStation()
-    {
-        return hasArrivedAtStation;
-    }
-
-    public bool GetDestinationReached()
-    {
-        return destinationReached;
-    }
-
     public void ResetDestination()
     {
         distance = 10;
@@ -333,14 +311,45 @@ public class GameManager : MonoBehaviour
         destinationReached = false;
     }
 
-
-    public void SetNewDestination(string oldcity, string newCity, float distanceToCity)
+    public void HandleArrival(bool b)
     {
-        destinationCityText.text = newCity;
-        currentCityText.text = oldcity;
+        hasArrivedAtStation = b;
 
-        distance = distanceToCity;
-        PlayerPrefs.SetFloat("Distance", distance);
+        SaveAll();
+        AddAndSubtractPassangers();
+        DeleteSavedDestination();
+        CloseMap();
+        upgrades.CloseUpgradeMenu();
+    }
+
+    public void HandleStationSpawn(bool b)
+    {
+        stationHasSpawned = b;
+    }
+
+    public bool GetStationHasSpawned()
+    {
+        return stationHasSpawned;
+    }
+
+    public bool GetHasArrivedAtStation()
+    {
+        return hasArrivedAtStation;
+    }
+
+    public bool GetDestinationReached()
+    {
+        return destinationReached;
+    }
+
+    public float GetDistance()
+    {
+        return distance;
+    }
+
+    public float GetRemainingDistance()
+    {
+        return remainingDistance;
     }
     #endregion
 
@@ -394,12 +403,11 @@ public class GameManager : MonoBehaviour
 
     public void SaveAll()
     {
-        train.SaveSpeed();
+        train.SaveTrain();
         mapTrain.SaveMapTrainPos();
 
         PlayerPrefs.SetFloat("MaxPassangers", maxPassangers);
         PlayerPrefs.SetFloat("MaxSpeed", maxSpeed);
-        PlayerPrefs.SetFloat("Coins", coins);
         PlayerPrefs.SetFloat("Coins", coins);
         PlayerPrefs.SetFloat("Passangers", passangers);
 
