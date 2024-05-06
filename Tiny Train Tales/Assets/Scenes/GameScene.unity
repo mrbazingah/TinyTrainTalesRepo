@@ -671,7 +671,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 214047083}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1041454285}
+        m_TargetAssemblyTypeName: CityMenu, Assembly-CSharp
+        m_MethodName: TravelButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &214047083
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4514,6 +4526,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56d2841a576718e469294650571106cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cityText: {fileID: 1888254963}
 --- !u!4 &1045896397 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3698300565624578289, guid: 9b797d9fd317e8b4a9944f5360d2e194, type: 3}
@@ -14559,7 +14572,7 @@ PrefabInstance:
     - target: {fileID: 889842926325123238, guid: 3c8095b599aeb244aa6091405e182f32, type: 3}
       propertyPath: currentCity
       value: 
-      objectReference: {fileID: 1392763032}
+      objectReference: {fileID: 2106758136}
     - target: {fileID: 889842926325123238, guid: 3c8095b599aeb244aa6091405e182f32, type: 3}
       propertyPath: destinationCity
       value: 

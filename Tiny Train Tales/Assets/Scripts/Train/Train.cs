@@ -21,8 +21,6 @@ public class Train : MonoBehaviour
 
     void Start()
     {
-        StartTrain();
-
         if (PlayerPrefs.HasKey("Acceleration"))
         {
             acceleration = PlayerPrefs.GetFloat("Acceleration");
@@ -31,6 +29,8 @@ public class Train : MonoBehaviour
         {
             speed = PlayerPrefs.GetFloat("Speed");
         }
+
+        StartTrain();
     }
 
     public void FindRigidbody()

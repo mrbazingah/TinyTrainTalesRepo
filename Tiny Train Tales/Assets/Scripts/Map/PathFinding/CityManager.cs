@@ -12,38 +12,40 @@ public class CityManager : MonoBehaviour
     int destinationDistance;
 
     GameManager gameManager;
-    AStarPathfinding pathfinding;
+    PathFinding pathfinding;
 
     void Awake()
     {
         gameManager = FindObjectOfType<GameManager>();   
-        pathfinding = FindObjectOfType<AStarPathfinding>();
+        pathfinding = FindObjectOfType<PathFinding>();
     }
 
     void Start()
     {
-        if (PlayerPrefs.GetInt("Finished") == 1)
+        if (PlayerPrefs.HasKey("CurrentNextCity"))
         {
-            GetRandomCity();
+            string currentCityString = PlayerPrefs.GetString("CurrentNextCity");
+            currentCity = GameObject.Find(currentCityString);
+        }
+        if (PlayerPrefs.HasKey("DestinationCity"))
+        {
+            string destinationCityString = PlayerPrefs.GetString("DestinationCity");
+            destinationCity = GameObject.Find(destinationCityString);
+        }
+
+        if (currentCity != null && destinationCity != null)
+        {
+            FindPathStart();
         }
         else
         {
-            FindPathStart();
+            GetRandomCity();
         }
     }
 
     #region Path Finding
     void FindPathStart()
     {
-        if (PlayerPrefs.HasKey("CurrentNextCity") && PlayerPrefs.HasKey("DestinationCity"))
-        {
-            string currentCityString = PlayerPrefs.GetString("CurrentNextCity");
-            currentCity = GameObject.Find(currentCityString);
-
-            string destinationCityString = PlayerPrefs.GetString("DestinationCity");
-            destinationCity = GameObject.Find(destinationCityString);
-        }
-
         GameObject startCity = currentCity;
         GameObject targetCity = destinationCity;
 
@@ -52,10 +54,10 @@ public class CityManager : MonoBehaviour
             path = pathfinding.FindPath(startCity, targetCity);
         }
 
-        if (path.Count == 1)
+        if (currentCity == destinationCity)
         {
-            currentNextCity = destinationCity;
-            PlayerPrefs.SetInt("Finished", 1);
+            GetRandomCity();
+            return;
         }
 
         GetNextCity();
@@ -71,72 +73,55 @@ public class CityManager : MonoBehaviour
 
     public void GetNextCity()
     {
-        List<GameObject> path = pathfinding.FindPath(currentCity, destinationCity);
-        if (path != null && path.Count > 1)
-        {
-            currentNextCity = path[0];
+        currentNextCity = path[0];
 
-            GameObject[] destinationNeighbors = currentNextCity.GetComponent<City>().GetCityNeighbors();
-            for (int i = 0; i < destinationNeighbors.Length; i++)
+        GameObject[] destinationNeighbors = currentNextCity.GetComponent<City>().GetCityNeighbors();
+        for (int i = 0; i < destinationNeighbors.Length; i++)
+        {
+            if (currentCity == destinationNeighbors[i])
             {
-                if (currentCity == destinationNeighbors[i])
-                {
-                    int[] distances = currentNextCity.GetComponent<City>().GetCityNeighborsDistance();
-                    destinationDistance = distances[i];
-                    break;
-                }
+                int[] distances = currentNextCity.GetComponent<City>().GetCityNeighborsDistance();
+                destinationDistance = distances[i];
+                break;
             }
+        }
 
-            gameManager.SetNewDestination(currentCity.name, currentNextCity.name, destinationDistance); 
-        }
-        else
-        {
-            pathfinding.FindPath(currentCity, destinationCity);
-        }
+        gameManager.SetNewDestination(currentCity.name, currentNextCity.name, destinationDistance);
+        pathfinding.FindPath(currentCity, destinationCity);
     }
     #endregion
 
     #region Random City
     public void GetRandomCity()
     {
-        if (PlayerPrefs.HasKey("CurrentCity"))
-        {
-            string currentCityString = PlayerPrefs.GetString("CurrentCity");
-            currentCity = GameObject.Find(currentCityString);
-        }
-        if (PlayerPrefs.HasKey("DestinationCity"))
-        {
-            string destinationCityString = PlayerPrefs.GetString("DestinationCity");
-            destinationCity = GameObject.Find(destinationCityString);
-            return;
-        }
-
         City currentCityScript = currentCity.GetComponent<City>();
         GameObject[] currentCityNeighbors = currentCityScript.GetCityNeighbors();
 
         int nextCity = (int)Random.Range(0, currentCityNeighbors.Length);
         destinationCity = currentCityNeighbors[nextCity];
 
-        currentNextCity = destinationCity;
-
         FindPathStart();
     }
     #endregion
 
     #region Saves and Gets
-    public void SaveCurrentCity()
+    public void SaveCity()
     {
-        PlayerPrefs.SetString("CurrentCity", currentCity.name);
-    }
-
-    public void SaveCurrentNextCity()
-    {
+        PlayerPrefs.SetString("DestinationCity", destinationCity.name);
         PlayerPrefs.SetString("CurrentNextCity", currentNextCity.name);
     }
 
-    public void SaveDestinationCity()
+    public void ResetPath()
     {
-        PlayerPrefs.SetString("DestinationCity", destinationCity.name);
+        if (path.Count == 1)
+        {
+            PlayerPrefs.DeleteKey("DestinationCity");
+        }
+    }
+
+    public void SetNewDestinationCity(GameObject newDestinationCity)
+    {
+        destinationCity = newDestinationCity;
     }
 
     public GameObject GetCurrentCity()

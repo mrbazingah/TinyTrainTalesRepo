@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AStarPathfinding : MonoBehaviour
+public class PathFinding : MonoBehaviour
 {
     public List<GameObject> FindPath(GameObject startCity, GameObject targetCity)
     {
