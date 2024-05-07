@@ -4,6 +4,7 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
+    #region Variables
     [Header("Coins")]
     [SerializeField] float coins;
     [SerializeField] TextMeshProUGUI cointext;
@@ -46,6 +47,8 @@ public class GameManager : MonoBehaviour
     UpgradeManager upgrades;
     CityManager cityManager;
     MapTrain mapTrain;
+    City city;
+    #endregion
 
     void Awake()
     {
@@ -54,6 +57,7 @@ public class GameManager : MonoBehaviour
         upgrades = FindObjectOfType<UpgradeManager>();
         cityManager = FindObjectOfType<CityManager>();
         mapTrain = FindObjectOfType<MapTrain>();
+        city = FindObjectOfType<City>();    
     }
 
     void Start()
@@ -247,6 +251,8 @@ public class GameManager : MonoBehaviour
     {
         map.transform.position = mapOffset;
         cam.LockMovement(false);
+
+        city.CloseMenu();
     }
     #endregion
 
@@ -399,6 +405,8 @@ public class GameManager : MonoBehaviour
         PlayerPrefs.DeleteKey("Distance");
         PlayerPrefs.DeleteKey("RemainingDistance");
         PlayerPrefs.DeleteKey("Speed");
+
+        Debug.Log("Deleted Keys");
     }
 
     public void SaveAll()

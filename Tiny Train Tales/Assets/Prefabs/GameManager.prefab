@@ -48,9 +48,9 @@ MonoBehaviour:
   cointext: {fileID: 0}
   profitMultiplier: 1
   autoCollectToggle: {fileID: 0}
-  maxSpeed: 80
+  maxSpeed: 500
   speedText: {fileID: 0}
-  distance: 397
+  distance: 10
   destinationReached: 0
   distanceSlider: {fileID: 0}
   remainingDistanceText: {fileID: 0}

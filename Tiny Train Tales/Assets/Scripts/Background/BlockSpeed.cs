@@ -13,11 +13,27 @@ public class BlockSpeed : MonoBehaviour
     {
         myRigidbody = GetComponent<Rigidbody2D>();
         train = FindObjectOfType<Train>();
+
+    }
+
+    void Start()
+    {
+        LoadSpeed();
+    }
+
+    void LoadSpeed()
+    {
+        if (PlayerPrefs.HasKey("Speed") && !train.GetHasLoaded())
+        {
+            float speed = PlayerPrefs.GetFloat("Speed");
+            myRigidbody.velocity = new Vector2(-speed * speedOffset, 0f);
+            train.LoadTrain();
+        }
     }
 
     void FixedUpdate()
     {
         speed = train.GetSpeed();
-        myRigidbody.velocity = new Vector2(-speed * Time.fixedDeltaTime * speedOffset, 0);
+        myRigidbody.velocity = new Vector2(-speed * Time.fixedDeltaTime * speedOffset, 0f);
     }
 }

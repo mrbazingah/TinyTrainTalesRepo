@@ -156,7 +156,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78251c5bc5defd0408591e95eb8ac687, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  acceleration: 60
+  acceleration: 450
   decelartion: 280
   speed: 0
   interval: 0.1
@@ -485,7 +485,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1216298657668379615, guid: fac21b0e7390ac84bb8c1b5f943e6c2a, type: 3}
       propertyPath: time
-      value: 24
+      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 1216298657668379615, guid: fac21b0e7390ac84bb8c1b5f943e6c2a, type: 3}
       propertyPath: carName
@@ -493,7 +493,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1216298657668379615, guid: fac21b0e7390ac84bb8c1b5f943e6c2a, type: 3}
       propertyPath: earning
-      value: 88
+      value: 90
       objectReference: {fileID: 0}
     - target: {fileID: 1216298657668379615, guid: fac21b0e7390ac84bb8c1b5f943e6c2a, type: 3}
       propertyPath: autoCollectDelay
@@ -576,7 +576,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1216298657668379615, guid: fac21b0e7390ac84bb8c1b5f943e6c2a, type: 3}
       propertyPath: time
-      value: 24
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 1216298657668379615, guid: fac21b0e7390ac84bb8c1b5f943e6c2a, type: 3}
       propertyPath: carName
@@ -592,7 +592,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1639146588245618903, guid: fac21b0e7390ac84bb8c1b5f943e6c2a, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -16.83
+      value: -12.38
       objectReference: {fileID: 0}
     - target: {fileID: 1639146588245618903, guid: fac21b0e7390ac84bb8c1b5f943e6c2a, type: 3}
       propertyPath: m_LocalPosition.y
@@ -780,7 +780,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3248940733230756335, guid: 22a704b3d521a4744b87ff14e50828ca, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -12.4
+      value: -16.79
       objectReference: {fileID: 0}
     - target: {fileID: 3248940733230756335, guid: 22a704b3d521a4744b87ff14e50828ca, type: 3}
       propertyPath: m_LocalPosition.y

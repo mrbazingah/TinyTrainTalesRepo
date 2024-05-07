@@ -8,6 +8,7 @@ public class Train : MonoBehaviour
     [SerializeField] float interval;
 
     bool isDriving;
+    bool hasLoaded;
 
     new Rigidbody2D rigidbody;
     GameManager gameManager;
@@ -27,22 +28,32 @@ public class Train : MonoBehaviour
 
     void Start()
     {
-        LoadTrain();
         StartTrain();
     }
 
     public void LoadTrain()
     {
-        TrainData trainData = SaveSystem.LoadTrain();
+        //TrainData trainData = SaveSystem.LoadTrain();
 
-        acceleration = trainData.acceleration;
-        decelartion = trainData.decelartion;
-        speed = trainData.speed;
+        //acceleration = trainData.acceleration;
+        //decelartion = trainData.decelartion;
+        //speed = trainData.speed;
+
+        speed = PlayerPrefs.GetFloat("Speed");
+
+        hasLoaded = true;
     }
 
     public void SaveTrain()
     {
-        SaveSystem.SaveTrain(this);
+        //SaveSystem.SaveTrain(this);
+
+        PlayerPrefs.SetFloat("Speed", speed);
+    }
+
+    public bool GetHasLoaded()
+    {
+        return hasLoaded;
     }
 
     #region Movement

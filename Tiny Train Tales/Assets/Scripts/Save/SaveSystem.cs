@@ -8,7 +8,7 @@ public static class SaveSystem
     public static void SaveTrain(Train train)
     {
         BinaryFormatter formatter = new BinaryFormatter();
-        string path = Application.persistentDataPath + "/player.lol";
+        string path = Application.persistentDataPath + "/train.skibidi";
         FileStream stream = new FileStream(path, FileMode.Create);
 
         TrainData trainData = new TrainData(train);
@@ -19,7 +19,7 @@ public static class SaveSystem
 
     public static TrainData LoadTrain()
     {
-        string path = Application.persistentDataPath + "/player.lol";
+        string path = Application.persistentDataPath + "/train.skibidi";
 
         if (File.Exists(path))
         {
@@ -43,7 +43,7 @@ public static class SaveSystem
     public static void SaveDistance(GameManager gameManager)
     {
         BinaryFormatter formatter = new BinaryFormatter();
-        string path = Application.persistentDataPath + "/player.lol";
+        string path = Application.persistentDataPath + "/distance.skibidi";
         FileStream stream = new FileStream(path, FileMode.Create);
 
         DistanceData distanceData = new DistanceData(gameManager);
@@ -54,7 +54,7 @@ public static class SaveSystem
 
     public static DistanceData LoadDistance()
     {
-        string path = Application.persistentDataPath + "/player.lol";
+        string path = Application.persistentDataPath + "/player.skibidi";
 
         if (File.Exists(path))
         {
