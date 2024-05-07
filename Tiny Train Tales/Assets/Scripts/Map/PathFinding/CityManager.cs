@@ -35,7 +35,7 @@ public class CityManager : MonoBehaviour
 
         if (currentCity != null && destinationCity != null)
         {
-            FindPathAtStart();
+            FindPathAtStart(currentCity.name, destinationCity.name);
         }
         else
         {
@@ -44,10 +44,10 @@ public class CityManager : MonoBehaviour
     }
 
     #region Path Finding
-    void FindPathAtStart()
+    public void FindPathAtStart(string startCityString, string targetCityString)
     {
-        GameObject startCity = currentCity;
-        GameObject targetCity = destinationCity;
+        GameObject startCity = GameObject.Find(startCityString);
+        GameObject targetCity = GameObject.Find(targetCityString);
 
         if (pathfinding != null && startCity != null && targetCity != null)
         {
@@ -100,7 +100,7 @@ public class CityManager : MonoBehaviour
         int nextCity = (int)Random.Range(0, currentCityNeighbors.Length);
         destinationCity = currentCityNeighbors[nextCity];
 
-        FindPathAtStart();
+        FindPathAtStart(currentCity.name, destinationCity.name);
     }
     #endregion
 

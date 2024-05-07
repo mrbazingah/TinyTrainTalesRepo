@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
@@ -25,10 +26,13 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject map;
     [SerializeField] Vector2 mapOffset;
     [SerializeField] Vector2 mapStartPos;
+    [Header("Settings")]
+    [SerializeField] GameObject settingsMenu;
     [Header("Station")]
     [SerializeField] GameObject station;
     [SerializeField] bool stationHasSpawned;
     [SerializeField] bool hasArrivedAtStation;
+    [SerializeField] float stationDestructDistance;
     [Header("Passangers")]
     [SerializeField] float maxPassangers;
     [SerializeField] float passangers;
@@ -40,6 +44,7 @@ public class GameManager : MonoBehaviour
     float remainingDistance;
     float velocity;
 
+    bool hasDeletedKeys;
     bool hasCalculatedPassangers;
 
     Train train;
@@ -63,7 +68,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         PlayerPrefsSetUp();
-        CloseMap();
+        CloseAllMenus();
     }
 
     public void UpdateCityTexts()
@@ -105,7 +110,7 @@ public class GameManager : MonoBehaviour
         {
             profitMultiplier = PlayerPrefs.GetFloat("Profit");
         }
-        if (PlayerPrefs.HasKey("Distance") && PlayerPrefs.HasKey("RemainingDistance"))
+        if (PlayerPrefs.HasKey("Distance") && PlayerPrefs.HasKey("RemainingDistance") && distance - remainingDistance >= stationDestructDistance)
         {
             distance = PlayerPrefs.GetFloat("Distance");
             remainingDistance = PlayerPrefs.GetFloat("RemainingDistance");
@@ -238,7 +243,13 @@ public class GameManager : MonoBehaviour
     }
     #endregion
 
-    #region Map
+    #region Menus
+    void CloseAllMenus()
+    {
+        CloseMap();
+        CloseSettings();
+    }
+
     public void OpenMap()
     {
         Vector2 camPos = cam.transform.position;
@@ -253,6 +264,16 @@ public class GameManager : MonoBehaviour
         cam.LockMovement(false);
 
         city.CloseMenu();
+    }
+
+    public void OpenSettings()
+    {
+        settingsMenu.SetActive(true);
+    }
+
+    public void CloseSettings()
+    {
+        settingsMenu.SetActive(false);
     }
     #endregion
 
@@ -402,11 +423,21 @@ public class GameManager : MonoBehaviour
 
     public void DeleteSavedDestination()
     {
+        if (hasDeletedKeys) { return; }
+
         PlayerPrefs.DeleteKey("Distance");
         PlayerPrefs.DeleteKey("RemainingDistance");
         PlayerPrefs.DeleteKey("Speed");
 
-        Debug.Log("Deleted Keys");
+        hasDeletedKeys = true;
+    }
+
+    public void DeleteAll()
+    {
+        PlayerPrefs.DeleteAll();
+
+        int currentScene = SceneManager.GetActiveScene().buildIndex;
+        SceneManager.LoadScene(currentScene);
     }
 
     public void SaveAll()
