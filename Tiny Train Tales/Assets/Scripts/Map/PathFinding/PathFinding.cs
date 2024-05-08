@@ -12,12 +12,23 @@ public class PathFinding : MonoBehaviour
         HashSet<Node> closedSet = new HashSet<Node>();
         openSet.Add(startNode);
 
+        int maxIterations = 5000;
+        int iterations = 0;
+
         while (openSet.Count > 0)
         {
+            if (iterations > maxIterations)
+            {
+                Debug.LogError("Maximum iterations reached. No path found.");
+                return null;
+            }
+
+            iterations++;
+
             Node currentNode = openSet[0];
             for (int i = 1; i < openSet.Count; i++)
             {
-                if (openSet[i].FCost < currentNode.FCost || openSet[i].FCost == currentNode.FCost && openSet[i].hCost < currentNode.hCost)
+                if (openSet[i].FCost < currentNode.FCost || (openSet[i].FCost == currentNode.FCost && openSet[i].hCost < currentNode.hCost))
                 {
                     currentNode = openSet[i];
                 }
@@ -54,6 +65,7 @@ public class PathFinding : MonoBehaviour
             }
         }
 
+        Debug.LogError("No path found.");
         return null;
     }
 

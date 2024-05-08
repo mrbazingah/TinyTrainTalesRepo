@@ -15955,6 +15955,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: CityManager
       objectReference: {fileID: 0}
+    - target: {fileID: 6788513607071723230, guid: 3c8095b599aeb244aa6091405e182f32, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7791656347417095510, guid: 3c8095b599aeb244aa6091405e182f32, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -23300,6 +23304,10 @@ PrefabInstance:
     - target: {fileID: 3450606250641564517, guid: d7f2d7e6643153744bbdc766918d5eaf, type: 3}
       propertyPath: m_Name
       value: GameManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 3450606250641564517, guid: d7f2d7e6643153744bbdc766918d5eaf, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6013072587387181096, guid: d7f2d7e6643153744bbdc766918d5eaf, type: 3}
       propertyPath: map
