@@ -255,7 +255,7 @@ public class GameManager : MonoBehaviour
     void CloseAllMenus()
     {
         CloseMap();
-        CloseSettings();
+        CloseSettings(settingsMenu);
         upgrades.CloseUpgradeMenu();
     }
 
@@ -275,13 +275,13 @@ public class GameManager : MonoBehaviour
         city.CloseMenu();
     }
 
-    public void OpenSettings()
+    public void OpenSettings(GameObject settingsMenu)
     {
         settingsMenu.SetActive(true);
         cam.LockMovement(true);
     }
 
-    public void CloseSettings()
+    public void CloseSettings(GameObject settingsMenu)
     {
         settingsMenu.SetActive(false);
         cam.LockMovement(false);

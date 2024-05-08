@@ -76,6 +76,11 @@ public class CityManager : MonoBehaviour
 
     public void GetNextCity()
     {
+        if (path == null)
+        {
+            GetRandomCity();
+        }
+
         currentNextCity = path[0];
 
         GameObject[] destinationNeighbors = currentNextCity.GetComponent<City>().GetCityNeighbors();
