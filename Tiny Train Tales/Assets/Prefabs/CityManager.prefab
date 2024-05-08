@@ -45,4 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentCity: {fileID: 0}
+  currentNextCity: {fileID: 0}
   destinationCity: {fileID: 0}
+  pathColor: {r: 0.13394447, g: 0.6603774, b: 0.1909874, a: 1}
+  path: []

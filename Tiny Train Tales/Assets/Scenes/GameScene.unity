@@ -9549,7 +9549,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 28.546}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.07746183, y: 0.5043344}
+  m_AnchoredPosition: {x: 1047, y: 163}
   m_SizeDelta: {x: 160, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1962298357
@@ -15932,32 +15932,12 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 928507570}
     - target: {fileID: 889842926325123238, guid: 3c8095b599aeb244aa6091405e182f32, type: 3}
-      propertyPath: pathColor.a
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 889842926325123238, guid: 3c8095b599aeb244aa6091405e182f32, type: 3}
-      propertyPath: pathColor.b
-      value: 0.1909874
-      objectReference: {fileID: 0}
-    - target: {fileID: 889842926325123238, guid: 3c8095b599aeb244aa6091405e182f32, type: 3}
-      propertyPath: pathColor.g
-      value: 0.6603774
-      objectReference: {fileID: 0}
-    - target: {fileID: 889842926325123238, guid: 3c8095b599aeb244aa6091405e182f32, type: 3}
-      propertyPath: pathColor.r
-      value: 0.13394447
-      objectReference: {fileID: 0}
-    - target: {fileID: 889842926325123238, guid: 3c8095b599aeb244aa6091405e182f32, type: 3}
       propertyPath: destinationCity
       value: 
       objectReference: {fileID: 2105587783}
     - target: {fileID: 6788513607071723230, guid: 3c8095b599aeb244aa6091405e182f32, type: 3}
       propertyPath: m_Name
       value: CityManager
-      objectReference: {fileID: 0}
-    - target: {fileID: 6788513607071723230, guid: 3c8095b599aeb244aa6091405e182f32, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7791656347417095510, guid: 3c8095b599aeb244aa6091405e182f32, type: 3}
       propertyPath: m_LocalPosition.x
