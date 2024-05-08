@@ -23,9 +23,10 @@ public class BlockSpeed : MonoBehaviour
 
     void LoadSpeed()
     {
-        if (PlayerPrefs.HasKey("Speed") && !train.GetHasLoaded())
+        if (!train.GetHasLoaded())
         {
-            float speed = PlayerPrefs.GetFloat("Speed");
+            TrainData trainData = SaveSystem.LoadTrain();
+            speed = trainData.speed;
             myRigidbody.velocity = new Vector2(-speed * speedOffset, 0f);
             train.LoadTrain();
         }

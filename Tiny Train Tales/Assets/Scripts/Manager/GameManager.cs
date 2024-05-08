@@ -110,11 +110,19 @@ public class GameManager : MonoBehaviour
         {
             profitMultiplier = PlayerPrefs.GetFloat("Profit");
         }
-        if (PlayerPrefs.HasKey("Distance") && PlayerPrefs.HasKey("RemainingDistance") && distance - remainingDistance >= stationDestructDistance)
+        if (PlayerPrefs.HasKey("Distance") && PlayerPrefs.HasKey("RemainingDistance"))
         {
             distance = PlayerPrefs.GetFloat("Distance");
             remainingDistance = PlayerPrefs.GetFloat("RemainingDistance");
-            Destroy(station);
+
+            if (distance - remainingDistance > stationDestructDistance)
+            {
+                Destroy(station);
+            }
+            else
+            {
+                Destroy(station, 5f);
+            }
         }
         else if (PlayerPrefs.HasKey("Distance"))
         {
@@ -248,6 +256,7 @@ public class GameManager : MonoBehaviour
     {
         CloseMap();
         CloseSettings();
+        upgrades.CloseUpgradeMenu();
     }
 
     public void OpenMap()
@@ -269,11 +278,13 @@ public class GameManager : MonoBehaviour
     public void OpenSettings()
     {
         settingsMenu.SetActive(true);
+        cam.LockMovement(true);
     }
 
     public void CloseSettings()
     {
         settingsMenu.SetActive(false);
+        cam.LockMovement(false);
     }
     #endregion
 
@@ -345,8 +356,7 @@ public class GameManager : MonoBehaviour
         SaveAll();
         AddAndSubtractPassangers();
         DeleteSavedDestination();
-        CloseMap();
-        upgrades.CloseUpgradeMenu();
+        CloseAllMenus();
     }
 
     public void HandleStationSpawn(bool b)

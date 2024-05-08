@@ -48,7 +48,7 @@ MonoBehaviour:
   cointext: {fileID: 0}
   profitMultiplier: 1
   autoCollectToggle: {fileID: 0}
-  maxSpeed: 500
+  maxSpeed: 80
   speedText: {fileID: 0}
   distance: 10
   destinationReached: 0
@@ -59,9 +59,11 @@ MonoBehaviour:
   map: {fileID: 0}
   mapOffset: {x: -25.5, y: 25.4}
   mapStartPos: {x: 0.55, y: -0.65}
+  settingsMenu: {fileID: 0}
   station: {fileID: 0}
   stationHasSpawned: 0
   hasArrivedAtStation: 0
+  stationDestructDistance: 4
   maxPassangers: 20
   passangers: 0
   passangerText: {fileID: 0}

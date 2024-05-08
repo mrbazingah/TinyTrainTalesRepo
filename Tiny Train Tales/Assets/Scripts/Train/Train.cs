@@ -33,24 +33,16 @@ public class Train : MonoBehaviour
 
     public void LoadTrain()
     {
-        //TrainData trainData = SaveSystem.LoadTrain();
-
-        //acceleration = trainData.acceleration;
-        //decelartion = trainData.decelartion;
-        //speed = trainData.speed;
-
-        speed = PlayerPrefs.GetFloat("Speed");
-        acceleration = PlayerPrefs.GetFloat("Acceleration");
+        TrainData trainData = SaveSystem.LoadTrain();
+        acceleration = trainData.acceleration;
+        speed = trainData.speed;
 
         hasLoaded = true;
     }
 
     public void SaveTrain()
     {
-        //SaveSystem.SaveTrain(this);
-
-        PlayerPrefs.SetFloat("Speed", speed);
-        PlayerPrefs.SetFloat("Acceleration", acceleration);
+        SaveSystem.SaveTrain(this);
     }
 
     public bool GetHasLoaded()

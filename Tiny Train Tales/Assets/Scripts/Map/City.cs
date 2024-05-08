@@ -6,6 +6,7 @@ public class City : MonoBehaviour
     [SerializeField] GameObject cityMenu;
     [SerializeField] GameObject[] cityNeighbors;
     [SerializeField] int[] cityNeighborsDistances;
+    [SerializeField] GameObject[] neighborLines;
 
     string cityName;
 
@@ -59,5 +60,10 @@ public class City : MonoBehaviour
     public int[] GetCityNeighborsDistance()
     {
         return cityNeighborsDistances;
+    }
+
+    public GameObject[] GetCityNeighborLines()
+    {
+        return neighborLines;
     }
 }

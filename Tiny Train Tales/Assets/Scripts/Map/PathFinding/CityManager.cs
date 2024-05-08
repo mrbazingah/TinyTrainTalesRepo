@@ -7,9 +7,13 @@ public class CityManager : MonoBehaviour
     [SerializeField] GameObject currentCity;
     [SerializeField] GameObject currentNextCity;
     [SerializeField] GameObject destinationCity;
+    [Space]
+    [SerializeField] Color pathColor;
+    [Space]
     [SerializeField] List<GameObject> path;
 
     int destinationDistance;
+    bool hasColored;
 
     GameManager gameManager;
     PathFinding pathfinding;
@@ -61,7 +65,6 @@ public class CityManager : MonoBehaviour
         }
 
         GetNextCity();
-
         gameManager.UpdateCityTexts();
     }
 
@@ -88,8 +91,34 @@ public class CityManager : MonoBehaviour
 
         gameManager.SetNewDestination(currentCity.name, currentNextCity.name, destinationDistance);
         pathfinding.FindPath(currentCity, destinationCity);
+
+        
     }
     #endregion
+
+    void Update()
+    {
+        if (hasColored) { return; }
+
+        for (int i = 0; i < path.Count - 1; ++i)
+        {
+            GameObject currentCity = path[i];
+            GameObject nextCity = path[i + 1];
+
+            GameObject[] neighbors = currentCity.GetComponent<City>().GetCityNeighbors();
+            GameObject[] cityNeighborLines = currentCity.GetComponent<City>().GetCityNeighborLines();
+            for (int j = 0; j < cityNeighborLines.Length; j++)
+            {
+                if (neighbors[j] == nextCity)
+                {
+                    int lineIndex = j;
+                    cityNeighborLines[lineIndex].GetComponent<SpriteRenderer>().color = pathColor;
+                }
+            }
+
+            hasColored = true;
+        }
+    }
 
     #region Random City
     public void GetRandomCity()
