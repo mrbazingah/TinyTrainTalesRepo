@@ -355,7 +355,7 @@ public class GameManager : MonoBehaviour
 
         SaveAll();
         AddAndSubtractPassangers();
-        DeleteSavedDestination();
+        DeleteSavedDestination(false);
         CloseAllMenus();
     }
 
@@ -423,7 +423,7 @@ public class GameManager : MonoBehaviour
     {
         if (remainingDistance <= 0)
         {
-            DeleteSavedDestination();
+            DeleteSavedDestination(false);
             return;
         }
 
@@ -431,13 +431,19 @@ public class GameManager : MonoBehaviour
         PlayerPrefs.SetFloat("RemainingDistance", remainingDistance);
     }
 
-    public void DeleteSavedDestination()
+    public void DeleteSavedDestination(bool isButton)
     {
         if (hasDeletedKeys) { return; }
 
         PlayerPrefs.DeleteKey("Distance");
         PlayerPrefs.DeleteKey("RemainingDistance");
         PlayerPrefs.DeleteKey("Speed");
+
+        if (isButton)
+        {
+            int currentScene = SceneManager.GetActiveScene().buildIndex;
+            SceneManager.LoadScene(currentScene);
+        }
 
         hasDeletedKeys = true;
     }

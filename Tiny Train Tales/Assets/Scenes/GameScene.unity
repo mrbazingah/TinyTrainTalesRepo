@@ -2910,7 +2910,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: -25.5, y: 25.4}
+  m_AnchoredPosition: {x: -0.65, y: -0.65}
   m_SizeDelta: {x: 800, y: 450.13626}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &631040828
@@ -5640,7 +5640,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Reset Game
+  m_text: Reset Journey
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: a40d25adf0a91cc4dbd5f57e6b4f5c18, type: 2}
   m_sharedMaterial: {fileID: -191329156657266487, guid: a40d25adf0a91cc4dbd5f57e6b4f5c18, type: 2}
@@ -6233,7 +6233,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1315071603
 RectTransform:
   m_ObjectHideFlags: 0
@@ -7759,15 +7759,15 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 7698767031593942037}
         m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
-        m_MethodName: DeleteAll
-        m_Mode: 1
+        m_MethodName: DeleteSavedDestination
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
-          m_BoolArgument: 0
+          m_BoolArgument: 1
         m_CallState: 2
 --- !u!114 &1620842090
 MonoBehaviour:
@@ -15931,6 +15931,10 @@ PrefabInstance:
       propertyPath: currentCity
       value: 
       objectReference: {fileID: 928507570}
+    - target: {fileID: 889842926325123238, guid: 3c8095b599aeb244aa6091405e182f32, type: 3}
+      propertyPath: pathTextParent
+      value: 
+      objectReference: {fileID: 631040826}
     - target: {fileID: 889842926325123238, guid: 3c8095b599aeb244aa6091405e182f32, type: 3}
       propertyPath: destinationCity
       value: 

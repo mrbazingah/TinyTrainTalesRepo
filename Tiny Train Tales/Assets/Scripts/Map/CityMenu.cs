@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class CityMenu : MonoBehaviour
 {
@@ -33,5 +34,8 @@ public class CityMenu : MonoBehaviour
     {
         GameObject newDestinationCity = GameObject.Find(cityText.text);
         cityManager.SetNewDestinationCity(newDestinationCity);
+
+        int currentScene = SceneManager.GetActiveScene().buildIndex;
+        SceneManager.LoadScene(currentScene);
     }
 }

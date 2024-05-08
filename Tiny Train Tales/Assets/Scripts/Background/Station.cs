@@ -52,7 +52,7 @@ public class Station : MonoBehaviour
         float camPosX = cam.transform.position.x;
         PlayerPrefs.SetFloat("CamPos", camPosX);
 
-        gameManager.DeleteSavedDestination();
+        gameManager.DeleteSavedDestination(false);
         cityManager.SaveCity();
         cityManager.ResetPath();
 
