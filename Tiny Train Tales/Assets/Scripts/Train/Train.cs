@@ -44,6 +44,8 @@ public class Train : MonoBehaviour
             speed = PlayerPrefs.GetFloat("Speed");
             acceleration = PlayerPrefs.GetFloat("Acceleration");
         }
+
+        hasLoaded = true;
     }
 
     public void SaveTrain()

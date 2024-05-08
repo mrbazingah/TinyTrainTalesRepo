@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CityManager : MonoBehaviour
 {
@@ -115,7 +116,9 @@ public class CityManager : MonoBehaviour
 
         FindPathAtStart(currentCity.name, destinationCity.name);
     }
+    #endregion
 
+    #region Visual Setup
     void CreatePathText()
     {
         GameObject previousText = null;
@@ -139,6 +142,33 @@ public class CityManager : MonoBehaviour
 
             TextMeshProUGUI spawnedText = spawnedTextObject.GetComponent<TextMeshProUGUI>();
             spawnedText.text = path[i].name;
+
+            ColorLines(i);
+        }
+    }
+
+    void ColorLines(int i)
+    {
+        City cityScript = path[i].GetComponent<City>();
+
+        GameObject[] cityNeighbors = cityScript.GetCityNeighbors();
+        GameObject[] cityNeighborLines = cityScript.GetCityNeighborLines();
+        
+        for (int j = 0; j < cityNeighbors.Length; j++)
+        {
+            if (path[i + 1] != null)
+            {
+                if (cityNeighbors[j] == path[i + 1])
+                {
+                    cityNeighborLines[j].GetComponent<Image>().color = pathColor;
+                    Debug.Log("Painted Path");
+                }
+            }
+
+            if (currentCity == cityNeighbors[j])
+            {
+                cityNeighborLines[j].GetComponent<Image>().color = pathColor;
+            }
         }
     }
     #endregion
