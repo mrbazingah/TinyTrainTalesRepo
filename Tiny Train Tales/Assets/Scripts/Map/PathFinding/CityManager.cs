@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class CityManager : MonoBehaviour
 {
     [SerializeField] GameObject currentCity;
-    [SerializeField] GameObject currentNextCity;
+    [SerializeField] GameObject nextCity;
     [SerializeField] GameObject destinationCity;
     [Space]
     [SerializeField] Color pathColor;
@@ -18,7 +18,6 @@ public class CityManager : MonoBehaviour
     [SerializeField] List<GameObject> path;
 
     int destinationDistance;
-    bool hasColored;
 
     GameManager gameManager;
     PathFinding pathfinding;
@@ -69,37 +68,37 @@ public class CityManager : MonoBehaviour
             return;
         }
 
-        GetNextCity();
+        GetNextCityInPath();
         gameManager.UpdateCityTexts();
     }
 
     public void UpdateCityTexts(TextMeshProUGUI currentCityText, TextMeshProUGUI destinationCityText)
     {
         currentCityText.text = currentCity.name;
-        destinationCityText.text = currentNextCity.name;
+        destinationCityText.text = nextCity.name;
     }
 
-    public void GetNextCity()
+    void GetNextCityInPath()
     {
         if (path == null)
         {
             GetRandomCity();
         }
 
-        currentNextCity = path[0];
+        nextCity = path[0];
 
-        GameObject[] destinationNeighbors = currentNextCity.GetComponent<City>().GetCityNeighbors();
+        GameObject[] destinationNeighbors = nextCity.GetComponent<City>().GetCityNeighbors();
         for (int i = 0; i < destinationNeighbors.Length; i++)
         {
             if (currentCity == destinationNeighbors[i])
             {
-                int[] distances = currentNextCity.GetComponent<City>().GetCityNeighborsDistance();
+                int[] distances = nextCity.GetComponent<City>().GetCityNeighborsDistance();
                 destinationDistance = distances[i];
                 break;
             }
         }
 
-        gameManager.SetNewDestination(currentCity.name, currentNextCity.name, destinationDistance);
+        gameManager.SetNewDestination(currentCity.name, nextCity.name, destinationDistance);
         CreatePathText();
         pathfinding.FindPath(currentCity, destinationCity);
     }
@@ -115,6 +114,7 @@ public class CityManager : MonoBehaviour
         destinationCity = currentCityNeighbors[nextCity];
 
         FindPathAtStart(currentCity.name, destinationCity.name);
+        CreatePathText();
     }
     #endregion
 
@@ -143,6 +143,7 @@ public class CityManager : MonoBehaviour
             TextMeshProUGUI spawnedText = spawnedTextObject.GetComponent<TextMeshProUGUI>();
             spawnedText.text = path[i].name;
 
+            ColorCities(i);
             ColorLines(i);
         }
     }
@@ -161,7 +162,6 @@ public class CityManager : MonoBehaviour
                 if (cityNeighbors[j] == path[i + 1])
                 {
                     cityNeighborLines[j].GetComponent<Image>().color = pathColor;
-                    Debug.Log("Painted Path");
                 }
             }
 
@@ -171,13 +171,18 @@ public class CityManager : MonoBehaviour
             }
         }
     }
+
+    void ColorCities(int i)
+    {
+        path[i].GetComponent<Image>().color = pathColor;
+    }
     #endregion
 
     #region Saves and Gets
     public void SaveCity()
     {
         PlayerPrefs.SetString("DestinationCity", destinationCity.name);
-        PlayerPrefs.SetString("CurrentNextCity", currentNextCity.name);
+        PlayerPrefs.SetString("CurrentNextCity", nextCity.name);
     }
 
     public void ResetPath()
@@ -199,9 +204,9 @@ public class CityManager : MonoBehaviour
         return currentCity;
     }
 
-    public GameObject GetCurrentNextCity()
+    public GameObject GetNextCity()
     {
-        return currentNextCity;
+        return nextCity;
     }
 
     public GameObject GetDestinationCity() 

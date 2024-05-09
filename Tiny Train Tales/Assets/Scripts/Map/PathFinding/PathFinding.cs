@@ -19,7 +19,6 @@ public class PathFinding : MonoBehaviour
         {
             if (iterations > maxIterations)
             {
-                Debug.LogError("Maximum iterations reached. No path found.");
                 return null;
             }
 
@@ -65,7 +64,6 @@ public class PathFinding : MonoBehaviour
             }
         }
 
-        Debug.LogError("No path found.");
         return null;
     }
 
@@ -112,7 +110,6 @@ public class PathFinding : MonoBehaviour
             }
             else
             {
-                Debug.LogError("City script not found on GameObject: " + City.name);
                 return new GameObject[0];
             }
         }

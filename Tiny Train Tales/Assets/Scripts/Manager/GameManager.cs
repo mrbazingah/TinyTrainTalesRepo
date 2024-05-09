@@ -51,7 +51,7 @@ public class GameManager : MonoBehaviour
     CameraMovement cam;
     UpgradeManager upgrades;
     CityManager cityManager;
-    MapTrain mapTrain;
+    MapProgress mapTrain;
     City city;
     #endregion
 
@@ -61,7 +61,7 @@ public class GameManager : MonoBehaviour
         cam = FindObjectOfType<CameraMovement>();
         upgrades = FindObjectOfType<UpgradeManager>();
         cityManager = FindObjectOfType<CityManager>();
-        mapTrain = FindObjectOfType<MapTrain>();
+        mapTrain = FindObjectOfType<MapProgress>();
         city = FindObjectOfType<City>();    
     }
 
@@ -459,7 +459,6 @@ public class GameManager : MonoBehaviour
     public void SaveAll()
     {
         train.SaveTrain();
-        mapTrain.SaveMapTrainPos();
 
         PlayerPrefs.SetFloat("MaxPassangers", maxPassangers);
         PlayerPrefs.SetFloat("MaxSpeed", maxSpeed);
