@@ -18,6 +18,7 @@ public class CityManager : MonoBehaviour
     [SerializeField] List<GameObject> path;
 
     int destinationDistance;
+    GameObject currentCityLine;
 
     GameManager gameManager;
     PathFinding pathfinding;
@@ -115,6 +116,8 @@ public class CityManager : MonoBehaviour
 
         FindPathAtStart(currentCity.name, destinationCity.name);
         CreatePathText();
+
+        GameObject[] nextCityNeighbors = currentCityNeighbors[nextCity].GetComponent<City>().GetCityNeighbors();
     }
     #endregion
 
@@ -157,7 +160,7 @@ public class CityManager : MonoBehaviour
         
         for (int j = 0; j < cityNeighbors.Length; j++)
         {
-            if (path[i + 1] != null)
+            if (i != path.Count - 1)
             {
                 if (cityNeighbors[j] == path[i + 1])
                 {
@@ -167,6 +170,7 @@ public class CityManager : MonoBehaviour
 
             if (currentCity == cityNeighbors[j])
             {
+                currentCityLine = cityNeighborLines[j];
                 cityNeighborLines[j].GetComponent<Image>().color = pathColor;
             }
         }
@@ -183,6 +187,12 @@ public class CityManager : MonoBehaviour
     {
         PlayerPrefs.SetString("DestinationCity", destinationCity.name);
         PlayerPrefs.SetString("CurrentNextCity", nextCity.name);
+    }
+
+    public void SaveCityOnQuit()
+    {
+        PlayerPrefs.SetString("DestinationCity", destinationCity.name);
+        PlayerPrefs.SetString("CurrentNextCity", currentCity.name);
     }
 
     public void ResetPath()
@@ -212,6 +222,11 @@ public class CityManager : MonoBehaviour
     public GameObject GetDestinationCity() 
     { 
         return destinationCity;
+    }
+
+    public GameObject GetCurrentCityLine()
+    {
+        return currentCityLine;
     }
     #endregion
 }
