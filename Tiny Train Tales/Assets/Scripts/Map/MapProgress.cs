@@ -1,25 +1,27 @@
-using System.Xml.Serialization;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class MapProgress : MonoBehaviour
 {
     [SerializeField] GameObject handle;
+    [SerializeField] GameObject trainImage;
 
-    bool hasSetupHandle;
+    bool hasSetupSlider;
     GameObject line;
 
     CityManager cityManager;
     GameManager gameManager;
     Slider progressSlider;
     RectTransform myRectTransform;
+    RectTransform handleRectTransform;
 
     void Awake()
     {
         cityManager = FindObjectOfType<CityManager>();
         gameManager = FindObjectOfType<GameManager>();
         progressSlider = GetComponent<Slider>();
-        myRectTransform = GetComponent<RectTransform>();    
+        myRectTransform = GetComponent<RectTransform>();
+        handleRectTransform = handle.GetComponent<RectTransform>();
     }
 
     void Update()
@@ -40,6 +42,8 @@ public class MapProgress : MonoBehaviour
 
     void SetUpSlider()
     {
+        if (hasSetupSlider) { return; }
+
         if (line == null)
         {
             line = cityManager.GetCurrentCityLine();
@@ -49,21 +53,24 @@ public class MapProgress : MonoBehaviour
         transform.position = line.transform.position;
 
         myRectTransform.sizeDelta = new Vector2(line.GetComponent<RectTransform>().sizeDelta.x + 2, line.GetComponent<RectTransform>().sizeDelta.y + 2);
-        transform.localRotation = Quaternion.Euler(0, 0, line.transform.localRotation.z * 133.7f);
+
+        RectTransform lineRectTransform = line.GetComponent<RectTransform>();
+        if (cityManager.GetCurrentCity().transform.position.x < cityManager.GetNextCity().transform.position.x && cityManager.GetCurrentCity().transform.position.y > cityManager.GetNextCity().transform.position.y)
+        {
+            myRectTransform.rotation = Quaternion.Euler(0, 0, lineRectTransform.eulerAngles.z - 180);
+        }
+        else
+        {
+            myRectTransform.rotation = Quaternion.Euler(0, 0, lineRectTransform.eulerAngles.z);
+            trainImage.transform.rotation = Quaternion.Euler(0, 0, -trainImage.GetComponent<RectTransform>().eulerAngles.z);
+        }
+
+        hasSetupSlider = true;
     }
 
     void SetUpHandle()
     {
-        if (hasSetupHandle) { return; }
-
-        RectTransform handleRectTransform = handle.GetComponent<RectTransform>();
-
-        handleRectTransform.offsetMax = new Vector2(handleRectTransform.offsetMax.x, 2.25f);
-        handleRectTransform.offsetMin = new Vector2(handleRectTransform.offsetMin.x, -14.5f);
-        handleRectTransform.sizeDelta = new Vector2(22.5f, handleRectTransform.sizeDelta.y);
-
-        handleRectTransform.rotation = Quaternion.Euler(0, 0, -transform.rotation.z);
-
-        hasSetupHandle = true;
+        trainImage.transform.position = handle.transform.position;
+        handle.SetActive(false);
     }
 }

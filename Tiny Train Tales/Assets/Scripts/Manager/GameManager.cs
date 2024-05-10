@@ -459,6 +459,7 @@ public class GameManager : MonoBehaviour
     public void SaveAll()
     {
         train.SaveTrain();
+        cityManager.SaveCityOnQuit();
 
         PlayerPrefs.SetFloat("MaxPassangers", maxPassangers);
         PlayerPrefs.SetFloat("MaxSpeed", maxSpeed);

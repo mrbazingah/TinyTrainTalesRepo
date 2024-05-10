@@ -9,10 +9,12 @@ public class CityMenu : MonoBehaviour
     bool mouseIsOnMenu;
 
     CityManager cityManager;
+    GameManager gameManager;
 
     void Awake()
     {
         cityManager = FindObjectOfType<CityManager>();
+        gameManager = FindObjectOfType<GameManager>();
     }
 
     void OnMouseEnter()
@@ -33,6 +35,10 @@ public class CityMenu : MonoBehaviour
     public void TravelButton()
     {
         GameObject newDestinationCity = GameObject.Find(cityText.text);
+        if (newDestinationCity == cityManager.GetDestinationCity()) { return; }
+
+        gameManager.DeleteSavedDestination(false);
+
         cityManager.SetNewDestinationCity(newDestinationCity);
 
         int currentScene = SceneManager.GetActiveScene().buildIndex;

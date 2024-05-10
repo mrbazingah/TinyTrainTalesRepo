@@ -31,19 +31,16 @@ public class CityManager : MonoBehaviour
 
     void Start()
     {
-        if (PlayerPrefs.HasKey("CurrentNextCity"))
+        if (PlayerPrefs.HasKey("CurrentCity"))
         {
-            string currentCityString = PlayerPrefs.GetString("CurrentNextCity");
+            string currentCityString = PlayerPrefs.GetString("CurrentCity");
             currentCity = GameObject.Find(currentCityString);
         }
         if (PlayerPrefs.HasKey("DestinationCity"))
         {
             string destinationCityString = PlayerPrefs.GetString("DestinationCity");
             destinationCity = GameObject.Find(destinationCityString);
-        }
 
-        if (currentCity != null && destinationCity != null)
-        {
             FindPathAtStart(currentCity.name, destinationCity.name);
         }
         else
@@ -116,8 +113,6 @@ public class CityManager : MonoBehaviour
 
         FindPathAtStart(currentCity.name, destinationCity.name);
         CreatePathText();
-
-        GameObject[] nextCityNeighbors = currentCityNeighbors[nextCity].GetComponent<City>().GetCityNeighbors();
     }
     #endregion
 
@@ -171,7 +166,6 @@ public class CityManager : MonoBehaviour
             if (currentCity == cityNeighbors[j])
             {
                 currentCityLine = cityNeighborLines[j];
-                cityNeighborLines[j].GetComponent<Image>().color = pathColor;
             }
         }
     }
@@ -186,13 +180,13 @@ public class CityManager : MonoBehaviour
     public void SaveCity()
     {
         PlayerPrefs.SetString("DestinationCity", destinationCity.name);
-        PlayerPrefs.SetString("CurrentNextCity", nextCity.name);
+        PlayerPrefs.SetString("CurrentCity", nextCity.name);
     }
 
     public void SaveCityOnQuit()
     {
         PlayerPrefs.SetString("DestinationCity", destinationCity.name);
-        PlayerPrefs.SetString("CurrentNextCity", currentCity.name);
+        PlayerPrefs.SetString("CurrentCity", currentCity.name);
     }
 
     public void ResetPath()
@@ -227,6 +221,11 @@ public class CityManager : MonoBehaviour
     public GameObject GetCurrentCityLine()
     {
         return currentCityLine;
+    }
+
+    public List<GameObject> GetPath()
+    {
+        return path;
     }
     #endregion
 }
