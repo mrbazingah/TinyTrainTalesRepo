@@ -177,10 +177,18 @@ public class CityManager : MonoBehaviour
     #endregion
 
     #region Saves and Gets
-    public void SaveCity()
+    public void SaveOnArrival()
     {
-        PlayerPrefs.SetString("DestinationCity", destinationCity.name);
-        PlayerPrefs.SetString("CurrentCity", nextCity.name);
+        if (path.Count < 2)
+        {
+            PlayerPrefs.SetString("CurrentCity", nextCity.name);
+            PlayerPrefs.SetString("DestinationCity", destinationCity.name);
+        }
+        else
+        {
+            PlayerPrefs.SetString("DestinationCity", destinationCity.name);
+            PlayerPrefs.SetString("CurrentCity", nextCity.name);
+        }
     }
 
     public void SaveCityOnQuit()
