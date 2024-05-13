@@ -45,9 +45,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentCity: {fileID: 0}
-  currentNextCity: {fileID: 0}
+  nextCity: {fileID: 0}
   destinationCity: {fileID: 0}
-  pathColor: {r: 0.13394447, g: 0.6603774, b: 0.1909874, a: 1}
+  pathColor: {r: 0.17621925, g: 0.509434, b: 0.21384025, a: 1}
   pathTextPrefab: {fileID: 1701135766828365678, guid: 6816723c6447b1d4da9421dd34c23ec7, type: 3}
   pathTextParent: {fileID: 0}
   pathTextSpawnPos: {x: 245, y: 156}

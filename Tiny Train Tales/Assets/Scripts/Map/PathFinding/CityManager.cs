@@ -41,7 +41,11 @@ public class CityManager : MonoBehaviour
             string destinationCityString = PlayerPrefs.GetString("DestinationCity");
             destinationCity = GameObject.Find(destinationCityString);
 
-            FindPathAtStart(currentCity.name, destinationCity.name);
+            FindPathAtStart(currentCity, destinationCity);
+        }
+        else if (destinationCity != null) 
+        {
+            FindPathAtStart(currentCity, destinationCity);
         }
         else
         {
@@ -50,20 +54,20 @@ public class CityManager : MonoBehaviour
     }
 
     #region Path Finding
-    public void FindPathAtStart(string startCityString, string targetCityString)
+    public void FindPathAtStart(GameObject startCityGameObject, GameObject targetCityGameObject)
     {
-        GameObject startCity = GameObject.Find(startCityString);
-        GameObject targetCity = GameObject.Find(targetCityString);
-
-        if (pathfinding != null && startCity != null && targetCity != null)
-        {
-            path = pathfinding.FindPath(startCity, targetCity);
-        }
+        GameObject startCity = startCityGameObject;
+        GameObject targetCity = targetCityGameObject;
 
         if (currentCity == destinationCity)
         {
             GetRandomCity();
             return;
+        }
+
+        if (pathfinding != null && startCity != null && targetCity != null)
+        {
+            path = pathfinding.FindPath(startCity, targetCity);
         }
 
         GetNextCityInPath();
@@ -81,6 +85,7 @@ public class CityManager : MonoBehaviour
         if (path == null)
         {
             GetRandomCity();
+            return;
         }
 
         nextCity = path[0];
@@ -108,10 +113,10 @@ public class CityManager : MonoBehaviour
         City currentCityScript = currentCity.GetComponent<City>();
         GameObject[] currentCityNeighbors = currentCityScript.GetCityNeighbors();
 
-        int nextCity = (int)Random.Range(0, currentCityNeighbors.Length);
-        destinationCity = currentCityNeighbors[nextCity];
+        int nextCityInt = (int)Random.Range(0, currentCityNeighbors.Length);
+        destinationCity = currentCityNeighbors[nextCityInt];
 
-        FindPathAtStart(currentCity.name, destinationCity.name);
+        FindPathAtStart(currentCity, destinationCity);
         CreatePathText();
     }
     #endregion
@@ -177,18 +182,10 @@ public class CityManager : MonoBehaviour
     #endregion
 
     #region Saves and Gets
-    public void SaveOnArrival()
+    public void SaveOnDeparture()
     {
-        if (path.Count < 2)
-        {
-            PlayerPrefs.SetString("CurrentCity", nextCity.name);
-            PlayerPrefs.SetString("DestinationCity", destinationCity.name);
-        }
-        else
-        {
-            PlayerPrefs.SetString("DestinationCity", destinationCity.name);
-            PlayerPrefs.SetString("CurrentCity", nextCity.name);
-        }
+        PlayerPrefs.SetString("CurrentCity", nextCity.name);
+        PlayerPrefs.SetString("DestinationCity", destinationCity.name);
     }
 
     public void SaveCityOnQuit()

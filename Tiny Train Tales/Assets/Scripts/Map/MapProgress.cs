@@ -6,7 +6,7 @@ public class MapProgress : MonoBehaviour
     [SerializeField] GameObject handle;
     [SerializeField] GameObject trainImage;
 
-    bool hasSetupSlider;
+    int hasSetupSlider;
     GameObject line;
 
     CityManager cityManager;
@@ -42,30 +42,39 @@ public class MapProgress : MonoBehaviour
 
     void SetUpSlider()
     {
-        if (hasSetupSlider) { return; }
+        if (hasSetupSlider == 2) { return; }
 
         if (line == null)
         {
             line = cityManager.GetCurrentCityLine();
+
+            transform.position = line.transform.position;
+            RectTransform lineRectTransform = line.GetComponent<RectTransform>();
+            myRectTransform.rotation = Quaternion.Euler(0, 0, lineRectTransform.eulerAngles.z - 180);
+
             return;
         }
 
-        transform.position = line.transform.position;
-
         myRectTransform.sizeDelta = new Vector2(line.GetComponent<RectTransform>().sizeDelta.x + 2, line.GetComponent<RectTransform>().sizeDelta.y + 2);
 
-        RectTransform lineRectTransform = line.GetComponent<RectTransform>();
-        if (cityManager.GetCurrentCity().transform.position.x < cityManager.GetNextCity().transform.position.x && cityManager.GetCurrentCity().transform.position.y > cityManager.GetNextCity().transform.position.y)
+        GameObject currentCity = cityManager.GetCurrentCity();
+        GameObject nextCity = cityManager.GetNextCity();
+
+        float distanceToCurrentCity = Vector2.Distance(currentCity.transform.position, trainImage.transform.position);
+        float distanceToNextCity = Vector2.Distance(nextCity.transform.position, trainImage.transform.position);
+
+        float distance = gameManager.GetDistance();
+        float remainingDistance = gameManager.GetRemainingDistance();
+
+        if ((remainingDistance > distance / 2 && distanceToCurrentCity > distanceToNextCity) || 
+            (remainingDistance < distance / 2 && distanceToCurrentCity < distanceToNextCity))
         {
-            myRectTransform.rotation = Quaternion.Euler(0, 0, lineRectTransform.eulerAngles.z - 180);
-        }
-        else
-        {
-            myRectTransform.rotation = Quaternion.Euler(0, 0, lineRectTransform.eulerAngles.z);
-            trainImage.transform.rotation = Quaternion.Euler(0, 0, -trainImage.GetComponent<RectTransform>().eulerAngles.z);
+            myRectTransform.rotation = Quaternion.Euler(0, 0, myRectTransform.eulerAngles.z - 180);
         }
 
-        hasSetupSlider = true;
+        trainImage.transform.rotation = Quaternion.Euler(0, 0, -trainImage.GetComponent<RectTransform>().eulerAngles.z);
+
+        hasSetupSlider++;
     }
 
     void SetUpHandle()

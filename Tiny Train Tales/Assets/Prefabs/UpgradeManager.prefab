@@ -48,12 +48,12 @@ MonoBehaviour:
   maxSpeedCostText: {fileID: 0}
   maxSpeedCost: 1000
   addToMaxSpeed: 5
-  maxSpeedCostIncrease: 700
+  maxSpeedCostIncrease: 500
   maxPassangersText: {fileID: 0}
   maxPassangerCostText: {fileID: 0}
   maxPassangerCost: 500
   addToMaxPassangers: 5
-  maxPassangerCostIncrease: 500
+  maxPassangerCostIncrease: 250
   accelerationText: {fileID: 0}
   accelerationCostText: {fileID: 0}
   accelerationCost: 500
@@ -63,5 +63,5 @@ MonoBehaviour:
   proiftCostText: {fileID: 0}
   profitCost: 2000
   addToProfit: 0.25
-  profitCostIncrease: 2500
+  profitCostIncrease: 2000
   upgradeMenu: {fileID: 0}

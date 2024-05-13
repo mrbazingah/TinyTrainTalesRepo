@@ -1,8 +1,11 @@
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 
 public class PathFinding : MonoBehaviour
 {
+    [SerializeField] int maxIterations = 5000;
+    
     public List<GameObject> FindPath(GameObject startCity, GameObject targetCity)
     {
         Node startNode = new Node(startCity);
@@ -12,13 +15,13 @@ public class PathFinding : MonoBehaviour
         HashSet<Node> closedSet = new HashSet<Node>();
         openSet.Add(startNode);
 
-        int maxIterations = 5000;
         int iterations = 0;
 
         while (openSet.Count > 0)
         {
             if (iterations > maxIterations)
             {
+                Debug.LogError("Max iterations reached, unable to find path.");
                 return null;
             }
 
@@ -83,6 +86,9 @@ public class PathFinding : MonoBehaviour
 
     static int GetDistance(GameObject cityA, GameObject cityB)
     {
+        // Implement a more accurate distance calculation method
+        // For example, you could use grid-based distance or consider obstacles.
+        // For simplicity, I'll use Euclidean distance here.
         return Mathf.RoundToInt(Vector3.Distance(cityA.transform.position, cityB.transform.position));
     }
 
