@@ -51,8 +51,8 @@ public class GameManager : MonoBehaviour
     CameraMovement cam;
     UpgradeManager upgrades;
     CityManager cityManager;
-    MapProgress mapTrain;
     City city;
+    QuestManager questManager;
     #endregion
 
     void Awake()
@@ -61,8 +61,8 @@ public class GameManager : MonoBehaviour
         cam = FindObjectOfType<CameraMovement>();
         upgrades = FindObjectOfType<UpgradeManager>();
         cityManager = FindObjectOfType<CityManager>();
-        mapTrain = FindObjectOfType<MapProgress>();
         city = FindObjectOfType<City>();    
+        questManager = FindObjectOfType<QuestManager>();
     }
 
     void Start()
@@ -459,6 +459,7 @@ public class GameManager : MonoBehaviour
     public void SaveAll()
     {
         train.SaveTrain();
+        questManager.SaveTravelDistance();
 
         if (hasArrivedAtStation)
         {
