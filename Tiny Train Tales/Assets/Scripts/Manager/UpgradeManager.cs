@@ -93,7 +93,7 @@ public class UpgradeManager : MonoBehaviour
         float coins = gameManager.GetCoins();
         if (coins < maxSpeedCost) { return; }
 
-        gameManager.Buy(maxSpeedCost);
+        gameManager.BuyWithCoins(maxSpeedCost);
         maxSpeedCost += maxSpeedCostIncrease;
         maxSpeedCost = Mathf.Floor(maxSpeedCost);
         maxSpeedCostText.text = maxSpeedCost.ToString();
@@ -108,7 +108,7 @@ public class UpgradeManager : MonoBehaviour
         if (coins < maxPassangerCost) { return; }
 
 
-        gameManager.Buy(maxPassangerCost);
+        gameManager.BuyWithCoins(maxPassangerCost);
         maxPassangerCost += maxPassangerCostIncrease;
         maxPassangerCost = Mathf.Floor(maxPassangerCost);
         maxPassangerCostText.text = maxPassangerCost.ToString();
@@ -122,7 +122,7 @@ public class UpgradeManager : MonoBehaviour
         float coins = gameManager.GetCoins();
         if (coins < accelerationCost) { return; }
 
-        gameManager.Buy(accelerationCost);
+        gameManager.BuyWithCoins(accelerationCost);
         accelerationCost += accelerationCostIncrease;
         accelerationCost = Mathf.Floor(accelerationCost);
         accelerationCostText.text = accelerationCost.ToString();
@@ -136,7 +136,7 @@ public class UpgradeManager : MonoBehaviour
         float coins = gameManager.GetCoins();
         if (coins < profitCost) { return; }
 
-        gameManager.Buy(profitCost);
+        gameManager.BuyWithCoins(profitCost);
         profitCost += profitCostIncrease;
         profitCost = Mathf.Floor(profitCost);
         proiftCostText.text = profitCost.ToString();

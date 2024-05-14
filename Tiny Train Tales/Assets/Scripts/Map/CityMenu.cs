@@ -37,9 +37,8 @@ public class CityMenu : MonoBehaviour
         GameObject newDestinationCity = GameObject.Find(cityText.text);
         if (newDestinationCity == cityManager.GetDestinationCity()) { return; }
 
-        gameManager.DeleteSavedDestination(false);
-
         cityManager.SetNewDestinationCity(newDestinationCity);
+        PlayerPrefs.SetInt("OpenMap", 1);
 
         int currentScene = SceneManager.GetActiveScene().buildIndex;
         SceneManager.LoadScene(currentScene);

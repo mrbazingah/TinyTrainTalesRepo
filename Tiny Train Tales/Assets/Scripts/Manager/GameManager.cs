@@ -11,6 +11,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] TextMeshProUGUI cointext;
     [SerializeField] float profitMultiplier = 1;
     [SerializeField] Toggle autoCollectToggle;
+    [Header("Gems")]
+    [SerializeField] float gems;
+    [SerializeField] TextMeshProUGUI gemsText;
     [Header("Speed")]
     [SerializeField] float maxSpeed;
     [SerializeField] TextMeshProUGUI speedText;
@@ -179,7 +182,7 @@ public class GameManager : MonoBehaviour
         PlayerPrefs.SetFloat("Coins", coins);
     }
 
-    public void Buy(float cost)
+    public void BuyWithCoins(float cost)
     {
         coins -= cost;
         PlayerPrefs.SetFloat("Coins", coins);
@@ -188,6 +191,20 @@ public class GameManager : MonoBehaviour
     public float GetCoins()
     {
         return coins;
+    }
+    #endregion
+
+    #region Gems
+    void AddToGems(float amount)
+    {
+        gems += amount;
+        PlayerPrefs.SetFloat("Gems", gems);
+    }
+
+    public void BuyWithGems(float cost)
+    {
+        gems -= cost;
+        PlayerPrefs.SetFloat("Gems", gems);
     }
     #endregion
 
@@ -254,9 +271,18 @@ public class GameManager : MonoBehaviour
     #region Menus
     void CloseAllMenus()
     {
-        CloseMap();
         CloseSettings(settingsMenu);
         upgrades.CloseUpgradeMenu();
+
+        if (!PlayerPrefs.HasKey("OpenMap"))
+        {
+            CloseMap();
+        }
+        else
+        {
+            OpenMap();
+            PlayerPrefs.DeleteKey("OpenMap");
+        }
     }
 
     public void OpenMap()

@@ -13,11 +13,13 @@ public class Station : MonoBehaviour
 
     GameManager gameManager;
     CityManager cityManager;
+    QuestManager questManager;
 
     void Awake()
     {
         gameManager = FindObjectOfType<GameManager>();
         cityManager = FindObjectOfType<CityManager>();
+        questManager = FindObjectOfType<QuestManager>();
     }
 
     void Start()
@@ -55,6 +57,7 @@ public class Station : MonoBehaviour
         gameManager.DeleteSavedDestination(false);
         cityManager.SaveOnDeparture();
         cityManager.ResetPath();
+        questManager.SaveTravelDistance();
 
         string currentScene = SceneManager.GetActiveScene().name;
         SceneManager.LoadScene(currentScene);

@@ -23,7 +23,7 @@ public class Buy : MonoBehaviour
     public void Buying()
     {
         if (coins < cost) { return; }
-        gameManager.Buy(cost);
+        gameManager.BuyWithCoins(cost);
         cost *= costIncrease;
         cost = Mathf.Floor(cost);
         costText.text = cost.ToString();

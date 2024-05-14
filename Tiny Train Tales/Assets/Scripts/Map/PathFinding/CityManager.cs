@@ -205,6 +205,7 @@ public class CityManager : MonoBehaviour
     public void SetNewDestinationCity(GameObject newDestinationCity)
     {
         destinationCity = newDestinationCity;
+        PlayerPrefs.SetString("CurrentCity", currentCity.name);
         PlayerPrefs.SetString("DestinationCity", destinationCity.name);
     }
 

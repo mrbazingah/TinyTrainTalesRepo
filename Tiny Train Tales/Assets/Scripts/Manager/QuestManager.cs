@@ -5,11 +5,13 @@ public class QuestManager : MonoBehaviour
 {
     [SerializeField] TextMeshProUGUI questText;
     [SerializeField] float coinsPerQuest;
+    [SerializeField] int amountOfQuest;
 
     bool hasFinishedQuest;
 
     int distanceToTravel;
     float distanceTraveled;
+    float savedDistanceTraveled;
     float difference;
 
     GameManager gameManager;
@@ -24,7 +26,7 @@ public class QuestManager : MonoBehaviour
         if (PlayerPrefs.HasKey("QuestDistanceTraveled") && PlayerPrefs.HasKey("QuestDistanceToTravel") && PlayerPrefs.HasKey("QuestDifference"))
         {
             distanceTraveled = PlayerPrefs.GetFloat("QuestDistanceTraveled");
-            distanceToTravel = PlayerPrefs.GetInt("QuestDistanceToTravel");
+            savedDistanceTraveled = PlayerPrefs.GetInt("QuestDistanceToTravel");
             difference = PlayerPrefs.GetFloat("QuestDifference");
         }
         else
@@ -49,7 +51,7 @@ public class QuestManager : MonoBehaviour
 
     void CountDownDistance()
     {
-        distanceTraveled = gameManager.GetDistance() - gameManager.GetRemainingDistance();
+        distanceTraveled = savedDistanceTraveled - (gameManager.GetDistance() + gameManager.GetRemainingDistance());
         difference = distanceToTravel - distanceTraveled;
         difference = Mathf.Round(difference);
 
