@@ -49,6 +49,7 @@ public class GameManager : MonoBehaviour
 
     bool hasDeletedKeys;
     bool hasCalculatedPassangers;
+    bool hasClosedMenus;
 
     Train train;
     CameraMovement cam;
@@ -379,10 +380,15 @@ public class GameManager : MonoBehaviour
     {
         hasArrivedAtStation = b;
 
-        SaveAll();
-        AddAndSubtractPassangers();
-        DeleteSavedDestination(false);
-        CloseAllMenus();
+        if (!hasClosedMenus)
+        {
+            SaveAll();
+            AddAndSubtractPassangers();
+            DeleteSavedDestination(false);
+            CloseAllMenus();
+
+            hasClosedMenus = true;
+        }
     }
 
     public void HandleStationSpawn(bool b)

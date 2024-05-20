@@ -25,8 +25,8 @@ public class QuestManager : MonoBehaviour
     {
         if (PlayerPrefs.HasKey("QuestDistanceTraveled") && PlayerPrefs.HasKey("QuestDistanceToTravel") && PlayerPrefs.HasKey("QuestDifference"))
         {
-            distanceTraveled = PlayerPrefs.GetFloat("QuestDistanceTraveled");
-            savedDistanceTraveled = PlayerPrefs.GetInt("QuestDistanceToTravel");
+            savedDistanceTraveled = PlayerPrefs.GetFloat("QuestDistanceTraveled");
+            distanceToTravel = PlayerPrefs.GetInt("QuestDistanceToTravel");
             difference = PlayerPrefs.GetFloat("QuestDifference");
         }
         else
@@ -39,7 +39,6 @@ public class QuestManager : MonoBehaviour
     {
         int temp = (int)Random.Range(1, 10);
         distanceToTravel = temp * 1000;
-        Debug.Log(distanceToTravel.ToString());
 
         questText.text = "Travel " + distanceToTravel.ToString() + " km";
     }
@@ -51,10 +50,8 @@ public class QuestManager : MonoBehaviour
 
     void CountDownDistance()
     {
-        distanceTraveled = savedDistanceTraveled - (gameManager.GetDistance() + gameManager.GetRemainingDistance());
-        difference = distanceToTravel - distanceTraveled;
-        difference = Mathf.Round(difference);
-
+        distanceTraveled = gameManager.GetDistance() - gameManager.GetRemainingDistance();
+        difference = Mathf.Round(distanceToTravel - savedDistanceTraveled - distanceTraveled);
         questText.text = "Travel " + difference.ToString() + " km";
 
         if (difference <= 0 && !hasFinishedQuest)
