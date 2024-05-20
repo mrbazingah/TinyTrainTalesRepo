@@ -13,7 +13,6 @@ public class BlockSpeed : MonoBehaviour
     {
         myRigidbody = GetComponent<Rigidbody2D>();
         train = FindObjectOfType<Train>();
-
     }
 
     void Start()
@@ -28,6 +27,7 @@ public class BlockSpeed : MonoBehaviour
             train.LoadTrain();
             speed = PlayerPrefs.GetFloat("Speed");
             myRigidbody.velocity = new Vector2(-speed * Time.fixedDeltaTime * speedOffset, 0f);
+
         }
     }
 

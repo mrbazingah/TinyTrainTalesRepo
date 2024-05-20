@@ -56,6 +56,7 @@ public class CameraMovement : MonoBehaviour
 
     void Update()
     {
+        if (lockMovement) { return; }
         if (Input.GetMouseButtonDown(0))
         {
             isDragging = true;
@@ -73,5 +74,10 @@ public class CameraMovement : MonoBehaviour
     public void LockMovement(bool isLocked)
     {
         lockMovement = isLocked;
+    }
+
+    public bool GetIsDragging()
+    {
+        return isDragging;
     }
 }

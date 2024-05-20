@@ -37,8 +37,6 @@ public class Train : MonoBehaviour
         //acceleration = trainData.acceleration;
         //speed = trainData.speed;
 
-        //hasLoaded = true;
-
         if (PlayerPrefs.HasKey("Acceleration") && PlayerPrefs.HasKey("Speed"))
         {
             speed = PlayerPrefs.GetFloat("Speed");
@@ -54,6 +52,7 @@ public class Train : MonoBehaviour
 
         PlayerPrefs.SetFloat("Speed", speed);
         PlayerPrefs.SetFloat("Acceleration", acceleration);
+
     }
 
     public bool GetHasLoaded()
@@ -79,7 +78,7 @@ public class Train : MonoBehaviour
             FindRigidbody();
         }
 
-        if (-rigidbody.velocity.x <= 0)
+        if (-rigidbody.velocity.x <= 0 && !hasLoaded)
         {
             rigidbody.velocity = Vector3.zero;
             speed = 0;

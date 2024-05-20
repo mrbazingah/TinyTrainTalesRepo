@@ -4,7 +4,6 @@ using UnityEngine;
 public class QuestManager : MonoBehaviour
 {
     [SerializeField] TextMeshProUGUI questText;
-    [SerializeField] float coinsPerQuest;
     [SerializeField] int amountOfQuest;
 
     bool hasFinishedQuest;
@@ -58,7 +57,8 @@ public class QuestManager : MonoBehaviour
         {
             DeleteKeys();
             questText.text = "Mission finished";
-            gameManager.AddCoins(distanceToTravel * coinsPerQuest);
+            gameManager.AddCoins(distanceToTravel);
+            gameManager.AddToGems(5);
 
             hasFinishedQuest = true;
         }

@@ -27,8 +27,6 @@ public class UpgradeManager : MonoBehaviour
     [SerializeField] float profitCost;
     [SerializeField] float addToProfit;
     [SerializeField] float profitCostIncrease;
-    [Space]
-    [SerializeField] GameObject upgradeMenu;
 
     GameManager gameManager;
     Train train;
@@ -43,8 +41,6 @@ public class UpgradeManager : MonoBehaviour
 
     void Start()
     {
-        upgradeMenu.SetActive(false);
-
         if (PlayerPrefs.HasKey("MaxSpeedCost"))
         {
             maxSpeedCost = PlayerPrefs.GetFloat("MaxSpeedCost");
@@ -66,18 +62,6 @@ public class UpgradeManager : MonoBehaviour
         maxSpeedCostText.text = maxSpeedCost.ToString();
         maxPassangerCostText.text = maxPassangerCost.ToString();
         proiftCostText.text = profitCost.ToString();
-    }
-
-    public void OpenUpgradeMenu()
-    {
-        upgradeMenu.SetActive(true);
-        cam.LockMovement(true);
-    }
-
-    public void CloseUpgradeMenu()
-    {
-        upgradeMenu.SetActive(false);
-        cam.LockMovement(false);
     }
 
     void Update()

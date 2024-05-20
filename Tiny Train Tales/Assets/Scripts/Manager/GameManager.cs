@@ -25,12 +25,6 @@ public class GameManager : MonoBehaviour
     [Space]
     [SerializeField] TextMeshProUGUI currentCityText;
     [SerializeField] TextMeshProUGUI destinationCityText;
-    [Header("Map")]
-    [SerializeField] GameObject map;
-    [SerializeField] Vector2 mapOffset;
-    [SerializeField] Vector2 mapStartPos;
-    [Header("Settings")]
-    [SerializeField] GameObject settingsMenu;
     [Header("Station")]
     [SerializeField] GameObject station;
     [SerializeField] bool stationHasSpawned;
@@ -72,7 +66,6 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         PlayerPrefsSetUp();
-        CloseAllMenus();
     }
 
     public void UpdateCityTexts()
@@ -89,6 +82,10 @@ public class GameManager : MonoBehaviour
         if (PlayerPrefs.HasKey("Coins"))
         {
             coins = PlayerPrefs.GetFloat("Coins");
+        }
+        if (PlayerPrefs.HasKey("Gems"))
+        {
+            gems = PlayerPrefs.GetFloat("Gems");
         }
         if (PlayerPrefs.HasKey("MaxPassangers"))
         {
@@ -196,7 +193,7 @@ public class GameManager : MonoBehaviour
     #endregion
 
     #region Gems
-    void AddToGems(float amount)
+    public void AddToGems(float amount)
     {
         gems += amount;
         PlayerPrefs.SetFloat("Gems", gems);
@@ -266,52 +263,6 @@ public class GameManager : MonoBehaviour
     public float GetProfit()
     {
         return profitMultiplier;
-    }
-    #endregion
-
-    #region Menus
-    void CloseAllMenus()
-    {
-        CloseSettings(settingsMenu);
-        upgrades.CloseUpgradeMenu();
-
-        if (!PlayerPrefs.HasKey("OpenMap"))
-        {
-            CloseMap();
-        }
-        else
-        {
-            OpenMap();
-            PlayerPrefs.DeleteKey("OpenMap");
-        }
-    }
-
-    public void OpenMap()
-    {
-        Vector2 camPos = cam.transform.position;
-
-        map.transform.position = new Vector3(camPos.x, camPos.y, 0f);
-        cam.LockMovement(true);
-    }
-
-    public void CloseMap()
-    {
-        map.transform.position = mapOffset;
-        cam.LockMovement(false);
-
-        city.CloseMenu();
-    }
-
-    public void OpenSettings(GameObject settingsMenu)
-    {
-        settingsMenu.SetActive(true);
-        cam.LockMovement(true);
-    }
-
-    public void CloseSettings(GameObject settingsMenu)
-    {
-        settingsMenu.SetActive(false);
-        cam.LockMovement(false);
     }
     #endregion
 
@@ -385,7 +336,6 @@ public class GameManager : MonoBehaviour
             SaveAll();
             AddAndSubtractPassangers();
             DeleteSavedDestination(false);
-            CloseAllMenus();
 
             hasClosedMenus = true;
         }
@@ -505,6 +455,7 @@ public class GameManager : MonoBehaviour
         PlayerPrefs.SetFloat("MaxPassangers", maxPassangers);
         PlayerPrefs.SetFloat("MaxSpeed", maxSpeed);
         PlayerPrefs.SetFloat("Coins", coins);
+        PlayerPrefs.SetFloat("Gems", gems);
         PlayerPrefs.SetFloat("Passangers", passangers);
 
         SaveProgress();
