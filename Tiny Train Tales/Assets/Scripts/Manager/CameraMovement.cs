@@ -56,17 +56,23 @@ public class CameraMovement : MonoBehaviour
 
     void Update()
     {
-        if (lockMovement) { return; }
-        if (Input.GetMouseButtonDown(0))
+        if (!lockMovement)
         {
-            isDragging = true;
-            lastMousePosition = Input.mousePosition;
-        }
-        else if (Input.GetMouseButtonUp(0))
-        {
-            newTargetPosition = transform.position;
-            targetPosition = new Vector3(newTargetPosition.x, targetPosition.y, targetPosition.z);
+            if (Input.GetMouseButtonDown(0))
+            {
+                isDragging = true;
+                lastMousePosition = Input.mousePosition;
+            }
+            else if (Input.GetMouseButtonUp(0))
+            {
+                newTargetPosition = transform.position;
+                targetPosition = new Vector3(newTargetPosition.x, targetPosition.y, targetPosition.z);
 
+                isDragging = false;
+            }
+        }
+        else
+        {
             isDragging = false;
         }
     }

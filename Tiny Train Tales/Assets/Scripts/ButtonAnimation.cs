@@ -3,12 +3,14 @@ using UnityEngine;
 public class ButtonAnimation : MonoBehaviour
 {
     [SerializeField] float speed;
-    [SerializeField] float yDestination;
+    [SerializeField] float destination;
     [SerializeField] bool isMenu;
+    [SerializeField] bool moveUp;
+    [SerializeField] float offset;
 
     Vector2 savedPos;
 
-    bool startAnimation;
+    bool startAnimation = false;
     bool stop;
 
     CameraMovement cam;
@@ -27,25 +29,52 @@ public class ButtonAnimation : MonoBehaviour
     {
         if (cam.GetIsDragging()) 
         {
+            if (isMenu)
+            {
+                if (moveUp)
+                {
+                    transform.position = new Vector2(cam.transform.position.x, transform.position.y);
+                }
+                else
+                {
+                    transform.position = new Vector2(cam.transform.position.x + offset, transform.position.y);
+                }
+            }
+
             savedPos = transform.position;
             return; 
         }
 
         if (startAnimation)
         {
-            transform.position = Vector2.Lerp(transform.position, new Vector2(cam.transform.position.x, yDestination), speed);
+            if (moveUp)
+            {
+                transform.position = Vector2.Lerp(transform.position, new Vector2(cam.transform.position.x, destination), speed);
+            }
+            else
+            {
+                transform.position = Vector2.Lerp(transform.position, new Vector2(destination, transform.position.y), speed);
+            }
         }
         else if (!startAnimation && !stop)
         {
             transform.position = Vector2.Lerp(transform.position, savedPos, speed);
-            if (transform.position.y <= savedPos.y - 0.1f) 
-            { 
-                stop = true;
-                transform.position = savedPos;
-
-                if (isMenu)
+            if (moveUp)
+            {
+                if (transform.position.y <= savedPos.y + 0.2f)
                 {
-                    transform.position = new Vector2(cam.transform.position.x, transform.position.y);
+                    stop = true;
+                    transform.position = savedPos;
+                    cam.LockMovement(false);
+                }
+            }
+            else
+            {
+                if (transform.position.x >= savedPos.x - 0.2f)
+                {
+                    stop = true;
+                    transform.position = savedPos;
+                    cam.LockMovement(false);
                 }
             }
         }
@@ -61,6 +90,5 @@ public class ButtonAnimation : MonoBehaviour
     {
         stop = false;
         startAnimation = false;
-        cam.LockMovement(false);
     }
 }
