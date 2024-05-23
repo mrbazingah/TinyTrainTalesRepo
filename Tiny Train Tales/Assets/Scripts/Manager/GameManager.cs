@@ -442,6 +442,7 @@ public class GameManager : MonoBehaviour
     {
         train.SaveTrain();
         questManager.SaveTravelDistance();
+        cam.SavePos();
 
         if (hasArrivedAtStation)
         {
@@ -450,6 +451,12 @@ public class GameManager : MonoBehaviour
         else
         {
             cityManager.SaveCityOnQuit();
+        }
+
+        ButtonAnimation[] buttons = FindObjectsOfType<ButtonAnimation>();
+        for (int i = 0; i < buttons.Length; i++)
+        {
+            buttons[i].SavePos();
         }
 
         PlayerPrefs.SetFloat("MaxPassangers", maxPassangers);

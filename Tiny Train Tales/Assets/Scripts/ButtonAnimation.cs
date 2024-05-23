@@ -22,6 +22,7 @@ public class ButtonAnimation : MonoBehaviour
 
     void Start()
     {
+        LoadSavedPos();
         savedPos = transform.position;    
     }
 
@@ -90,5 +91,19 @@ public class ButtonAnimation : MonoBehaviour
     {
         stop = false;
         startAnimation = false;
+    }
+
+    public void SavePos()
+    {
+        PlayerPrefs.SetFloat(gameObject.name + "X", transform.position.x);
+        PlayerPrefs.SetFloat(gameObject.name + "Y", transform.position.y);
+    }
+
+    public void LoadSavedPos()
+    {
+        if (PlayerPrefs.HasKey(gameObject.name + "X"))
+        {
+            transform.position = new Vector2(PlayerPrefs.GetFloat(gameObject.name + "X"), PlayerPrefs.GetFloat(gameObject.name + "Y"));
+        }
     }
 }

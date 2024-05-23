@@ -86,4 +86,9 @@ public class CameraMovement : MonoBehaviour
     {
         return isDragging;
     }
+
+    public void SavePos()
+    {
+        PlayerPrefs.SetFloat("CamPos", transform.position.x);
+    }
 }
