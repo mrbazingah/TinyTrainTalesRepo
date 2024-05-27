@@ -18,6 +18,15 @@ public class CameraMovement : MonoBehaviour
     int amountOfCars;
     bool isDragging = false;
 
+    CameraMapMovement otherCam;
+    CameraMovement thisCam;
+
+    void Awake()
+    {
+        otherCam = GetComponent<CameraMapMovement>();
+        thisCam = GetComponent<CameraMovement>();
+    }
+
     void Start()
     {
         if (PlayerPrefs.HasKey("CamPos"))
@@ -90,5 +99,14 @@ public class CameraMovement : MonoBehaviour
     public void SavePos()
     {
         PlayerPrefs.SetFloat("CamPos", transform.position.x);
+    }
+
+    public void ChangeCam()
+    {
+        otherCam.enabled = true;
+        thisCam.enabled = false;
+
+        PlayerPrefs.SetFloat("CamPosX", transform.position.x);
+        PlayerPrefs.SetFloat("CamPosY", transform.position.y);
     }
 }

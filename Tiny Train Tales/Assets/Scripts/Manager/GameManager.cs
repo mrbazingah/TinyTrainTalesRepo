@@ -1,3 +1,4 @@
+using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -10,7 +11,6 @@ public class GameManager : MonoBehaviour
     [SerializeField] float coins;
     [SerializeField] TextMeshProUGUI cointext;
     [SerializeField] float profitMultiplier = 1;
-    [SerializeField] Toggle autoCollectToggle;
     [Header("Gems")]
     [SerializeField] float gems;
     [SerializeField] TextMeshProUGUI gemsText;
@@ -30,6 +30,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] bool stationHasSpawned;
     [SerializeField] bool hasArrivedAtStation;
     [SerializeField] float stationDestructDistance;
+    [Header("Settings")]
+    [SerializeField] Toggle autoCollectToggle;
+    [SerializeField] Toggle autoLeaveStation;
     [Header("Passangers")]
     [SerializeField] float maxPassangers;
     [SerializeField] float passangers;
@@ -105,6 +108,18 @@ public class GameManager : MonoBehaviour
             else
             {
                 autoCollectToggle.isOn = false;
+            }
+        }
+        if (PlayerPrefs.HasKey("AutoLeave"))
+        {
+            int i = PlayerPrefs.GetInt("AutoLeave");
+            if (i == 1)
+            {
+                autoLeaveStation.isOn = true;
+            }
+            else
+            {
+                autoLeaveStation.isOn = false;
             }
         }
         if (PlayerPrefs.HasKey("Profit"))
@@ -304,10 +319,11 @@ public class GameManager : MonoBehaviour
 
         passangers -= subPassangers;
         passangers += addPassangers;
+        float coinsAdded = coinsPerPassanger * subPassangers;
 
         Station station = FindObjectOfType<Station>();
-        station.GetPassangers(subPassangers, addPassangers);
-        AddCoins(coinsPerPassanger * subPassangers);
+        station.GetPassangers(subPassangers, addPassangers, coinsAdded);
+        AddCoins(coinsAdded);
 
         PlayerPrefs.SetFloat("Passangers", passangers);
 
@@ -337,7 +353,32 @@ public class GameManager : MonoBehaviour
             AddAndSubtractPassangers();
             DeleteSavedDestination(false);
 
+            if (autoLeaveStation.isOn)
+            {
+                StartCoroutine(LeaveStationAutomatically());
+            }
+
             hasClosedMenus = true;
+        }
+    }
+
+    IEnumerator LeaveStationAutomatically()
+    {
+        yield return new WaitForSeconds(1);
+
+        Station station = FindObjectOfType<Station>();
+        station.LeaveStation();
+    }
+
+    public void OnAutoLeaveStationChange()
+    {
+        if (autoLeaveStation.isOn)
+        {
+            PlayerPrefs.SetInt("AutoLeave", 1);
+        }
+        else
+        {
+            PlayerPrefs.SetInt("AutoLeave", 0);
         }
     }
 
@@ -453,7 +494,7 @@ public class GameManager : MonoBehaviour
             cityManager.SaveCityOnQuit();
         }
 
-        ButtonAnimation[] buttons = FindObjectsOfType<ButtonAnimation>();
+        MenuAnimation[] buttons = FindObjectsOfType<MenuAnimation>();
         for (int i = 0; i < buttons.Length; i++)
         {
             buttons[i].SavePos();

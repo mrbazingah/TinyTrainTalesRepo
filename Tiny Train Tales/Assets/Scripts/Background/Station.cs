@@ -8,6 +8,7 @@ public class Station : MonoBehaviour
     [SerializeField] GameObject blockPrefab;
     [SerializeField] TextMeshProUGUI boardedPassangersText;
     [SerializeField] TextMeshProUGUI deboardedPassangersText;
+    [SerializeField] TextMeshProUGUI coinsText;
 
     bool hasArrived;
 
@@ -42,13 +43,14 @@ public class Station : MonoBehaviour
         }
     }
 
-    public void GetPassangers(float subPassangers, float addPassangers)
+    public void GetPassangers(float subPassangers, float addPassangers, float coinsAdded)
     {
         boardedPassangersText.text = addPassangers.ToString();
         deboardedPassangersText.text = subPassangers.ToString();
+        coinsText.text = "+" + coinsAdded.ToString();
     }
 
-    public void LeaveStastion()
+    public void LeaveStation()
     {
         CameraMovement cam = FindObjectOfType<CameraMovement>();
         float camPosX = cam.transform.position.x;
