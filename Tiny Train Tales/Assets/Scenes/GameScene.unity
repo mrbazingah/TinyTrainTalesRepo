@@ -3063,18 +3063,14 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 423f9f36f17bbfe44aea4058b8ea7ee2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  map: {fileID: 2110217141}
   target: {fileID: 579636712}
   dragSpeed: 0.65
-  minX: -10
-  maxX: 10
-  minY: -10
-  maxY: 10
+  boundaryRectTransform: {fileID: 1157780024}
 --- !u!1 &531979694
 GameObject:
   m_ObjectHideFlags: 0
@@ -3595,6 +3591,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 0.07
   destination: -0.27
+  hasReachedDestination: 0
 --- !u!1 &654572734
 GameObject:
   m_ObjectHideFlags: 0
@@ -10555,6 +10552,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 0.07
   destination: 0
+  hasReachedDestination: 0
 --- !u!4 &1786960067 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3698300565624578289, guid: 9b797d9fd317e8b4a9944f5360d2e194, type: 3}

@@ -9,7 +9,7 @@ public class MenuAnimation : MonoBehaviour
 
     bool startAnimation = false;
     bool stop;
-    bool hasReachedDestination;
+    [SerializeField] bool hasReachedDestination;
 
     CameraMovement cam;
 
@@ -26,6 +26,8 @@ public class MenuAnimation : MonoBehaviour
 
     void FixedUpdate()
     {
+        if (cam.enabled == false) { return; }
+
         if (cam.GetIsDragging()) 
         {
             transform.position = new Vector2(cam.transform.position.x, transform.position.y);
@@ -55,8 +57,10 @@ public class MenuAnimation : MonoBehaviour
 
     public void StartAnimation()
     {
+        savedPos = transform.position;
         startAnimation = true;
         cam.LockMovement(true);
+        Debug.Log("Start");
     }
 
     public void ResetAnimation()
@@ -64,6 +68,7 @@ public class MenuAnimation : MonoBehaviour
         stop = false;
         startAnimation = false;
         hasReachedDestination = false;
+        Debug.Log("Stop");
     }
 
     public void SavePos()

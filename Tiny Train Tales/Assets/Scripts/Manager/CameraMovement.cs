@@ -9,6 +9,7 @@ public class CameraMovement : MonoBehaviour
 
     float minXOffset;
     bool lockMovement;
+    bool changeCam;
 
     Vector3 offset;
     Vector3 targetPosition;
@@ -43,6 +44,8 @@ public class CameraMovement : MonoBehaviour
 
     void LateUpdate()
     {
+        if (changeCam) {return;}
+
         if (isDragging && !lockMovement)
         {
             HandleMouseDrag();
@@ -65,6 +68,8 @@ public class CameraMovement : MonoBehaviour
 
     void Update()
     {
+        if (changeCam) { return; }
+
         if (!lockMovement)
         {
             if (Input.GetMouseButtonDown(0))
@@ -101,12 +106,17 @@ public class CameraMovement : MonoBehaviour
         PlayerPrefs.SetFloat("CamPos", transform.position.x);
     }
 
-    public void ChangeCam()
+    public void ChangeCamMovement()
     {
-        otherCam.enabled = true;
-        thisCam.enabled = false;
+        changeCam = true;
+        otherCam.ChangeBack();
 
         PlayerPrefs.SetFloat("CamPosX", transform.position.x);
         PlayerPrefs.SetFloat("CamPosY", transform.position.y);
+    }
+
+    public void ChangeBack()
+    {
+        changeCam = false;
     }
 }

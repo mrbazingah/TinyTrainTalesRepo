@@ -10,6 +10,7 @@ public class MenuAnimationX : MonoBehaviour
 
     bool startAnimation = false;
     bool stop;
+    bool hasReachedDestination;
 
     CameraMovement cam;
 
@@ -33,9 +34,13 @@ public class MenuAnimationX : MonoBehaviour
             return;
         }
 
-        if (startAnimation)
+        if (startAnimation && !hasReachedDestination)
         {
             transform.position = Vector2.Lerp(transform.position, new Vector2(cam.transform.position.x, cam.transform.position.y), speed);
+            if (transform.position.x >= destination - 0.1f)
+            {
+                hasReachedDestination = true;
+            }
         }
         else if (!startAnimation && !stop)
         {
@@ -51,7 +56,6 @@ public class MenuAnimationX : MonoBehaviour
 
     public void StartAnimation()
     {
-        if (!stop) { return; }
         savedPos = transform.position;
         startAnimation = true;
         cam.LockMovement(true);
@@ -61,6 +65,7 @@ public class MenuAnimationX : MonoBehaviour
     {
         stop = false;
         startAnimation = false;
+        hasReachedDestination = false;
     }
 
     public void SavePos()
