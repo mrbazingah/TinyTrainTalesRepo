@@ -26,8 +26,6 @@ public class MenuAnimation : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (cam.enabled == false) { return; }
-
         if (cam.GetIsDragging()) 
         {
             transform.position = new Vector2(cam.transform.position.x, transform.position.y);

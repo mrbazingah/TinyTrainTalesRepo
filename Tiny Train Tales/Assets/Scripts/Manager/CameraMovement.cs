@@ -9,7 +9,6 @@ public class CameraMovement : MonoBehaviour
 
     float minXOffset;
     bool lockMovement;
-    bool changeCam;
 
     Vector3 offset;
     Vector3 targetPosition;
@@ -18,15 +17,6 @@ public class CameraMovement : MonoBehaviour
 
     int amountOfCars;
     bool isDragging = false;
-
-    CameraMapMovement otherCam;
-    CameraMovement thisCam;
-
-    void Awake()
-    {
-        otherCam = GetComponent<CameraMapMovement>();
-        thisCam = GetComponent<CameraMovement>();
-    }
 
     void Start()
     {
@@ -44,8 +34,6 @@ public class CameraMovement : MonoBehaviour
 
     void LateUpdate()
     {
-        if (changeCam) {return;}
-
         if (isDragging && !lockMovement)
         {
             HandleMouseDrag();
@@ -68,8 +56,6 @@ public class CameraMovement : MonoBehaviour
 
     void Update()
     {
-        if (changeCam) { return; }
-
         if (!lockMovement)
         {
             if (Input.GetMouseButtonDown(0))
@@ -104,19 +90,5 @@ public class CameraMovement : MonoBehaviour
     public void SavePos()
     {
         PlayerPrefs.SetFloat("CamPos", transform.position.x);
-    }
-
-    public void ChangeCamMovement()
-    {
-        changeCam = true;
-        otherCam.ChangeBack();
-
-        PlayerPrefs.SetFloat("CamPosX", transform.position.x);
-        PlayerPrefs.SetFloat("CamPosY", transform.position.y);
-    }
-
-    public void ChangeBack()
-    {
-        changeCam = false;
     }
 }
