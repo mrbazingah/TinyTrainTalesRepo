@@ -10706,8 +10706,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 934afb9f974169b4692f0fd865d81df6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 0.07
-  destination: 0
+  speed: 0.08
+  destination: 0.2
   hasReachedDestination: 0
 --- !u!4 &1786960067 stripped
 Transform:

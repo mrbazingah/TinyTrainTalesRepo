@@ -29,14 +29,14 @@ public class MenuAnimation : MonoBehaviour
         if (cam.GetIsDragging()) 
         {
             transform.position = new Vector2(cam.transform.position.x, transform.position.y);
-            savedPos = transform.position;
+            savedPos.x = transform.position.x;
             return; 
         }
 
         if (startAnimation && !hasReachedDestination)
         {
             transform.position = Vector2.Lerp(transform.position, new Vector2(cam.transform.position.x, destination), speed);
-            if (transform.position.y >= destination - 0.1f)
+            if (transform.position.y >= destination - 0.05f)
             {
                 hasReachedDestination = true;
             }
@@ -55,7 +55,6 @@ public class MenuAnimation : MonoBehaviour
 
     public void StartAnimation()
     {
-        savedPos = transform.position;
         startAnimation = true;
         cam.LockMovement(true);
         Debug.Log("Start");
