@@ -3,7 +3,6 @@ using UnityEngine;
 public class MenuAnimationX : MonoBehaviour
 {
     [SerializeField] float speed;
-    [SerializeField] float destination;
     [SerializeField] float offset;
 
     Vector2 savedPos;
@@ -37,7 +36,7 @@ public class MenuAnimationX : MonoBehaviour
         if (startAnimation && !hasReachedDestination)
         {
             transform.position = Vector2.Lerp(transform.position, new Vector2(cam.transform.position.x, cam.transform.position.y), speed);
-            if (transform.position.x >= destination - 0.1f)
+            if (transform.position.x <= cam.transform.position.x - 0.1f)
             {
                 hasReachedDestination = true;
             }
