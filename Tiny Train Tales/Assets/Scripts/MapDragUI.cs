@@ -13,6 +13,8 @@ public class MapDragUI : MonoBehaviour, IBeginDragHandler, IDragHandler
     Vector2 dragOrigin;
     Vector3 mapInitialPosition;
 
+    [SerializeField] bool lockMovement = true;
+
     CameraMovement cam;
 
     void Awake()
@@ -37,6 +39,13 @@ public class MapDragUI : MonoBehaviour, IBeginDragHandler, IDragHandler
 
     void FixedUpdate()
     {
+        if (lockMovement)
+        {
+            viewportTransform.localPosition = new Vector2(cam.transform.position.x, transform.position.y);
+            mapTransform.localPosition = new Vector2(cam.transform.position.x, transform.position.y);
+            return;
+        }
+
         if (transform.position.x < this.minX)
         {
             transform.position = new Vector2(this.minX, transform.position.y);
@@ -81,5 +90,10 @@ public class MapDragUI : MonoBehaviour, IBeginDragHandler, IDragHandler
 
         mapTransform.localPosition = newPosition;
         dragOrigin = eventData.position;
+    }
+
+    public void LockMovement(bool b)
+    {
+        lockMovement = b;
     }
 }
