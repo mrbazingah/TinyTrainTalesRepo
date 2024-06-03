@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -39,7 +40,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] TextMeshProUGUI passangerText;
     [SerializeField] float coinsPerPassanger;
     [Header("Cars")]
+    [SerializeField] GameObject carPrefab;
     [SerializeField] GameObject[] currentCars;
+    [SerializeField] float spawnOffset;
 
     float remainingDistance;
     float velocity;
@@ -69,6 +72,8 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         PlayerPrefsSetUp();
+
+        currentCars = GameObject.FindGameObjectsWithTag("Car");
     }
 
     public void UpdateCityTexts()
@@ -416,30 +421,52 @@ public class GameManager : MonoBehaviour
     #region Cars
     public void AddCar()
     {
-        GameObject[] tempCars = new GameObject[currentCars.Length + 1];
-        currentCars.CopyTo(tempCars, 0);
-        currentCars = tempCars;
+        int i = 0;
+        float x = 0;
+
+        for (int j = 0; j < currentCars.Length; j++)
+        {
+            if (currentCars[j].transform.position.x < x)
+            {
+                i = j;
+            }
+        }
+
+        Vector2 spawnPos = new Vector2(currentCars[i].transform.position.x - spawnOffset, currentCars[i].transform.position.y);
+        GameObject spawnedCar = Instantiate(carPrefab, spawnPos, Quaternion.identity);
+
+        GameObject[] tempArray = new GameObject[currentCars.Length + 1];
+        currentCars.CopyTo(tempArray, 0);
+        currentCars = tempArray;
+        currentCars[currentCars.Length - 1] = spawnedCar;
     }
 
     public void RemoveCar()
     {
-        GameObject[] tempCars = new GameObject[currentCars.Length - 1];
-        currentCars.CopyTo(tempCars, 0);
-        currentCars = tempCars;
+        int i = 0;
+        float x = 0;
+
+        for (int j = 0; j < currentCars.Length; j++)
+        {
+            if (currentCars[j].transform.position.x < x)
+            {
+                i = j;
+            }
+        }
+
+        Destroy(currentCars[i]);
+
+        GameObject[] tempArray = new GameObject[currentCars.Length - 1];
+        currentCars.CopyTo(tempArray, 0);
+        currentCars = tempArray;
     }
     #endregion
 
     #region Save
-    public void SaveCar(bool isActive, string name)
+    public void SaveCar(float currentTime, float time, string name)
     {
-        if (isActive)
-        {
-            PlayerPrefs.SetInt(name, 1);
-        }
-        else
-        {
-            PlayerPrefs.SetInt(name, 0);
-        }
+        PlayerPrefs.SetFloat(name + "Time", time);
+        PlayerPrefs.SetFloat(name + "CurrentTime", currentTime);
     }
 
     void SaveProgress()

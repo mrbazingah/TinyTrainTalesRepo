@@ -99,9 +99,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a78bf23c45cd304ea14660f57de1463, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  earning: 18
-  time: 12
+  minEarning: 60
+  maxEarning: 101
+  minTime: 15
+  maxTime: 31
   coinButton: {fileID: 4694089298547871609}
+  autoCollectDelay: 0.25
 --- !u!1 &4343202434033245042
 GameObject:
   m_ObjectHideFlags: 0
@@ -172,8 +175,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 508839137
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 0.16981131, g: 0.16981131, b: 0.16981131, a: 1}

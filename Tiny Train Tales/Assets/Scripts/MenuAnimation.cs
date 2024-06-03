@@ -57,7 +57,6 @@ public class MenuAnimation : MonoBehaviour
     {
         startAnimation = true;
         cam.LockMovement(true);
-        Debug.Log("Start");
     }
 
     public void ResetAnimation()
@@ -65,7 +64,6 @@ public class MenuAnimation : MonoBehaviour
         stop = false;
         startAnimation = false;
         hasReachedDestination = false;
-        Debug.Log("Stop");
     }
 
     public void SavePos()

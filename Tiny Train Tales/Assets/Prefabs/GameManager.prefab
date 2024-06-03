@@ -47,7 +47,8 @@ MonoBehaviour:
   coins: 0
   cointext: {fileID: 0}
   profitMultiplier: 1
-  autoCollectToggle: {fileID: 0}
+  gems: 0
+  gemsText: {fileID: 0}
   maxSpeed: 80
   speedText: {fileID: 0}
   distance: 10
@@ -56,16 +57,16 @@ MonoBehaviour:
   remainingDistanceText: {fileID: 0}
   currentCityText: {fileID: 0}
   destinationCityText: {fileID: 0}
-  map: {fileID: 0}
-  mapOffset: {x: -25.5, y: 25.4}
-  mapStartPos: {x: 0.55, y: -0.65}
-  settingsMenu: {fileID: 0}
   station: {fileID: 0}
   stationHasSpawned: 0
   hasArrivedAtStation: 0
   stationDestructDistance: 4
+  autoCollectToggle: {fileID: 0}
+  autoLeaveStation: {fileID: 0}
   maxPassangers: 20
   passangers: 0
   passangerText: {fileID: 0}
   coinsPerPassanger: 40
+  carPrefab: {fileID: 1120970924442687937, guid: fac21b0e7390ac84bb8c1b5f943e6c2a, type: 3}
   currentCars: []
+  spawnOffset: 4.4

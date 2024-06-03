@@ -5,6 +5,7 @@ public class MapDragUI : MonoBehaviour, IBeginDragHandler, IDragHandler
 {
     [SerializeField] RectTransform mapTransform; // The RectTransform of the map
     [SerializeField] RectTransform viewportTransform; // The RectTransform that defines the visible area
+    [SerializeField] GameObject canvas;
     [SerializeField] float minX = -5.78f;
     [SerializeField] float maxX = 4.42f;
     [SerializeField] float minY = -4.52f;
@@ -25,11 +26,6 @@ public class MapDragUI : MonoBehaviour, IBeginDragHandler, IDragHandler
     void Start()
     {
         mapInitialPosition = mapTransform.localPosition;
-
-        minX += cam.transform.position.x;
-        maxX += cam.transform.position.x;
-        minY += cam.transform.position.y;
-        maxY += cam.transform.position.y;
     }
 
     public void OnBeginDrag(PointerEventData eventData)
@@ -39,31 +35,38 @@ public class MapDragUI : MonoBehaviour, IBeginDragHandler, IDragHandler
 
     void FixedUpdate()
     {
+        float minX = this.minX + cam.transform.position.x;
+        float maxX = this.maxX + cam.transform.position.x;
+        float minY = this.minY + cam.transform.position.y;
+        float maxY = this.maxY + cam.transform.position.y;
+
         if (lockMovement)
         {
             viewportTransform.localPosition = new Vector2(cam.transform.position.x, transform.position.y);
             mapTransform.localPosition = new Vector2(cam.transform.position.x, transform.position.y);
+            canvas.transform.position = new Vector2(cam.transform.position.x, canvas.transform.position.y);
+
             return;
         }
 
-        if (transform.position.x < this.minX)
+        if (transform.position.x < minX)
         {
-            transform.position = new Vector2(this.minX, transform.position.y);
+            transform.position = new Vector2(minX, transform.position.y);
             return;
         }
-        if (transform.position.x > this.maxX)
+        if (transform.position.x > maxX)
         {
-            transform.position = new Vector2(this.maxX, transform.position.y);
+            transform.position = new Vector2(maxX, transform.position.y);
             return;
         }
-        if (transform.position.y < this.minY)
+        if (transform.position.y < minY)
         {
-            transform.position = new Vector2(transform.position.x, this.minY);
+            transform.position = new Vector2(transform.position.x, minY);
             return;
         }
-        if (transform.position.y > this.maxY)
+        if (transform.position.y > maxY)
         {
-            transform.position = new Vector2(transform.position.x, this.maxY);
+            transform.position = new Vector2(transform.position.x, maxY);
             return;
         }
     }

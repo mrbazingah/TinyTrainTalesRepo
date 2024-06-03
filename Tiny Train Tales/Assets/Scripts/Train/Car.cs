@@ -3,14 +3,17 @@ using UnityEngine;
 
 public class Car : MonoBehaviour
 {
-    [SerializeField] int earning;
-    [SerializeField] float time;
-    [SerializeField] string carName;
+    [SerializeField] int minEarning;
+    [SerializeField] int maxEarning;
+    [SerializeField] float minTime;
+    [SerializeField] float maxTime;
     [SerializeField] GameObject coinButton;
     [Space]
     [SerializeField] float autoCollectDelay;
 
     bool hasAutoCollected;
+    float time;
+    float currentTime;
 
     GameManager gameManager;
     Train train;
@@ -19,15 +22,19 @@ public class Car : MonoBehaviour
     {
         gameManager = FindObjectOfType<GameManager>();
         train = FindObjectOfType<Train>();
+    }
 
-        int i = PlayerPrefs.GetInt(carName);
-        if (i == 1)
+    void Start()
+    {
+        if (PlayerPrefs.HasKey(gameObject.name))
         {
-            coinButton.SetActive(true);
+            time = PlayerPrefs.GetFloat(gameObject.name + "Time");
+            currentTime = PlayerPrefs.GetFloat(gameObject.name + "CurrenTime");
         }
         else
         {
-            StartCoroutine(EarningDelay());
+            time = Random.Range(minTime, maxTime);
+            currentTime = time;
         }
     }
 
@@ -36,7 +43,7 @@ public class Car : MonoBehaviour
         float speed = train.GetSpeed();
         if (speed == 0)
         {
-            gameManager.SaveCar(coinButton.activeInHierarchy, carName);
+            gameManager.SaveCar(currentTime, time, gameObject.name);
         }
 
         bool autoCollect = gameManager.GetAutoCollect();
@@ -44,15 +51,21 @@ public class Car : MonoBehaviour
         {
             StartCoroutine(AutoCollectCoin());
         }
+
+        EarningDelay();
     }
 
-    IEnumerator EarningDelay()
+    void EarningDelay()
     {
-        coinButton.SetActive(false);
-
-        yield return new WaitForSeconds(time);
-
-        coinButton.SetActive(true);
+        if (currentTime > 0)
+        {
+            currentTime -= Time.deltaTime;
+            coinButton.SetActive(false);
+        }
+        else
+        {
+            coinButton.SetActive(true);
+        }
     }
 
     IEnumerator AutoCollectCoin()
@@ -66,9 +79,9 @@ public class Car : MonoBehaviour
 
     public void CollectCoins()
     {
-        StartCoroutine(EarningDelay());
-
+        int earning = (int)Random.Range(minEarning, maxEarning);
         gameManager.AddCoins(earning);
         hasAutoCollected = false;
+        currentTime = time;
     }
 }

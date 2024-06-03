@@ -11,6 +11,8 @@ public class MenuAnimationX : MonoBehaviour
     bool stop;
     bool hasReachedDestination;
 
+    bool mouseIsOn;
+
     CameraMovement cam;
 
     void Awake()
@@ -21,6 +23,7 @@ public class MenuAnimationX : MonoBehaviour
     void Start()
     {
         LoadSavedPos();
+        transform.position = new Vector2(cam.transform.position.x + offset, transform.position.y);
         savedPos = transform.position;
     }
 
@@ -53,8 +56,17 @@ public class MenuAnimationX : MonoBehaviour
         }
     }
 
+    void Update()
+    {
+        if (!mouseIsOn && Input.GetMouseButton(0) && startAnimation)
+        {
+            ResetAnimation();
+        }
+    }
+
     public void StartAnimation()
     {
+        if (!stop) { return; }
         savedPos = transform.position;
         startAnimation = true;
         cam.LockMovement(true);
@@ -78,5 +90,15 @@ public class MenuAnimationX : MonoBehaviour
         {
             transform.position = new Vector2(PlayerPrefs.GetFloat(gameObject.name + "X"), transform.position.y);
         }
+    }
+
+    void OnMouseEnter()
+    {
+        mouseIsOn = true;
+    }
+
+    void OnMouseExit()
+    {
+        mouseIsOn = false;
     }
 }
