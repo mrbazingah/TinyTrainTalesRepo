@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class MenuAnimation : MonoBehaviour
 {
@@ -9,7 +10,7 @@ public class MenuAnimation : MonoBehaviour
 
     bool startAnimation = false;
     bool stop;
-    [SerializeField] bool hasReachedDestination;
+    bool hasReachedDestination;
 
     CameraMovement cam;
 

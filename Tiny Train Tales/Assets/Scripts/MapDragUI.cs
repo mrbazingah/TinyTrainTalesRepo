@@ -33,7 +33,7 @@ public class MapDragUI : MonoBehaviour, IBeginDragHandler, IDragHandler
         dragOrigin = eventData.position;
     }
 
-    void FixedUpdate()
+    void Update()
     {
         float minX = this.minX + cam.transform.position.x;
         float maxX = this.maxX + cam.transform.position.x;

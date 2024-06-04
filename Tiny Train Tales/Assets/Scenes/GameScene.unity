@@ -4568,7 +4568,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 0.07
   destination: -0.27
-  hasReachedDestination: 0
 --- !u!1 &786794117
 GameObject:
   m_ObjectHideFlags: 0
@@ -6254,7 +6253,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 0.07
   destination: -0.27
-  hasReachedDestination: 0
 --- !u!1 &1011250642
 GameObject:
   m_ObjectHideFlags: 0
@@ -8135,7 +8133,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 0.08
   destination: 0.2
-  hasReachedDestination: 0
 --- !u!114 &1277917550
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9565,6 +9562,41 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1532329007}
   m_CullTransparentMesh: 1
+--- !u!1 &1541548179
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1541548180}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1541548180
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1541548179}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.02405675, y: 0.02405675, z: 0.36666667}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: -470.55402}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1549471858
 GameObject:
   m_ObjectHideFlags: 0
@@ -11666,7 +11698,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 0.08
   destination: 0.2
-  hasReachedDestination: 0
 --- !u!4 &1786960067 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3698300565624578289, guid: 9b797d9fd317e8b4a9944f5360d2e194, type: 3}
@@ -26796,6 +26827,10 @@ PrefabInstance:
       value: GameManager
       objectReference: {fileID: 0}
     - target: {fileID: 6013072587387181096, guid: d7f2d7e6643153744bbdc766918d5eaf, type: 3}
+      propertyPath: coins
+      value: 100000
+      objectReference: {fileID: 0}
+    - target: {fileID: 6013072587387181096, guid: d7f2d7e6643153744bbdc766918d5eaf, type: 3}
       propertyPath: station
       value: 
       objectReference: {fileID: 8709599478482062483}
@@ -29680,6 +29715,7 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 519420032}
+  - {fileID: 1541548180}
   - {fileID: 729048467}
   - {fileID: 1688613802266039053}
   - {fileID: 7698767031593942036}

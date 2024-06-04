@@ -27,7 +27,6 @@ public class BlockSpeed : MonoBehaviour
             train.LoadTrain();
             speed = PlayerPrefs.GetFloat("Speed");
             myRigidbody.velocity = new Vector2(-speed * Time.fixedDeltaTime * speedOffset, 0f);
-
         }
     }
 

@@ -9,6 +9,7 @@ public class Train : MonoBehaviour
 
     bool isDriving;
     bool hasLoaded;
+    float highestVelocity;
 
     new Rigidbody2D rigidbody;
     GameManager gameManager;
@@ -41,6 +42,8 @@ public class Train : MonoBehaviour
         {
             speed = PlayerPrefs.GetFloat("Speed");
             acceleration = PlayerPrefs.GetFloat("Acceleration");
+
+            Debug.Log(acceleration.ToString());
         }
 
         hasLoaded = true;
@@ -84,8 +87,13 @@ public class Train : MonoBehaviour
             speed = 0;
         }
 
+        if (rigidbody.velocity.x > highestVelocity)
+        {
+            highestVelocity = rigidbody.velocity.x;
+        }
+
+        decelartion = highestVelocity * 10f;
         float maxSpeed = gameManager.GetMaxSpeed() / 5f;
-        decelartion = maxSpeed * 10f;
 
         if (isDriving && maxSpeed > -rigidbody.velocity.x)
         {
