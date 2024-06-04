@@ -1,7 +1,6 @@
 using UnityEngine;
-using UnityEngine.EventSystems;
 
-public class MenuAnimation : MonoBehaviour
+public class MenuAnimationY : MonoBehaviour
 {
     [SerializeField] float speed;
     [SerializeField] float destination;
@@ -11,6 +10,8 @@ public class MenuAnimation : MonoBehaviour
     bool startAnimation = false;
     bool stop;
     bool hasReachedDestination;
+
+    bool canOpen;
 
     CameraMovement cam;
 
@@ -22,7 +23,9 @@ public class MenuAnimation : MonoBehaviour
     void Start()
     {
         LoadSavedPos();
-        savedPos = transform.position;    
+        savedPos = transform.position;
+
+        canOpen = true;
     }
 
     void FixedUpdate()
@@ -56,8 +59,12 @@ public class MenuAnimation : MonoBehaviour
 
     public void StartAnimation()
     {
+        if (!canOpen) { return; }
         startAnimation = true;
         cam.LockMovement(true);
+
+        MenuAnimationX otherMenu = FindObjectOfType<MenuAnimationX>();
+        otherMenu.CanOpen(false);
     }
 
     public void ResetAnimation()
@@ -65,6 +72,9 @@ public class MenuAnimation : MonoBehaviour
         stop = false;
         startAnimation = false;
         hasReachedDestination = false;
+
+        MenuAnimationX otherMenu = FindObjectOfType<MenuAnimationX>();
+        otherMenu.CanOpen(true);
     }
 
     public void SavePos()
@@ -78,5 +88,10 @@ public class MenuAnimation : MonoBehaviour
         {
             transform.position = new Vector2(PlayerPrefs.GetFloat(gameObject.name + "X"), transform.position.y);
         }
+    }
+
+    public void CanOpen(bool b)
+    {
+        canOpen = b;
     }
 }

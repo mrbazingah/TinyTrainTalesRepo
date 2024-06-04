@@ -11,7 +11,7 @@ public class MenuAnimationX : MonoBehaviour
     bool stop;
     bool hasReachedDestination;
 
-    bool mouseIsOn;
+    bool canOpen;
 
     CameraMovement cam;
 
@@ -25,6 +25,8 @@ public class MenuAnimationX : MonoBehaviour
         LoadSavedPos();
         transform.position = new Vector2(cam.transform.position.x + offset, transform.position.y);
         savedPos = transform.position;
+
+        canOpen = true;
     }
 
     void FixedUpdate()
@@ -56,20 +58,18 @@ public class MenuAnimationX : MonoBehaviour
         }
     }
 
-    void Update()
-    {
-        if (!mouseIsOn && Input.GetMouseButton(0) && startAnimation)
-        {
-            ResetAnimation();
-        }
-    }
-
     public void StartAnimation()
     {
-        if (!stop) { return; }
+        if (!stop || !canOpen) { return; }
         savedPos = transform.position;
         startAnimation = true;
         cam.LockMovement(true);
+
+        MenuAnimationY[] otherMenus = FindObjectsOfType<MenuAnimationY>();
+        for (int i = 0; i < otherMenus.Length; i++)
+        {
+            otherMenus[i].CanOpen(false);
+        }
     }
 
     public void ResetAnimation()
@@ -77,6 +77,12 @@ public class MenuAnimationX : MonoBehaviour
         stop = false;
         startAnimation = false;
         hasReachedDestination = false;
+
+        MenuAnimationY[] otherMenus = FindObjectsOfType<MenuAnimationY>();
+        for (int i = 0; i < otherMenus.Length; i++)
+        {
+            otherMenus[i].CanOpen(true);
+        }
     }
 
     public void SavePos()
@@ -92,13 +98,8 @@ public class MenuAnimationX : MonoBehaviour
         }
     }
 
-    void OnMouseEnter()
+    public void CanOpen(bool b)
     {
-        mouseIsOn = true;
-    }
-
-    void OnMouseExit()
-    {
-        mouseIsOn = false;
+        canOpen = b;
     }
 }

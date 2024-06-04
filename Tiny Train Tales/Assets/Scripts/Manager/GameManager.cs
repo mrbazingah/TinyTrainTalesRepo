@@ -521,7 +521,7 @@ public class GameManager : MonoBehaviour
             cityManager.SaveCityOnQuit();
         }
 
-        MenuAnimation[] buttons = FindObjectsOfType<MenuAnimation>();
+        MenuAnimationY[] buttons = FindObjectsOfType<MenuAnimationY>();
         for (int i = 0; i < buttons.Length; i++)
         {
             buttons[i].SavePos();
