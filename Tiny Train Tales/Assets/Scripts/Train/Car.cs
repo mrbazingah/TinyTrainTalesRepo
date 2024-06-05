@@ -26,6 +26,15 @@ public class Car : MonoBehaviour
 
     void Start()
     {
+        GameObject[] allCars = GameObject.FindGameObjectsWithTag("Car");
+        for (int i = 0; i < allCars.Length; i++)
+        {
+            if (allCars[i] == gameObject)
+            {
+                gameObject.name = "Car(" + i.ToString() + ")";
+            }
+        }
+
         if (PlayerPrefs.HasKey(gameObject.name))
         {
             time = PlayerPrefs.GetFloat(gameObject.name + "Time");

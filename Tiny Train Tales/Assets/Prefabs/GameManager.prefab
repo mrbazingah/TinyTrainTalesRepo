@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 226441167980901094}
   - component: {fileID: 6013072587387181096}
+  - component: {fileID: 995032294139566379}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -44,7 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77d18488882549f49a6dabee514ebe29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  coins: 0
+  coins: 1000000
   cointext: {fileID: 0}
   profitMultiplier: 1
   gems: 0
@@ -67,6 +68,21 @@ MonoBehaviour:
   passangers: 0
   passangerText: {fileID: 0}
   coinsPerPassanger: 40
+--- !u!114 &995032294139566379
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3450606250641564517}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dfdb1ee72ed2ca443a403614569e8233, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   carPrefab: {fileID: 1120970924442687937, guid: fac21b0e7390ac84bb8c1b5f943e6c2a, type: 3}
   currentCars: []
   spawnOffset: 4.4
+  trainCollider: {fileID: 0}
+  colliderOffset: 20
+  startPos: {x: -2.89, y: -1.15}

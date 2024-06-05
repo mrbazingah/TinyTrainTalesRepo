@@ -5,10 +5,11 @@ public class CarManager : MonoBehaviour
     [SerializeField] GameObject carPrefab;
     [SerializeField] GameObject[] currentCars;
     [SerializeField] float spawnOffset;
+    [Space]
     [SerializeField] BoxCollider2D trainCollider;
     [SerializeField] float colliderOffset;
+    [SerializeField] Vector2 startPos;
 
-    Vector2 startPos;
     int length;
 
     void Start()
@@ -29,14 +30,10 @@ public class CarManager : MonoBehaviour
         {
             length = currentCars.Length + 1;
         }
+      
 
         for (int i = 0; i < currentCars.Length; i++)
         {
-            if (i == 0 && currentCars[i] != null)
-            {
-                startPos = currentCars[i].transform.position;
-            }
-
             Destroy(currentCars[i]);
         }
 

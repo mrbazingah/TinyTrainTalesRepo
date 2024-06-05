@@ -72,7 +72,7 @@ public class CityMenu : MonoBehaviour
         if (newDestinationCity == cityManager.GetDestinationCity()) { return; }
 
         cityManager.SetNewDestinationCity(newDestinationCity);
-        PlayerPrefs.SetInt("OpenMap", 1);
+        PlayerPrefs.SetInt("Dont Destroy", 1);
 
         isDone = false;
     }

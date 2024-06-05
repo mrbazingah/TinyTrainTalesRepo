@@ -434,7 +434,11 @@ public class GameManager : MonoBehaviour
 
     public void DeleteSavedDestination(bool isButton)
     {
-        if (hasDeletedKeys) { return; }
+        if (hasDeletedKeys && PlayerPrefs.GetInt("Dont Destroy") == 1) 
+        {
+            PlayerPrefs.DeleteKey("Dont Destroy");
+            return; 
+        }
 
         PlayerPrefs.DeleteKey("Distance");
         PlayerPrefs.DeleteKey("RemainingDistance");
