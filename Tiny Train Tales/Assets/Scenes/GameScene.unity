@@ -26984,6 +26984,14 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 875327667}
     - target: {fileID: 6013072587387181096, guid: d7f2d7e6643153744bbdc766918d5eaf, type: 3}
+      propertyPath: startPos.x
+      value: -2.89
+      objectReference: {fileID: 0}
+    - target: {fileID: 6013072587387181096, guid: d7f2d7e6643153744bbdc766918d5eaf, type: 3}
+      propertyPath: startPos.y
+      value: -1.15
+      objectReference: {fileID: 0}
+    - target: {fileID: 6013072587387181096, guid: d7f2d7e6643153744bbdc766918d5eaf, type: 3}
       propertyPath: passangerText
       value: 
       objectReference: {fileID: 952809217}

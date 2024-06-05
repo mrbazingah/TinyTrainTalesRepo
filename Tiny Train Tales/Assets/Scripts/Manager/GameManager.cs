@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -43,6 +42,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject carPrefab;
     [SerializeField] GameObject[] currentCars;
     [SerializeField] float spawnOffset;
+    [SerializeField] Vector2 startPos;
 
     float remainingDistance;
     float velocity;
@@ -421,44 +421,71 @@ public class GameManager : MonoBehaviour
     #region Cars
     public void AddCar()
     {
-        int i = 0;
-        float x = 0;
+        int length = currentCars.Length + 1;
+        Debug.Log(length.ToString());
 
-        for (int j = 0; j < currentCars.Length; j++)
+        for (int i = 0; i < currentCars.Length; i++)
         {
-            if (currentCars[j].transform.position.x < x)
+            if (i == 0)
             {
-                i = j;
+                startPos = currentCars[i].transform.position;
             }
+
+            Destroy(currentCars[i]);
         }
 
-        Vector2 spawnPos = new Vector2(currentCars[i].transform.position.x - spawnOffset, currentCars[i].transform.position.y);
-        GameObject spawnedCar = Instantiate(carPrefab, spawnPos, Quaternion.identity);
+        currentCars = new GameObject[length];
+        GameObject lastSpawned = null;
 
-        GameObject[] tempArray = new GameObject[currentCars.Length + 1];
-        currentCars.CopyTo(tempArray, 0);
-        currentCars = tempArray;
-        currentCars[currentCars.Length - 1] = spawnedCar;
+        for (int i = 0; i < length; i++)
+        {
+            if (i == 0)
+            {
+                lastSpawned = Instantiate(carPrefab, startPos , Quaternion.identity);
+            }
+            else
+            {
+                Vector2 spawnPos = new Vector2(lastSpawned.transform.position.x - spawnOffset, lastSpawned.transform.position.y);
+                GameObject currentlySpanwed = Instantiate(carPrefab, spawnPos, Quaternion.identity);
+                lastSpawned = currentlySpanwed;
+            }
+
+            currentCars[i] = lastSpawned;
+        }
     }
 
     public void RemoveCar()
     {
-        int i = 0;
-        float x = 0;
+        int length = currentCars.Length - 1;
 
-        for (int j = 0; j < currentCars.Length; j++)
+        for (int i = 0; i < currentCars.Length; i++)
         {
-            if (currentCars[j].transform.position.x < x)
+            if (i == 0)
             {
-                i = j;
+                startPos = currentCars[i].transform.position;
             }
+
+            Destroy(currentCars[i]);
         }
 
-        Destroy(currentCars[i]);
+        currentCars = new GameObject[length];
+        GameObject lastSpawned = null;
 
-        GameObject[] tempArray = new GameObject[currentCars.Length - 1];
-        currentCars.CopyTo(tempArray, 0);
-        currentCars = tempArray;
+        for (int i = 0; i < length; i++)
+        {
+            if (i == 0)
+            {
+                lastSpawned = Instantiate(carPrefab, startPos, Quaternion.identity);
+            }
+            else
+            {
+                Vector2 spawnPos = new Vector2(lastSpawned.transform.position.x - spawnOffset, lastSpawned.transform.position.y);
+                GameObject currentlySpanwed = Instantiate(carPrefab, spawnPos, Quaternion.identity);
+                lastSpawned = currentlySpanwed;
+            }
+
+            currentCars[i] = lastSpawned;
+        }
     }
     #endregion
 
