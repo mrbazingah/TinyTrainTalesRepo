@@ -38,11 +38,6 @@ public class GameManager : MonoBehaviour
     [SerializeField] float passangers;
     [SerializeField] TextMeshProUGUI passangerText;
     [SerializeField] float coinsPerPassanger;
-    [Header("Cars")]
-    [SerializeField] GameObject carPrefab;
-    [SerializeField] GameObject[] currentCars;
-    [SerializeField] float spawnOffset;
-    [SerializeField] Vector2 startPos;
 
     float remainingDistance;
     float velocity;
@@ -57,6 +52,7 @@ public class GameManager : MonoBehaviour
     CityManager cityManager;
     City city;
     QuestManager questManager;
+    CarManager carManager;
     #endregion
 
     void Awake()
@@ -67,13 +63,12 @@ public class GameManager : MonoBehaviour
         cityManager = FindObjectOfType<CityManager>();
         city = FindObjectOfType<City>();    
         questManager = FindObjectOfType<QuestManager>();
+        carManager = FindObjectOfType<CarManager>();
     }
 
     void Start()
     {
         PlayerPrefsSetUp();
-
-        currentCars = GameObject.FindGameObjectsWithTag("Car");
     }
 
     public void UpdateCityTexts()
@@ -418,77 +413,6 @@ public class GameManager : MonoBehaviour
     }
     #endregion
 
-    #region Cars
-    public void AddCar()
-    {
-        int length = currentCars.Length + 1;
-        Debug.Log(length.ToString());
-
-        for (int i = 0; i < currentCars.Length; i++)
-        {
-            if (i == 0)
-            {
-                startPos = currentCars[i].transform.position;
-            }
-
-            Destroy(currentCars[i]);
-        }
-
-        currentCars = new GameObject[length];
-        GameObject lastSpawned = null;
-
-        for (int i = 0; i < length; i++)
-        {
-            if (i == 0)
-            {
-                lastSpawned = Instantiate(carPrefab, startPos , Quaternion.identity);
-            }
-            else
-            {
-                Vector2 spawnPos = new Vector2(lastSpawned.transform.position.x - spawnOffset, lastSpawned.transform.position.y);
-                GameObject currentlySpanwed = Instantiate(carPrefab, spawnPos, Quaternion.identity);
-                lastSpawned = currentlySpanwed;
-            }
-
-            currentCars[i] = lastSpawned;
-        }
-    }
-
-    public void RemoveCar()
-    {
-        int length = currentCars.Length - 1;
-
-        for (int i = 0; i < currentCars.Length; i++)
-        {
-            if (i == 0)
-            {
-                startPos = currentCars[i].transform.position;
-            }
-
-            Destroy(currentCars[i]);
-        }
-
-        currentCars = new GameObject[length];
-        GameObject lastSpawned = null;
-
-        for (int i = 0; i < length; i++)
-        {
-            if (i == 0)
-            {
-                lastSpawned = Instantiate(carPrefab, startPos, Quaternion.identity);
-            }
-            else
-            {
-                Vector2 spawnPos = new Vector2(lastSpawned.transform.position.x - spawnOffset, lastSpawned.transform.position.y);
-                GameObject currentlySpanwed = Instantiate(carPrefab, spawnPos, Quaternion.identity);
-                lastSpawned = currentlySpanwed;
-            }
-
-            currentCars[i] = lastSpawned;
-        }
-    }
-    #endregion
-
     #region Save
     public void SaveCar(float currentTime, float time, string name)
     {
@@ -538,6 +462,7 @@ public class GameManager : MonoBehaviour
         train.SaveTrain();
         questManager.SaveTravelDistance();
         cam.SavePos();
+        carManager.SaveCars();
 
         if (hasArrivedAtStation)
         {

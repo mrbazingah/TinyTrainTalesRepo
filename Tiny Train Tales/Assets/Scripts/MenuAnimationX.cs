@@ -11,8 +11,6 @@ public class MenuAnimationX : MonoBehaviour
     bool stop;
     bool hasReachedDestination;
 
-    bool canOpen;
-
     CameraMovement cam;
 
     void Awake()
@@ -25,13 +23,11 @@ public class MenuAnimationX : MonoBehaviour
         LoadSavedPos();
         transform.position = new Vector2(cam.transform.position.x + offset, transform.position.y);
         savedPos = transform.position;
-
-        canOpen = true;
     }
 
     void FixedUpdate()
     {
-        if (cam.GetIsDragging())
+        if (cam.GetIsDragging() && !startAnimation)
         {
             transform.position = new Vector2(cam.transform.position.x + offset, transform.position.y);
             savedPos = transform.position;
@@ -60,7 +56,7 @@ public class MenuAnimationX : MonoBehaviour
 
     public void StartAnimation()
     {
-        if (!stop || !canOpen) { return; }
+        if (!stop) { return; }
         savedPos = transform.position;
         startAnimation = true;
         cam.LockMovement(true);
@@ -68,7 +64,7 @@ public class MenuAnimationX : MonoBehaviour
         MenuAnimationY[] otherMenus = FindObjectsOfType<MenuAnimationY>();
         for (int i = 0; i < otherMenus.Length; i++)
         {
-            otherMenus[i].CanOpen(false);
+            otherMenus[i].ResetAnimation();
         }
     }
 
@@ -77,13 +73,8 @@ public class MenuAnimationX : MonoBehaviour
         stop = false;
         startAnimation = false;
         hasReachedDestination = false;
-
-        MenuAnimationY[] otherMenus = FindObjectsOfType<MenuAnimationY>();
-        for (int i = 0; i < otherMenus.Length; i++)
-        {
-            otherMenus[i].CanOpen(true);
-        }
     }
+
 
     public void SavePos()
     {
@@ -96,10 +87,5 @@ public class MenuAnimationX : MonoBehaviour
         {
             transform.position = new Vector2(PlayerPrefs.GetFloat(gameObject.name + "X"), transform.position.y);
         }
-    }
-
-    public void CanOpen(bool b)
-    {
-        canOpen = b;
     }
 }

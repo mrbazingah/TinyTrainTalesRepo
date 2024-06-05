@@ -38,7 +38,7 @@ public class Train : MonoBehaviour
         //acceleration = trainData.acceleration;
         //speed = trainData.speed;
 
-        if (PlayerPrefs.HasKey("Acceleration") && PlayerPrefs.HasKey("Speed"))
+        if (PlayerPrefs.HasKey("Acceleration") || PlayerPrefs.HasKey("Speed"))
         {
             speed = PlayerPrefs.GetFloat("Speed");
             acceleration = PlayerPrefs.GetFloat("Acceleration");

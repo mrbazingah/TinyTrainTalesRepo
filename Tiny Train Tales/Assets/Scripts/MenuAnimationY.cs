@@ -11,8 +11,6 @@ public class MenuAnimationY : MonoBehaviour
     bool stop;
     bool hasReachedDestination;
 
-    bool canOpen;
-
     CameraMovement cam;
 
     void Awake()
@@ -24,8 +22,6 @@ public class MenuAnimationY : MonoBehaviour
     {
         LoadSavedPos();
         savedPos = transform.position;
-
-        canOpen = true;
     }
 
     void FixedUpdate()
@@ -59,12 +55,11 @@ public class MenuAnimationY : MonoBehaviour
 
     public void StartAnimation()
     {
-        if (!canOpen) { return; }
         startAnimation = true;
         cam.LockMovement(true);
 
         MenuAnimationX otherMenu = FindObjectOfType<MenuAnimationX>();
-        otherMenu.CanOpen(false);
+        otherMenu.ResetAnimation();
     }
 
     public void ResetAnimation()
@@ -72,9 +67,6 @@ public class MenuAnimationY : MonoBehaviour
         stop = false;
         startAnimation = false;
         hasReachedDestination = false;
-
-        MenuAnimationX otherMenu = FindObjectOfType<MenuAnimationX>();
-        otherMenu.CanOpen(true);
     }
 
     public void SavePos()
@@ -88,10 +80,5 @@ public class MenuAnimationY : MonoBehaviour
         {
             transform.position = new Vector2(PlayerPrefs.GetFloat(gameObject.name + "X"), transform.position.y);
         }
-    }
-
-    public void CanOpen(bool b)
-    {
-        canOpen = b;
     }
 }
