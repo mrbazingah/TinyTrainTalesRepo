@@ -47,7 +47,7 @@ public class MenuAnimationY : MonoBehaviour
             if (transform.position.y <= savedPos.y + 0.2f)
             {
                 stop = true;
-                transform.position = savedPos;
+                transform.position = new Vector2(cam.transform.position.x, savedPos.y);
                 cam.LockMovement(false);
             }
         }

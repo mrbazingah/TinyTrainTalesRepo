@@ -122,7 +122,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockPrefab: {fileID: 3471238567322333196}
-  stationBlockPrefab: {fileID: 0}
   spawnOffset: 20
   canSpawn: 1
 --- !u!114 &6228608435705293624

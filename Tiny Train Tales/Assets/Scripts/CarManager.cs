@@ -56,7 +56,14 @@ public class CarManager : MonoBehaviour
             currentCars[i] = lastSpawned;
         }
 
-        trainCollider.size = new Vector2(length * colliderOffset, trainCollider.size.y);
+        if (length == 1)
+        {
+            trainCollider.size = new Vector2(length * colliderOffset * 2, trainCollider.size.y);
+        }
+        else
+        {
+            trainCollider.size = new Vector2(length * colliderOffset, trainCollider.size.y);
+        }
     }
 
     public void RemoveCar()
@@ -98,5 +105,11 @@ public class CarManager : MonoBehaviour
     public void SaveCars()
     {
         PlayerPrefs.SetInt("Cars", currentCars.Length);
+
+        Car[] cars = FindObjectsOfType<Car>();
+        for (int i = 0; i < cars.Length; i++)
+        {
+            cars[i].SaveCar();
+        }
     }
 }

@@ -7138,7 +7138,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockPrefab: {fileID: 203746733}
-  stationBlockPrefab: {fileID: 6283405741849151963, guid: 7effc8ca566350141806a29bf9d4d20e, type: 3}
   spawnOffset: 20
   canSpawn: 0
 --- !u!50 &203746737
@@ -7726,7 +7725,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockPrefab: {fileID: 219746846}
-  stationBlockPrefab: {fileID: 6283405741849151963, guid: 7effc8ca566350141806a29bf9d4d20e, type: 3}
   spawnOffset: 20
   canSpawn: 0
 --- !u!50 &219746850
@@ -8735,7 +8733,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockPrefab: {fileID: 241797616}
-  stationBlockPrefab: {fileID: 6283405741849151963, guid: 7effc8ca566350141806a29bf9d4d20e, type: 3}
   spawnOffset: 20
   canSpawn: 0
 --- !u!50 &241797620
@@ -20201,7 +20198,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockPrefab: {fileID: 513622542}
-  stationBlockPrefab: {fileID: 0}
   spawnOffset: 16.8
   canSpawn: 0
 --- !u!50 &513622546
@@ -20433,7 +20429,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockPrefab: {fileID: 515879552}
-  stationBlockPrefab: {fileID: 0}
   spawnOffset: 20
   canSpawn: 0
 --- !u!50 &515879556
@@ -20792,7 +20787,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockPrefab: {fileID: 523610747}
-  stationBlockPrefab: {fileID: 0}
   spawnOffset: 20
   canSpawn: 0
 --- !u!50 &523610751
@@ -21388,7 +21382,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockPrefab: {fileID: 536121425}
-  stationBlockPrefab: {fileID: 6283405741849151963, guid: 7effc8ca566350141806a29bf9d4d20e, type: 3}
   spawnOffset: 20
   canSpawn: 0
 --- !u!50 &536121429
@@ -23381,7 +23374,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockPrefab: {fileID: 592455693}
-  stationBlockPrefab: {fileID: 0}
   spawnOffset: 20
   canSpawn: 0
 --- !u!50 &592455697
@@ -25600,7 +25592,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockPrefab: {fileID: 653593377}
-  stationBlockPrefab: {fileID: 6283405741849151963, guid: 7effc8ca566350141806a29bf9d4d20e, type: 3}
   spawnOffset: 20
   canSpawn: 0
 --- !u!50 &653593381
@@ -27267,7 +27258,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockPrefab: {fileID: 688479429}
-  stationBlockPrefab: {fileID: 0}
   spawnOffset: 16.8
   canSpawn: 0
 --- !u!50 &688479433
@@ -30201,7 +30191,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockPrefab: {fileID: 765076275}
-  stationBlockPrefab: {fileID: 0}
   spawnOffset: 20
   canSpawn: 0
 --- !u!50 &765076279
@@ -30876,7 +30865,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockPrefab: {fileID: 776834568}
-  stationBlockPrefab: {fileID: 0}
   spawnOffset: 20
   canSpawn: 0
 --- !u!50 &776834572
@@ -32949,7 +32937,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockPrefab: {fileID: 820730365}
-  stationBlockPrefab: {fileID: 0}
   spawnOffset: 20
   canSpawn: 0
 --- !u!50 &820730369
@@ -51652,7 +51639,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockPrefab: {fileID: 1308973419}
-  stationBlockPrefab: {fileID: 0}
   spawnOffset: 20
   canSpawn: 0
 --- !u!50 &1308973423
@@ -57196,7 +57182,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockPrefab: {fileID: 1448452117}
-  stationBlockPrefab: {fileID: 0}
   spawnOffset: 20
   canSpawn: 0
 --- !u!50 &1448452121
@@ -60183,7 +60168,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockPrefab: {fileID: 1539020812}
-  stationBlockPrefab: {fileID: 0}
   spawnOffset: 20
   canSpawn: 0
 --- !u!50 &1539020816
@@ -60414,7 +60398,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockPrefab: {fileID: 1539758385}
-  stationBlockPrefab: {fileID: 0}
   spawnOffset: 20
   canSpawn: 0
 --- !u!50 &1539758389
@@ -63688,7 +63671,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockPrefab: {fileID: 1602480693}
-  stationBlockPrefab: {fileID: 0}
   spawnOffset: 16.8
   canSpawn: 0
 --- !u!50 &1602480697
@@ -74441,7 +74423,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockPrefab: {fileID: 1892221290}
-  stationBlockPrefab: {fileID: 6283405741849151963, guid: 7effc8ca566350141806a29bf9d4d20e, type: 3}
   spawnOffset: 20
   canSpawn: 0
 --- !u!50 &1892221294
@@ -74840,7 +74821,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockPrefab: {fileID: 1900746367}
-  stationBlockPrefab: {fileID: 0}
   spawnOffset: 20
   canSpawn: 0
 --- !u!50 &1900746371
@@ -75166,7 +75146,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockPrefab: {fileID: 1908855026}
-  stationBlockPrefab: {fileID: 0}
   spawnOffset: 20
   canSpawn: 0
 --- !u!50 &1908855030
@@ -75628,7 +75607,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockPrefab: {fileID: 1917238155}
-  stationBlockPrefab: {fileID: 0}
   spawnOffset: 20
   canSpawn: 0
 --- !u!50 &1917238159
@@ -76422,7 +76400,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockPrefab: {fileID: 1936065508}
-  stationBlockPrefab: {fileID: 6283405741849151963, guid: 7effc8ca566350141806a29bf9d4d20e, type: 3}
   spawnOffset: 20
   canSpawn: 0
 --- !u!50 &1936065512
@@ -82594,7 +82571,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockPrefab: {fileID: 2069373629}
-  stationBlockPrefab: {fileID: 0}
   spawnOffset: 20
   canSpawn: 0
 --- !u!50 &2069373633
@@ -88747,7 +88723,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockPrefab: {fileID: 7439860005775030891}
-  stationBlockPrefab: {fileID: 0}
   spawnOffset: 16.8
   canSpawn: 0
 --- !u!114 &937650647032972398
@@ -99460,6 +99435,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 875327667}
     - target: {fileID: 6013072587387181096, guid: d7f2d7e6643153744bbdc766918d5eaf, type: 3}
+      propertyPath: startStation
+      value: 
+      objectReference: {fileID: 8709599478482062483}
+    - target: {fileID: 6013072587387181096, guid: d7f2d7e6643153744bbdc766918d5eaf, type: 3}
       propertyPath: passangerText
       value: 
       objectReference: {fileID: 952809217}
@@ -99479,6 +99458,10 @@ PrefabInstance:
       propertyPath: autoCollectToggle
       value: 
       objectReference: {fileID: 1401247971}
+    - target: {fileID: 6013072587387181096, guid: d7f2d7e6643153744bbdc766918d5eaf, type: 3}
+      propertyPath: stationBlockPrefab
+      value: 
+      objectReference: {fileID: 6283405741849151963, guid: 7effc8ca566350141806a29bf9d4d20e, type: 3}
     - target: {fileID: 6013072587387181096, guid: d7f2d7e6643153744bbdc766918d5eaf, type: 3}
       propertyPath: destinationCityText
       value: 
@@ -100024,7 +100007,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockPrefab: {fileID: 3708604435851580955}
-  stationBlockPrefab: {fileID: 0}
   spawnOffset: 20
   canSpawn: 0
 --- !u!1 &8045655904610927012
@@ -100366,7 +100348,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockPrefab: {fileID: 5940923490217489835}
-  stationBlockPrefab: {fileID: 6283405741849151963, guid: 7effc8ca566350141806a29bf9d4d20e, type: 3}
   spawnOffset: 20
   canSpawn: 0
 --- !u!212 &8261149940028930477
@@ -100434,7 +100415,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockPrefab: {fileID: 3471238566718480704}
-  stationBlockPrefab: {fileID: 0}
   spawnOffset: 20
   canSpawn: 0
 --- !u!1 &8272279788412774690

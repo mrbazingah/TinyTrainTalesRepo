@@ -26,7 +26,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] TextMeshProUGUI currentCityText;
     [SerializeField] TextMeshProUGUI destinationCityText;
     [Header("Station")]
-    [SerializeField] GameObject station;
+    [SerializeField] GameObject startStation;
+    [SerializeField] GameObject stationBlockPrefab;
     [SerializeField] bool stationHasSpawned;
     [SerializeField] bool hasArrivedAtStation;
     [SerializeField] float stationDestructDistance;
@@ -133,11 +134,11 @@ public class GameManager : MonoBehaviour
 
             if (distance - remainingDistance > stationDestructDistance)
             {
-                Destroy(station);
+                Destroy(startStation);
             }
             else
             {
-                Destroy(station, 5f);
+                Destroy(startStation, 5f);
             }
         }
         else if (PlayerPrefs.HasKey("Distance"))
@@ -296,8 +297,23 @@ public class GameManager : MonoBehaviour
         if (remainingDistance <= 0f)
         {
             remainingDistance = 0f;
-            destinationReached = true;
-            train.StopTrain();
+
+            if (!destinationReached)
+            {
+                destinationReached = true;
+                train?.StopTrain();
+
+                float speed = train.GetSpeed();
+                float deceleration = train.GetDecelartion();
+                float time = 3;
+
+                float distance = speed * time - deceleration / 2 * 9;
+                distance /= 45;
+
+                Debug.Log(distance.ToString());
+
+                Instantiate(stationBlockPrefab, new Vector2(transform.position.x + distance, 0.72f), Quaternion.identity);
+            }
         }
     }
 
@@ -319,7 +335,7 @@ public class GameManager : MonoBehaviour
 
         passangers -= subPassangers;
         passangers += addPassangers;
-        float coinsAdded = coinsPerPassanger * subPassangers;
+        float coinsAdded = coinsPerPassanger * subPassangers * profitMultiplier;
 
         Station station = FindObjectOfType<Station>();
         station.GetPassangers(subPassangers, addPassangers, coinsAdded);
@@ -463,18 +479,18 @@ public class GameManager : MonoBehaviour
 
     public void SaveAll()
     {
-        train.SaveTrain();
-        questManager.SaveTravelDistance();
-        cam.SavePos();
-        carManager.SaveCars();
+        train?.SaveTrain();
+        questManager?.SaveTravelDistance();
+        cam?.SavePos();
+        carManager?.SaveCars();
 
         if (hasArrivedAtStation)
         {
-            cityManager.SaveOnDeparture();
+            cityManager?.SaveOnDeparture();
         }
         else
         {
-            cityManager.SaveCityOnQuit();
+            cityManager?.SaveCityOnQuit();
         }
 
         MenuAnimationY[] buttons = FindObjectsOfType<MenuAnimationY>();

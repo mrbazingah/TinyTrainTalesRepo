@@ -8,12 +8,14 @@ public class CameraMovement : MonoBehaviour
     [SerializeField] float maxXOffset = 2f;
 
     float minXOffset;
-    bool lockMovement;
+    [SerializeField] bool lockMovement;
 
     Vector3 offset;
     Vector3 targetPosition;
     Vector3 lastMousePosition;
     Vector3 newTargetPosition;
+
+    Vector3 savedPos;
 
     int amountOfCars;
     bool isDragging = false;
@@ -70,10 +72,13 @@ public class CameraMovement : MonoBehaviour
 
                 isDragging = false;
             }
+
+            savedPos = transform.position;
         }
         else
         {
             isDragging = false;
+            transform.position = savedPos;
         }
     }
 

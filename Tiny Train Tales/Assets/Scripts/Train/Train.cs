@@ -85,12 +85,13 @@ public class Train : MonoBehaviour
             speed = 0;
         }
 
-        if (rigidbody.velocity.x > highestVelocity)
+        if (speed > highestVelocity)
         {
-            highestVelocity = rigidbody.velocity.x;
+            highestVelocity = speed;
         }
 
-        decelartion = highestVelocity * 10f;
+        decelartion = highestVelocity / 5;
+
         float maxSpeed = gameManager.GetMaxSpeed() / 5f;
 
         if (isDriving && maxSpeed > -rigidbody.velocity.x)

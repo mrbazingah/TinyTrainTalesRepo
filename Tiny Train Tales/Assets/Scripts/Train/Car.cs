@@ -35,10 +35,12 @@ public class Car : MonoBehaviour
             }
         }
 
-        if (PlayerPrefs.HasKey(gameObject.name))
+        if (PlayerPrefs.HasKey(gameObject.name + "Time"))
         {
             time = PlayerPrefs.GetFloat(gameObject.name + "Time");
             currentTime = PlayerPrefs.GetFloat(gameObject.name + "CurrenTime");
+
+            Debug.Log("GH");
         }
         else
         {
@@ -92,5 +94,11 @@ public class Car : MonoBehaviour
         gameManager.AddCoins(earning);
         hasAutoCollected = false;
         currentTime = time;
+    }
+
+    public void SaveCar()
+    {
+        PlayerPrefs.SetFloat(gameObject.name + "Time", time);
+        PlayerPrefs.SetFloat(gameObject.name + "CurrenTime", currentTime);
     }
 }
