@@ -61,6 +61,8 @@ public class Station : MonoBehaviour
         cityManager?.ResetPath();
         questManager?.SaveTravelDistance();
 
+        PlayerPrefs.DeleteKey("Dont Destroy");
+
         string currentScene = SceneManager.GetActiveScene().name;
         SceneManager.LoadScene(currentScene);
     }

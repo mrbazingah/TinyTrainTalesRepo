@@ -23,7 +23,7 @@ public class BackgroundGenerator : MonoBehaviour
         }
     }
 
-    void SpawnBlock()
+    public void SpawnBlock()
     {
         Instantiate(blockPrefab, new Vector2(transform.position.x + spawnOffset, transform.position.y), Quaternion.identity);
     }
@@ -36,5 +36,10 @@ public class BackgroundGenerator : MonoBehaviour
             gameObject.SetActive(false);
             train.FindRigidbody();
         }
+    }
+
+    public float GetSpawnOffset()
+    {
+        return spawnOffset;
     }
 }

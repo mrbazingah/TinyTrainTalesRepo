@@ -39,8 +39,6 @@ public class Car : MonoBehaviour
         {
             time = PlayerPrefs.GetFloat(gameObject.name + "Time");
             currentTime = PlayerPrefs.GetFloat(gameObject.name + "CurrenTime");
-
-            Debug.Log("GH");
         }
         else
         {

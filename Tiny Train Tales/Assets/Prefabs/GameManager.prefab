@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77d18488882549f49a6dabee514ebe29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  coins: 1000000
+  coins: 0
   cointext: {fileID: 0}
   profitMultiplier: 1
   gems: 0
@@ -85,5 +85,5 @@ MonoBehaviour:
   currentCars: []
   spawnOffset: 4.4
   trainCollider: {fileID: 0}
-  colliderOffset: 20
+  colliderOffset: 35
   startPos: {x: -2.89, y: -1.15}

@@ -60,8 +60,12 @@ MonoBehaviour:
   addToAcceleration: 10
   accelerationCostIncrease: 250
   profitText: {fileID: 0}
-  proiftCostText: {fileID: 0}
+  profitCostText: {fileID: 0}
   profitCost: 2000
   addToProfit: 0.25
   profitCostIncrease: 2000
-  upgradeMenu: {fileID: 0}
+  carsText: {fileID: 0}
+  carsCostText: {fileID: 0}
+  carsCost: 1000
+  carsCostIncrease: 500
+  cantAffordColor: {r: 0.7058824, g: 0.7058824, b: 0.7058824, a: 1}

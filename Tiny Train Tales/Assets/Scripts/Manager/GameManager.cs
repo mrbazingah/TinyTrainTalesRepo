@@ -310,8 +310,6 @@ public class GameManager : MonoBehaviour
                 float distance = speed * time - deceleration / 2 * 9;
                 distance /= 45;
 
-                Debug.Log(distance.ToString());
-
                 Instantiate(stationBlockPrefab, new Vector2(transform.position.x + distance, 0.72f), Quaternion.identity);
             }
         }
@@ -450,11 +448,7 @@ public class GameManager : MonoBehaviour
 
     public void DeleteSavedDestination(bool isButton)
     {
-        if (hasDeletedKeys && PlayerPrefs.GetInt("Dont Destroy") == 1) 
-        {
-            PlayerPrefs.DeleteKey("Dont Destroy");
-            return; 
-        }
+        if (hasDeletedKeys || PlayerPrefs.GetInt("Dont Destroy") == 1) { return; }
 
         PlayerPrefs.DeleteKey("Distance");
         PlayerPrefs.DeleteKey("RemainingDistance");

@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 
 public class CarManager : MonoBehaviour
@@ -9,8 +10,21 @@ public class CarManager : MonoBehaviour
     [SerializeField] BoxCollider2D trainCollider;
     [SerializeField] float colliderOffset;
     [SerializeField] Vector2 startPos;
+    [Space]
+    [SerializeField] TextMeshProUGUI costText;
+    [SerializeField] float cost;
+    [SerializeField] float costIncrease;
 
     int length;
+
+    GameManager gameManager;
+    UpgradeManager upgradeManager;
+
+    void Awake()
+    {
+        gameManager = FindObjectOfType<GameManager>();
+        upgradeManager = FindObjectOfType<UpgradeManager>();
+    }
 
     void Start()
     {
@@ -22,16 +36,30 @@ public class CarManager : MonoBehaviour
 
             AddCar(true);
         }
+        if (PlayerPrefs.HasKey("CostPerCar"))
+        {
+            cost = PlayerPrefs.GetFloat("CostPerCar");
+        }
+
+        costText.text = cost.ToString();
     }
 
     public void AddCar(bool isStart)
     {
+        float coins = gameManager.GetCoins();
+        if (coins < cost && upgradeManager.GetAmountOfCars() <= length) { return; }
+
+        gameManager.BuyWithCoins(cost);
+        cost += costIncrease;
+        cost = Mathf.Round(cost);
+
+        costText.text = cost.ToString();
+
         if (!isStart)
         {
             length = currentCars.Length + 1;
         }
       
-
         for (int i = 0; i < currentCars.Length; i++)
         {
             Destroy(currentCars[i]);
@@ -68,6 +96,11 @@ public class CarManager : MonoBehaviour
 
     public void RemoveCar()
     {
+        gameManager.BuyWithCoins(-cost / 2);
+        cost -= costIncrease;
+        cost = Mathf.Round(cost);
+        costText.text = cost.ToString();
+
         length = currentCars.Length - 1;
 
         for (int i = 0; i < currentCars.Length; i++)
@@ -111,5 +144,10 @@ public class CarManager : MonoBehaviour
         {
             cars[i].SaveCar();
         }
+    }
+
+    public int GetLength()
+    {
+        return length;
     }
 }
