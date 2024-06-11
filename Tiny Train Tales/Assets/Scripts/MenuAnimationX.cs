@@ -25,7 +25,7 @@ public class MenuAnimationX : MonoBehaviour
         savedPos = transform.position;
     }
 
-    void FixedUpdate()
+    void Update()
     {
         if (cam.GetIsDragging() && !startAnimation)
         {
@@ -53,7 +53,6 @@ public class MenuAnimationX : MonoBehaviour
             }
         }
     }
-
     public void StartAnimation()
     {
         if (!stop) { return; }

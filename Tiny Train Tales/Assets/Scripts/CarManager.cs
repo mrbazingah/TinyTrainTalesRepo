@@ -47,19 +47,20 @@ public class CarManager : MonoBehaviour
     public void AddCar(bool isStart)
     {
         float coins = gameManager.GetCoins();
-        if (coins < cost && upgradeManager.GetAmountOfCars() <= length) { return; }
-
-        gameManager.BuyWithCoins(cost);
-        cost += costIncrease;
-        cost = Mathf.Round(cost);
-
-        costText.text = cost.ToString();
+        if ((coins < cost || upgradeManager.GetAmountOfCars() <= length) && !isStart) { return; }
 
         if (!isStart)
         {
             length = currentCars.Length + 1;
+
+            gameManager.BuyWithCoins(cost);
+            cost += costIncrease;
+            cost = Mathf.Round(cost);
+
+            PlayerPrefs.SetFloat("CostPerCar", cost);
+            costText.text = cost.ToString();
         }
-      
+
         for (int i = 0; i < currentCars.Length; i++)
         {
             Destroy(currentCars[i]);
@@ -86,19 +87,36 @@ public class CarManager : MonoBehaviour
 
         if (length == 1)
         {
-            trainCollider.size = new Vector2(length * colliderOffset * 2, trainCollider.size.y);
+            trainCollider.size = new Vector2(length * colliderOffset * 3, trainCollider.size.y);
         }
         else
         {
             trainCollider.size = new Vector2(length * colliderOffset, trainCollider.size.y);
         }
+
+        BackgroundGenerator[] background = FindObjectsOfType<BackgroundGenerator>();
+        BackgroundGenerator currentBackground = background[0];
+        for (int i = 0; i < background.Length; i++)
+        {
+            if (background[i].transform.position.x < currentBackground.transform.position.x)
+            {
+                currentBackground = background[i];
+            }
+        }
+
+        currentBackground.ChangeSpawnOffset();
+        currentBackground.SpawnBlock();
     }
 
     public void RemoveCar()
     {
+        if (cost == 500) { return; }
+
         gameManager.BuyWithCoins(-cost / 2);
         cost -= costIncrease;
         cost = Mathf.Round(cost);
+
+        PlayerPrefs.SetFloat("CostPerCar", cost);
         costText.text = cost.ToString();
 
         length = currentCars.Length - 1;

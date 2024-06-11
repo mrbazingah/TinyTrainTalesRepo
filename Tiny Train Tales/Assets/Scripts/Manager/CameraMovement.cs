@@ -32,6 +32,8 @@ public class CameraMovement : MonoBehaviour
         offset.z = -10f;
         targetPosition = target.position + offset;
         lastMousePosition = Input.mousePosition;
+
+        isDragging = true;
     }
 
     void LateUpdate()

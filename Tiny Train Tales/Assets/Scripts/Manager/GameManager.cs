@@ -25,6 +25,8 @@ public class GameManager : MonoBehaviour
     [Space]
     [SerializeField] TextMeshProUGUI currentCityText;
     [SerializeField] TextMeshProUGUI destinationCityText;
+    [Space]
+    [SerializeField] float hey;
     [Header("Station")]
     [SerializeField] GameObject startStation;
     [SerializeField] GameObject stationBlockPrefab;
@@ -308,7 +310,7 @@ public class GameManager : MonoBehaviour
                 float time = 3;
 
                 float distance = speed * time - deceleration / 2 * 9;
-                distance /= 45;
+                distance /= hey;
 
                 Instantiate(stationBlockPrefab, new Vector2(transform.position.x + distance, 0.72f), Quaternion.identity);
             }
@@ -365,7 +367,6 @@ public class GameManager : MonoBehaviour
         {
             SaveAll();
             AddAndSubtractPassangers();
-            DeleteSavedDestination(false);
 
             if (autoLeaveStation.isOn)
             {
@@ -436,7 +437,7 @@ public class GameManager : MonoBehaviour
 
     void SaveProgress()
     {
-        if (remainingDistance <= 0)
+        if (remainingDistance <= 0 || train.GetSpeed() <= 0)
         {
             DeleteSavedDestination(false);
             return;

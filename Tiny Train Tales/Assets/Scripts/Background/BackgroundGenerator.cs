@@ -6,6 +6,8 @@ public class BackgroundGenerator : MonoBehaviour
     [SerializeField] float spawnOffset;
     [SerializeField] bool canSpawn;
 
+    GameObject parent;
+
     Train train;
     GameManager gameManager;
 
@@ -13,6 +15,11 @@ public class BackgroundGenerator : MonoBehaviour
     {
         train = FindObjectOfType<Train>();
         gameManager = FindObjectOfType<GameManager>();
+    }
+
+    void Start()
+    {
+        parent = GameObject.Find("BackgroundParent");
     }
 
     void OnTriggerEnter2D(Collider2D other)
@@ -25,7 +32,11 @@ public class BackgroundGenerator : MonoBehaviour
 
     public void SpawnBlock()
     {
-        Instantiate(blockPrefab, new Vector2(transform.position.x + spawnOffset, transform.position.y), Quaternion.identity);
+        GameObject spawned = Instantiate(blockPrefab, new Vector2(transform.position.x + spawnOffset, transform.position.y), Quaternion.identity);
+        if (parent != null)
+        {
+            spawned.transform.SetParent(parent.transform);
+        }
     }
 
     void OnTriggerExit2D(Collider2D other)
@@ -36,6 +47,11 @@ public class BackgroundGenerator : MonoBehaviour
             gameObject.SetActive(false);
             train.FindRigidbody();
         }
+    }
+
+    public void ChangeSpawnOffset()
+    {
+        spawnOffset = -spawnOffset;
     }
 
     public float GetSpawnOffset()

@@ -24,7 +24,7 @@ public class MenuAnimationY : MonoBehaviour
         savedPos = transform.position;
     }
 
-    void FixedUpdate()
+    void Update()
     {
         if (cam.GetIsDragging()) 
         {
