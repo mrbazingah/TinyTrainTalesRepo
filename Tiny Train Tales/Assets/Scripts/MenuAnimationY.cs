@@ -10,6 +10,7 @@ public class MenuAnimationY : MonoBehaviour
     bool startAnimation = false;
     bool stop;
     bool hasReachedDestination;
+    bool stopped;
 
     CameraMovement cam;
 
@@ -48,22 +49,30 @@ public class MenuAnimationY : MonoBehaviour
             {
                 stop = true;
                 transform.position = new Vector2(cam.transform.position.x, savedPos.y);
-                cam.LockMovement(false);
+
+                if (!stopped)
+                {
+                    cam.LockMovement(false);
+                }
             }
         }
     }
 
     public void StartAnimation()
     {
+        MenuAnimationX otherMenu = FindObjectOfType<MenuAnimationX>();
+        otherMenu.ResetAnimation(true);
+
         startAnimation = true;
         cam.LockMovement(true);
 
-        MenuAnimationX otherMenu = FindObjectOfType<MenuAnimationX>();
-        otherMenu.ResetAnimation();
+        stopped = false;
     }
 
-    public void ResetAnimation()
+    public void ResetAnimation(bool isStoppedByOther)
     {
+        stopped = isStoppedByOther;
+
         stop = false;
         startAnimation = false;
         hasReachedDestination = false;

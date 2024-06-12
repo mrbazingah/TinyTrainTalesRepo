@@ -11,6 +11,8 @@ public class MenuAnimationX : MonoBehaviour
     bool stop;
     bool hasReachedDestination;
 
+    bool stopped;
+
     CameraMovement cam;
 
     void Awake()
@@ -49,7 +51,11 @@ public class MenuAnimationX : MonoBehaviour
             {
                 stop = true;
                 transform.position = savedPos;
-                cam.LockMovement(false);
+                
+                if (!stopped)
+                {
+                    cam.LockMovement(false);
+                }
             }
         }
     }
@@ -63,12 +69,16 @@ public class MenuAnimationX : MonoBehaviour
         MenuAnimationY[] otherMenus = FindObjectsOfType<MenuAnimationY>();
         for (int i = 0; i < otherMenus.Length; i++)
         {
-            otherMenus[i].ResetAnimation();
+            otherMenus[i].ResetAnimation(true);
         }
+
+        stopped = false;
     }
 
-    public void ResetAnimation()
+    public void ResetAnimation(bool isStoppedByOther)
     {
+        stopped = isStoppedByOther;
+
         stop = false;
         startAnimation = false;
         hasReachedDestination = false;

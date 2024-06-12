@@ -45,6 +45,8 @@ public class Car : MonoBehaviour
             time = Random.Range(minTime, maxTime);
             currentTime = time;
         }
+
+        transform.SetParent(GameObject.Find("Train").transform);
     }
 
     void Update()

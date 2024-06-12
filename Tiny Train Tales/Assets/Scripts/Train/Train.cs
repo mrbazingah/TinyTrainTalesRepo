@@ -137,6 +137,11 @@ public class Train : MonoBehaviour
 
     public float GetVelocity()
     {
+        if (rigidbody == null)
+        {
+            FindRigidbody();
+        }
+        
         float s = -rigidbody.velocity.x;
 
         if (s <= 0f)

@@ -26,7 +26,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] TextMeshProUGUI currentCityText;
     [SerializeField] TextMeshProUGUI destinationCityText;
     [Space]
-    [SerializeField] float hey;
+    [SerializeField] float decelerationOffset;
     [Header("Station")]
     [SerializeField] GameObject startStation;
     [SerializeField] GameObject stationBlockPrefab;
@@ -310,7 +310,7 @@ public class GameManager : MonoBehaviour
                 float time = 3;
 
                 float distance = speed * time - deceleration / 2 * 9;
-                distance /= hey;
+                distance /= decelerationOffset;
 
                 Instantiate(stationBlockPrefab, new Vector2(transform.position.x + distance, 0.72f), Quaternion.identity);
             }
@@ -437,7 +437,7 @@ public class GameManager : MonoBehaviour
 
     void SaveProgress()
     {
-        if (remainingDistance <= 0 || train.GetSpeed() <= 0)
+        if (remainingDistance <= 0)
         {
             DeleteSavedDestination(false);
             return;
@@ -449,7 +449,7 @@ public class GameManager : MonoBehaviour
 
     public void DeleteSavedDestination(bool isButton)
     {
-        if (hasDeletedKeys || PlayerPrefs.GetInt("Dont Destroy") == 1) { return; }
+        if (hasDeletedKeys) { return; }
 
         PlayerPrefs.DeleteKey("Distance");
         PlayerPrefs.DeleteKey("RemainingDistance");
@@ -479,6 +479,7 @@ public class GameManager : MonoBehaviour
         cam?.SavePos();
         carManager?.SaveCars();
 
+        if (PlayerPrefs.GetInt("Dont Destroy") == 1)
         if (hasArrivedAtStation)
         {
             cityManager?.SaveOnDeparture();

@@ -10,11 +10,13 @@ public class BackgroundGenerator : MonoBehaviour
 
     Train train;
     GameManager gameManager;
+    Rigidbody2D myRigidbody;
 
     void Awake()
     {
         train = FindObjectOfType<Train>();
         gameManager = FindObjectOfType<GameManager>();
+        myRigidbody = GetComponent<Rigidbody2D>();
     }
 
     void Start()
@@ -43,8 +45,7 @@ public class BackgroundGenerator : MonoBehaviour
     {
         if (other.CompareTag("Train"))
         {
-            Destroy(gameObject);
-            gameObject.SetActive(false);
+            Destroy(gameObject, 5);
             train.FindRigidbody();
         }
     }

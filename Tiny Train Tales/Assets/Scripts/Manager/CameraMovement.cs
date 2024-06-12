@@ -18,7 +18,7 @@ public class CameraMovement : MonoBehaviour
     Vector3 savedPos;
 
     int amountOfCars;
-    bool isDragging = false;
+    bool isDragging;
 
     void Start()
     {
@@ -33,7 +33,7 @@ public class CameraMovement : MonoBehaviour
         targetPosition = target.position + offset;
         lastMousePosition = Input.mousePosition;
 
-        isDragging = true;
+        HandleMouseDrag();
     }
 
     void LateUpdate()

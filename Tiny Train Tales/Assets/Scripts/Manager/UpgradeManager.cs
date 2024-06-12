@@ -145,26 +145,31 @@ public class UpgradeManager : MonoBehaviour
         accelerationColorBlock = accelerationButton.colors;
         accelerationColorBlock.normalColor = accelartionColor;
         accelerationColorBlock.highlightedColor = accelartionColor;
+        accelerationColorBlock.selectedColor = accelartionColor;
         accelerationButton.colors = accelerationColorBlock;
 
         maxSpeedColorBlock = maxSpeedButton.colors;
         maxSpeedColorBlock.normalColor = maxSpeedColor;
         maxSpeedColorBlock.highlightedColor = maxSpeedColor;
+        maxSpeedColorBlock.selectedColor = maxSpeedColor;
         maxSpeedButton.colors = maxSpeedColorBlock;
 
         maxPassangersColorBlock = maxPassangersButton.colors;
         maxPassangersColorBlock.normalColor = maxPassangersColor;
         maxPassangersColorBlock.highlightedColor = maxPassangersColor;
+        maxPassangersColorBlock.selectedColor = maxPassangersColor;
         maxPassangersButton.colors = maxPassangersColorBlock;
 
         profitColorBlock = profitButton.colors;
         profitColorBlock.normalColor = profitColor;
         profitColorBlock.highlightedColor = profitColor;
+        profitColorBlock.selectedColor = profitColor;
         profitButton.colors = profitColorBlock;
 
         carsColorBlock = carsButton.colors;
         carsColorBlock.normalColor = carsColor;
         carsColorBlock.highlightedColor = carsColor;
+        carsColorBlock.selectedColor = carsColor;
         carsButton.colors = carsColorBlock;
     }
 
@@ -234,7 +239,7 @@ public class UpgradeManager : MonoBehaviour
         if (coins < carsCost) { return; }
 
         gameManager.BuyWithCoins(carsCost);
-        carsCost += profitCostIncrease;
+        carsCost += carsCostIncrease;
         carsCost = Mathf.Floor(carsCost);
         carsCostText.text = carsCost.ToString();
         amountOfCars++;

@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4719668783793606080}
   - component: {fileID: 1216298657668379615}
   m_Layer: 0
-  m_Name: PassangerCart
+  m_Name: PassangerCar
   m_TagString: Car
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
