@@ -10,13 +10,11 @@ public class BackgroundGenerator : MonoBehaviour
 
     Train train;
     GameManager gameManager;
-    Rigidbody2D myRigidbody;
 
     void Awake()
     {
         train = FindObjectOfType<Train>();
         gameManager = FindObjectOfType<GameManager>();
-        myRigidbody = GetComponent<Rigidbody2D>();
     }
 
     void Start()
