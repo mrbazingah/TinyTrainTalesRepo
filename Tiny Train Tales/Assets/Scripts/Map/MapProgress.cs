@@ -44,9 +44,20 @@ public class MapProgress : MonoBehaviour
     {
         if (hasSetupSlider == 2) { return; }
 
+        GameObject currentCity = cityManager.GetCurrentCity();
+        GameObject nextCity = cityManager.GetNextCity();
+
         if (line == null)
         {
-            line = cityManager.GetCurrentCityLine();
+            GameObject[] currentCityNeighbors = currentCity.GetComponent<City>().GetCityNeighbors();
+
+            for (int i = 0; i < currentCityNeighbors.Length; i++)
+            {
+                if (currentCityNeighbors[i] == nextCity)
+                {
+                    line = currentCity.GetComponent<City>().GetCityNeighborLines()[i];
+                }
+            }
 
             transform.position = line.transform.position;
             RectTransform lineRectTransform = line.GetComponent<RectTransform>();
@@ -56,9 +67,6 @@ public class MapProgress : MonoBehaviour
         }
 
         myRectTransform.sizeDelta = new Vector2(line.GetComponent<RectTransform>().sizeDelta.x + 2, line.GetComponent<RectTransform>().sizeDelta.y + 2);
-
-        GameObject currentCity = cityManager.GetCurrentCity();
-        GameObject nextCity = cityManager.GetNextCity();
 
         float distanceToCurrentCity = Vector2.Distance(currentCity.transform.position, trainImage.transform.position);
         float distanceToNextCity = Vector2.Distance(nextCity.transform.position, trainImage.transform.position);

@@ -160,7 +160,7 @@ public class GameManager : MonoBehaviour
 
         if (PlayerPrefs.GetInt("Dont Destroy") == 1)
         {
-            GameObject.Find("Bounds").GetComponent<MenuAnimationY>().StartAnimation();
+            GameObject.Find("MapCanvas").GetComponentInChildren<MenuAnimationY>().StartAnimation();
             GameObject.Find("MapUICanvas").GetComponent<MenuAnimationY>().StartAnimation();
 
             PlayerPrefs.DeleteKey("Dont Destroy");

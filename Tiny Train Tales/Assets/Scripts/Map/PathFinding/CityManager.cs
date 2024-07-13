@@ -177,11 +177,6 @@ public class CityManager : MonoBehaviour
                     cityNeighborLines[j].GetComponent<Image>().color = pathColor;
                 }
             }
-
-            if (currentCity == cityNeighbors[j])
-            {
-                currentCityLine = cityNeighborLines[j];
-            }
         }
     }
 
@@ -232,11 +227,6 @@ public class CityManager : MonoBehaviour
     public GameObject GetDestinationCity() 
     { 
         return destinationCity;
-    }
-
-    public GameObject GetCurrentCityLine()
-    {
-        return currentCityLine;
     }
 
     public List<GameObject> GetPath()
