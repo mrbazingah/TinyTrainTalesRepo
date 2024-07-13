@@ -4,8 +4,35 @@ using UnityEngine;
 public class PathFinding : MonoBehaviour
 {
     [SerializeField] int maxIterations = 5000;
-    
-    public List<GameObject> FindPath(GameObject startCity, GameObject targetCity)
+
+    public List<GameObject> FindPath(GameObject startCity, GameObject targetCity, GameObject nextCity)
+    {
+        List<GameObject> fullPath = new List<GameObject>();
+
+        if (nextCity != null)
+        {
+            // Add nextCity as the first city in the path
+            fullPath.Add(nextCity);
+
+            // Find path from nextCity to targetCity
+            List<GameObject> pathFromNextCityToTarget = FindPathInternal(nextCity, targetCity);
+            if (pathFromNextCityToTarget == null)
+            {
+                return null; // No path found from nextCity to targetCity
+            }
+
+            // Combine paths, skip the first element of pathFromNextCityToTarget to avoid duplication
+            fullPath.AddRange(pathFromNextCityToTarget);
+        }
+        else
+        {
+            fullPath = FindPathInternal(startCity, targetCity);
+        }
+
+        return fullPath;
+    }
+
+    private List<GameObject> FindPathInternal(GameObject startCity, GameObject targetCity)
     {
         Node startNode = new Node(startCity);
         Node targetNode = new Node(targetCity);

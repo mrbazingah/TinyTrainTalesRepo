@@ -158,6 +158,14 @@ public class GameManager : MonoBehaviour
             remainingDistance = distance;
         }
 
+        if (PlayerPrefs.GetInt("Dont Destroy") == 1)
+        {
+            GameObject.Find("Bounds").GetComponent<MenuAnimationY>().StartAnimation();
+            GameObject.Find("MapUICanvas").GetComponent<MenuAnimationY>().StartAnimation();
+
+            PlayerPrefs.DeleteKey("Dont Destroy");
+        }
+
         distanceSlider.maxValue = distance;
         distanceSlider.value = remainingDistance;
         remainingDistance = Mathf.Round(remainingDistance);
@@ -479,7 +487,6 @@ public class GameManager : MonoBehaviour
         cam?.SavePos();
         carManager?.SaveCars();
 
-        if (PlayerPrefs.GetInt("Dont Destroy") == 1)
         if (hasArrivedAtStation)
         {
             cityManager?.SaveOnDeparture();

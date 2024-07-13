@@ -82,6 +82,11 @@ public class CameraMovement : MonoBehaviour
             isDragging = false;
             transform.position = savedPos;
         }
+
+        if (transform.position.z != -10)
+        {
+            transform.position = new Vector3(transform.position.x, transform.position.y, -10);
+        }
     }
 
     public void LockMovement(bool isLocked)

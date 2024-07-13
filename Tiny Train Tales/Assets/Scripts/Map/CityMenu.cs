@@ -1,6 +1,7 @@
 using System.Collections;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class CityMenu : MonoBehaviour
 {
@@ -68,11 +69,16 @@ public class CityMenu : MonoBehaviour
 
     public void TravelButton()
     {
+        gameManager.SaveAll();
+
         GameObject newDestinationCity = GameObject.Find(cityText.text);
         if (newDestinationCity == cityManager.GetDestinationCity()) { return; }
 
         cityManager.SetNewDestinationCity(newDestinationCity);
         PlayerPrefs.SetInt("Dont Destroy", 1);
+
+        int sceneIndex = SceneManager.GetActiveScene().buildIndex;
+        SceneManager.LoadScene(sceneIndex);
 
         isDone = false;
     }

@@ -67,7 +67,17 @@ public class CityManager : MonoBehaviour
 
         if (pathfinding != null && startCity != null && targetCity != null)
         {
-            path = pathfinding.FindPath(startCity, targetCity);
+            if (!PlayerPrefs.HasKey("NextCity"))
+            {
+                path = pathfinding.FindPath(startCity, targetCity, null);
+            }
+            else
+            {
+                GameObject inBetweenCity = GameObject.Find(PlayerPrefs.GetString("NextCity"));
+                path = pathfinding.FindPath(startCity, targetCity, inBetweenCity);
+
+                PlayerPrefs.DeleteKey("NextCity");
+            }
         }
 
         GetNextCityInPath();
@@ -103,7 +113,7 @@ public class CityManager : MonoBehaviour
 
         gameManager.SetNewDestination(currentCity.name, nextCity.name, destinationDistance);
         CreatePathText();
-        pathfinding.FindPath(currentCity, destinationCity);
+        pathfinding.FindPath(currentCity, destinationCity, null);
     }
     #endregion
 
@@ -204,7 +214,8 @@ public class CityManager : MonoBehaviour
 
     public void SetNewDestinationCity(GameObject newDestinationCity)
     {
-        PlayerPrefs.SetString("CurrentCity", nextCity.name);
+        PlayerPrefs.SetString("CurrentCity", currentCity.name);
+        PlayerPrefs.SetString("NextCity", nextCity.name);
         PlayerPrefs.SetString("DestinationCity", newDestinationCity.name);
     }
 
