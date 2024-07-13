@@ -10,6 +10,7 @@ public class CityManager : MonoBehaviour
     [SerializeField] GameObject destinationCity;
     [Space]
     [SerializeField] Color pathColor;
+    [SerializeField] GameObject linePrefab;
     [Space]
     [SerializeField] GameObject pathTextPrefab;
     [SerializeField] GameObject pathTextParent;
@@ -23,10 +24,34 @@ public class CityManager : MonoBehaviour
     GameManager gameManager;
     PathFinding pathfinding;
 
+    GameObject[] cities;
+
     void Awake()
     {
         gameManager = FindObjectOfType<GameManager>();   
         pathfinding = FindObjectOfType<PathFinding>();
+
+        //CreateLines();
+    }
+
+    void CreateLines()
+    {
+        City[] citiesScript = FindObjectsOfType<City>();
+        cities = new GameObject[citiesScript.Length];
+        for (int i = 0; i < citiesScript.Length; i++)
+        {
+            cities[i] = citiesScript[i].gameObject;
+        }
+
+        for (int i = 0; i < cities.Length; i++)
+        {
+            GameObject[] cityNeighbors = cities[i].GetComponent<City>().GetCityNeighbors();
+
+            for (int j = 0; j < cityNeighbors.Length; j++)
+            {
+                Instantiate(linePrefab);
+            }
+        }
     }
 
     void Start()
@@ -197,6 +222,7 @@ public class CityManager : MonoBehaviour
     {
         PlayerPrefs.SetString("DestinationCity", destinationCity.name);
         PlayerPrefs.SetString("CurrentCity", currentCity.name);
+        PlayerPrefs.SetString("NextCity", nextCity.name);
     }
 
     public void ResetPath()

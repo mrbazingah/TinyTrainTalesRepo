@@ -1,0 +1,116 @@
+using TMPro;
+using UnityEngine;
+using UnityEngine.SocialPlatforms;
+using UnityEngine.UIElements;
+
+public class Slot : MonoBehaviour
+{
+    [SerializeField] float pricePerPoint;
+    [SerializeField] float startPrice;
+    [Space]
+    [SerializeField] TextMeshProUGUI weightText;
+    [SerializeField] TextMeshProUGUI speedText;
+    [SerializeField] TextMeshProUGUI incomeText;
+    [SerializeField] TextMeshProUGUI costText;
+    [Space]
+    [SerializeField] GameObject cross;
+
+    float cost;
+    bool hasBeenBought;
+
+    UpgradeManager upgradeManager;
+    GameManager gameManager;
+    CarManager carManager;
+
+    void Awake()
+    {
+        gameManager = FindObjectOfType<GameManager>();
+        carManager = FindObjectOfType<CarManager>();
+        upgradeManager = FindObjectOfType<UpgradeManager>();
+    }
+
+    void Start()
+    {
+        cross.SetActive(false);
+        SetUpSlot();
+    }
+
+    void SetUpSlot()
+    {
+        if (upgradeManager.GetAmountOfCars() <= carManager.GetLength()) { return; }
+
+        int pastDay = PlayerPrefs.GetInt("PastDay");
+        int pasthMonth = PlayerPrefs.GetInt("PastMonth");
+        int pastYear = PlayerPrefs.GetInt("PastYear");
+
+        int currentDay = System.DateTime.Now.Day;
+        int currentMonth = System.DateTime.Now.Month;
+        int currentYear = System.DateTime.Now.Year;
+
+        if (pastDay != currentDay && pasthMonth != currentMonth && pastYear != currentYear)
+        {
+            PlayerPrefs.SetInt("PastDay", currentDay);
+            PlayerPrefs.SetInt("PastMonth", currentMonth);
+            PlayerPrefs.SetInt("PastYear", currentYear);
+
+            PlayerPrefs.DeleteKey(gameObject.name + "Weight");
+            PlayerPrefs.DeleteKey(gameObject.name + "Speed");
+            PlayerPrefs.DeleteKey(gameObject.name + "Income");
+            PlayerPrefs.DeleteKey(gameObject.name + "HasBeenBought");
+        }
+
+        int weight;
+        int speed;
+        int income;
+
+        if (PlayerPrefs.HasKey(gameObject.name + "Weight"))
+        {
+            weight = PlayerPrefs.GetInt(gameObject.name + "Weight");
+            speed = PlayerPrefs.GetInt(gameObject.name + "Speed");
+            income = PlayerPrefs.GetInt(gameObject.name + "Income");
+
+            if (PlayerPrefs.HasKey(gameObject.name + "HasBeenBought"))
+            {
+                cross.SetActive(true);
+                hasBeenBought = true;
+            }
+        }
+        else
+        {
+            weight = Random.Range(1, 6);
+            PlayerPrefs.SetInt(gameObject.name + "Weight", weight);
+
+            speed = Random.Range(1, 6);
+            PlayerPrefs.SetInt(gameObject.name + "Speed", speed);
+
+            income = Random.Range(1, 6);
+            PlayerPrefs.SetInt(gameObject.name + "Income", income);
+        }
+
+        weightText.text = "Weight: " + weight.ToString() + "/5";
+        speedText.text = "Speed: " + speed.ToString() + "/5";
+        incomeText.text = "Income: " + income.ToString() + "/5";
+
+        cost = (speed + income - weight) * pricePerPoint + startPrice;
+        costText.text = cost.ToString();
+    }
+
+    public void Buy()
+    {
+        float coins = gameManager.GetCoins();
+        if (coins < cost || hasBeenBought) { return; }
+
+        carManager.AddCar(false);
+        gameManager.BuyWithCoins(cost);
+
+        cross.SetActive(true);
+        hasBeenBought = true;
+
+        PlayerPrefs.SetString(gameObject.name + "HasBeenBought", "hey");
+    }
+
+    void Update()
+    {
+        
+    }
+}
