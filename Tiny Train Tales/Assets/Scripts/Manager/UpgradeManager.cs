@@ -10,9 +10,6 @@ public class UpgradeManager : MonoBehaviour
     [SerializeField] float maxSpeedCost;
     [SerializeField] float addToMaxSpeed;
     [SerializeField] float maxSpeedCostIncrease;
-    [Space]
-    [SerializeField] TextMeshProUGUI amountText;
-    [SerializeField] int maxSpeedAmount;
     [Header("Max Passangers")]
     [SerializeField] TextMeshProUGUI maxPassangersText;
     [SerializeField] TextMeshProUGUI maxPassangerCostText;
@@ -43,8 +40,6 @@ public class UpgradeManager : MonoBehaviour
 
     float coins;
     int amountOfCars = 1;
-
-    int maxSpeedCurrentAmount;
 
     ColorBlock accelerationColorBlock;
     ColorBlock maxSpeedColorBlock;
@@ -111,8 +106,6 @@ public class UpgradeManager : MonoBehaviour
         maxPassangerCostText.text = maxPassangerCost.ToString();
         profitCostText.text = profitCost.ToString();
         carsCostText.text = carsCost.ToString();
-
-        amountText.text = maxSpeedCurrentAmount.ToString() + "/" + maxSpeedAmount.ToString();
     }
 
     void Update()
@@ -149,11 +142,6 @@ public class UpgradeManager : MonoBehaviour
         if (coins < carsCost)
         {
             carsColor = cantAffordColor;
-        }
-
-        if (maxSpeedAmount == maxSpeedCurrentAmount)
-        {
-            maxSpeedColor = doneColor;
         }
 
         accelerationColorBlock = accelerationButton.colors;
@@ -198,10 +186,7 @@ public class UpgradeManager : MonoBehaviour
 
     public void UpgradeMaxSpeed()
     {
-        if (coins < maxSpeedCost || maxSpeedCurrentAmount == maxSpeedAmount) { return; }
-
-        maxSpeedCurrentAmount++;
-        amountText.text = maxSpeedCurrentAmount.ToString() + "/" + maxSpeedAmount.ToString();
+        if (coins < maxSpeedCost) { return; }
 
         gameManager.BuyWithCoins(maxSpeedCost);
         maxSpeedCost += maxSpeedCostIncrease;

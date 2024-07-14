@@ -162,6 +162,7 @@ public class GameManager : MonoBehaviour
         {
             GameObject.Find("MapCanvas").GetComponentInChildren<MenuAnimationY>().StartAnimation();
             GameObject.Find("MapUICanvas").GetComponent<MenuAnimationY>().StartAnimation();
+            cam.LockMovement(true);
 
             PlayerPrefs.DeleteKey("Dont Destroy");
         }
