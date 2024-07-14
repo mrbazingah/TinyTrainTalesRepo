@@ -20,6 +20,11 @@ public class MapDragUI : MonoBehaviour, IBeginDragHandler, IDragHandler
 
     void Awake()
     {
+        if (PlayerPrefs.HasKey("OpenMap"))
+        {
+            lockMovement = false;
+        }
+
         cam = FindObjectOfType<CameraMovement>();
     }
 

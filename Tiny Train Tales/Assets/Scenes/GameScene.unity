@@ -39567,7 +39567,7 @@ PrefabInstance:
       objectReference: {fileID: 1401247971}
     - target: {fileID: 6013072587387181096, guid: d7f2d7e6643153744bbdc766918d5eaf, type: 3}
       propertyPath: decelerationOffset
-      value: 45
+      value: 42.1
       objectReference: {fileID: 0}
     - target: {fileID: 6013072587387181096, guid: d7f2d7e6643153744bbdc766918d5eaf, type: 3}
       propertyPath: destinationCityText

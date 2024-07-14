@@ -14,6 +14,7 @@ public class Car : MonoBehaviour
     bool hasAutoCollected;
     float time;
     float currentTime;
+    int earning;
 
     GameManager gameManager;
     Train train;
@@ -39,11 +40,14 @@ public class Car : MonoBehaviour
         {
             time = PlayerPrefs.GetFloat(gameObject.name + "Time");
             currentTime = PlayerPrefs.GetFloat(gameObject.name + "CurrenTime");
+            earning = PlayerPrefs.GetInt(gameObject.name + "Earning");
         }
         else
         {
             time = Random.Range(minTime, maxTime);
             currentTime = time;
+
+            earning = (int)Random.Range(minEarning, maxEarning);
         }
 
         transform.SetParent(GameObject.Find("Train").transform);
@@ -90,7 +94,6 @@ public class Car : MonoBehaviour
 
     public void CollectCoins()
     {
-        int earning = (int)Random.Range(minEarning, maxEarning);
         gameManager.AddCoins(earning);
         hasAutoCollected = false;
         currentTime = time;
@@ -100,5 +103,6 @@ public class Car : MonoBehaviour
     {
         PlayerPrefs.SetFloat(gameObject.name + "Time", time);
         PlayerPrefs.SetFloat(gameObject.name + "CurrenTime", currentTime);
+        PlayerPrefs.SetInt(gameObject.name + "Earning", earning);
     }
 }
