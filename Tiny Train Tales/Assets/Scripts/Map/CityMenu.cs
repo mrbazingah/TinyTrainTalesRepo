@@ -75,7 +75,7 @@ public class CityMenu : MonoBehaviour
         if (newDestinationCity == cityManager.GetDestinationCity()) { return; }
 
         cityManager.SetNewDestinationCity(newDestinationCity);
-        PlayerPrefs.SetInt("Dont Destroy", 1);
+        PlayerPrefs.SetInt("OpenMap", 1);
 
         int sceneIndex = SceneManager.GetActiveScene().buildIndex;
         SceneManager.LoadScene(sceneIndex);

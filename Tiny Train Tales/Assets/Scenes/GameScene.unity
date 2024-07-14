@@ -198,6 +198,81 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 22804512}
   m_CullTransparentMesh: 1
+--- !u!1 &28666729
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 28666732}
+  - component: {fileID: 28666731}
+  - component: {fileID: 28666730}
+  m_Layer: 0
+  m_Name: Bern-Paris
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &28666730
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 28666729}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.6603774, g: 0.05386056, b: 0.034264866, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &28666731
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 28666729}
+  m_CullTransparentMesh: 1
+--- !u!224 &28666732
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 28666729}
+  m_LocalRotation: {x: -0, y: -0, z: 0.95383847, w: 0.3003202}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1879275609}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 36145.047}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -156.2, y: -124.07}
+  m_SizeDelta: {x: 111.36, y: 2}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &34222864
 GameObject:
   m_ObjectHideFlags: 0
@@ -2729,11 +2804,15 @@ MonoBehaviour:
   - {fileID: 1983148513}
   - {fileID: 1040070703}
   - {fileID: 709521785}
-  cityNeighborsDistances: a70100008701000032010000
+  - {fileID: 1847993419}
+  - {fileID: 684803467}
+  cityNeighborsDistances: a701000087010000320100006d0100003b010000
   neighborLines:
   - {fileID: 1386108790}
   - {fileID: 1201331790}
   - {fileID: 786794117}
+  - {fileID: 1326641684}
+  - {fileID: 677643396}
 --- !u!1 &288355862
 GameObject:
   m_ObjectHideFlags: 0
@@ -3093,6 +3172,81 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 311165437}
   m_CullTransparentMesh: 1
+--- !u!1 &327438884
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 327438887}
+  - component: {fileID: 327438886}
+  - component: {fileID: 327438885}
+  m_Layer: 0
+  m_Name: Bordeaux-Bern
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &327438885
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 327438884}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.6603774, g: 0.05386056, b: 0.034264866, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &327438886
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 327438884}
+  m_CullTransparentMesh: 1
+--- !u!224 &327438887
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 327438884}
+  m_LocalRotation: {x: -0, y: -0, z: 0.996542, w: -0.08309054}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1879275609}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 36189.53}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -191.53, y: -167.4}
+  m_SizeDelta: {x: 165.65, y: 2}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &332519136
 GameObject:
   m_ObjectHideFlags: 0
@@ -4175,7 +4329,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c851ada98cb9994185ee7223ca82512, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pricePerPoint: 100
+  pricePerPoint: 200
   startPrice: 1000
   weightText: {fileID: 1281896642}
   speedText: {fileID: 579776107}
@@ -5076,6 +5230,81 @@ CanvasRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 478499248}
+  m_CullTransparentMesh: 1
+--- !u!1 &497058732
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 497058733}
+  - component: {fileID: 497058735}
+  - component: {fileID: 497058734}
+  m_Layer: 0
+  m_Name: Venice-Zagreb
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &497058733
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 497058732}
+  m_LocalRotation: {x: -0, y: -0, z: 0.08523132, w: 0.9963612}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1879275609}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 36009.777}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 11.329, y: -191.494}
+  m_SizeDelta: {x: 82.067, y: 2}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &497058734
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 497058732}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.6603774, g: 0.05386056, b: 0.034264866, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &497058735
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 497058732}
   m_CullTransparentMesh: 1
 --- !u!1 &506599150
 GameObject:
@@ -6258,10 +6487,12 @@ MonoBehaviour:
   cityNeighbors:
   - {fileID: 684803467}
   - {fileID: 1828246074}
-  cityNeighborsDistances: 07010000f2010000
+  - {fileID: 1847993419}
+  cityNeighborsDistances: 07010000f2010000b3010000
   neighborLines:
   - {fileID: 1791279555}
   - {fileID: 828186659}
+  - {fileID: 28666729}
 --- !u!114 &605075828
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7041,9 +7272,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cityMenu: {fileID: 531979694}
-  cityNeighbors: []
-  cityNeighborsDistances: 
-  neighborLines: []
+  cityNeighbors:
+  - {fileID: 2021601219}
+  cityNeighborsDistances: de010000
+  neighborLines:
+  - {fileID: 1436269131}
 --- !u!114 &656693502
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7138,6 +7371,81 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 656693499}
   m_CullTransparentMesh: 1
+--- !u!1 &677643396
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 677643399}
+  - component: {fileID: 677643398}
+  - component: {fileID: 677643397}
+  m_Layer: 0
+  m_Name: Brussel-Frankfurt
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &677643397
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 677643396}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.6603774, g: 0.05386056, b: 0.034264866, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &677643398
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 677643396}
+  m_CullTransparentMesh: 1
+--- !u!224 &677643399
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 677643396}
+  m_LocalRotation: {x: -0, y: -0, z: 0.9872649, w: 0.15908551}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1879275609}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 36161.69}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -121.311, y: -66.692}
+  m_SizeDelta: {x: 79.545, y: 2}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &683572951
 GameObject:
   m_ObjectHideFlags: 0
@@ -7227,7 +7535,7 @@ GameObject:
   - component: {fileID: 684803470}
   - component: {fileID: 684803469}
   m_Layer: 0
-  m_Name: Brussels
+  m_Name: Brussel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7268,10 +7576,12 @@ MonoBehaviour:
   cityNeighbors:
   - {fileID: 602460587}
   - {fileID: 605075825}
-  cityNeighborsDistances: ad00000007010000
+  - {fileID: 283883247}
+  cityNeighborsDistances: ad000000070100003b010000
   neighborLines:
   - {fileID: 1860808743}
   - {fileID: 1791279555}
+  - {fileID: 677643396}
 --- !u!114 &684803470
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7710,10 +8020,12 @@ MonoBehaviour:
   cityNeighbors:
   - {fileID: 1983148513}
   - {fileID: 283883247}
-  cityNeighborsDistances: a701000032010000
+  - {fileID: 1847993419}
+  cityNeighborsDistances: a70100003201000050010000
   neighborLines:
   - {fileID: 223487077}
   - {fileID: 786794117}
+  - {fileID: 721845984}
 --- !u!114 &709521787
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8213,6 +8525,81 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!1 &721845984
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 721845987}
+  - component: {fileID: 721845986}
+  - component: {fileID: 721845985}
+  m_Layer: 0
+  m_Name: Bern-Munich
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &721845985
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 721845984}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.6603774, g: 0.05386056, b: 0.034264866, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &721845986
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 721845984}
+  m_CullTransparentMesh: 1
+--- !u!224 &721845987
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 721845984}
+  m_LocalRotation: {x: -0, y: -0, z: 0.98904777, w: -0.14759617}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1879275609}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 36196.977}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -77.34, y: -143.37}
+  m_SizeDelta: {x: 86.53, y: 2}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &729048466
 GameObject:
   m_ObjectHideFlags: 0
@@ -8252,6 +8639,81 @@ Transform:
   - {fileID: 531979695}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &729631845
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 729631846}
+  - component: {fileID: 729631848}
+  - component: {fileID: 729631847}
+  m_Layer: 0
+  m_Name: Venice-Vienna
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &729631846
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 729631845}
+  m_LocalRotation: {x: -0, y: -0, z: 0.37874752, w: 0.9255001}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1879275609}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 36044.51}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 9.182, y: -163.413}
+  m_SizeDelta: {x: 105.549, y: 2}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &729631847
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 729631845}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.6603774, g: 0.05386056, b: 0.034264866, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &729631848
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 729631845}
+  m_CullTransparentMesh: 1
 --- !u!1 &732095430
 GameObject:
   m_ObjectHideFlags: 0
@@ -9260,9 +9722,11 @@ MonoBehaviour:
   cityMenu: {fileID: 531979694}
   cityNeighbors:
   - {fileID: 1828246074}
-  cityNeighborsDistances: 88020000
+  - {fileID: 2021601219}
+  cityNeighborsDistances: 88020000ee000000
   neighborLines:
   - {fileID: 1474550314}
+  - {fileID: 1771525722}
 --- !u!114 &836528405
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11812,7 +12276,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c851ada98cb9994185ee7223ca82512, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pricePerPoint: 100
+  pricePerPoint: 200
   startPrice: 1000
   weightText: {fileID: 304473596}
   speedText: {fileID: 173121977}
@@ -14499,6 +14963,81 @@ Canvas:
   m_SortingLayerID: 1902026399
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!1 &1224669407
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1224669410}
+  - component: {fileID: 1224669409}
+  - component: {fileID: 1224669408}
+  m_Layer: 0
+  m_Name: Milan-Venice
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1224669408
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1224669407}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.6603774, g: 0.05386056, b: 0.034264866, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &1224669409
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1224669407}
+  m_CullTransparentMesh: 1
+--- !u!224 &1224669410
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1224669407}
+  m_LocalRotation: {x: -0, y: -0, z: 0.9987112, w: 0.05075281}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1879275609}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 36174.184}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -53, y: -194.63}
+  m_SizeDelta: {x: 66.9, y: 2}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1229782676
 GameObject:
   m_ObjectHideFlags: 0
@@ -15511,6 +16050,81 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 798.6378, y: 1079.4194}
   m_EdgeRadius: 0
+--- !u!1 &1326641684
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1326641687}
+  - component: {fileID: 1326641686}
+  - component: {fileID: 1326641685}
+  m_Layer: 0
+  m_Name: Bern-Frankfurt
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1326641685
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1326641684}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.6603774, g: 0.05386056, b: 0.034264866, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &1326641686
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1326641684}
+  m_CullTransparentMesh: 1
+--- !u!224 &1326641687
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1326641684}
+  m_LocalRotation: {x: -0, y: -0, z: 0.8039595, w: -0.594684}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1879275609}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 36252.98}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -101.472, y: -116.174}
+  m_SizeDelta: {x: 90.141, y: 2}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1329429113
 GameObject:
   m_ObjectHideFlags: 0
@@ -15882,9 +16496,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cityMenu: {fileID: 531979694}
-  cityNeighbors: []
-  cityNeighborsDistances: 
-  neighborLines: []
+  cityNeighbors:
+  - {fileID: 2021601219}
+  - {fileID: 2053786984}
+  - {fileID: 1289094429}
+  cityNeighborsDistances: f5000000
+  neighborLines:
+  - {fileID: 1224669407}
 --- !u!114 &1393587790
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16380,6 +16998,81 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1408792277}
   m_CullTransparentMesh: 1
+--- !u!1 &1436269131
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1436269134}
+  - component: {fileID: 1436269133}
+  - component: {fileID: 1436269132}
+  m_Layer: 0
+  m_Name: Milan-Rome
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1436269132
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1436269131}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.6603774, g: 0.05386056, b: 0.034264866, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &1436269133
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1436269131}
+  m_CullTransparentMesh: 1
+--- !u!224 &1436269134
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1436269131}
+  m_LocalRotation: {x: -0, y: -0, z: 0.8601995, w: 0.5099577}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1879275609}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 36118.68}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -54.693, y: -240.916}
+  m_SizeDelta: {x: 121.591, y: 2}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1442409711
 GameObject:
   m_ObjectHideFlags: 0
@@ -20460,6 +21153,81 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1771015984}
   m_CullTransparentMesh: 1
+--- !u!1 &1771525722
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1771525725}
+  - component: {fileID: 1771525724}
+  - component: {fileID: 1771525723}
+  m_Layer: 0
+  m_Name: Monaco-Milan
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1771525723
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1771525722}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.6603774, g: 0.05386056, b: 0.034264866, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &1771525724
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1771525722}
+  m_CullTransparentMesh: 1
+--- !u!224 &1771525725
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1771525722}
+  m_LocalRotation: {x: -0, y: -0, z: 0.9304672, w: -0.3663752}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1879275609}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 36222.984}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -104.96, y: -212.95}
+  m_SizeDelta: {x: 73.1, y: 2}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1780422905
 GameObject:
   m_ObjectHideFlags: 0
@@ -20589,7 +21357,7 @@ GameObject:
   - component: {fileID: 1791279557}
   - component: {fileID: 1791279556}
   m_Layer: 0
-  m_Name: Brussels-Paris
+  m_Name: Brussel-Paris
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -21063,7 +21831,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c851ada98cb9994185ee7223ca82512, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pricePerPoint: 100
+  pricePerPoint: 200
   startPrice: 1000
   weightText: {fileID: 1445644926}
   speedText: {fileID: 1054737213}
@@ -21322,11 +22090,13 @@ MonoBehaviour:
   - {fileID: 605075825}
   - {fileID: 131140709}
   - {fileID: 836528402}
-  cityNeighborsDistances: f20100002a02000088020000
+  - {fileID: 1847993419}
+  cityNeighborsDistances: f20100002a0200008802000097020000
   neighborLines:
   - {fileID: 828186659}
   - {fileID: 435391176}
   - {fileID: 1474550314}
+  - {fileID: 327438884}
 --- !u!114 &1828246077
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -21609,9 +22379,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cityMenu: {fileID: 531979694}
-  cityNeighbors: []
-  cityNeighborsDistances: 
-  neighborLines: []
+  cityNeighbors:
+  - {fileID: 1828246074}
+  - {fileID: 605075825}
+  - {fileID: 709521785}
+  - {fileID: 283883247}
+  cityNeighborsDistances: 97020000b3010000500100006d010000
+  neighborLines:
+  - {fileID: 327438884}
+  - {fileID: 28666729}
+  - {fileID: 721845984}
+  - {fileID: 1326641684}
 --- !u!114 &1847993422
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -21706,6 +22484,81 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1847993419}
   m_CullTransparentMesh: 1
+--- !u!1 &1851718522
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1851718523}
+  - component: {fileID: 1851718525}
+  - component: {fileID: 1851718524}
+  m_Layer: 0
+  m_Name: Vienna-Zagreb
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1851718523
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1851718522}
+  m_LocalRotation: {x: -0, y: -0, z: -0.6832845, w: 0.73015225}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1879275609}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 35913.797}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 45.98, y: -157.48}
+  m_SizeDelta: {x: 63.38, y: 2}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1851718524
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1851718522}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.6603774, g: 0.05386056, b: 0.034264866, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &1851718525
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1851718522}
+  m_CullTransparentMesh: 1
 --- !u!1 &1860808743
 GameObject:
   m_ObjectHideFlags: 0
@@ -21718,7 +22571,7 @@ GameObject:
   - component: {fileID: 1860808745}
   - component: {fileID: 1860808744}
   m_Layer: 0
-  m_Name: Amsterdam-Brussels
+  m_Name: Amsterdam-Brussel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -22175,6 +23028,18 @@ RectTransform:
   - {fileID: 1213655823}
   - {fileID: 1733328941}
   - {fileID: 2019838903}
+  - {fileID: 1771525725}
+  - {fileID: 327438887}
+  - {fileID: 28666732}
+  - {fileID: 721845987}
+  - {fileID: 1326641687}
+  - {fileID: 677643399}
+  - {fileID: 1436269134}
+  - {fileID: 1224669410}
+  - {fileID: 729631846}
+  - {fileID: 497058733}
+  - {fileID: 1851718523}
+  - {fileID: 2116731387}
   - {fileID: 1902498776}
   m_Father: {fileID: 2110217142}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -23689,9 +24554,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cityMenu: {fileID: 531979694}
-  cityNeighbors: []
-  cityNeighborsDistances: 
-  neighborLines: []
+  cityNeighbors:
+  - {fileID: 836528402}
+  - {fileID: 656693499}
+  - {fileID: 1393587787}
+  cityNeighborsDistances: ee000000de010000f5000000
+  neighborLines:
+  - {fileID: 1771525722}
+  - {fileID: 1436269131}
+  - {fileID: 1224669407}
 --- !u!114 &2021601222
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -23843,7 +24714,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cityMenu: {fileID: 531979694}
-  cityNeighbors: []
+  cityNeighbors:
+  - {fileID: 1393587787}
+  - {fileID: 1289094429}
   cityNeighborsDistances: 
   neighborLines: []
 --- !u!114 &2053786987
@@ -25026,6 +25899,81 @@ CanvasRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2110217141}
+  m_CullTransparentMesh: 1
+--- !u!1 &2116731386
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2116731387}
+  - component: {fileID: 2116731389}
+  - component: {fileID: 2116731388}
+  m_Layer: 0
+  m_Name: Munich-Vienna
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &2116731387
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2116731386}
+  m_LocalRotation: {x: -0, y: -0, z: 0.009303771, w: 0.9999567}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1879275609}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 36001.066}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 2.1, y: -131.21}
+  m_SizeDelta: {x: 91.6, y: 2}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &2116731388
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2116731386}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.6603774, g: 0.05386056, b: 0.034264866, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &2116731389
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2116731386}
   m_CullTransparentMesh: 1
 --- !u!1 &2127631110
 GameObject:
@@ -30174,7 +31122,7 @@ PrefabInstance:
     - target: {fileID: 889842926325123238, guid: 3c8095b599aeb244aa6091405e182f32, type: 3}
       propertyPath: currentCity
       value: 
-      objectReference: {fileID: 2106758136}
+      objectReference: {fileID: 605075825}
     - target: {fileID: 889842926325123238, guid: 3c8095b599aeb244aa6091405e182f32, type: 3}
       propertyPath: pathTextParent
       value: 
@@ -30182,7 +31130,7 @@ PrefabInstance:
     - target: {fileID: 889842926325123238, guid: 3c8095b599aeb244aa6091405e182f32, type: 3}
       propertyPath: destinationCity
       value: 
-      objectReference: {fileID: 928507570}
+      objectReference: {fileID: 709521785}
     - target: {fileID: 6788513607071723230, guid: 3c8095b599aeb244aa6091405e182f32, type: 3}
       propertyPath: m_Name
       value: CityManager
