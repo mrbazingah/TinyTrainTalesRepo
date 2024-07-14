@@ -3626,6 +3626,8 @@ MonoBehaviour:
   incomeText: {fileID: 844538503}
   costText: {fileID: 882594428}
   cross: {fileID: 447599785}
+  cantBuyColor: {r: 0.7058824, g: 0.7058824, b: 0.7058824, a: 1}
+  originalColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &402706678
 GameObject:
   m_ObjectHideFlags: 0
@@ -7265,11 +7267,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 762969001}
   m_CullTransparentMesh: 1
---- !u!1 &776796784 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3450606250641564517, guid: d7f2d7e6643153744bbdc766918d5eaf, type: 3}
-  m_PrefabInstance: {fileID: 7698767031593942036}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &777559361
 GameObject:
   m_ObjectHideFlags: 0
@@ -10019,6 +10016,8 @@ MonoBehaviour:
   incomeText: {fileID: 1695477559}
   costText: {fileID: 371317168}
   cross: {fileID: 897842963}
+  cantBuyColor: {r: 0.7058824, g: 0.7058824, b: 0.7058824, a: 1}
+  originalColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &1023749998
 GameObject:
   m_ObjectHideFlags: 0
@@ -17727,6 +17726,8 @@ MonoBehaviour:
   incomeText: {fileID: 1620733426}
   costText: {fileID: 1024111328}
   cross: {fileID: 1701612945}
+  cantBuyColor: {r: 0.7058824, g: 0.7058824, b: 0.7058824, a: 1}
+  originalColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &1809812633
 GameObject:
   m_ObjectHideFlags: 0
@@ -34770,6 +34771,10 @@ PrefabInstance:
       value: GameManager
       objectReference: {fileID: 0}
     - target: {fileID: 6013072587387181096, guid: d7f2d7e6643153744bbdc766918d5eaf, type: 3}
+      propertyPath: coins
+      value: 1000000
+      objectReference: {fileID: 0}
+    - target: {fileID: 6013072587387181096, guid: d7f2d7e6643153744bbdc766918d5eaf, type: 3}
       propertyPath: cointext
       value: 
       objectReference: {fileID: 42324986}
@@ -34806,6 +34811,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1401247971}
     - target: {fileID: 6013072587387181096, guid: d7f2d7e6643153744bbdc766918d5eaf, type: 3}
+      propertyPath: decelerationOffset
+      value: 45
+      objectReference: {fileID: 0}
+    - target: {fileID: 6013072587387181096, guid: d7f2d7e6643153744bbdc766918d5eaf, type: 3}
       propertyPath: destinationCityText
       value: 
       objectReference: {fileID: 1472339448}
@@ -34816,32 +34825,17 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 3450606250641564517, guid: d7f2d7e6643153744bbdc766918d5eaf, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 7698767031593942041}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d7f2d7e6643153744bbdc766918d5eaf, type: 3}
 --- !u!114 &7698767031593942037 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6013072587387181096, guid: d7f2d7e6643153744bbdc766918d5eaf, type: 3}
   m_PrefabInstance: {fileID: 7698767031593942036}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 776796784}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 77d18488882549f49a6dabee514ebe29, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &7698767031593942041
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 776796784}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dd8cd00d33014ea4da06b3ae78ca7256, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!212 &7707491666140812327

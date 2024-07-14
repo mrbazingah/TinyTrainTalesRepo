@@ -1,7 +1,6 @@
 using TMPro;
 using UnityEngine;
-using UnityEngine.SocialPlatforms;
-using UnityEngine.UIElements;
+using UnityEngine.UI;
 
 public class Slot : MonoBehaviour
 {
@@ -14,9 +13,16 @@ public class Slot : MonoBehaviour
     [SerializeField] TextMeshProUGUI costText;
     [Space]
     [SerializeField] GameObject cross;
+    [Space]
+    [SerializeField] Color cantBuyColor;
+    [SerializeField] Color originalColor;
 
     float cost;
     bool hasBeenBought;
+    float coins;
+
+    Button button;
+    ColorBlock buyColorBlock;
 
     UpgradeManager upgradeManager;
     GameManager gameManager;
@@ -27,6 +33,8 @@ public class Slot : MonoBehaviour
         gameManager = FindObjectOfType<GameManager>();
         carManager = FindObjectOfType<CarManager>();
         upgradeManager = FindObjectOfType<UpgradeManager>();
+
+        button = costText.GetComponentInParent<Button>();
     }
 
     void Start()
@@ -37,8 +45,6 @@ public class Slot : MonoBehaviour
 
     void SetUpSlot()
     {
-        if (upgradeManager.GetAmountOfCars() <= carManager.GetLength()) { return; }
-
         int pastDay = PlayerPrefs.GetInt("PastDay");
         int pasthMonth = PlayerPrefs.GetInt("PastMonth");
         int pastYear = PlayerPrefs.GetInt("PastYear");
@@ -47,7 +53,7 @@ public class Slot : MonoBehaviour
         int currentMonth = System.DateTime.Now.Month;
         int currentYear = System.DateTime.Now.Year;
 
-        if (pastDay != currentDay && pasthMonth != currentMonth && pastYear != currentYear)
+        if (pastDay < currentDay && pasthMonth < currentMonth && pastYear < currentYear)
         {
             PlayerPrefs.SetInt("PastDay", currentDay);
             PlayerPrefs.SetInt("PastMonth", currentMonth);
@@ -97,8 +103,8 @@ public class Slot : MonoBehaviour
 
     public void Buy()
     {
-        float coins = gameManager.GetCoins();
-        if (coins < cost || hasBeenBought) { return; }
+        coins = gameManager.GetCoins();
+        if (coins < cost || hasBeenBought || upgradeManager.GetAmountOfCars() <= carManager.GetLength()) { return; }
 
         carManager.AddCar(false);
         gameManager.BuyWithCoins(cost);
@@ -111,6 +117,18 @@ public class Slot : MonoBehaviour
 
     void Update()
     {
-        
+        Color buttonColor = originalColor;
+
+        coins = gameManager.GetCoins();
+        if (coins < cost || upgradeManager.GetAmountOfCars() <= carManager.GetLength() || hasBeenBought)
+        {
+            buttonColor = cantBuyColor;
+        }
+
+        buyColorBlock = button.colors;
+        buyColorBlock.normalColor = buttonColor;
+        buyColorBlock.highlightedColor = buttonColor;
+        buyColorBlock.selectedColor = buttonColor;
+        button.colors = buyColorBlock;
     }
 }
