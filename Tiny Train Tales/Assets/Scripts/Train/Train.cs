@@ -1,3 +1,4 @@
+using Unity.PlasticSCM.Editor.WebApi;
 using UnityEngine;
 
 public class Train : MonoBehaviour
@@ -10,6 +11,7 @@ public class Train : MonoBehaviour
     bool isDriving;
     bool hasLoaded;
     float highestVelocity;
+    float localMaxSpeed;
 
     new Rigidbody2D rigidbody;
     GameManager gameManager;
@@ -92,18 +94,44 @@ public class Train : MonoBehaviour
 
         decelartion = highestVelocity / 5;
 
-        float maxSpeed = gameManager.GetMaxSpeed() / 5f;
+        CalculateSpeed();
 
-        if (isDriving && maxSpeed > -rigidbody.velocity.x)
+        if (isDriving && localMaxSpeed > -rigidbody.velocity.x)
         {
-            if (-rigidbody.velocity.x < maxSpeed + interval && -rigidbody.velocity.x > maxSpeed - interval) { return; }
+            if (-rigidbody.velocity.x < localMaxSpeed + interval && -rigidbody.velocity.x > localMaxSpeed - interval) { return; }
 
             speed += acceleration * Time.fixedDeltaTime;
         }
-        else if ((!isDriving && -rigidbody.velocity.x > 0f) || -rigidbody.velocity.x > maxSpeed)
+        else if ((!isDriving && -rigidbody.velocity.x > 0f) || -rigidbody.velocity.x > localMaxSpeed)
         {
             speed -= decelartion * Time.fixedDeltaTime;
         }
+    }
+
+    void CalculateSpeed()
+    {
+        int allweight = 0;
+        int allSpeed = 0;
+
+        Car[] allCars = FindObjectsOfType<Car>();
+        for (int i = 0;  i < allCars.Length; i++)
+        {
+            int currentWeight = allCars[i].GetWeight();
+            allweight += currentWeight;
+
+            int currentSpeed = allCars[i].GetSpeed();
+            allSpeed += currentSpeed;
+        }
+
+        float averageWeight = ((allweight / allCars.Length) * 2);
+        averageWeight /= 100;
+        averageWeight = 1 - averageWeight;
+
+        float averageSpeed = ((allSpeed / allCars.Length) * 2);
+        averageSpeed /= 100;
+        averageSpeed = 1 + averageSpeed;
+
+        localMaxSpeed = (gameManager.GetMaxSpeed() / 5f) * averageWeight * averageSpeed;
     }
 
     void StopAtStation()

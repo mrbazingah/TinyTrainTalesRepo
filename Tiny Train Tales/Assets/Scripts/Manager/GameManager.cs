@@ -158,15 +158,6 @@ public class GameManager : MonoBehaviour
             remainingDistance = distance;
         }
 
-        if (PlayerPrefs.GetInt("OpenMap") == 1)
-        {
-            GameObject.Find("MapCanvas").GetComponentInChildren<MenuAnimationY>().StartAnimation();
-            GameObject.Find("MapUICanvas").GetComponent<MenuAnimationY>().StartAnimation();
-            cam.LockMovement(true);
-
-            PlayerPrefs.DeleteKey("OpenMap");
-        }
-
         distanceSlider.maxValue = distance;
         distanceSlider.value = remainingDistance;
         remainingDistance = Mathf.Round(remainingDistance);

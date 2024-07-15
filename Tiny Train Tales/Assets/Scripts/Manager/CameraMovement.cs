@@ -27,10 +27,6 @@ public class CameraMovement : MonoBehaviour
             float camPos = PlayerPrefs.GetFloat("CamPos");
             transform.position = new Vector3(camPos, transform.position.y, transform.position.z);
         }
-        if (PlayerPrefs.HasKey("OpenMap"))
-        {
-            lockMovement = true;
-        }
 
         offset = transform.position - target.localPosition;
         offset.z = -10f;

@@ -21,6 +21,10 @@ public class Slot : MonoBehaviour
     bool hasBeenBought;
     float coins;
 
+    int weight;
+    int speed;
+    int income;
+
     Button button;
     ColorBlock buyColorBlock;
 
@@ -65,10 +69,6 @@ public class Slot : MonoBehaviour
             PlayerPrefs.DeleteKey(gameObject.name + "HasBeenBought");
         }
 
-        int weight;
-        int speed;
-        int income;
-
         if (PlayerPrefs.HasKey(gameObject.name + "Weight"))
         {
             weight = PlayerPrefs.GetInt(gameObject.name + "Weight");
@@ -106,7 +106,7 @@ public class Slot : MonoBehaviour
         coins = gameManager.GetCoins();
         if (coins < cost || hasBeenBought || upgradeManager.GetAmountOfCars() <= carManager.GetLength()) { return; }
 
-        carManager.AddCar(false);
+        carManager.BuyNewCar(weight, speed, income);
         gameManager.BuyWithCoins(cost);
 
         cross.SetActive(true);
