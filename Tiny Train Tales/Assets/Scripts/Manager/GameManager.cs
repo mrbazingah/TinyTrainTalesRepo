@@ -475,7 +475,7 @@ public class GameManager : MonoBehaviour
     public void SaveAll()
     {
         train?.SaveTrain();
-        questManager?.SaveTravelDistance();
+        questManager?.SaveAll();
         cam?.SavePos();
         carManager?.SaveCars();
 

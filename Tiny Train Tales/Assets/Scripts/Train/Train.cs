@@ -7,6 +7,7 @@ public class Train : MonoBehaviour
     [SerializeField] float decelartion;
     [SerializeField] float speed;
     [SerializeField] float interval;
+    [SerializeField] float carSpeedOffset;
 
     bool isDriving;
     bool hasLoaded;
@@ -129,7 +130,7 @@ public class Train : MonoBehaviour
 
         float averageSpeed = ((allSpeed / allCars.Length) * 2);
         averageSpeed /= 100;
-        averageSpeed = 1 + averageSpeed;
+        averageSpeed = 1 + averageSpeed - carSpeedOffset;
 
         localMaxSpeed = (gameManager.GetMaxSpeed() / 5f) * averageWeight * averageSpeed;
     }

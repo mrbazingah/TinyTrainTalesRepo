@@ -1,14 +1,13 @@
 using TMPro;
 using UnityEngine;
 
-public class QuestManager : MonoBehaviour
+public class DistanceQuest : MonoBehaviour
 {
     [SerializeField] TextMeshProUGUI questText;
-    [SerializeField] int amountOfQuest;
+    [SerializeField] int distanceToTravel;
 
     bool hasFinishedQuest;
 
-    int distanceToTravel;
     float distanceTraveled;
     float savedDistanceTraveled;
     float difference;
@@ -17,16 +16,16 @@ public class QuestManager : MonoBehaviour
 
     void Awake()
     {
-        gameManager = FindObjectOfType<GameManager>();    
+        gameManager = FindObjectOfType<GameManager>();
     }
 
     void Start()
     {
-        if (PlayerPrefs.HasKey("QuestDistanceTraveled") && PlayerPrefs.HasKey("QuestDistanceToTravel") && PlayerPrefs.HasKey("QuestDifference"))
+        if (PlayerPrefs.HasKey(gameObject.name + "QuestDistanceTraveled") && PlayerPrefs.HasKey(gameObject.name + "QuestDistanceToTravel") && PlayerPrefs.HasKey(gameObject.name + "QuestDifference"))
         {
-            savedDistanceTraveled = PlayerPrefs.GetFloat("QuestDistanceTraveled");
-            distanceToTravel = PlayerPrefs.GetInt("QuestDistanceToTravel");
-            difference = PlayerPrefs.GetFloat("QuestDifference");
+            savedDistanceTraveled = PlayerPrefs.GetFloat(gameObject.name + "QuestDistanceTraveled");
+            distanceToTravel = PlayerPrefs.GetInt(gameObject.name + "QuestDistanceToTravel");
+            difference = PlayerPrefs.GetFloat(gameObject.name + "QuestDifference");
         }
         else
         {
@@ -66,15 +65,15 @@ public class QuestManager : MonoBehaviour
 
     void DeleteKeys()
     {
-        PlayerPrefs.DeleteKey("QuestDistanceTraveled");
-        PlayerPrefs.DeleteKey("QuestDistanceToTravel");
-        PlayerPrefs.DeleteKey("QuestDifference");
+        PlayerPrefs.DeleteKey(gameObject.name + "QuestDistanceTraveled");
+        PlayerPrefs.DeleteKey(gameObject.name + "QuestDistanceToTravel");
+        PlayerPrefs.DeleteKey(gameObject.name + "QuestDifference");
     }
 
     public void SaveTravelDistance()
     {
-        PlayerPrefs.SetFloat("QuestDistanceTraveled", distanceTraveled);
-        PlayerPrefs.SetInt("QuestDistanceToTravel", distanceToTravel);
-        PlayerPrefs.SetFloat("QuestDifference", difference);
+        PlayerPrefs.SetFloat(gameObject.name + "QuestDistanceTraveled", distanceTraveled);
+        PlayerPrefs.SetInt(gameObject.name + "QuestDistanceToTravel", distanceToTravel);
+        PlayerPrefs.SetFloat(gameObject.name + "QuestDifference", difference);
     }
 }

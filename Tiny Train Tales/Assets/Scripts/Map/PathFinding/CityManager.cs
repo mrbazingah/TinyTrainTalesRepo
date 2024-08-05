@@ -12,10 +12,6 @@ public class CityManager : MonoBehaviour
     [SerializeField] Color pathColor;
     [SerializeField] GameObject linePrefab;
     [Space]
-    [SerializeField] GameObject pathTextPrefab;
-    [SerializeField] GameObject pathTextParent;
-    [SerializeField] Vector2 pathTextSpawnPos;
-    [SerializeField] float pathTextSpawnOffset;
     [SerializeField] List<GameObject> path;
 
     int destinationDistance;
@@ -137,8 +133,8 @@ public class CityManager : MonoBehaviour
         }
 
         gameManager.SetNewDestination(currentCity.name, nextCity.name, destinationDistance);
-        CreatePathText();
         pathfinding.FindPath(currentCity, destinationCity, null);
+        ColorAll();
     }
     #endregion
 
@@ -152,35 +148,15 @@ public class CityManager : MonoBehaviour
         destinationCity = currentCityNeighbors[nextCityInt];
 
         FindPathAtStart(currentCity, destinationCity);
-        CreatePathText();
+        ColorAll();
     }
     #endregion
 
     #region Visual Setup
-    void CreatePathText()
+    void ColorAll()
     {
-        GameObject previousText = null;
-
         for (int i = 0; i < path.Count; i++)
         {
-            GameObject spawnedTextObject = Instantiate(pathTextPrefab);
-            spawnedTextObject.transform.SetParent(pathTextParent.transform);
-
-            if (previousText == null)
-            {
-                spawnedTextObject.transform.localPosition = pathTextSpawnPos;
-            }
-            else
-            {
-                spawnedTextObject.transform.localPosition = new Vector2(pathTextSpawnPos.x, pathTextSpawnPos.y - (pathTextSpawnOffset * i));
-            }
-
-            spawnedTextObject.transform.localScale = new Vector3(1f, 1f, 1f);
-            previousText = spawnedTextObject;
-
-            TextMeshProUGUI spawnedText = spawnedTextObject.GetComponent<TextMeshProUGUI>();
-            spawnedText.text = path[i].name;
-
             ColorCities(i);
             ColorLines(i);
         }
