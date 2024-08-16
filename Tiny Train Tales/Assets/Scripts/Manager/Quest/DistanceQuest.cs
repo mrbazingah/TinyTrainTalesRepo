@@ -21,6 +21,8 @@ public class DistanceQuest : MonoBehaviour
 
     void Start()
     {
+        Debug.Log(gameObject.name);
+
         if (PlayerPrefs.HasKey(gameObject.name + "QuestDistanceTraveled") && PlayerPrefs.HasKey(gameObject.name + "QuestDistanceToTravel") && PlayerPrefs.HasKey(gameObject.name + "QuestDifference"))
         {
             savedDistanceTraveled = PlayerPrefs.GetFloat(gameObject.name + "QuestDistanceTraveled");

@@ -44,6 +44,7 @@ public class GameManager : MonoBehaviour
 
     float remainingDistance;
     float velocity;
+    int subPassangers = 0;
 
     bool hasDeletedKeys;
     bool hasCalculatedPassangers;
@@ -53,7 +54,6 @@ public class GameManager : MonoBehaviour
     CameraMovement cam;
     UpgradeManager upgrades;
     CityManager cityManager;
-    City city;
     QuestManager questManager;
     CarManager carManager;
     #endregion
@@ -64,7 +64,6 @@ public class GameManager : MonoBehaviour
         cam = FindObjectOfType<CameraMovement>();
         upgrades = FindObjectOfType<UpgradeManager>();
         cityManager = FindObjectOfType<CityManager>();
-        city = FindObjectOfType<City>();    
         questManager = FindObjectOfType<QuestManager>();
         carManager = FindObjectOfType<CarManager>();
     }
@@ -330,7 +329,7 @@ public class GameManager : MonoBehaviour
     {
         if (hasCalculatedPassangers) { return; }
 
-        int subPassangers = (int)Random.Range(0, passangers + 1);
+        subPassangers = (int)Random.Range(0, passangers + 1);
         int addPassangers = (int)Random.Range(0, maxPassangers - passangers + 1);
 
         passangers -= subPassangers;
@@ -342,6 +341,12 @@ public class GameManager : MonoBehaviour
         AddCoins(coinsAdded);
 
         PlayerPrefs.SetFloat("Passangers", passangers);
+
+        PassangerQuest[] passangerQuests = FindObjectsOfType<PassangerQuest>();
+        for (int i = 0; i < passangerQuests.Length; i++)
+        {
+            passangerQuests[i].DropOff();
+        }
 
         hasCalculatedPassangers = true;
     }
@@ -425,6 +430,11 @@ public class GameManager : MonoBehaviour
     public float GetRemainingDistance()
     {
         return remainingDistance;
+    }
+
+    public int GetSubPassangers()
+    {
+        return subPassangers;
     }
     #endregion
 

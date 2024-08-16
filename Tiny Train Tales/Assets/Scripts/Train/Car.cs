@@ -105,7 +105,7 @@ public class Car : MonoBehaviour
     {
         if (earning <= 0)
         {
-            earning = (int)Random.Range(minEarning, maxEarning);
+            earning = (int)Random.Range(minEarning, maxEarning) * income;
         }
 
         gameManager.AddCoins(earning);
