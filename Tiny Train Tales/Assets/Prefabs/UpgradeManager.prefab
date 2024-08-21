@@ -68,4 +68,6 @@ MonoBehaviour:
   carsCostText: {fileID: 0}
   carsCost: 1000
   carsCostIncrease: 500
+  originalColor: {r: 1, g: 1, b: 1, a: 1}
   cantAffordColor: {r: 0.7058824, g: 0.7058824, b: 0.7058824, a: 1}
+  doneColor: {r: 0.21124823, g: 0.7264151, b: 0.10051019, a: 1}

@@ -31,7 +31,7 @@ public class PassangerQuest : MonoBehaviour
         if (dropped >= toDrop)
         {
             //Do stuff
-            questText.text = toDrop.ToString() + "/" + toDrop.ToString();
+            questText.text = toDrop.ToString() + "/" + toDrop.ToString() + " Passangers delieverd";
         }
         else
         {

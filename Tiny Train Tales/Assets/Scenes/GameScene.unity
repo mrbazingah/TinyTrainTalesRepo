@@ -1238,8 +1238,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: 3e514dc09f9afd44890462b7eec9fe22, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -2429,8 +2429,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: 3e514dc09f9afd44890462b7eec9fe22, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -2667,7 +2667,7 @@ GameObject:
   - component: {fileID: 263113997}
   m_Layer: 0
   m_Name: QuestCanvas
-  m_TagString: Untagged
+  m_TagString: QuestMenu
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -8177,18 +8177,6 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 697181225}
-        m_TargetAssemblyTypeName: BuyRestrictions, Assembly-CSharp
-        m_MethodName: AddAmount
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
       - m_Target: {fileID: 1459477806}
         m_TargetAssemblyTypeName: UpgradeManager, Assembly-CSharp
         m_MethodName: UpgradeMaxSpeed
@@ -8221,8 +8209,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: 3e514dc09f9afd44890462b7eec9fe22, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -12124,8 +12112,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: 3e514dc09f9afd44890462b7eec9fe22, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -12566,8 +12554,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: 3e514dc09f9afd44890462b7eec9fe22, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -13694,8 +13682,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: 3e514dc09f9afd44890462b7eec9fe22, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -14275,8 +14263,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 1.95}
+  m_SizeDelta: {x: 0, y: 0.100000024}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1142331252
 MonoBehaviour:
@@ -17274,8 +17262,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 1}
+  m_SizeDelta: {x: 0, y: 2}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1404524322
 MonoBehaviour:
@@ -19070,8 +19058,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: 3e514dc09f9afd44890462b7eec9fe22, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -19725,8 +19713,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: 3e514dc09f9afd44890462b7eec9fe22, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -21447,8 +21435,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: 3e514dc09f9afd44890462b7eec9fe22, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -23479,8 +23467,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: 3e514dc09f9afd44890462b7eec9fe22, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -29195,29 +29183,9 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 762969003}
     - target: {fileID: 3104360152833878173, guid: f2929c3dec4229d4dbdbfcf07e0b3dc2, type: 3}
-      propertyPath: amountText
-      value: 
-      objectReference: {fileID: 780868181}
-    - target: {fileID: 3104360152833878173, guid: f2929c3dec4229d4dbdbfcf07e0b3dc2, type: 3}
       propertyPath: profitText
       value: 
       objectReference: {fileID: 1579744556}
-    - target: {fileID: 3104360152833878173, guid: f2929c3dec4229d4dbdbfcf07e0b3dc2, type: 3}
-      propertyPath: doneColor.a
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3104360152833878173, guid: f2929c3dec4229d4dbdbfcf07e0b3dc2, type: 3}
-      propertyPath: doneColor.b
-      value: 0.10051019
-      objectReference: {fileID: 0}
-    - target: {fileID: 3104360152833878173, guid: f2929c3dec4229d4dbdbfcf07e0b3dc2, type: 3}
-      propertyPath: doneColor.g
-      value: 0.7264151
-      objectReference: {fileID: 0}
-    - target: {fileID: 3104360152833878173, guid: f2929c3dec4229d4dbdbfcf07e0b3dc2, type: 3}
-      propertyPath: doneColor.r
-      value: 0.21124823
-      objectReference: {fileID: 0}
     - target: {fileID: 3104360152833878173, guid: f2929c3dec4229d4dbdbfcf07e0b3dc2, type: 3}
       propertyPath: carsCostText
       value: 
@@ -29227,29 +29195,9 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 34222866}
     - target: {fileID: 3104360152833878173, guid: f2929c3dec4229d4dbdbfcf07e0b3dc2, type: 3}
-      propertyPath: maxSpeedAmount
-      value: 15
-      objectReference: {fileID: 0}
-    - target: {fileID: 3104360152833878173, guid: f2929c3dec4229d4dbdbfcf07e0b3dc2, type: 3}
       propertyPath: profitCostText
       value: 
       objectReference: {fileID: 65905397}
-    - target: {fileID: 3104360152833878173, guid: f2929c3dec4229d4dbdbfcf07e0b3dc2, type: 3}
-      propertyPath: originalColor.a
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3104360152833878173, guid: f2929c3dec4229d4dbdbfcf07e0b3dc2, type: 3}
-      propertyPath: originalColor.b
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3104360152833878173, guid: f2929c3dec4229d4dbdbfcf07e0b3dc2, type: 3}
-      propertyPath: originalColor.g
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3104360152833878173, guid: f2929c3dec4229d4dbdbfcf07e0b3dc2, type: 3}
-      propertyPath: originalColor.r
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 3104360152833878173, guid: f2929c3dec4229d4dbdbfcf07e0b3dc2, type: 3}
       propertyPath: accelerationText
       value: 
@@ -32811,13 +32759,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7827810439277896617, guid: 99cf9d11154a4484b9363d7ddcdb2782, type: 3}
-      propertyPath: carSpeedOffset
-      value: 0.025
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects:
-    - {fileID: 7698444055336172734, guid: 99cf9d11154a4484b9363d7ddcdb2782, type: 3}
+    m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 99cf9d11154a4484b9363d7ddcdb2782, type: 3}
@@ -40186,24 +40129,16 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 995032294139566379, guid: d7f2d7e6643153744bbdc766918d5eaf, type: 3}
-      propertyPath: costText
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 995032294139566379, guid: d7f2d7e6643153744bbdc766918d5eaf, type: 3}
       propertyPath: trainCollider
       value: 
       objectReference: {fileID: 2042117574}
-    - target: {fileID: 995032294139566379, guid: d7f2d7e6643153744bbdc766918d5eaf, type: 3}
-      propertyPath: colliderOffset
-      value: 20
-      objectReference: {fileID: 0}
     - target: {fileID: 3450606250641564517, guid: d7f2d7e6643153744bbdc766918d5eaf, type: 3}
       propertyPath: m_Name
       value: GameManager
       objectReference: {fileID: 0}
     - target: {fileID: 6013072587387181096, guid: d7f2d7e6643153744bbdc766918d5eaf, type: 3}
       propertyPath: coins
-      value: 1000000
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6013072587387181096, guid: d7f2d7e6643153744bbdc766918d5eaf, type: 3}
       propertyPath: cointext
@@ -40241,10 +40176,6 @@ PrefabInstance:
       propertyPath: autoCollectToggle
       value: 
       objectReference: {fileID: 1401247971}
-    - target: {fileID: 6013072587387181096, guid: d7f2d7e6643153744bbdc766918d5eaf, type: 3}
-      propertyPath: decelerationOffset
-      value: 42.1
-      objectReference: {fileID: 0}
     - target: {fileID: 6013072587387181096, guid: d7f2d7e6643153744bbdc766918d5eaf, type: 3}
       propertyPath: destinationCityText
       value: 

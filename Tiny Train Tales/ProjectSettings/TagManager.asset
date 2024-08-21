@@ -8,6 +8,7 @@ TagManager:
   - Block
   - Car
   - Station
+  - QuestMenu
   layers:
   - Default
   - TransparentFX

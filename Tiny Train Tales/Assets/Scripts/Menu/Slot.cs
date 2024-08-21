@@ -57,7 +57,7 @@ public class Slot : MonoBehaviour
         int currentMonth = System.DateTime.Now.Month;
         int currentYear = System.DateTime.Now.Year;
 
-        if (pastDay < currentDay && pasthMonth < currentMonth && pastYear < currentYear)
+        if (pastDay < currentDay || pasthMonth < currentMonth || pastYear < currentYear)
         {
             PlayerPrefs.SetInt("PastDay", currentDay);
             PlayerPrefs.SetInt("PastMonth", currentMonth);
