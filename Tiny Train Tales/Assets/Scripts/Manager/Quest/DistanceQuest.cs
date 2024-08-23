@@ -21,13 +21,13 @@ public class DistanceQuest : MonoBehaviour
 
     void Start()
     {
-        Debug.Log(gameObject.name);
-
         if (PlayerPrefs.HasKey(gameObject.name + "QuestDistanceTraveled") && PlayerPrefs.HasKey(gameObject.name + "QuestDistanceToTravel") && PlayerPrefs.HasKey(gameObject.name + "QuestDifference"))
         {
             savedDistanceTraveled = PlayerPrefs.GetFloat(gameObject.name + "QuestDistanceTraveled");
             distanceToTravel = PlayerPrefs.GetInt(gameObject.name + "QuestDistanceToTravel");
             difference = PlayerPrefs.GetFloat(gameObject.name + "QuestDifference");
+
+            Debug.Log("Loaded Distance Quest");
         }
         else
         {
@@ -77,5 +77,7 @@ public class DistanceQuest : MonoBehaviour
         PlayerPrefs.SetFloat(gameObject.name + "QuestDistanceTraveled", distanceTraveled);
         PlayerPrefs.SetInt(gameObject.name + "QuestDistanceToTravel", distanceToTravel);
         PlayerPrefs.SetFloat(gameObject.name + "QuestDifference", difference);
+
+        Debug.Log("Saved Distance Quest");
     }
 }

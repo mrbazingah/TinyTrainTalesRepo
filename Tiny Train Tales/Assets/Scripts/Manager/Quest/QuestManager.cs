@@ -1,35 +1,59 @@
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 
 public class QuestManager : MonoBehaviour
 {
     [SerializeField] int amountOfQuest;
     [SerializeField] List<GameObject> differntQuest;
-    [SerializeField] List<GameObject> instancetedQuests;
+    [SerializeField] List<GameObject> instantiatedQuests;
     [SerializeField] GameObject parent;
     [SerializeField] int textDistance;
 
     void Start()
     {
-        for (int i = 0; i < amountOfQuest; i++)
+       SetUpQuests();
+    }
+
+    void SetUpQuests()
+    {
+        if (PlayerPrefs.HasKey("NumberOfDistanceQuest"))
         {
-            int number = Random.Range(0, differntQuest.Count);
+            PlayerPrefs.DeleteKey("HasQuests");
+        }
+        else
+        {
+            for (int i = 0; i < amountOfQuest; i++)
+            {
+                int number = Random.Range(0, differntQuest.Count);
 
-            GameObject spawned = Instantiate(differntQuest[number]);
-            spawned.name = spawned.name + i.ToString();
-            spawned.transform.SetParent(parent.transform);
-            spawned.transform.localPosition = new Vector2(0, 170 - textDistance * i);
+                GameObject spawned = Instantiate(differntQuest[number]);
+                spawned.name = spawned.name + i.ToString();
+                spawned.transform.SetParent(parent.transform);
+                spawned.transform.localPosition = new Vector2(0, 170 - textDistance * i);
 
-            instancetedQuests.Add(differntQuest[number]);
+                instantiatedQuests.Add(differntQuest[number]);
+            }
         }
     }
 
-    public void SaveAll()
+    public void SaveQuests()
     {
-        for (int i = 0; i < instancetedQuests.Count; i++)
+        for (int i = 0; i < instantiatedQuests.Count; i++)
         {
-            //Save every quest
+            DistanceQuest[] distanceQuests = FindObjectsOfType<DistanceQuest>();
+            for (int j = 0; j < distanceQuests.Length; j++)
+            {
+                distanceQuests[i].SaveTravelDistance();
+            }
+
+            PassangerQuest[] passangerQuests = FindObjectsOfType<PassangerQuest>();
+            for (int j = 0; j < passangerQuests.Length; j++)
+            {
+                passangerQuests[i].SavePassangers();
+            }
+
+            PlayerPrefs.SetInt("NumberOfDistanceQuest", distanceQuests.Length);
+            PlayerPrefs.SetInt("NumberOfPassangersQuest", passangerQuests.Length);
         }
     }
 }

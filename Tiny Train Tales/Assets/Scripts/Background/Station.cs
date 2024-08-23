@@ -59,7 +59,6 @@ public class Station : MonoBehaviour
         gameManager?.DeleteSavedDestination(false);
         cityManager?.SaveOnDeparture();
         cityManager?.ResetPath();
-        questManager?.SaveAll();
 
         PlayerPrefs.DeleteKey("Dont Destroy");
 
