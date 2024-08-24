@@ -59,10 +59,6 @@ public class Slot : MonoBehaviour
 
         if (pastDay < currentDay || pasthMonth < currentMonth || pastYear < currentYear)
         {
-            PlayerPrefs.SetInt("PastDay", currentDay);
-            PlayerPrefs.SetInt("PastMonth", currentMonth);
-            PlayerPrefs.SetInt("PastYear", currentYear);
-
             PlayerPrefs.DeleteKey(gameObject.name + "Weight");
             PlayerPrefs.DeleteKey(gameObject.name + "Speed");
             PlayerPrefs.DeleteKey(gameObject.name + "Income");

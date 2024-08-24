@@ -199,7 +199,7 @@ public class UpgradeManager : MonoBehaviour
         PlayerPrefs.SetFloat("MaxSpeedCost", maxSpeedCost);
         gameManager?.AddToMaxSpeed(addToMaxSpeed);
 
-        maxSpeedAmount++;
+        currentMaxSpeedAmount++;
     }
 
     public void UpgradeMaxPassangers()

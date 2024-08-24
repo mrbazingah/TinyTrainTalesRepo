@@ -11,9 +11,13 @@ public class TODO : MonoBehaviour
     //Some to unlock next area
     //Five everyday
 
-    //Buy and add cars to your train (possibly make the train slower if more weight is on it)
     //Have a market at every city
     //Zoom in on map
     //Timer for upgrades
     //Animate train wheels
+
+    //Update Sprites for:
+    //Passanger Icon
+    //Coins Icon
+    //Train Image
 }

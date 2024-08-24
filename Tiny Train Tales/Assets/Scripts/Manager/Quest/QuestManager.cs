@@ -16,9 +16,34 @@ public class QuestManager : MonoBehaviour
 
     void SetUpQuests()
     {
-        if (PlayerPrefs.HasKey("NumberOfDistanceQuest"))
+        if (PlayerPrefs.HasKey("NumberOfDistanceQuests"))
         {
-            PlayerPrefs.DeleteKey("HasQuests");
+            GameObject spawned;
+            int iterations = 0;
+
+            int numberOfDistanceQuests = PlayerPrefs.GetInt("NumberOfDistanceQuests");
+            for (int i = 0; i < numberOfDistanceQuests; i++)
+            {
+                spawned = Instantiate(differntQuest[0]);
+                spawned.name = spawned.name + i.ToString();
+                spawned.transform.SetParent(parent.transform);
+                spawned.transform.localPosition = new Vector2(0, 170 - textDistance * i);
+
+                instantiatedQuests.Add(differntQuest[0]);
+
+                iterations++;
+            }
+
+            int numberOfPassangerQuests = PlayerPrefs.GetInt("NumberOfPassangersQuest");
+            for (int i = 0; i < numberOfPassangerQuests; i++)
+            {
+                spawned = Instantiate(differntQuest[1]);
+                spawned.name = spawned.name + i.ToString();
+                spawned.transform.SetParent(parent.transform);
+                spawned.transform.localPosition = new Vector2(0, 170 - textDistance * (i + iterations));
+
+                instantiatedQuests.Add(differntQuest[1]);
+            }
         }
         else
         {
@@ -43,16 +68,16 @@ public class QuestManager : MonoBehaviour
             DistanceQuest[] distanceQuests = FindObjectsOfType<DistanceQuest>();
             for (int j = 0; j < distanceQuests.Length; j++)
             {
-                distanceQuests[i].SaveTravelDistance();
+                distanceQuests[j].SaveTravelDistance();
             }
 
             PassangerQuest[] passangerQuests = FindObjectsOfType<PassangerQuest>();
             for (int j = 0; j < passangerQuests.Length; j++)
             {
-                passangerQuests[i].SavePassangers();
+                passangerQuests[j].SavePassangers();
             }
 
-            PlayerPrefs.SetInt("NumberOfDistanceQuest", distanceQuests.Length);
+            PlayerPrefs.SetInt("NumberOfDistanceQuests", distanceQuests.Length);
             PlayerPrefs.SetInt("NumberOfPassangersQuest", passangerQuests.Length);
         }
     }

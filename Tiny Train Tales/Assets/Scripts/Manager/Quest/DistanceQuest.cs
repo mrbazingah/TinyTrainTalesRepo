@@ -5,6 +5,7 @@ public class DistanceQuest : MonoBehaviour
 {
     [SerializeField] TextMeshProUGUI questText;
     [SerializeField] int distanceToTravel;
+    [SerializeField] int distanceOffset;
 
     bool hasFinishedQuest;
 
@@ -23,11 +24,9 @@ public class DistanceQuest : MonoBehaviour
     {
         if (PlayerPrefs.HasKey(gameObject.name + "QuestDistanceTraveled") && PlayerPrefs.HasKey(gameObject.name + "QuestDistanceToTravel") && PlayerPrefs.HasKey(gameObject.name + "QuestDifference"))
         {
-            savedDistanceTraveled = PlayerPrefs.GetFloat(gameObject.name + "QuestDistanceTraveled");
+            savedDistanceTraveled = PlayerPrefs.GetFloat(gameObject.name + "QuestDistanceTraveled") + distanceOffset;
             distanceToTravel = PlayerPrefs.GetInt(gameObject.name + "QuestDistanceToTravel");
             difference = PlayerPrefs.GetFloat(gameObject.name + "QuestDifference");
-
-            Debug.Log("Loaded Distance Quest");
         }
         else
         {
@@ -77,7 +76,5 @@ public class DistanceQuest : MonoBehaviour
         PlayerPrefs.SetFloat(gameObject.name + "QuestDistanceTraveled", distanceTraveled);
         PlayerPrefs.SetInt(gameObject.name + "QuestDistanceToTravel", distanceToTravel);
         PlayerPrefs.SetFloat(gameObject.name + "QuestDifference", difference);
-
-        Debug.Log("Saved Distance Quest");
     }
 }
