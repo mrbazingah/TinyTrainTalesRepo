@@ -83,7 +83,6 @@ public class CarManager : MonoBehaviour
         currentCars.Add(lastSpawned);
 
         PlayerPrefs.SetInt("Cars", length);
-        Debug.Log("Saved Cars");
     }
 
     public void SaveCars()

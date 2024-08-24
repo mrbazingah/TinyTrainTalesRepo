@@ -4,6 +4,8 @@ using UnityEngine;
 public class PassangerQuest : MonoBehaviour
 {
     [SerializeField] TextMeshProUGUI questText;
+    [SerializeField] GameObject icon;
+    [SerializeField] GameObject collectButton;
     [SerializeField] int maxPassangers;
     [SerializeField] int minPassangers;
     [SerializeField] int multiply = 10;
@@ -29,13 +31,18 @@ public class PassangerQuest : MonoBehaviour
 
         if (dropped >= toDrop)
         {
-            questText.text = toDrop.ToString() + "/" + toDrop.ToString() + " Passangers delieverd";
-            DeleteKeys();
+            questText.text = "Complete";
+
+            icon.SetActive(false);
+            collectButton.SetActive(true);
         }
         else
         {
             questText.text = dropped.ToString() + "/" + toDrop.ToString();
         }
+
+        PlayerPrefs.SetInt(gameObject.name + "Dropped", dropped);
+        toDrop = PlayerPrefs.GetInt(gameObject.name + "ToDrop");
     }
 
     void SetUpQuest()
@@ -50,18 +57,36 @@ public class PassangerQuest : MonoBehaviour
             toDrop = Random.Range(minPassangers, maxPassangers + 1) * multiply;
         }
 
-        questText.text = dropped.ToString() + "/" + toDrop.ToString();
-    }
+        if (dropped >= toDrop)
+        {
+            questText.text = "Complete";
 
-    void DeleteKeys()
-    {
-        PlayerPrefs.DeleteKey(gameObject.name + "Dropped");
-        PlayerPrefs.DeleteKey(gameObject.name + "ToDrop");
+            icon.SetActive(false);
+            collectButton.SetActive(true);
+        }
+        else
+        {
+            questText.text = dropped.ToString() + "/" + toDrop.ToString();
+            collectButton.SetActive(false);
+        }
     }
 
     public void SavePassangers()
     {
         PlayerPrefs.SetInt(gameObject.name + "Dropped", dropped);
         PlayerPrefs.SetInt(gameObject.name + "ToDrop", toDrop);
+    }
+
+    public void Collect()
+    {
+        gameManager.AddToGems(toDrop / 10);
+        DeleteKeys();
+        Destroy(gameObject);
+    }
+
+    void DeleteKeys()
+    {
+        PlayerPrefs.DeleteKey(gameObject.name + "Dropped");
+        PlayerPrefs.DeleteKey(gameObject.name + "ToDrop");
     }
 }

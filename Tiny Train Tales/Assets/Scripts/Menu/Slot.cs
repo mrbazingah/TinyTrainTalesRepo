@@ -49,9 +49,9 @@ public class Slot : MonoBehaviour
 
     void SetUpSlot()
     {
-        int pastDay = PlayerPrefs.GetInt("PastDay");
-        int pasthMonth = PlayerPrefs.GetInt("PastMonth");
-        int pastYear = PlayerPrefs.GetInt("PastYear");
+        int pastDay = PlayerPrefs.GetInt(gameObject.name + "PastDay");
+        int pasthMonth = PlayerPrefs.GetInt(gameObject.name + "PastMonth");
+        int pastYear = PlayerPrefs.GetInt(gameObject.name + "PastYear");
 
         int currentDay = System.DateTime.Now.Day;
         int currentMonth = System.DateTime.Now.Month;
@@ -63,6 +63,10 @@ public class Slot : MonoBehaviour
             PlayerPrefs.DeleteKey(gameObject.name + "Speed");
             PlayerPrefs.DeleteKey(gameObject.name + "Income");
             PlayerPrefs.DeleteKey(gameObject.name + "HasBeenBought");
+
+            PlayerPrefs.SetInt(gameObject.name + "PastDay", currentDay);
+            PlayerPrefs.SetInt(gameObject.name + "PastMonth", currentMonth);
+            PlayerPrefs.SetInt(gameObject.name + "PastYear", currentYear);
         }
 
         if (PlayerPrefs.HasKey(gameObject.name + "Weight"))

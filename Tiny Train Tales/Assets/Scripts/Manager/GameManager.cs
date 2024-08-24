@@ -170,6 +170,8 @@ public class GameManager : MonoBehaviour
 
         coins = Mathf.Round(coins);
         cointext.text = coins.ToString();
+        gemsText.text = gems.ToString();
+
         passangerText.text = passangers.ToString() + "/" + maxPassangers.ToString();
     }
 
@@ -213,12 +215,16 @@ public class GameManager : MonoBehaviour
     public void AddToGems(float amount)
     {
         gems += amount;
+        gemsText.text = gems.ToString();
+
         PlayerPrefs.SetFloat("Gems", gems);
     }
 
     public void BuyWithGems(float cost)
     {
         gems -= cost;
+        gemsText.text = gems.ToString();
+
         PlayerPrefs.SetFloat("Gems", gems);
     }
     #endregion

@@ -254,7 +254,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 4972374296863857646}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 7769879262857322784}
+        m_TargetAssemblyTypeName: PassangerQuest, Assembly-CSharp
+        m_MethodName: Collect
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &2402110244573361904
 GameObject:
   m_ObjectHideFlags: 0
@@ -379,6 +391,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   questText: {fileID: 1678306116955912291}
+  icon: {fileID: 2402110244573361904}
+  collectButton: {fileID: 1284885638850900292}
   maxPassangers: 10
   minPassangers: 1
   multiply: 10
