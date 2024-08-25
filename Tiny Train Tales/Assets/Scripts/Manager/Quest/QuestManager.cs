@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class QuestManager : MonoBehaviour
@@ -45,7 +46,8 @@ public class QuestManager : MonoBehaviour
                 instantiatedQuests.Add(differntQuest[1]);
             }
         }
-        else
+        
+        if (instantiatedQuests.Count == 0)
         {
             for (int i = 0; i < amountOfQuest; i++)
             {
@@ -80,5 +82,16 @@ public class QuestManager : MonoBehaviour
             PlayerPrefs.SetInt("NumberOfDistanceQuests", distanceQuests.Length);
             PlayerPrefs.SetInt("NumberOfPassangersQuest", passangerQuests.Length);
         }
+    }
+
+    public void ResetQuests()
+    {
+        for (int i = 0;i < instantiatedQuests.Count; i++)
+        {
+            instantiatedQuests[i].name = instantiatedQuests[i].name + i.ToString();
+            instantiatedQuests[i].transform.localPosition = new Vector2(0, 170 - textDistance * i);
+        }
+
+        SaveQuests();
     }
 }

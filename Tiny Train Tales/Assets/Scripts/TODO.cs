@@ -16,9 +16,12 @@ public class TODO : MonoBehaviour
     //Timer for upgrades
     //Animate train wheels
 
-    //Update Sprites for:
+    //Make new or update Sprites for:
     //Passanger Icon
     //Coins Icon
     //Train Image
     //Leave Station Button
+    //The Whole Background
+    //Station
+    //Cursor
 }

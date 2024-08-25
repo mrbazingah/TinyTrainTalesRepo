@@ -14,13 +14,11 @@ public class Station : MonoBehaviour
 
     GameManager gameManager;
     CityManager cityManager;
-    QuestManager questManager;
 
     void Awake()
     {
         gameManager = FindObjectOfType<GameManager>();
         cityManager = FindObjectOfType<CityManager>();
-        questManager = FindObjectOfType<QuestManager>();
     }
 
     void Start()

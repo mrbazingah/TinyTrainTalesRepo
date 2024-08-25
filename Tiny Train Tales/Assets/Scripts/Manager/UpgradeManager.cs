@@ -52,8 +52,6 @@ public class UpgradeManager : MonoBehaviour
 
     GameManager gameManager;
     Train train;
-    CameraMovement cam;
-    CarManager carManager;
 
     Button accelerationButton;
     Button maxSpeedButton;
@@ -65,8 +63,6 @@ public class UpgradeManager : MonoBehaviour
     {
         gameManager = FindObjectOfType<GameManager>();
         train = FindObjectOfType<Train>();
-        cam = FindObjectOfType<CameraMovement>();
-        carManager = FindObjectOfType<CarManager>();
 
         accelerationButton = accelerationCostText.GetComponentInParent<Button>();
         maxSpeedButton = maxSpeedCostText.GetComponentInParent<Button>();

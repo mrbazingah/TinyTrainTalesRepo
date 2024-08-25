@@ -14,10 +14,12 @@ public class PassangerQuest : MonoBehaviour
     int toDrop;
 
     GameManager gameManager;
+    QuestManager questManager;
 
     void Awake()
     {
         gameManager = FindObjectOfType<GameManager>();  
+        questManager = FindObjectOfType<QuestManager>();
     }
 
     void Start()
@@ -81,6 +83,8 @@ public class PassangerQuest : MonoBehaviour
     {
         gameManager.AddToGems(toDrop / 10);
         DeleteKeys();
+        questManager.ResetQuests();
+
         Destroy(gameObject);
     }
 

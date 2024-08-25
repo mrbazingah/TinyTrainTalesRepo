@@ -4,6 +4,7 @@ using UnityEngine;
 public class DistanceQuest : MonoBehaviour
 {
     [SerializeField] TextMeshProUGUI questText;
+    [SerializeField] GameObject collectButton;
     [SerializeField] int distanceToTravel;
     [SerializeField] int distanceOffset;
 
@@ -14,15 +15,17 @@ public class DistanceQuest : MonoBehaviour
     float difference;
 
     GameManager gameManager;
+    QuestManager questManager;
 
     void Awake()
     {
         gameManager = FindObjectOfType<GameManager>();
+        questManager = FindObjectOfType<QuestManager>();    
     }
 
     void Start()
     {
-        if (PlayerPrefs.HasKey(gameObject.name + "QuestDistanceTraveled") && PlayerPrefs.HasKey(gameObject.name + "QuestDistanceToTravel") && PlayerPrefs.HasKey(gameObject.name + "QuestDifference"))
+        if (PlayerPrefs.HasKey(gameObject.name + "QuestDistanceTraveled"))
         {
             savedDistanceTraveled = PlayerPrefs.GetFloat(gameObject.name + "QuestDistanceTraveled") + distanceOffset;
             distanceToTravel = PlayerPrefs.GetInt(gameObject.name + "QuestDistanceToTravel");
@@ -32,6 +35,8 @@ public class DistanceQuest : MonoBehaviour
         {
             SetNewQuests();
         }
+
+        collectButton.SetActive(false);
     }
 
     void SetNewQuests()
@@ -49,18 +54,16 @@ public class DistanceQuest : MonoBehaviour
 
     void CountDownDistance()
     {
-        distanceTraveled = gameManager.GetDistance() - gameManager.GetRemainingDistance();
-        difference = Mathf.Round(distanceToTravel - savedDistanceTraveled - distanceTraveled);
-        questText.text = "Travel " + difference.ToString() + " km";
-
-        if (difference <= 0 && !hasFinishedQuest)
+        if (difference <= 0)
         {
-            DeleteKeys();
-            questText.text = "Mission finished";
-            gameManager.AddCoins(distanceToTravel);
-            gameManager.AddToGems(5);
-
-            hasFinishedQuest = true;
+            questText.text = "Complete";
+            collectButton.SetActive(true);
+        }
+        else
+        {
+            distanceTraveled = gameManager.GetDistance() - gameManager.GetRemainingDistance();
+            difference = Mathf.Round(distanceToTravel - savedDistanceTraveled - distanceTraveled);
+            questText.text = "Travel " + difference.ToString() + " km";
         }
     }
 
@@ -76,5 +79,14 @@ public class DistanceQuest : MonoBehaviour
         PlayerPrefs.SetFloat(gameObject.name + "QuestDistanceTraveled", distanceTraveled);
         PlayerPrefs.SetInt(gameObject.name + "QuestDistanceToTravel", distanceToTravel);
         PlayerPrefs.SetFloat(gameObject.name + "QuestDifference", difference);
+    }
+
+    public void Collect()
+    {
+        gameManager.AddToGems(distanceToTravel / 1000);
+        DeleteKeys();
+        Destroy(gameObject);
+
+        questManager.ResetQuests();
     }
 }
