@@ -25,12 +25,12 @@ public class QuestManager : MonoBehaviour
             int numberOfDistanceQuests = PlayerPrefs.GetInt("NumberOfDistanceQuests");
             for (int i = 0; i < numberOfDistanceQuests; i++)
             {
-                spawned = Instantiate(differntQuest[0]);
-                spawned.name = spawned.name + i.ToString();
+                spawned = Instantiate(differntQuest[0], Vector2.zero, Quaternion.identity);
                 spawned.transform.SetParent(parent.transform);
                 spawned.transform.localPosition = new Vector2(0, 170 - textDistance * i);
 
                 instantiatedQuests.Add(differntQuest[0]);
+                spawned.SetActive(true);
 
                 iterations++;
             }
@@ -38,12 +38,12 @@ public class QuestManager : MonoBehaviour
             int numberOfPassangerQuests = PlayerPrefs.GetInt("NumberOfPassangersQuest");
             for (int i = 0; i < numberOfPassangerQuests; i++)
             {
-                spawned = Instantiate(differntQuest[1]);
-                spawned.name = spawned.name + i.ToString();
+                spawned = Instantiate(differntQuest[1], Vector2.zero, Quaternion.identity);
                 spawned.transform.SetParent(parent.transform);
                 spawned.transform.localPosition = new Vector2(0, 170 - textDistance * (i + iterations));
 
                 instantiatedQuests.Add(differntQuest[1]);
+                spawned.SetActive(true);
             }
         }
         
@@ -84,14 +84,31 @@ public class QuestManager : MonoBehaviour
         }
     }
 
+    public void RemoveInstantiatedQuest(int i)
+    {
+        instantiatedQuests.RemoveAt(i);
+    }
+
     public void ResetQuests()
     {
+        SaveQuests();
+
         for (int i = 0;i < instantiatedQuests.Count; i++)
         {
-            instantiatedQuests[i].name = instantiatedQuests[i].name + i.ToString();
-            instantiatedQuests[i].transform.localPosition = new Vector2(0, 170 - textDistance * i);
+            GameObject currentQuest = instantiatedQuests[i];
+            if (currentQuest != null)
+            {
+                instantiatedQuests.Remove(currentQuest);
+                currentQuest.SetActive(false);
+                Destroy(currentQuest);
+            }
         }
 
-        SaveQuests();
+        SetUpQuests();
+    }
+
+    public List<GameObject> GetInstantiatedQuests()
+    {
+        return instantiatedQuests;
     }
 }

@@ -1,4 +1,6 @@
+using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class DistanceQuest : MonoBehaviour
@@ -50,6 +52,11 @@ public class DistanceQuest : MonoBehaviour
     void Update()
     {
         CountDownDistance();
+
+        if (!gameObject.activeInHierarchy)
+        {
+            gameObject.SetActive(true);
+        }
     }
 
     void CountDownDistance()
@@ -85,8 +92,22 @@ public class DistanceQuest : MonoBehaviour
     {
         gameManager.AddToGems(distanceToTravel / 1000);
         DeleteKeys();
-        Destroy(gameObject);
 
+        List<GameObject> instantiatedQuests = questManager.GetInstantiatedQuests();
+        int number = 0;
+
+        for (int i = 0; i < instantiatedQuests.Count; i++)
+        {
+            if (gameObject == instantiatedQuests[i])
+            {
+                number = i;
+                break;
+            }
+        }
+
+        questManager.RemoveInstantiatedQuest(number);
         questManager.ResetQuests();
+
+        Destroy(gameObject);
     }
 }

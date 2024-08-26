@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
@@ -25,6 +26,8 @@ public class PassangerQuest : MonoBehaviour
     void Start()
     {
         SetUpQuest();
+
+        gameObject.SetActive(true);
     }
 
     public void DropOff()
@@ -73,6 +76,14 @@ public class PassangerQuest : MonoBehaviour
         }
     }
 
+    void Update()
+    {
+        if (!gameObject.activeInHierarchy)
+        {
+            gameObject.SetActive(true);
+        }
+    }
+
     public void SavePassangers()
     {
         PlayerPrefs.SetInt(gameObject.name + "Dropped", dropped);
@@ -83,6 +94,20 @@ public class PassangerQuest : MonoBehaviour
     {
         gameManager.AddToGems(toDrop / 10);
         DeleteKeys();
+
+        List<GameObject> instantiatedQuests = questManager.GetInstantiatedQuests();
+        int number = 0;
+
+        for (int i = 0; i < instantiatedQuests.Count; i++)
+        {
+            if (gameObject == instantiatedQuests[i])
+            {
+                number = i;
+                break;
+            }
+        }
+
+        questManager.RemoveInstantiatedQuest(number);
         questManager.ResetQuests();
 
         Destroy(gameObject);
