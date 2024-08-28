@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class DistanceQuest : MonoBehaviour
@@ -52,11 +51,6 @@ public class DistanceQuest : MonoBehaviour
     void Update()
     {
         CountDownDistance();
-
-        if (!gameObject.activeInHierarchy)
-        {
-            gameObject.SetActive(true);
-        }
     }
 
     void CountDownDistance()
@@ -106,8 +100,13 @@ public class DistanceQuest : MonoBehaviour
         }
 
         questManager.RemoveInstantiatedQuest(number);
-        questManager.ResetQuests();
+        DestroySelf();
 
+        questManager.ResetQuests();
+    }
+
+    public void DestroySelf()
+    {
         Destroy(gameObject);
     }
 }

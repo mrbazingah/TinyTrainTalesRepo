@@ -29,8 +29,7 @@ public class QuestManager : MonoBehaviour
                 spawned.transform.SetParent(parent.transform);
                 spawned.transform.localPosition = new Vector2(0, 170 - textDistance * i);
 
-                instantiatedQuests.Add(differntQuest[0]);
-                spawned.SetActive(true);
+                instantiatedQuests.Add(spawned);
 
                 iterations++;
             }
@@ -42,12 +41,10 @@ public class QuestManager : MonoBehaviour
                 spawned.transform.SetParent(parent.transform);
                 spawned.transform.localPosition = new Vector2(0, 170 - textDistance * (i + iterations));
 
-                instantiatedQuests.Add(differntQuest[1]);
-                spawned.SetActive(true);
+                instantiatedQuests.Add(spawned);
             }
         }
-        
-        if (instantiatedQuests.Count == 0)
+        else
         {
             for (int i = 0; i < amountOfQuest; i++)
             {
@@ -60,6 +57,11 @@ public class QuestManager : MonoBehaviour
 
                 instantiatedQuests.Add(differntQuest[number]);
             }
+        }
+
+        for (int i = 0; i < instantiatedQuests.Count; i++)
+        {
+            instantiatedQuests[i].SetActive(true);
         }
     }
 
@@ -100,7 +102,18 @@ public class QuestManager : MonoBehaviour
             {
                 instantiatedQuests.Remove(currentQuest);
                 currentQuest.SetActive(false);
-                Destroy(currentQuest);
+                
+                PassangerQuest passangerQuest = currentQuest.GetComponent<PassangerQuest>();
+                if (passangerQuest != null)
+                {
+                    passangerQuest.DestroySelf();
+                }
+
+                DistanceQuest distanceQuest = currentQuest.GetComponent<DistanceQuest>();
+                if (distanceQuest != null)
+                {
+                    distanceQuest.DestroySelf();
+                }
             }
         }
 

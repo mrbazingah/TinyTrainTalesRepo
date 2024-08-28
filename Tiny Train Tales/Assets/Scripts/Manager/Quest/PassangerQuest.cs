@@ -76,14 +76,6 @@ public class PassangerQuest : MonoBehaviour
         }
     }
 
-    void Update()
-    {
-        if (!gameObject.activeInHierarchy)
-        {
-            gameObject.SetActive(true);
-        }
-    }
-
     public void SavePassangers()
     {
         PlayerPrefs.SetInt(gameObject.name + "Dropped", dropped);
@@ -107,9 +99,14 @@ public class PassangerQuest : MonoBehaviour
             }
         }
 
+        DestroySelf();
+
         questManager.RemoveInstantiatedQuest(number);
         questManager.ResetQuests();
+    }
 
+    public void DestroySelf()
+    {
         Destroy(gameObject);
     }
 
