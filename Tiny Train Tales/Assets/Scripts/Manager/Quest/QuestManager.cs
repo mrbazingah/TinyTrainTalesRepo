@@ -1,14 +1,15 @@
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class QuestManager : MonoBehaviour
 {
     [SerializeField] int amountOfQuest;
-    [SerializeField] List<GameObject> differntQuest;
+    [SerializeField] List<GameObject> prefabQuests;
     [SerializeField] List<GameObject> instantiatedQuests;
     [SerializeField] GameObject parent;
     [SerializeField] int textDistance;
+
+    bool turnedOn;
 
     void Start()
     {
@@ -17,6 +18,24 @@ public class QuestManager : MonoBehaviour
 
     void SetUpQuests()
     {
+        if (instantiatedQuests.Count > 0)
+        {
+            List<GameObject> objectsToDestroy = new List<GameObject>();
+
+            for (int i = 0; i < instantiatedQuests.Count; i++)
+            {
+                GameObject temp = instantiatedQuests[i];
+                objectsToDestroy.Add(temp);
+            }
+
+            foreach (GameObject obj in objectsToDestroy)
+            {
+                instantiatedQuests.Remove(obj);  
+                Destroy(obj);  
+            }
+        }
+
+
         if (PlayerPrefs.HasKey("NumberOfDistanceQuests"))
         {
             GameObject spawned;
@@ -25,7 +44,7 @@ public class QuestManager : MonoBehaviour
             int numberOfDistanceQuests = PlayerPrefs.GetInt("NumberOfDistanceQuests");
             for (int i = 0; i < numberOfDistanceQuests; i++)
             {
-                spawned = Instantiate(differntQuest[0], Vector2.zero, Quaternion.identity);
+                spawned = Instantiate(prefabQuests[0], Vector2.zero, Quaternion.identity);
                 spawned.transform.SetParent(parent.transform);
                 spawned.transform.localPosition = new Vector2(0, 170 - textDistance * i);
 
@@ -37,7 +56,7 @@ public class QuestManager : MonoBehaviour
             int numberOfPassangerQuests = PlayerPrefs.GetInt("NumberOfPassangersQuest");
             for (int i = 0; i < numberOfPassangerQuests; i++)
             {
-                spawned = Instantiate(differntQuest[1], Vector2.zero, Quaternion.identity);
+                spawned = Instantiate(prefabQuests[1], Vector2.zero, Quaternion.identity);
                 spawned.transform.SetParent(parent.transform);
                 spawned.transform.localPosition = new Vector2(0, 170 - textDistance * (i + iterations));
 
@@ -48,14 +67,14 @@ public class QuestManager : MonoBehaviour
         {
             for (int i = 0; i < amountOfQuest; i++)
             {
-                int number = Random.Range(0, differntQuest.Count);
+                int number = Random.Range(0, prefabQuests.Count);
 
-                GameObject spawned = Instantiate(differntQuest[number]);
+                GameObject spawned = Instantiate(prefabQuests[number]);
                 spawned.name = spawned.name + i.ToString();
                 spawned.transform.SetParent(parent.transform);
                 spawned.transform.localPosition = new Vector2(0, 170 - textDistance * i);
 
-                instantiatedQuests.Add(differntQuest[number]);
+                instantiatedQuests.Add(prefabQuests[number]);
             }
         }
 
@@ -86,6 +105,26 @@ public class QuestManager : MonoBehaviour
         }
     }
 
+    void Update()
+    {
+        if (!turnedOn)
+        {
+            CheckActiveQuests();
+        }
+    }
+
+    void CheckActiveQuests()
+    {
+        for (int i = 0; i < instantiatedQuests.Count; ++i)
+        {
+            if (!instantiatedQuests[i].activeInHierarchy)
+            {
+                instantiatedQuests[i].SetActive(true);
+                turnedOn = true;
+            }
+        }
+    }
+
     public void RemoveInstantiatedQuest(int i)
     {
         instantiatedQuests.RemoveAt(i);
@@ -94,29 +133,6 @@ public class QuestManager : MonoBehaviour
     public void ResetQuests()
     {
         SaveQuests();
-
-        for (int i = 0;i < instantiatedQuests.Count; i++)
-        {
-            GameObject currentQuest = instantiatedQuests[i];
-            if (currentQuest != null)
-            {
-                instantiatedQuests.Remove(currentQuest);
-                currentQuest.SetActive(false);
-                
-                PassangerQuest passangerQuest = currentQuest.GetComponent<PassangerQuest>();
-                if (passangerQuest != null)
-                {
-                    passangerQuest.DestroySelf();
-                }
-
-                DistanceQuest distanceQuest = currentQuest.GetComponent<DistanceQuest>();
-                if (distanceQuest != null)
-                {
-                    distanceQuest.DestroySelf();
-                }
-            }
-        }
-
         SetUpQuests();
     }
 

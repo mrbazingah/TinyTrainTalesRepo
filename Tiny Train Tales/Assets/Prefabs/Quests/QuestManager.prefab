@@ -45,8 +45,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   amountOfQuest: 5
-  differntQuest:
-  - {fileID: 2875941112450050040, guid: e8891f34e0168f84b8d48d174b36830d, type: 3}
+  prefabQuests:
+  - {fileID: 7661914925183875220}
   - {fileID: 2537542497066660126, guid: 9a6d0b142b3e75043b149722f3ac77da, type: 3}
   instantiatedQuests: []
   parent: {fileID: 0}
