@@ -22,40 +22,26 @@ public class CameraMovement : MonoBehaviour
 
     void Start()
     {
+        if (target == null)
+        {
+            Debug.LogError("Target is not assigned in the inspector!");
+            return;
+        }
+
         if (PlayerPrefs.HasKey("CamPos"))
         {
             float camPos = PlayerPrefs.GetFloat("CamPos");
-            transform.position = new Vector3(camPos, transform.position.y, transform.position.z);
+            transform.position = new Vector3(camPos, transform.position.y, -10); // Set Z position here
+        }
+        else
+        {
+            transform.position = new Vector3(transform.position.x, transform.position.y, -10); // Ensure Z position is set
         }
 
         offset = transform.position - target.localPosition;
         offset.z = -10f;
         targetPosition = target.position + offset;
         lastMousePosition = Input.mousePosition;
-
-        HandleMouseDrag();
-    }
-
-    void LateUpdate()
-    {
-        if (isDragging && !lockMovement)
-        {
-            HandleMouseDrag();
-        }
-
-        amountOfCars = GameObject.FindGameObjectsWithTag("Car").Length;
-        minXOffset = amountOfCars * minXPerCart;
-    }
-
-    void HandleMouseDrag()
-    {
-        Vector3 currentMousePosition = Input.mousePosition;
-        Vector3 mouseDelta = currentMousePosition - lastMousePosition;
-
-        float moveAmount = mouseDelta.x * dragSpeed * Time.deltaTime * -1f;
-        float newX = Mathf.Clamp(transform.position.x + moveAmount, target.position.x + minXOffset, target.position.x + maxXOffset);
-        transform.position = new Vector3(newX, transform.position.y, transform.position.z);
-        lastMousePosition = currentMousePosition;
     }
 
     void Update()
@@ -71,8 +57,12 @@ public class CameraMovement : MonoBehaviour
             {
                 newTargetPosition = transform.position;
                 targetPosition = new Vector3(newTargetPosition.x, targetPosition.y, targetPosition.z);
-
                 isDragging = false;
+            }
+
+            if (isDragging)
+            {
+                HandleMouseDrag();
             }
 
             savedPos = transform.position;
@@ -82,11 +72,23 @@ public class CameraMovement : MonoBehaviour
             isDragging = false;
             transform.position = savedPos;
         }
+    }
 
-        if (transform.position.z != -10)
-        {
-            transform.position = new Vector3(transform.position.x, transform.position.y, -10);
-        }
+    void LateUpdate()
+    {
+        amountOfCars = GameObject.FindGameObjectsWithTag("Car").Length;
+        minXOffset = amountOfCars * minXPerCart;
+    }
+
+    void HandleMouseDrag()
+    {
+        Vector3 currentMousePosition = Input.mousePosition;
+        Vector3 mouseDelta = currentMousePosition - lastMousePosition;
+
+        float moveAmount = mouseDelta.x * dragSpeed * Time.deltaTime * -1f;
+        float newX = Mathf.Clamp(transform.position.x + moveAmount, target.position.x + minXOffset, target.position.x + maxXOffset);
+        transform.position = new Vector3(newX, transform.position.y, -10); // Ensure Z position is -10
+        lastMousePosition = currentMousePosition;
     }
 
     public void LockMovement(bool isLocked)
@@ -102,5 +104,6 @@ public class CameraMovement : MonoBehaviour
     public void SavePos()
     {
         PlayerPrefs.SetFloat("CamPos", transform.position.x);
+        PlayerPrefs.Save();
     }
 }

@@ -9,11 +9,9 @@ public class QuestManager : MonoBehaviour
     [SerializeField] GameObject parent;
     [SerializeField] int textDistance;
 
-    bool turnedOn;
-
     void Start()
     {
-       SetUpQuests();
+        SetUpQuests();
     }
 
     void SetUpQuests()
@@ -21,20 +19,17 @@ public class QuestManager : MonoBehaviour
         if (instantiatedQuests.Count > 0)
         {
             List<GameObject> objectsToDestroy = new List<GameObject>();
-
             for (int i = 0; i < instantiatedQuests.Count; i++)
             {
                 GameObject temp = instantiatedQuests[i];
                 objectsToDestroy.Add(temp);
             }
-
             foreach (GameObject obj in objectsToDestroy)
             {
-                instantiatedQuests.Remove(obj);  
-                Destroy(obj);  
+                instantiatedQuests.Remove(obj);
+                Destroy(obj);
             }
         }
-
 
         if (PlayerPrefs.HasKey("NumberOfDistanceQuests"))
         {
@@ -42,14 +37,15 @@ public class QuestManager : MonoBehaviour
             int iterations = 0;
 
             int numberOfDistanceQuests = PlayerPrefs.GetInt("NumberOfDistanceQuests");
-            for (int i = 0; i < numberOfDistanceQuests; i++)
+            int maxQuestCount = 10; // Limit the number of instantiated quests
+            Debug.Log($"Instantiating {Mathf.Min(numberOfDistanceQuests, maxQuestCount)} distance quests.");
+
+            for (int i = 0; i < Mathf.Min(numberOfDistanceQuests, maxQuestCount); i++)
             {
                 spawned = Instantiate(prefabQuests[0], Vector2.zero, Quaternion.identity);
                 spawned.transform.SetParent(parent.transform);
                 spawned.transform.localPosition = new Vector2(0, 170 - textDistance * i);
-
                 instantiatedQuests.Add(spawned);
-
                 iterations++;
             }
 
@@ -59,28 +55,35 @@ public class QuestManager : MonoBehaviour
                 spawned = Instantiate(prefabQuests[1], Vector2.zero, Quaternion.identity);
                 spawned.transform.SetParent(parent.transform);
                 spawned.transform.localPosition = new Vector2(0, 170 - textDistance * (i + iterations));
-
                 instantiatedQuests.Add(spawned);
             }
         }
         else
         {
+            int iterations = 0;
+
             for (int i = 0; i < amountOfQuest; i++)
             {
-                int number = Random.Range(0, prefabQuests.Count);
+                int randomNumber = Random.Range(0, amountOfQuest);
+                for (int ii = 0; ii < randomNumber; ii++)
+                {
+                    GameObject spawned = Instantiate(prefabQuests[0], Vector2.zero, Quaternion.identity);
+                    spawned.transform.SetParent(parent.transform);
+                    spawned.transform.localPosition = new Vector2(0, 170 - textDistance * i);
+                    instantiatedQuests.Add(spawned);
+                    iterations++;
+                }
 
-                GameObject spawned = Instantiate(prefabQuests[number]);
-                spawned.name = spawned.name + i.ToString();
-                spawned.transform.SetParent(parent.transform);
-                spawned.transform.localPosition = new Vector2(0, 170 - textDistance * i);
+                int left = amountOfQuest - randomNumber;
 
-                instantiatedQuests.Add(prefabQuests[number]);
+                for (int ii = 0; ii < left; ii++)
+                {
+                    GameObject spawned = Instantiate(prefabQuests[1], Vector2.zero, Quaternion.identity);
+                    spawned.transform.SetParent(parent.transform);
+                    spawned.transform.localPosition = new Vector2(0, 170 - textDistance * (i + iterations));
+                    instantiatedQuests.Add(spawned);
+                }
             }
-        }
-
-        for (int i = 0; i < instantiatedQuests.Count; i++)
-        {
-            instantiatedQuests[i].SetActive(true);
         }
     }
 
@@ -105,35 +108,9 @@ public class QuestManager : MonoBehaviour
         }
     }
 
-    void Update()
-    {
-        if (!turnedOn)
-        {
-            CheckActiveQuests();
-        }
-    }
-
-    void CheckActiveQuests()
-    {
-        for (int i = 0; i < instantiatedQuests.Count; ++i)
-        {
-            if (!instantiatedQuests[i].activeInHierarchy)
-            {
-                instantiatedQuests[i].SetActive(true);
-                turnedOn = true;
-            }
-        }
-    }
-
     public void RemoveInstantiatedQuest(int i)
     {
         instantiatedQuests.RemoveAt(i);
-    }
-
-    public void ResetQuests()
-    {
-        SaveQuests();
-        SetUpQuests();
     }
 
     public List<GameObject> GetInstantiatedQuests()

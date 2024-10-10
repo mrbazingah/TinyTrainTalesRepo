@@ -11,7 +11,7 @@ public class Car : MonoBehaviour
     [Space]
     [SerializeField] float autoCollectDelay;
     [Header("Attributes")]
-    [SerializeField] int weight;
+    [SerializeField] int weight = 1;
     [SerializeField] int speed;
     [SerializeField] int income;
 
@@ -27,6 +27,16 @@ public class Car : MonoBehaviour
     {
         gameManager = FindObjectOfType<GameManager>();
         train = FindObjectOfType<Train>();
+
+        if (gameManager == null)
+        {
+            Debug.LogError("GameManager not found in the scene!");
+        }
+
+        if (train == null)
+        {
+            Debug.LogError("Train not found in the scene!");
+        }
     }
 
     void Start()
@@ -34,13 +44,14 @@ public class Car : MonoBehaviour
         if (PlayerPrefs.HasKey(gameObject.name + "Time"))
         {
             time = PlayerPrefs.GetFloat(gameObject.name + "Time");
-            currentTime = PlayerPrefs.GetFloat(gameObject.name + "CurrenTime");
+            currentTime = PlayerPrefs.GetFloat(gameObject.name + "CurrentTime");
             earning = PlayerPrefs.GetInt(gameObject.name + "Earning");
         }
         else
         {
             time = Random.Range(minTime, maxTime);
             currentTime = time;
+            earning = 0;
         }
 
         transform.SetParent(GameObject.Find("Train").transform);
@@ -55,12 +66,13 @@ public class Car : MonoBehaviour
         PlayerPrefs.SetInt(gameObject.name + "Weight", weight);
         PlayerPrefs.SetInt(gameObject.name + "Speed", speed);
         PlayerPrefs.SetInt(gameObject.name + "Income", income);
+        PlayerPrefs.Save();
     }
 
     void Update()
     {
-        float speed = train.GetSpeed();
-        if (speed == 0)
+        float currentTrainSpeed = train.GetSpeed();
+        if (currentTrainSpeed == 0)
         {
             gameManager.SaveCar(currentTime, time, gameObject.name);
         }
@@ -73,7 +85,7 @@ public class Car : MonoBehaviour
 
         EarningDelay();
 
-        if (weight == 0)
+        if (weight <= 0)
         {
             weight = 1;
         }
@@ -116,8 +128,9 @@ public class Car : MonoBehaviour
     public void SaveCar()
     {
         PlayerPrefs.SetFloat(gameObject.name + "Time", time);
-        PlayerPrefs.SetFloat(gameObject.name + "CurrenTime", currentTime);
+        PlayerPrefs.SetFloat(gameObject.name + "CurrentTime", currentTime);
         PlayerPrefs.SetInt(gameObject.name + "Earning", earning);
+        PlayerPrefs.Save();
     }
 
     public int GetWeight()

@@ -13,6 +13,16 @@ public class BlockSpeed : MonoBehaviour
     {
         myRigidbody = GetComponent<Rigidbody2D>();
         train = FindObjectOfType<Train>();
+
+        if (myRigidbody == null)
+        {
+            Debug.LogError("Rigidbody2D component not found!");
+        }
+
+        if (train == null)
+        {
+            Debug.LogError("Train object not found in the scene!");
+        }
     }
 
     void Start()
@@ -26,13 +36,13 @@ public class BlockSpeed : MonoBehaviour
         {
             train.LoadTrain();
             speed = PlayerPrefs.GetFloat("Speed");
-            myRigidbody.velocity = new Vector2(-speed * Time.fixedDeltaTime * speedOffset, 0f);
+            myRigidbody.velocity = new Vector2(-speed * speedOffset, 0f);
         }
     }
 
     void FixedUpdate()
     {
         speed = train.GetSpeed();
-        myRigidbody.velocity = new Vector2(-speed * Time.fixedDeltaTime * speedOffset, 0f);
+        myRigidbody.velocity = new Vector2(-speed * speedOffset, 0f);
     }
 }

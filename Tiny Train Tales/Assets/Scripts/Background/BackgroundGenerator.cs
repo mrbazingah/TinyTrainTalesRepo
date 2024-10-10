@@ -1,4 +1,5 @@
 using UnityEngine;
+using static Unity.Collections.AllocatorManager;
 
 public class BackgroundGenerator : MonoBehaviour
 {
@@ -6,10 +7,10 @@ public class BackgroundGenerator : MonoBehaviour
     [SerializeField] float spawnOffset;
     [SerializeField] bool canSpawn;
 
-    GameObject parent;
-
     Train train;
     GameManager gameManager;
+
+    private const string TRAIN_TAG = "Train";
 
     void Awake()
     {
@@ -17,14 +18,9 @@ public class BackgroundGenerator : MonoBehaviour
         gameManager = FindObjectOfType<GameManager>();
     }
 
-    void Start()
-    {
-        parent = GameObject.Find("BackgroundParent");
-    }
-
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Train") && canSpawn)
+        if (other.CompareTag(TRAIN_TAG) && canSpawn)
         {
             SpawnBlock();
         }
@@ -32,19 +28,22 @@ public class BackgroundGenerator : MonoBehaviour
 
     public void SpawnBlock()
     {
-        GameObject spawned = Instantiate(blockPrefab, new Vector2(transform.position.x + spawnOffset, transform.position.y), Quaternion.identity);
-        if (parent != null)
+        if (blockPrefab != null)
         {
-            spawned.transform.SetParent(parent.transform);
+            GameObject spawned = Instantiate(blockPrefab, new Vector2(transform.position.x + spawnOffset, transform.position.y), Quaternion.identity);
+        }
+        else
+        {
+            Debug.LogError("blockPrefab is not assigned!");
         }
     }
 
     void OnTriggerExit2D(Collider2D other)
     {
-        if (other.CompareTag("Train"))
+        if (other.CompareTag(TRAIN_TAG))
         {
-            Destroy(gameObject, 5);
             train.FindRigidbody();
+            Destroy(gameObject, 5);
         }
     }
 

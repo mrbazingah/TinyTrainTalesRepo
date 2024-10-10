@@ -392,8 +392,7 @@ public class GameManager : MonoBehaviour
     {
         yield return new WaitForSeconds(1);
 
-        Station station = FindObjectOfType<Station>();
-        station.LeaveStation();
+        FindObjectOfType<Station>().LeaveStation();
     }
 
     public void OnAutoLeaveStationChange()

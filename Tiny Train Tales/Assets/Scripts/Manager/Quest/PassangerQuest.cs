@@ -19,25 +19,24 @@ public class PassangerQuest : MonoBehaviour
 
     void Awake()
     {
-        gameManager = FindObjectOfType<GameManager>();  
+        gameManager = FindObjectOfType<GameManager>();
         questManager = FindObjectOfType<QuestManager>();
     }
 
     void Start()
     {
         SetUpQuest();
-
-        gameObject.SetActive(true);
     }
 
     public void DropOff()
     {
+        if (dropped >= toDrop) return; // Prevent processing if already complete
+
         dropped += gameManager.GetSubPassangers();
 
         if (dropped >= toDrop)
         {
             questText.text = "Complete";
-
             icon.SetActive(false);
             collectButton.SetActive(true);
         }
@@ -48,6 +47,8 @@ public class PassangerQuest : MonoBehaviour
 
         PlayerPrefs.SetInt(gameObject.name + "Dropped", dropped);
         toDrop = PlayerPrefs.GetInt(gameObject.name + "ToDrop");
+
+        Debug.Log($"Dropped: {dropped}, ToDrop: {toDrop}");
     }
 
     void SetUpQuest()
@@ -55,7 +56,7 @@ public class PassangerQuest : MonoBehaviour
         if (PlayerPrefs.HasKey(gameObject.name + "Dropped"))
         {
             dropped = PlayerPrefs.GetInt(gameObject.name + "Dropped");
-            toDrop =  PlayerPrefs.GetInt(gameObject.name + "ToDrop");
+            toDrop = PlayerPrefs.GetInt(gameObject.name + "ToDrop");
         }
         else
         {
@@ -65,7 +66,6 @@ public class PassangerQuest : MonoBehaviour
         if (dropped >= toDrop)
         {
             questText.text = "Complete";
-
             icon.SetActive(false);
             collectButton.SetActive(true);
         }
@@ -100,9 +100,7 @@ public class PassangerQuest : MonoBehaviour
         }
 
         DestroySelf();
-
         questManager.RemoveInstantiatedQuest(number);
-        questManager.ResetQuests();
     }
 
     public void DestroySelf()

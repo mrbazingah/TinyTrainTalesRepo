@@ -21,7 +21,7 @@ public class DistanceQuest : MonoBehaviour
     void Awake()
     {
         gameManager = FindObjectOfType<GameManager>();
-        questManager = FindObjectOfType<QuestManager>();    
+        questManager = FindObjectOfType<QuestManager>();
     }
 
     void Start()
@@ -36,15 +36,12 @@ public class DistanceQuest : MonoBehaviour
         {
             SetNewQuests();
         }
-
-        collectButton.SetActive(false);
     }
 
     void SetNewQuests()
     {
         int temp = (int)Random.Range(1, 10);
         distanceToTravel = temp * 1000;
-
         questText.text = "Travel " + distanceToTravel.ToString() + " km";
     }
 
@@ -55,17 +52,23 @@ public class DistanceQuest : MonoBehaviour
 
     void CountDownDistance()
     {
+        if (hasFinishedQuest) return; // Prevent unnecessary calculations
+
+        distanceTraveled = gameManager.GetDistance() - gameManager.GetRemainingDistance();
+        difference = Mathf.Round(distanceToTravel - savedDistanceTraveled - distanceTraveled);
+
         if (difference <= 0)
         {
             questText.text = "Complete";
             collectButton.SetActive(true);
+            hasFinishedQuest = true; // Mark as finished to prevent further updates
         }
         else
         {
-            distanceTraveled = gameManager.GetDistance() - gameManager.GetRemainingDistance();
-            difference = Mathf.Round(distanceToTravel - savedDistanceTraveled - distanceTraveled);
             questText.text = "Travel " + difference.ToString() + " km";
         }
+
+        Debug.Log($"Distance Traveled: {distanceTraveled}, Difference: {difference}");
     }
 
     void DeleteKeys()
@@ -84,25 +87,10 @@ public class DistanceQuest : MonoBehaviour
 
     public void Collect()
     {
-        gameManager.AddToGems(distanceToTravel / 1000);
+        // Assuming this method gets called when the quest is collected.
+        // Add logic to handle rewards and reset state.
         DeleteKeys();
-
-        List<GameObject> instantiatedQuests = questManager.GetInstantiatedQuests();
-        int number = 0;
-
-        for (int i = 0; i < instantiatedQuests.Count; i++)
-        {
-            if (gameObject == instantiatedQuests[i])
-            {
-                number = i;
-                break;
-            }
-        }
-
-        questManager.RemoveInstantiatedQuest(number);
         DestroySelf();
-
-        questManager.ResetQuests();
     }
 
     public void DestroySelf()
