@@ -15,6 +15,7 @@ public class TODO : MonoBehaviour
     //Zoom in on map
     //Timer for upgrades
     //Animate train wheels
+    //Info menu for cars
 
     //Make new or update Sprites for:
     //Passanger Icon

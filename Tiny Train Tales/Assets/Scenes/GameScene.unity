@@ -30626,6 +30626,10 @@ PrefabInstance:
       propertyPath: parent
       value: 
       objectReference: {fileID: 1693154212}
+    - target: {fileID: 9173003003584550724, guid: e2cace444bded594b9f1b41e18776698, type: 3}
+      propertyPath: amountOfQuest
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

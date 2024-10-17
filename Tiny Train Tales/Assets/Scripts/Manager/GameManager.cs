@@ -52,7 +52,6 @@ public class GameManager : MonoBehaviour
 
     Train train;
     CameraMovement cam;
-    UpgradeManager upgrades;
     CityManager cityManager;
     QuestManager questManager;
     CarManager carManager;
@@ -62,7 +61,6 @@ public class GameManager : MonoBehaviour
     {
         train = FindObjectOfType<Train>();
         cam = FindObjectOfType<CameraMovement>();
-        upgrades = FindObjectOfType<UpgradeManager>();
         cityManager = FindObjectOfType<CityManager>();
         questManager = FindObjectOfType<QuestManager>();
         carManager = FindObjectOfType<CarManager>();
