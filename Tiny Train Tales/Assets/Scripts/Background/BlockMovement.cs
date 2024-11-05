@@ -1,28 +1,21 @@
 using UnityEngine;
 
-public class BlockSpeed : MonoBehaviour
+public class BlockMovement : MonoBehaviour
 {
+    [SerializeField] GameObject blockPrefab;
     [SerializeField] float speedOffset = 1f;
 
     float speed;
 
     Rigidbody2D myRigidbody;
     Train train;
+    BackgroundGenerator backgroundGenerator;
 
     void Awake()
     {
         myRigidbody = GetComponent<Rigidbody2D>();
         train = FindObjectOfType<Train>();
-
-        if (myRigidbody == null)
-        {
-            Debug.LogError("Rigidbody2D component not found!");
-        }
-
-        if (train == null)
-        {
-            Debug.LogError("Train object not found in the scene!");
-        }
+        backgroundGenerator = FindObjectOfType<BackgroundGenerator>();
     }
 
     void Start()
@@ -44,5 +37,24 @@ public class BlockSpeed : MonoBehaviour
     {
         speed = train.GetSpeed();
         myRigidbody.velocity = new Vector2(-speed * speedOffset, 0f);
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Train"))
+        {
+            backgroundGenerator.SpawnBlock(transform.position.y, blockPrefab);
+            Debug.Log("triggered");
+        }
+
+        Debug.Log("triggered but not train");
+    }
+
+    void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Train"))
+        {
+            backgroundGenerator.RemoveBlock(gameObject);
+        }
     }
 }

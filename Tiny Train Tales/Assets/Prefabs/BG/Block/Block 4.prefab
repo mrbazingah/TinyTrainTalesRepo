@@ -179,7 +179,6 @@ GameObject:
   - component: {fileID: 7863593971807538416}
   - component: {fileID: 8742292163959914589}
   - component: {fileID: 7966737248498012732}
-  - component: {fileID: 920576882667484129}
   - component: {fileID: 937650646980431589}
   m_Layer: 0
   m_Name: Block 4
@@ -277,21 +276,6 @@ Rigidbody2D:
   m_SleepingMode: 0
   m_CollisionDetection: 1
   m_Constraints: 4
---- !u!114 &920576882667484129
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7439860005754695904}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 49a762541aecdbf48a0f1604ae00406a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  blockPrefab: {fileID: 7439860005754695904}
-  spawnOffset: 16.8
-  canSpawn: 1
 --- !u!114 &937650646980431589
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -304,4 +288,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad40660b3db5eab4094f948cb3522771, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  blockPrefab: {fileID: 7439860005754695904}
   speedOffset: 0.1

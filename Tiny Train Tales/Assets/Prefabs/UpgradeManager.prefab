@@ -58,7 +58,7 @@ MonoBehaviour:
   accelerationText: {fileID: 0}
   accelerationCostText: {fileID: 0}
   accelerationCost: 500
-  addToAcceleration: 10
+  addToAcceleration: 1
   accelerationCostIncrease: 250
   profitText: {fileID: 0}
   profitCostText: {fileID: 0}

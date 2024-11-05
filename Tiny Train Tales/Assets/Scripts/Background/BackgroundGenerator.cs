@@ -1,55 +1,57 @@
 using UnityEngine;
-using static Unity.Collections.AllocatorManager;
+using System.Collections.Generic;
 
 public class BackgroundGenerator : MonoBehaviour
 {
-    [SerializeField] GameObject blockPrefab;
+    [SerializeField] GameObject blockParent;
     [SerializeField] float spawnOffset;
     [SerializeField] bool canSpawn;
 
+    List<GameObject> allBlocks = new List<GameObject>(0);
+
     Train train;
     GameManager gameManager;
-
-    private const string TRAIN_TAG = "Train";
 
     void Awake()
     {
         train = FindObjectOfType<Train>();
         gameManager = FindObjectOfType<GameManager>();
     }
-
-    void OnTriggerEnter2D(Collider2D other)
+    
+    public void SpawnBlock(float yPos, GameObject blockPrefab)
     {
-        if (other.CompareTag(TRAIN_TAG) && canSpawn)
+        if (blockPrefab != null && canSpawn)
         {
-            SpawnBlock();
+            Vector2 spawnPos = new Vector2(allBlocks[allBlocks.Count - 1].transform.position.x + spawnOffset, yPos);
+
+            GameObject spawned = Instantiate(blockPrefab, spawnPos, Quaternion.identity);
+            allBlocks.Add(spawned);
+
+            Debug.Log("Spawned");
         }
     }
 
-    public void SpawnBlock()
+    void Update()
     {
-        if (blockPrefab != null)
+        UpdateParent();
+    }
+
+    void UpdateParent()
+    {
+        if (allBlocks.Count > 0) { return; }
+
+        for (int i = 0; i < allBlocks.Count; i++)
         {
-            GameObject spawned = Instantiate(blockPrefab, new Vector2(transform.position.x + spawnOffset, transform.position.y), Quaternion.identity);
-        }
-        else
-        {
-            Debug.LogError("blockPrefab is not assigned!");
+            allBlocks[i].transform.SetParent(blockParent.transform);
         }
     }
 
-    void OnTriggerExit2D(Collider2D other)
+    public void RemoveBlock(GameObject block)
     {
-        if (other.CompareTag(TRAIN_TAG))
-        {
-            train.FindRigidbody();
-            Destroy(gameObject, 5);
-        }
-    }
+        allBlocks.Add(block);
 
-    public void ChangeSpawnOffset()
-    {
-        spawnOffset = -spawnOffset;
+        train.FindRigidbody();
+        Destroy(block, 5);
     }
 
     public float GetSpawnOffset()
