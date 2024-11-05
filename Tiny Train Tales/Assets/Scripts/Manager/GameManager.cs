@@ -334,10 +334,11 @@ public class GameManager : MonoBehaviour
         if (hasCalculatedPassangers) { return; }
 
         subPassangers = (int)Random.Range(0, passangers + 1);
-        int addPassangers = (int)Random.Range(0, maxPassangers - passangers + 1);
-
         passangers -= subPassangers;
+
+        int addPassangers = (int)Random.Range(0, maxPassangers - passangers + 1);
         passangers += addPassangers;
+
         float coinsAdded = coinsPerPassanger * subPassangers * profitMultiplier;
 
         Station station = FindObjectOfType<Station>();

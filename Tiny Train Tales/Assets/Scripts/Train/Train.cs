@@ -1,4 +1,5 @@
 using Unity.PlasticSCM.Editor.WebApi;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Train : MonoBehaviour
@@ -37,10 +38,6 @@ public class Train : MonoBehaviour
 
     public void LoadTrain()
     {
-        //TrainData trainData = SaveSystem.LoadTrain();
-        //acceleration = trainData.acceleration;
-        //speed = trainData.speed;
-
         if (PlayerPrefs.HasKey("Acceleration") || PlayerPrefs.HasKey("Speed"))
         {
             speed = PlayerPrefs.GetFloat("Speed");

@@ -178,7 +178,7 @@ public class UpgradeManager : MonoBehaviour
     {
         maxSpeedText.text = "Current: " + gameManager.GetMaxSpeed().ToString() + " km/h";
         maxPassangersText.text = "Current: " + gameManager.GetMaxPassangers().ToString();
-        accelerationText.text = "Current: " + train.GetAcceleration().ToString();
+        accelerationText.text = "Current: " + (train.GetAcceleration() * 10).ToString();
         profitText.text = "Current: " + gameManager.GetProfit().ToString() + "X";
         carsText.text = "Current: " + amountOfCars.ToString();
     }
