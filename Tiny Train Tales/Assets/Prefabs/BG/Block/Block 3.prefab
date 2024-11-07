@@ -122,6 +122,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   blockPrefab: {fileID: 3471238567322333196}
   speedOffset: 1.7
+  canSpawn: 1
+  currentBlockNumber: 2
+  spawnOffset: 20
 --- !u!1 &4864604790563067131
 GameObject:
   m_ObjectHideFlags: 0

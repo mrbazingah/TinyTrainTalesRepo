@@ -523,7 +523,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 508839137
   m_SortingLayer: 4
-  m_SortingOrder: 0
+  m_SortingOrder: 2
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 0.06132078, g: 0.7276747, b: 1, a: 1}
   m_FlipX: 0
@@ -1686,9 +1686,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49a762541aecdbf48a0f1604ae00406a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  blockPrefab: {fileID: 6283405741849151963}
-  spawnOffset: 20
-  canSpawn: 1
+  blockParent: {fileID: 0}
 --- !u!114 &8992118996823236403
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1702,6 +1700,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speedOffset: 1
+  canSpawn: 0
+  currentBlockNumber: 0
+  spawnOffset: 0
 --- !u!114 &5960456263945713275
 MonoBehaviour:
   m_ObjectHideFlags: 0

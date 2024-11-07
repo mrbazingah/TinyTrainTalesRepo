@@ -2,8 +2,10 @@ using UnityEngine;
 
 public class BlockMovement : MonoBehaviour
 {
-    [SerializeField] GameObject blockPrefab;
     [SerializeField] float speedOffset = 1f;
+    [SerializeField] bool canSpawn;
+    [SerializeField] int currentBlockNumber;
+    [SerializeField] float spawnOffset;
 
     float speed;
 
@@ -39,18 +41,15 @@ public class BlockMovement : MonoBehaviour
         myRigidbody.velocity = new Vector2(-speed * speedOffset, 0f);
     }
 
-    void OnTriggerEnter(Collider other)
+    void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Train"))
+        if (other.name == "Train" && canSpawn)
         {
-            backgroundGenerator.SpawnBlock(transform.position.y, blockPrefab);
-            Debug.Log("triggered");
+            backgroundGenerator.SpawnBlock(transform.position.y, spawnOffset, gameObject);
         }
-
-        Debug.Log("triggered but not train");
     }
 
-    void OnTriggerExit(Collider other)
+    void OnTriggerExit2D(Collider2D other)
     {
         if (other.CompareTag("Train"))
         {

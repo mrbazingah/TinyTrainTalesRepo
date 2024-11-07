@@ -288,5 +288,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad40660b3db5eab4094f948cb3522771, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  blockPrefab: {fileID: 7439860005754695904}
   speedOffset: 0.1
+  canSpawn: 1
+  currentBlockNumber: 3
+  spawnOffset: 33.6
