@@ -47,7 +47,7 @@ public class Slot : MonoBehaviour
         SetUpSlot();
     }
 
-    void SetUpSlot()
+    public void SetUpSlot()
     {
         int pastDay = PlayerPrefs.GetInt(gameObject.name + "PastDay");
         int pasthMonth = PlayerPrefs.GetInt(gameObject.name + "PastMonth");
@@ -77,9 +77,14 @@ public class Slot : MonoBehaviour
 
             if (PlayerPrefs.HasKey(gameObject.name + "HasBeenBought"))
             {
-                cross.SetActive(true);
                 hasBeenBought = true;
             }
+            else
+            {
+                hasBeenBought = false;
+            }
+
+            cross.SetActive(hasBeenBought);
         }
         else
         {
@@ -130,5 +135,21 @@ public class Slot : MonoBehaviour
         buyColorBlock.highlightedColor = buttonColor;
         buyColorBlock.selectedColor = buttonColor;
         button.colors = buyColorBlock;
+    }
+
+    public void ResetPlayerPrefs()
+    {
+        PlayerPrefs.DeleteKey(gameObject.name + "HasBeenBought");
+        PlayerPrefs.DeleteKey(gameObject.name + "Weight");
+        PlayerPrefs.DeleteKey(gameObject.name + "Speed");
+        PlayerPrefs.DeleteKey(gameObject.name + "Income");
+        PlayerPrefs.DeleteKey(gameObject.name + "PastDay");
+        PlayerPrefs.DeleteKey(gameObject.name + "PastMonth");
+        PlayerPrefs.DeleteKey(gameObject.name + "PastYear");
+
+        hasBeenBought = false;
+        cross.SetActive(false);
+
+        Debug.Log("Deleted Keys");
     }
 }

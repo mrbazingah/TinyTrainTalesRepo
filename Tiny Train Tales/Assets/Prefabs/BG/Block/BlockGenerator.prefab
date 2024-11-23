@@ -45,12 +45,3 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockParent: {fileID: 0}
-  spawnOffset: 20
-  block1s:
-  - {fileID: 0}
-  block2s:
-  - {fileID: 0}
-  block3s:
-  - {fileID: 0}
-  block4s:
-  - {fileID: 0}

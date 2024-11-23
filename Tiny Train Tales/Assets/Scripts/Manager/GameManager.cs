@@ -225,6 +225,11 @@ public class GameManager : MonoBehaviour
 
         PlayerPrefs.SetFloat("Gems", gems);
     }
+
+    public float GetGems()
+    {
+        return gems;
+    }
     #endregion
 
     #region Upgrades
