@@ -27,16 +27,6 @@ public class Car : MonoBehaviour
     {
         gameManager = FindObjectOfType<GameManager>();
         train = FindObjectOfType<Train>();
-
-        if (gameManager == null)
-        {
-            Debug.LogError("GameManager not found in the scene!");
-        }
-
-        if (train == null)
-        {
-            Debug.LogError("Train not found in the scene!");
-        }
     }
 
     void Start()

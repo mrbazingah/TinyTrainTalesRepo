@@ -1247,7 +1247,7 @@ Canvas:
   m_GameObject: {fileID: 5644620401827810553}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 0
+  m_RenderMode: 1
   m_Camera: {fileID: 0}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
@@ -1720,6 +1720,7 @@ MonoBehaviour:
   boardedPassangersText: {fileID: 6204411608859318840}
   deboardedPassangersText: {fileID: 240933622307920}
   coinsText: {fileID: 1831830107714433343}
+  canvas: {fileID: 3240527536314335874}
 --- !u!1 &6312094397054247926
 GameObject:
   m_ObjectHideFlags: 0
