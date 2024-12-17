@@ -45,10 +45,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77d18488882549f49a6dabee514ebe29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  coins: 1000
+  coins: 2500
   cointext: {fileID: 0}
   profitMultiplier: 1
-  gems: 0
+  gems: 1000
   gemsText: {fileID: 0}
   maxSpeed: 80
   speedText: {fileID: 0}

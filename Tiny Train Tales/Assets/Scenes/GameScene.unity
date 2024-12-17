@@ -38479,10 +38479,6 @@ PrefabInstance:
       value: GameManager
       objectReference: {fileID: 0}
     - target: {fileID: 6013072587387181096, guid: d7f2d7e6643153744bbdc766918d5eaf, type: 3}
-      propertyPath: gems
-      value: 50
-      objectReference: {fileID: 0}
-    - target: {fileID: 6013072587387181096, guid: d7f2d7e6643153744bbdc766918d5eaf, type: 3}
       propertyPath: cointext
       value: 
       objectReference: {fileID: 42324986}
