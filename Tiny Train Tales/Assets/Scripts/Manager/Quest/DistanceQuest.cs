@@ -1,100 +1,82 @@
-using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 
 public class DistanceQuest : MonoBehaviour
 {
-    [SerializeField] TextMeshProUGUI questText;
-    [SerializeField] GameObject collectButton;
-    [SerializeField] int distanceToTravel;
-    [SerializeField] int distanceOffset;
+    [SerializeField] float distanceToTravel;        // Total distance needed to complete the quest
+    [SerializeField] float distanceTraveled;        // Distance already traveled
+    [SerializeField] float maxDistance, minDistance;
+    [SerializeField] float multiplier;
+    [SerializeField] float currentDistanceToTravel; // Remaining distance to travel
 
-    bool hasFinishedQuest;
-
-    float distanceTraveled;
-    float savedDistanceTraveled;
-    float difference;
+    float orignialDistance; // Original remaining distance when the quest started
 
     GameManager gameManager;
-    QuestManager questManager;
 
     void Awake()
     {
         gameManager = FindObjectOfType<GameManager>();
-        questManager = FindObjectOfType<QuestManager>();
     }
 
-    void Start()
+    public void SetUpQuest()
     {
-        if (PlayerPrefs.HasKey(gameObject.name + "QuestDistanceTraveled"))
+        if (PlayerPrefs.HasKey(gameObject.name + "DistanceToTravel"))
         {
-            savedDistanceTraveled = PlayerPrefs.GetFloat(gameObject.name + "QuestDistanceTraveled") + distanceOffset;
-            distanceToTravel = PlayerPrefs.GetInt(gameObject.name + "QuestDistanceToTravel");
-            difference = PlayerPrefs.GetFloat(gameObject.name + "QuestDifference");
+            // Load saved quest data
+            distanceToTravel = PlayerPrefs.GetFloat(gameObject.name + "DistanceToTravel");
+            distanceTraveled = PlayerPrefs.GetFloat(gameObject.name + "DistanceTraveled");
+            orignialDistance = PlayerPrefs.GetFloat(gameObject.name + "OriginalDistance", 0);
         }
         else
         {
-            SetNewQuests();
+            // Generate a new quest
+            distanceToTravel = Random.Range(minDistance, maxDistance + 1) * multiplier;
+            distanceTraveled = 0;
+            orignialDistance = gameManager.GetRemainingDistance(); // Start tracking from here
         }
-    }
-
-    void SetNewQuests()
-    {
-        int temp = (int)Random.Range(1, 10);
-        distanceToTravel = temp * 1000;
-        questText.text = "Travel " + distanceToTravel.ToString() + " km";
     }
 
     void Update()
     {
-        CountDownDistance();
+        TrackTravel();
     }
 
-    void CountDownDistance()
+    void TrackTravel()
     {
-        if (hasFinishedQuest) return; // Prevent unnecessary calculations
-
-        distanceTraveled = gameManager.GetDistance() - gameManager.GetRemainingDistance();
-        difference = Mathf.Round(distanceToTravel - savedDistanceTraveled - distanceTraveled);
-
-        if (difference <= 0)
+        // Ensure original distance is initialized
+        if (orignialDistance == 0)
         {
-            questText.text = "Complete";
-            collectButton.SetActive(true);
-            hasFinishedQuest = true; // Mark as finished to prevent further updates
-        }
-        else
-        {
-            questText.text = "Travel " + difference.ToString() + " km";
+            orignialDistance = gameManager.GetRemainingDistance();
         }
 
-        Debug.Log($"Distance Traveled: {distanceTraveled}, Difference: {difference}");
+        // Calculate total distance covered since the quest started
+        float currentRemainingDistance = gameManager.GetRemainingDistance();
+        float totalCovered = orignialDistance - currentRemainingDistance;
+
+        // Increment distanceTraveled cumulatively
+        float progress = totalCovered - distanceTraveled;
+
+        if (progress > 0) // Only update if progress is positive
+        {
+            distanceTraveled += progress;
+            distanceTraveled = Mathf.Min(distanceTraveled, distanceToTravel); // Cap at total distanceToTravel
+        }
+
+        // Calculate the remaining distance
+        currentDistanceToTravel = distanceToTravel - distanceTraveled;
+
+        // Prevent negative values
+        if (currentDistanceToTravel < 0)
+        {
+            currentDistanceToTravel = 0;
+        }
     }
 
-    void DeleteKeys()
+    public void SaveQuest()
     {
-        PlayerPrefs.DeleteKey(gameObject.name + "QuestDistanceTraveled");
-        PlayerPrefs.DeleteKey(gameObject.name + "QuestDistanceToTravel");
-        PlayerPrefs.DeleteKey(gameObject.name + "QuestDifference");
-    }
-
-    public void SaveTravelDistance()
-    {
-        PlayerPrefs.SetFloat(gameObject.name + "QuestDistanceTraveled", distanceTraveled);
-        PlayerPrefs.SetInt(gameObject.name + "QuestDistanceToTravel", distanceToTravel);
-        PlayerPrefs.SetFloat(gameObject.name + "QuestDifference", difference);
-    }
-
-    public void Collect()
-    {
-        // Assuming this method gets called when the quest is collected.
-        // Add logic to handle rewards and reset state.
-        DeleteKeys();
-        DestroySelf();
-    }
-
-    public void DestroySelf()
-    {
-        Destroy(gameObject);
+        // Save quest progress
+        PlayerPrefs.SetFloat(gameObject.name + "DistanceToTravel", distanceToTravel);
+        PlayerPrefs.SetFloat(gameObject.name + "DistanceTraveled", distanceTraveled);
+        PlayerPrefs.SetFloat(gameObject.name + "OriginalDistance", orignialDistance);
+        PlayerPrefs.Save(); // Persist changes
     }
 }

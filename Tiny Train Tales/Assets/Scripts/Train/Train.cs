@@ -183,6 +183,11 @@ public class Train : MonoBehaviour
     }
     #endregion
 
+    public Rigidbody2D GetRigidbody()
+    {
+        return rigidbody;
+    }
+
     public float GetDecelartion()
     {
         return decelartion;

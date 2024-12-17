@@ -149,7 +149,5 @@ public class Slot : MonoBehaviour
 
         hasBeenBought = false;
         cross.SetActive(false);
-
-        Debug.Log("Deleted Keys");
     }
 }

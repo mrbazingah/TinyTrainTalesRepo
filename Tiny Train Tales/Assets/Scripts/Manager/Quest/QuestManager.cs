@@ -3,118 +3,100 @@ using UnityEngine;
 
 public class QuestManager : MonoBehaviour
 {
-    [SerializeField] int amountOfQuest;
     [SerializeField] List<GameObject> prefabQuests;
-    [SerializeField] List<GameObject> instantiatedQuests;
-    [SerializeField] GameObject parent;
-    [SerializeField] int textDistance;
+    [SerializeField] List<GameObject> distanceQuests;
+    [SerializeField] List<GameObject> passangerQuests;
+    [SerializeField] GameObject questParent;
+    [SerializeField] int amountOfQuests = 3;
+
+    int numberOfPassangerQuests;
+    int numberOfDistanceQuests;
 
     void Start()
     {
-        SetUpQuests();
+        SpawnQuests();
     }
-
-    void SetUpQuests()
+    
+    void SpawnQuests()
     {
-        if (instantiatedQuests.Count > 0)
+        passangerQuests = new List<GameObject>(0);
+        distanceQuests = new List<GameObject>(0);
+
+        if (PlayerPrefs.HasKey("NumberOfPassangerQuests"))
         {
-            List<GameObject> objectsToDestroy = new List<GameObject>();
-            for (int i = 0; i < instantiatedQuests.Count; i++)
-            {
-                GameObject temp = instantiatedQuests[i];
-                objectsToDestroy.Add(temp);
-            }
-            foreach (GameObject obj in objectsToDestroy)
-            {
-                instantiatedQuests.Remove(obj);
-                Destroy(obj);
-            }
-        }
-
-        if (PlayerPrefs.HasKey("NumberOfDistanceQuests"))
-        {
-            GameObject spawned;
-            int iterations = 0;
-
-            int numberOfDistanceQuests = PlayerPrefs.GetInt("NumberOfDistanceQuests");
-            int maxQuestCount = 10; // Limit the number of instantiated quests
-            Debug.Log($"Instantiating {Mathf.Min(numberOfDistanceQuests, maxQuestCount)} distance quests.");
-
-            for (int i = 0; i < Mathf.Min(numberOfDistanceQuests, maxQuestCount); i++)
-            {
-                spawned = Instantiate(prefabQuests[0], Vector2.zero, Quaternion.identity);
-                spawned.transform.SetParent(parent.transform);
-                spawned.transform.localPosition = new Vector2(0, 170 - textDistance * i);
-                instantiatedQuests.Add(spawned);
-                iterations++;
-            }
-
-            int numberOfPassangerQuests = PlayerPrefs.GetInt("NumberOfPassangersQuest");
+            //Passanger Quests
+            numberOfPassangerQuests = PlayerPrefs.GetInt("NumberOfPassangerQuests");
             for (int i = 0; i < numberOfPassangerQuests; i++)
             {
-                spawned = Instantiate(prefabQuests[1], Vector2.zero, Quaternion.identity);
-                spawned.transform.SetParent(parent.transform);
-                spawned.transform.localPosition = new Vector2(0, 170 - textDistance * (i + iterations));
-                instantiatedQuests.Add(spawned);
+                GameObject quest = Instantiate(prefabQuests[1]);
+                quest.transform.SetParent(questParent.transform);
+
+                passangerQuests.Add(quest);
+
+                quest.name = PlayerPrefs.GetString("PassangerQuestName" + i.ToString());
+                quest.GetComponent<PassangerQuest>().SetUpQuest();
+            }
+
+            //Distance Quests
+            numberOfDistanceQuests = PlayerPrefs.GetInt("NumberOfDistanceQuests");
+            for (int i = 0; i < numberOfDistanceQuests; i++)
+            {
+                GameObject quest = Instantiate(prefabQuests[0]);
+                quest.transform.SetParent(questParent.transform);
+
+                distanceQuests.Add(quest);
+
+                quest.name = PlayerPrefs.GetString("DistanceQuestName" + i.ToString());
+                quest.GetComponent<DistanceQuest>().SetUpQuest();
             }
         }
         else
         {
-            int iterations = 0;
+            numberOfPassangerQuests = Random.Range(0, amountOfQuests + 1);
+            numberOfDistanceQuests = amountOfQuests - numberOfPassangerQuests;
 
-            for (int i = 0; i < amountOfQuest; i++)
+            //Passanger Quests
+            for (int i = 0; i < numberOfPassangerQuests; i++)
             {
-                int randomNumber = Random.Range(0, amountOfQuest);
-                for (int ii = 0; ii < randomNumber; ii++)
-                {
-                    GameObject spawned = Instantiate(prefabQuests[0], Vector2.zero, Quaternion.identity);
-                    spawned.transform.SetParent(parent.transform);
-                    spawned.transform.localPosition = new Vector2(0, 170 - textDistance * i);
-                    instantiatedQuests.Add(spawned);
-                    iterations++;
-                }
+                GameObject quest = Instantiate(prefabQuests[1]);
+                quest.transform.SetParent(questParent.transform);
 
-                int left = amountOfQuest - randomNumber;
+                passangerQuests.Add(quest);
 
-                for (int ii = 0; ii < left; ii++)
-                {
-                    GameObject spawned = Instantiate(prefabQuests[1], Vector2.zero, Quaternion.identity);
-                    spawned.transform.SetParent(parent.transform);
-                    spawned.transform.localPosition = new Vector2(0, 170 - textDistance * (i + iterations));
-                    instantiatedQuests.Add(spawned);
-                }
+                quest.name = "PassangerQuest" + i.ToString();
+                quest.GetComponent<PassangerQuest>().SetUpQuest();
+            }
+
+            //Distance Quests
+            for (int i = 0; i < numberOfDistanceQuests; i++)
+            {
+                GameObject quest = Instantiate(prefabQuests[0]);
+                quest.transform.SetParent(questParent.transform);
+
+                distanceQuests.Add(quest);
+
+                quest.name = "DistanceQuest" + i.ToString();
+                quest.GetComponent<DistanceQuest>().SetUpQuest();
             }
         }
     }
 
     public void SaveQuests()
     {
-        for (int i = 0; i < instantiatedQuests.Count; i++)
+        for (int i = 0; i < passangerQuests.Count; i++)
         {
-            DistanceQuest[] distanceQuests = FindObjectsOfType<DistanceQuest>();
-            for (int j = 0; j < distanceQuests.Length; j++)
-            {
-                distanceQuests[j].SaveTravelDistance();
-            }
+            PlayerPrefs.SetString("PassangerQuestName" + i.ToString(), passangerQuests[i].name);
+            PlayerPrefs.SetInt("NumberOfPassangerQuests", passangerQuests.Count);
 
-            PassangerQuest[] passangerQuests = FindObjectsOfType<PassangerQuest>();
-            for (int j = 0; j < passangerQuests.Length; j++)
-            {
-                passangerQuests[j].SavePassangers();
-            }
-
-            PlayerPrefs.SetInt("NumberOfDistanceQuests", distanceQuests.Length);
-            PlayerPrefs.SetInt("NumberOfPassangersQuest", passangerQuests.Length);
+            passangerQuests[i].GetComponent<PassangerQuest>().SaveQuest();
         }
-    }
 
-    public void RemoveInstantiatedQuest(int i)
-    {
-        instantiatedQuests.RemoveAt(i);
-    }
+        for (int i = 0; i < distanceQuests.Count; i++)
+        {
+            PlayerPrefs.SetString("DistanceQuestName" + i.ToString(), distanceQuests[i].name);
+            PlayerPrefs.SetInt("NumberOfDistanceQuests", distanceQuests.Count);
 
-    public List<GameObject> GetInstantiatedQuests()
-    {
-        return instantiatedQuests;
+            distanceQuests[i].GetComponent<DistanceQuest>().SaveQuest();
+        }
     }
 }

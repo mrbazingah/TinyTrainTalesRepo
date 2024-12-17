@@ -291,4 +291,4 @@ MonoBehaviour:
   speedOffset: 0.1
   canSpawn: 1
   currentBlockNumber: 3
-  spawnOffset: 33.6
+  spawnOffset: 33.5

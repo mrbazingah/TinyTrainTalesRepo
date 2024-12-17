@@ -5,12 +5,12 @@ public class BackgroundGenerator : MonoBehaviour
     [SerializeField] GameObject blockParent;
 
     Train train;
-    GameManager gameManager;
+    Rigidbody2D myRigidbody;
 
     void Awake()
     {
         train = FindObjectOfType<Train>();
-        gameManager = FindObjectOfType<GameManager>();
+        myRigidbody = GetComponent<Rigidbody2D>();
     }
 
     public void SpawnBlock(float yPos, float spawnOffset, GameObject blockPrefab)
@@ -21,7 +21,11 @@ public class BackgroundGenerator : MonoBehaviour
 
     public void RemoveBlock(GameObject block)
     {
-        train.FindRigidbody();
-        Destroy(block, 5);
+        if (myRigidbody == train.GetRigidbody())
+        {
+            train.FindRigidbody();
+        }
+
+        Destroy(block);
     }
 }

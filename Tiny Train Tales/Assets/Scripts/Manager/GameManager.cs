@@ -355,7 +355,6 @@ public class GameManager : MonoBehaviour
         PassangerQuest[] passangerQuests = FindObjectsOfType<PassangerQuest>();
         for (int i = 0; i < passangerQuests.Length; i++)
         {
-            passangerQuests[i].DropOff();
         }
 
         hasCalculatedPassangers = true;
@@ -448,12 +447,6 @@ public class GameManager : MonoBehaviour
     #endregion
 
     #region Save
-    public void SaveCar(float currentTime, float time, string name)
-    {
-        PlayerPrefs.SetFloat(name + "Time", time);
-        PlayerPrefs.SetFloat(name + "CurrentTime", currentTime);
-    }
-
     void SaveProgress()
     {
         if (remainingDistance <= 0)
@@ -494,8 +487,8 @@ public class GameManager : MonoBehaviour
     public void SaveAll()
     {
         train?.SaveTrain();
-        questManager?.SaveQuests();
         cam?.SavePos();
+        questManager?.SaveQuests();
         carManager?.SaveCars();
 
         if (hasArrivedAtStation)
@@ -511,6 +504,12 @@ public class GameManager : MonoBehaviour
         for (int i = 0; i < buttons.Length; i++)
         {
             buttons[i].SavePos();
+        }
+
+        Car[] cars = FindObjectsOfType<Car>();
+        for (int i = 0; i < cars.Length; i++)
+        {
+            cars[i].SaveCar();
         }
 
         PlayerPrefs.SetFloat("MaxPassangers", maxPassangers);

@@ -1,8 +1,12 @@
 using System.Collections;
+using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Car : MonoBehaviour
 {
+    [Header("Earning")]
     [SerializeField] int minEarning;
     [SerializeField] int maxEarning;
     [SerializeField] float minTime;
@@ -11,9 +15,16 @@ public class Car : MonoBehaviour
     [Space]
     [SerializeField] float autoCollectDelay;
     [Header("Attributes")]
-    [SerializeField] int weight = 1;
     [SerializeField] int speed;
+    [SerializeField] int weight = 1;
     [SerializeField] int income;
+    [Header("Attributes Visual")]
+    [SerializeField] List<GameObject> speedList;
+    [SerializeField] List<GameObject> weightList;
+    [SerializeField] List<GameObject> incomeList;
+    [SerializeField] Color attributeColor;
+    [Space] 
+    [SerializeField] GameObject attributesCanvas;
 
     bool hasAutoCollected;
     float time;
@@ -21,12 +32,10 @@ public class Car : MonoBehaviour
     int earning;
 
     GameManager gameManager;
-    Train train;
 
     void Awake()
     {
         gameManager = FindObjectOfType<GameManager>();
-        train = FindObjectOfType<Train>();
     }
 
     void Start()
@@ -45,39 +54,22 @@ public class Car : MonoBehaviour
         }
 
         transform.SetParent(GameObject.Find("Train").transform);
-    }
-
-    public void AddAttributes(int addedWeight, int addedSpeed, int addedIncome)
-    {
-        weight = addedWeight;
-        speed = addedSpeed;
-        income = addedIncome;
-
-        PlayerPrefs.SetInt(gameObject.name + "Weight", weight);
-        PlayerPrefs.SetInt(gameObject.name + "Speed", speed);
-        PlayerPrefs.SetInt(gameObject.name + "Income", income);
-        PlayerPrefs.Save();
+        attributesCanvas.SetActive(false);
     }
 
     void Update()
     {
-        float currentTrainSpeed = train.GetSpeed();
-        if (currentTrainSpeed == 0)
-        {
-            gameManager.SaveCar(currentTime, time, gameObject.name);
-        }
+        ShouldAutoCollect();
+        EarningDelay();
+    }
 
+    #region Earning
+    void ShouldAutoCollect()
+    {
         bool autoCollect = gameManager.GetAutoCollect();
         if (autoCollect && coinButton.activeInHierarchy && !hasAutoCollected)
         {
             StartCoroutine(AutoCollectCoin());
-        }
-
-        EarningDelay();
-
-        if (weight <= 0)
-        {
-            weight = 1;
         }
     }
 
@@ -114,13 +106,56 @@ public class Car : MonoBehaviour
         hasAutoCollected = false;
         currentTime = time;
     }
+    #endregion
 
-    public void SaveCar()
+    #region Attributes
+    public void AddAttributes(int addedSpeed, int addedWeight, int addedIncome)
     {
-        PlayerPrefs.SetFloat(gameObject.name + "Time", time);
-        PlayerPrefs.SetFloat(gameObject.name + "CurrentTime", currentTime);
-        PlayerPrefs.SetInt(gameObject.name + "Earning", earning);
+        speed = addedSpeed;
+        weight = addedWeight;
+        income = addedIncome;
+
+        if (weight <= 0)
+        {
+            weight = 1;
+        }
+
+        SetUpVisual();
+
+        PlayerPrefs.SetInt(gameObject.name + "Weight", weight);
+        PlayerPrefs.SetInt(gameObject.name + "Speed", speed);
+        PlayerPrefs.SetInt(gameObject.name + "Income", income);
         PlayerPrefs.Save();
+    }
+
+    void SetUpVisual()
+    {
+        for (int i = 0; i < speed; i++)
+        {
+            speedList[i].GetComponent<Image>().color = attributeColor;
+        }
+
+        for (int i = 0; i < weight; i++)
+        {
+            weightList[i].GetComponent<Image>().color = attributeColor;
+        }
+
+        for (int i = 0; i < income; i++)
+        {
+            incomeList[i].GetComponent<Image>().color = attributeColor;
+        }
+    }
+
+    public void OpenAndCloseAttributes()
+    {
+        attributesCanvas.SetActive(!attributesCanvas.activeInHierarchy);
+    }
+    #endregion
+
+    #region Gets
+    public int GetSpeed()
+    {
+        return speed;
     }
 
     public int GetWeight()
@@ -128,13 +163,22 @@ public class Car : MonoBehaviour
         return weight;
     }
 
-    public int GetSpeed()
-    {
-        return speed;
-    }
-
     public int GetIncome()
     {
         return income;
+    }
+    #endregion
+
+    public void SaveCar()
+    {
+        PlayerPrefs.SetFloat(gameObject.name + "Time", time);
+        PlayerPrefs.SetFloat(gameObject.name + "CurrentTime", currentTime);
+        PlayerPrefs.SetInt(gameObject.name + "Earning", earning);
+
+        PlayerPrefs.SetInt(gameObject.name + "Weight", weight);
+        PlayerPrefs.SetInt(gameObject.name + "Speed", speed);
+        PlayerPrefs.SetInt(gameObject.name + "Income", income);
+
+        PlayerPrefs.Save();
     }
 }

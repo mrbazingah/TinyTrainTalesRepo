@@ -369,7 +369,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.84198624, y: 0.84198624, z: 0.36666667}
+  m_LocalScale: {x: 0.84198624, y: 0.84198624, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6150070285327618418}
@@ -390,12 +390,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a403ed725954ca48a9dd5f6953638af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  questText: {fileID: 1678306116955912291}
-  icon: {fileID: 2402110244573361904}
-  collectButton: {fileID: 1284885638850900292}
-  maxPassangers: 10
-  minPassangers: 1
-  multiply: 10
 --- !u!1 &4770499092033773725
 GameObject:
   m_ObjectHideFlags: 0
