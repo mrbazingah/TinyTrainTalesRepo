@@ -26,7 +26,7 @@ public class QuestManager : MonoBehaviour
         passangerQuests = new List<GameObject>(0);
         distanceQuests = new List<GameObject>(0);
 
-        if (PlayerPrefs.HasKey("NumberOfPassangerQuests"))
+        if (PlayerPrefs.HasKey("NumberOfPassangerQuests") || PlayerPrefs.HasKey("NumberOfDistanceQuests"))
         {
             //Passanger Quests
             numberOfPassangerQuests = PlayerPrefs.GetInt("NumberOfPassangerQuests");
@@ -111,7 +111,15 @@ public class QuestManager : MonoBehaviour
 
         for (int i = 0; i < distanceQuests.Count; i++)
         {
-            distanceQuests[i].transform.localPosition = new Vector2(lastPos.x, lastPos.y - yOffset);
+            if (passangerQuests.Count == 0 && i == 0)
+            {
+                distanceQuests[i].transform.localPosition = startPos;
+            }
+            else
+            {
+                distanceQuests[i].transform.localPosition = new Vector2(lastPos.x, lastPos.y - yOffset);
+            }
+            
             lastPos = distanceQuests[i].transform.localPosition;
         }
     }

@@ -12,6 +12,7 @@ public class DistanceQuest : MonoBehaviour
     [SerializeField] float maxDistance, minDistance;
     [SerializeField] float multiplier;
     [SerializeField] float currentDistanceToTravel; // Remaining distance to travel
+    [SerializeField] float savedDistanceTraveled;
     [SerializeField] bool getGems; // Specify if this quest gives gems as a reward
 
     float originalDistance; // Corrected spelling
@@ -37,8 +38,7 @@ public class DistanceQuest : MonoBehaviour
         {
             // Load saved quest data
             distanceToTravel = PlayerPrefs.GetFloat(gameObject.name + "DistanceToTravel");
-            distanceTraveled = PlayerPrefs.GetFloat(gameObject.name + "DistanceTraveled");
-            originalDistance = PlayerPrefs.GetFloat(gameObject.name + "OriginalDistance", gameManager.GetRemainingDistance());
+            savedDistanceTraveled = PlayerPrefs.GetFloat(gameObject.name + "DistanceTraveled");
         }
         else
         {
@@ -60,6 +60,8 @@ public class DistanceQuest : MonoBehaviour
 
     void TrackTravel()
     {
+        if (hasCompleted) { return; }
+
         // Ensure original distance is initialized
         if (originalDistance == 0)
         {
@@ -68,15 +70,11 @@ public class DistanceQuest : MonoBehaviour
 
         // Calculate total distance covered since the quest started
         float currentRemainingDistance = gameManager.GetRemainingDistance();
-        float totalCovered = Mathf.Abs(originalDistance - currentRemainingDistance);
-        Debug.Log(distanceTraveled.ToString());
-        Debug.Log(totalCovered.ToString());
+        distanceTraveled = Mathf.Abs(savedDistanceTraveled + (originalDistance - currentRemainingDistance));
 
         // Update distanceTraveled only if totalCovered is greater than the saved value
-        if (totalCovered > distanceTraveled)
+        if (distanceTraveled < distanceToTravel)
         {
-            float progress = totalCovered - distanceTraveled;
-            distanceTraveled += progress;
             distanceTraveled = Mathf.Min(distanceTraveled, distanceToTravel); // Cap at total distanceToTravel
             progressSlider.value = distanceTraveled;
         }
@@ -85,7 +83,7 @@ public class DistanceQuest : MonoBehaviour
         currentDistanceToTravel = distanceToTravel - distanceTraveled;
 
         // Prevent negative values
-        if (currentDistanceToTravel <= 0 && !hasCompleted)
+        if (currentDistanceToTravel <= 0)
         {
             currentDistanceToTravel = 0;
             CompleteQuest();
@@ -94,7 +92,6 @@ public class DistanceQuest : MonoBehaviour
         UpdateTravelText();
     }
 
-
     void UpdateTravelText()
     {
         travelText.text = $"Travel: {Mathf.Ceil(currentDistanceToTravel)} km";
@@ -102,8 +99,6 @@ public class DistanceQuest : MonoBehaviour
 
     void CompleteQuest()
     {
-        if (hasCompleted) return;
-
         collectButton.SetActive(true);
         hasCompleted = true;
     }
@@ -113,12 +108,12 @@ public class DistanceQuest : MonoBehaviour
         float reward;
         if (getGems)
         {
-            reward = distanceToTravel / 100; // Example reward calculation for gems
+            reward = distanceToTravel / 100; 
             gameManager.AddGems(reward);
         }
         else
         {
-            reward = distanceToTravel * 10; // Example reward calculation for coins
+            reward = distanceToTravel * 10; 
             gameManager.AddCoins(reward);
         }
 
@@ -130,7 +125,6 @@ public class DistanceQuest : MonoBehaviour
         // Clear saved progress and destroy this quest object
         PlayerPrefs.DeleteKey(gameObject.name + "DistanceToTravel");
         PlayerPrefs.DeleteKey(gameObject.name + "DistanceTraveled");
-        PlayerPrefs.DeleteKey(gameObject.name + "OriginalDistance");
 
         questManager.RemoveQuest(gameObject);
         Destroy(gameObject);
@@ -142,7 +136,6 @@ public class DistanceQuest : MonoBehaviour
         // Save quest progress
         PlayerPrefs.SetFloat(gameObject.name + "DistanceToTravel", distanceToTravel);
         PlayerPrefs.SetFloat(gameObject.name + "DistanceTraveled", distanceTraveled);
-        PlayerPrefs.SetFloat(gameObject.name + "OriginalDistance", originalDistance);
         PlayerPrefs.Save(); // Persist changes
     }
 }

@@ -257,7 +257,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 7769879262857322784}
         m_TargetAssemblyTypeName: PassangerQuest, Assembly-CSharp
-        m_MethodName: Collect
+        m_MethodName: CollectReward
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -390,6 +390,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a403ed725954ca48a9dd5f6953638af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  questText: {fileID: 1678306116955912291}
+  collectButton: {fileID: 1284885638850900292}
+  passangersToDropOff: 0
+  passangersDroppedOff: 0
+  minPassangers: 1
+  maxPassangers: 10
+  multiplier: 10
+  getGems: 1
 --- !u!1 &4770499092033773725
 GameObject:
   m_ObjectHideFlags: 0
