@@ -30,6 +30,7 @@ public class QuestManager : MonoBehaviour
             {
                 GameObject quest = Instantiate(prefabQuests[1]);
                 quest.transform.SetParent(questParent.transform);
+                quest.transform.localPosition = Vector2.zero;
 
                 passangerQuests.Add(quest);
 
@@ -43,6 +44,7 @@ public class QuestManager : MonoBehaviour
             {
                 GameObject quest = Instantiate(prefabQuests[0]);
                 quest.transform.SetParent(questParent.transform);
+                quest.transform.localPosition = Vector2.zero;
 
                 distanceQuests.Add(quest);
 
@@ -60,6 +62,7 @@ public class QuestManager : MonoBehaviour
             {
                 GameObject quest = Instantiate(prefabQuests[1]);
                 quest.transform.SetParent(questParent.transform);
+                quest.transform.localPosition = Vector2.zero;
 
                 passangerQuests.Add(quest);
 
@@ -72,6 +75,7 @@ public class QuestManager : MonoBehaviour
             {
                 GameObject quest = Instantiate(prefabQuests[0]);
                 quest.transform.SetParent(questParent.transform);
+                quest.transform.localPosition = Vector2.zero;
 
                 distanceQuests.Add(quest);
 

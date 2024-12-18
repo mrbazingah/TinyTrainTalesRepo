@@ -65,7 +65,7 @@ public class CarManager : MonoBehaviour
                 int speed = PlayerPrefs.GetInt(lastSpawned.name + "Speed");
                 int income = PlayerPrefs.GetInt(lastSpawned.name + "Income");
 
-                lastSpawned.GetComponent<Car>().AddAttributes(weight, speed, income);
+                lastSpawned.GetComponent<Car>().AddAttributes(speed, weight, income);
             }
             else
             {
@@ -87,7 +87,7 @@ public class CarManager : MonoBehaviour
         currentlySpawned.transform.parent = GameObject.Find("Train").transform;
 
         currentlySpawned.name = "Car " + length.ToString();
-        currentlySpawned.GetComponent<Car>().AddAttributes(weight, speed, income);
+        currentlySpawned.GetComponent<Car>().AddAttributes(speed, weight, income);
         currentCars.Add(currentlySpawned);
 
         PlayerPrefs.SetInt("Cars", length);
@@ -108,5 +108,10 @@ public class CarManager : MonoBehaviour
     public int GetLength()
     {
         return length;
+    }
+
+    public List<GameObject> GetCars()
+    {
+        return currentCars;
     }
 }

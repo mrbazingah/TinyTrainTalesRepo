@@ -32,10 +32,12 @@ public class Car : MonoBehaviour
     int earning;
 
     GameManager gameManager;
+    CarManager carManager;
 
     void Awake()
     {
         gameManager = FindObjectOfType<GameManager>();
+        carManager = FindObjectOfType<CarManager>();
     }
 
     void Start()
@@ -104,6 +106,7 @@ public class Car : MonoBehaviour
 
         gameManager.AddCoins(earning);
         hasAutoCollected = false;
+        coinButton.SetActive(false);
         currentTime = time;
     }
     #endregion
@@ -146,9 +149,23 @@ public class Car : MonoBehaviour
         }
     }
 
-    public void OpenAndCloseAttributes()
+    public void OpenAndCloseAttributes(bool isButton)
     {
-        attributesCanvas.SetActive(!attributesCanvas.activeInHierarchy);
+        bool turnOn = isButton ? !attributesCanvas.activeSelf : false;
+        attributesCanvas.SetActive(turnOn);
+
+        if (!isButton) { return; }
+
+        List<GameObject> allCars = carManager.GetCars();
+        foreach (GameObject car in allCars)
+        {
+            Car carComponent = car.GetComponent<Car>();
+
+            if (car != gameObject && carComponent != null)
+            {
+                carComponent.OpenAndCloseAttributes(false);
+            }
+        }
     }
     #endregion
 

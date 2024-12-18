@@ -210,7 +210,7 @@ public class GameManager : MonoBehaviour
     #endregion
 
     #region Gems
-    public void AddToGems(float amount)
+    public void AddGems(float amount)
     {
         gems += amount;
         gemsText.text = gems.ToString();

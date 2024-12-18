@@ -35058,7 +35058,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speedOffset: 1
-  canSpawn: 1
+  canSpawn: 0
   currentBlockNumber: 0
   spawnOffset: 20
 --- !u!1001 &5889919793868626942
@@ -38308,6 +38308,10 @@ PrefabInstance:
       propertyPath: remainingDistanceText
       value: 
       objectReference: {fileID: 418523789}
+    - target: {fileID: 6013072587387181096, guid: d7f2d7e6643153744bbdc766918d5eaf, type: 3}
+      propertyPath: stationDestructDistance
+      value: 5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
