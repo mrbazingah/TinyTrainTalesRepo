@@ -519,6 +519,8 @@ public class GameManager : MonoBehaviour
         PlayerPrefs.SetFloat("Passangers", passangers);
 
         SaveProgress();
+
+        PlayerPrefs.Save();
     }
 
     void OnApplicationQuit()

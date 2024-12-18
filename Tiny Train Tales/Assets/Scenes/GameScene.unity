@@ -30481,33 +30481,13 @@ PrefabInstance:
       value: QuestManager
       objectReference: {fileID: 0}
     - target: {fileID: 9173003003584550724, guid: e2cace444bded594b9f1b41e18776698, type: 3}
-      propertyPath: parent
-      value: 
-      objectReference: {fileID: 1693154212}
+      propertyPath: startPos.x
+      value: -70
+      objectReference: {fileID: 0}
     - target: {fileID: 9173003003584550724, guid: e2cace444bded594b9f1b41e18776698, type: 3}
       propertyPath: questParent
       value: 
       objectReference: {fileID: 1384084860}
-    - target: {fileID: 9173003003584550724, guid: e2cace444bded594b9f1b41e18776698, type: 3}
-      propertyPath: amountOfQuest
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 9173003003584550724, guid: e2cace444bded594b9f1b41e18776698, type: 3}
-      propertyPath: amountOfQuests
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 9173003003584550724, guid: e2cace444bded594b9f1b41e18776698, type: 3}
-      propertyPath: distanceQuests.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 9173003003584550724, guid: e2cace444bded594b9f1b41e18776698, type: 3}
-      propertyPath: passangerQuests.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 9173003003584550724, guid: e2cace444bded594b9f1b41e18776698, type: 3}
-      propertyPath: prefabQuests.Array.data[0]
-      value: 
-      objectReference: {fileID: 2875941112450050040, guid: e8891f34e0168f84b8d48d174b36830d, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -32078,9 +32058,17 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 889842926325123238, guid: 3c8095b599aeb244aa6091405e182f32, type: 3}
+      propertyPath: nextCity
+      value: 
+      objectReference: {fileID: 2105587783}
+    - target: {fileID: 889842926325123238, guid: 3c8095b599aeb244aa6091405e182f32, type: 3}
       propertyPath: currentCity
       value: 
-      objectReference: {fileID: 2106758136}
+      objectReference: {fileID: 1920226172}
+    - target: {fileID: 889842926325123238, guid: 3c8095b599aeb244aa6091405e182f32, type: 3}
+      propertyPath: destinationCity
+      value: 
+      objectReference: {fileID: 2105587783}
     - target: {fileID: 6788513607071723230, guid: 3c8095b599aeb244aa6091405e182f32, type: 3}
       propertyPath: m_Name
       value: CityManager
@@ -38308,10 +38296,6 @@ PrefabInstance:
       propertyPath: remainingDistanceText
       value: 
       objectReference: {fileID: 418523789}
-    - target: {fileID: 6013072587387181096, guid: d7f2d7e6643153744bbdc766918d5eaf, type: 3}
-      propertyPath: stationDestructDistance
-      value: 5
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

@@ -58,12 +58,12 @@ MonoBehaviour:
   remainingDistanceText: {fileID: 0}
   currentCityText: {fileID: 0}
   destinationCityText: {fileID: 0}
-  decelerationOffset: 1
+  decelerationOffset: 0.845
   startStation: {fileID: 0}
   stationBlockPrefab: {fileID: 6283405741849151963, guid: 7effc8ca566350141806a29bf9d4d20e, type: 3}
   stationHasSpawned: 0
   hasArrivedAtStation: 0
-  stationDestructDistance: 4
+  stationDestructDistance: 5
   autoCollectToggle: {fileID: 0}
   autoLeaveStation: {fileID: 0}
   maxPassangers: 20

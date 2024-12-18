@@ -3,11 +3,15 @@ using UnityEngine;
 
 public class QuestManager : MonoBehaviour
 {
+    [Header("Setup")]
     [SerializeField] List<GameObject> prefabQuests;
     [SerializeField] List<GameObject> distanceQuests;
     [SerializeField] List<GameObject> passangerQuests;
-    [SerializeField] GameObject questParent;
     [SerializeField] int amountOfQuests = 3;
+    [Header("Visual")]
+    [SerializeField] GameObject questParent;
+    [SerializeField] Vector2 startPos;
+    [SerializeField] float yOffset;
 
     int numberOfPassangerQuests;
     int numberOfDistanceQuests;
@@ -82,6 +86,45 @@ public class QuestManager : MonoBehaviour
                 quest.name = "DistanceQuest" + i.ToString();
                 quest.GetComponent<DistanceQuest>().SetUpQuest();
             }
+        }
+
+        OrderQuests();
+    }
+
+    void OrderQuests()
+    {
+        Vector2 lastPos = Vector2.zero;
+
+        for (int i = 0; i < passangerQuests.Count; i++)
+        {
+            if (i == 0)
+            {
+                passangerQuests[i].transform.localPosition = startPos;
+            }
+            else
+            {
+                passangerQuests[i].transform.localPosition = new Vector2(lastPos.x, lastPos.y - yOffset);
+            }
+
+            lastPos = passangerQuests[i].transform.localPosition;
+        }
+
+        for (int i = 0; i < distanceQuests.Count; i++)
+        {
+            distanceQuests[i].transform.localPosition = new Vector2(lastPos.x, lastPos.y - yOffset);
+            lastPos = distanceQuests[i].transform.localPosition;
+        }
+    }
+
+    public void RemoveQuest(GameObject removedQuest)
+    {
+        if (passangerQuests.Contains(removedQuest))
+        {
+            passangerQuests.Remove(removedQuest);
+        }
+        else if (distanceQuests.Contains(removedQuest))
+        {
+            distanceQuests.Remove(removedQuest);
         }
     }
 

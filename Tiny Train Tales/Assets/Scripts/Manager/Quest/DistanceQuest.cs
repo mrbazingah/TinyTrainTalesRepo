@@ -12,16 +12,23 @@ public class DistanceQuest : MonoBehaviour
     [SerializeField] float maxDistance, minDistance;
     [SerializeField] float multiplier;
     [SerializeField] float currentDistanceToTravel; // Remaining distance to travel
+    [SerializeField] bool getGems; // Specify if this quest gives gems as a reward
 
     float originalDistance; // Corrected spelling
     bool hasCompleted;
-    [SerializeField] bool getGems; // Specify if this quest gives gems as a reward
 
     GameManager gameManager;
+    QuestManager questManager;
 
     void Awake()
     {
         gameManager = FindObjectOfType<GameManager>();
+        questManager = FindObjectOfType<QuestManager>();
+    }
+
+    void Start()
+    {
+        collectButton.SetActive(false);
     }
 
     public void SetUpQuest()
@@ -61,13 +68,14 @@ public class DistanceQuest : MonoBehaviour
 
         // Calculate total distance covered since the quest started
         float currentRemainingDistance = gameManager.GetRemainingDistance();
-        float totalCovered = originalDistance - currentRemainingDistance;
+        float totalCovered = Mathf.Abs(originalDistance - currentRemainingDistance);
+        Debug.Log(distanceTraveled.ToString());
+        Debug.Log(totalCovered.ToString());
 
-        // Increment distanceTraveled cumulatively
-        float progress = totalCovered - distanceTraveled;
-
-        if (progress > 0) // Only update if progress is positive
+        // Update distanceTraveled only if totalCovered is greater than the saved value
+        if (totalCovered > distanceTraveled)
         {
+            float progress = totalCovered - distanceTraveled;
             distanceTraveled += progress;
             distanceTraveled = Mathf.Min(distanceTraveled, distanceToTravel); // Cap at total distanceToTravel
             progressSlider.value = distanceTraveled;
@@ -85,6 +93,7 @@ public class DistanceQuest : MonoBehaviour
 
         UpdateTravelText();
     }
+
 
     void UpdateTravelText()
     {
@@ -123,7 +132,9 @@ public class DistanceQuest : MonoBehaviour
         PlayerPrefs.DeleteKey(gameObject.name + "DistanceTraveled");
         PlayerPrefs.DeleteKey(gameObject.name + "OriginalDistance");
 
+        questManager.RemoveQuest(gameObject);
         Destroy(gameObject);
+        gameObject.SetActive(false);
     }
 
     public void SaveQuest()

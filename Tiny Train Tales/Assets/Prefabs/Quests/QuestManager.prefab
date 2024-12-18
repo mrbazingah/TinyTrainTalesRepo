@@ -44,10 +44,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f74ec3d900553749ab5652dc49bcb26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  amountOfQuest: 0
   prefabQuests:
-  - {fileID: 7661914925183875220}
+  - {fileID: 2875941112450050040, guid: e8891f34e0168f84b8d48d174b36830d, type: 3}
   - {fileID: 2537542497066660126, guid: 9a6d0b142b3e75043b149722f3ac77da, type: 3}
-  instantiatedQuests: []
-  parent: {fileID: 0}
-  textDistance: 50
+  distanceQuests: []
+  passangerQuests: []
+  amountOfQuests: 5
+  questParent: {fileID: 0}
+  startPos: {x: 30, y: 160}
+  yOffset: 80
