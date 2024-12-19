@@ -113,13 +113,25 @@ public class Slot : MonoBehaviour
 
     void CalculateCost()
     {
+        // Base cost calculation
         float baseCost = (speed + income - weight) * pricePerPoint;
 
+        // Get the average cost from UpgradeManager
         float averageCost = upgradeManager.GetAverageCost();
-        float matchAverage = averageCost > 0 ? baseCost / averageCost : 1f;
+        if (averageCost <= 0)
+        {
+            cost = Mathf.Round(baseCost) + startPrice; // Fallback if average cost is invalid
+            return;
+        }
 
-        cost = Mathf.Round(baseCost * matchAverage) + startPrice;
+        // Align cost to the average using a weight factor
+        float weightFactor = 0.75f; // Higher weight pulls the cost closer to the average
+        cost = Mathf.Lerp(baseCost, averageCost, weightFactor);
 
+        // Add start price and round
+        cost = Mathf.Round(cost) + startPrice;
+
+        // Update UI
         costText.text = cost.ToString();
     }
 
