@@ -106,6 +106,7 @@ public class QuestManager : MonoBehaviour
                 passangerQuests[i].transform.localPosition = new Vector2(lastPos.x, lastPos.y - yOffset);
             }
 
+            passangerQuests[i].name = "PassangerQuest" + i.ToString();
             lastPos = passangerQuests[i].transform.localPosition;
         }
 
@@ -119,7 +120,8 @@ public class QuestManager : MonoBehaviour
             {
                 distanceQuests[i].transform.localPosition = new Vector2(lastPos.x, lastPos.y - yOffset);
             }
-            
+
+            distanceQuests[i].name = "DistanceQuest" + i.ToString();
             lastPos = distanceQuests[i].transform.localPosition;
         }
     }

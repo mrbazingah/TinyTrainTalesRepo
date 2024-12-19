@@ -4871,8 +4871,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c851ada98cb9994185ee7223ca82512, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pricePerPoint: 200
+  pricePerPoint: 350
   startPrice: 1000
+  priceOffset: 1.5
   weightText: {fileID: 1281896642}
   speedText: {fileID: 579776107}
   incomeText: {fileID: 844538503}
@@ -13273,8 +13274,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c851ada98cb9994185ee7223ca82512, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pricePerPoint: 200
+  pricePerPoint: 350
   startPrice: 1000
+  priceOffset: 1.5
   weightText: {fileID: 304473596}
   speedText: {fileID: 173121977}
   incomeText: {fileID: 1695477559}
@@ -23587,8 +23589,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c851ada98cb9994185ee7223ca82512, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pricePerPoint: 200
+  pricePerPoint: 350
   startPrice: 1000
+  priceOffset: 1.5
   weightText: {fileID: 1445644926}
   speedText: {fileID: 1054737213}
   incomeText: {fileID: 1620733426}

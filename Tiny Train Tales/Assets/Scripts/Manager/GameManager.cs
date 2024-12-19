@@ -355,6 +355,7 @@ public class GameManager : MonoBehaviour
         PassangerQuest[] passangerQuests = FindObjectsOfType<PassangerQuest>();
         for (int i = 0; i < passangerQuests.Length; i++)
         {
+            passangerQuests[i].TrackPassangers(subPassangers);
         }
 
         hasCalculatedPassangers = true;

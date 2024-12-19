@@ -255,4 +255,9 @@ public class UpgradeManager : MonoBehaviour
     {
         return amountOfCars; 
     }
+
+    public float GetAverageCost()
+    {
+        return (maxSpeedCost + carsCost + accelerationCost + profitCost + maxPassangerCost) / 5;
+    }
 }

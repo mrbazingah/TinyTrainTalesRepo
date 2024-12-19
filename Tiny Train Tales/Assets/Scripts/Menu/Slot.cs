@@ -17,7 +17,7 @@ public class Slot : MonoBehaviour
     [SerializeField] Color cantBuyColor;
     [SerializeField] Color originalColor;
 
-    float cost;
+    [SerializeField] float cost;
     bool hasBeenBought;
     float coins;
 
@@ -102,25 +102,28 @@ public class Slot : MonoBehaviour
         speedText.text = "Speed: " + speed.ToString() + "/5";
         incomeText.text = "Income: " + income.ToString() + "/5";
 
-        cost = (speed + income - weight) * pricePerPoint + startPrice;
-        costText.text = cost.ToString();
-    }
-
-    public void Buy()
-    {
-        coins = gameManager.GetCoins();
-        if (coins < cost || hasBeenBought || upgradeManager.GetAmountOfCars() <= carManager.GetLength()) { return; }
-
-        carManager.BuyNewCar(weight, speed, income);
-        gameManager.BuyWithCoins(cost);
-
-        cross.SetActive(true);
-        hasBeenBought = true;
-
-        PlayerPrefs.SetString(gameObject.name + "HasBeenBought", "hey");
+        CalculateCost();
     }
 
     void Update()
+    {
+        CalculateCost();
+        UpdateButtons();
+    }
+
+    void CalculateCost()
+    {
+        float baseCost = (speed + income - weight) * pricePerPoint;
+
+        float averageCost = upgradeManager.GetAverageCost();
+        float matchAverage = averageCost > 0 ? baseCost / averageCost : 1f;
+
+        cost = Mathf.Round(baseCost * matchAverage) + startPrice;
+
+        costText.text = cost.ToString();
+    }
+
+    void UpdateButtons()
     {
         Color buttonColor = originalColor;
 
@@ -135,6 +138,20 @@ public class Slot : MonoBehaviour
         buyColorBlock.highlightedColor = buttonColor;
         buyColorBlock.selectedColor = buttonColor;
         button.colors = buyColorBlock;
+    }
+
+    public void Buy()
+    {
+        coins = gameManager.GetCoins();
+        if (coins < cost || hasBeenBought || upgradeManager.GetAmountOfCars() <= carManager.GetLength()) { return; }
+
+        carManager.BuyNewCar(weight, speed, income);
+        gameManager.BuyWithCoins(cost);
+
+        cross.SetActive(true);
+        hasBeenBought = true;
+
+        PlayerPrefs.SetString(gameObject.name + "HasBeenBought", "hey");
     }
 
     public void ResetPlayerPrefs()
