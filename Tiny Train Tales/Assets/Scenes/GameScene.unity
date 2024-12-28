@@ -4873,7 +4873,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pricePerPoint: 350
   startPrice: 1000
-  priceOffset: 1.5
   weightText: {fileID: 1281896642}
   speedText: {fileID: 579776107}
   incomeText: {fileID: 844538503}
@@ -4881,6 +4880,7 @@ MonoBehaviour:
   cross: {fileID: 447599785}
   cantBuyColor: {r: 0.7058824, g: 0.7058824, b: 0.7058824, a: 1}
   originalColor: {r: 1, g: 1, b: 1, a: 1}
+  cost: 0
 --- !u!1 &402706678
 GameObject:
   m_ObjectHideFlags: 0
@@ -13276,7 +13276,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pricePerPoint: 350
   startPrice: 1000
-  priceOffset: 1.5
   weightText: {fileID: 304473596}
   speedText: {fileID: 173121977}
   incomeText: {fileID: 1695477559}
@@ -13284,6 +13283,7 @@ MonoBehaviour:
   cross: {fileID: 897842963}
   cantBuyColor: {r: 0.7058824, g: 0.7058824, b: 0.7058824, a: 1}
   originalColor: {r: 1, g: 1, b: 1, a: 1}
+  cost: 0
 --- !u!1 &1023749998
 GameObject:
   m_ObjectHideFlags: 0
@@ -23591,7 +23591,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pricePerPoint: 350
   startPrice: 1000
-  priceOffset: 1.5
   weightText: {fileID: 1445644926}
   speedText: {fileID: 1054737213}
   incomeText: {fileID: 1620733426}
@@ -23599,6 +23598,7 @@ MonoBehaviour:
   cross: {fileID: 1701612945}
   cantBuyColor: {r: 0.7058824, g: 0.7058824, b: 0.7058824, a: 1}
   originalColor: {r: 1, g: 1, b: 1, a: 1}
+  cost: 0
 --- !u!1 &1809812633
 GameObject:
   m_ObjectHideFlags: 0
@@ -31221,7 +31221,7 @@ MonoBehaviour:
   speedOffset: 0.5
   canSpawn: 1
   currentBlockNumber: 1
-  spawnOffset: 20
+  spawnOffset: -20
 --- !u!4 &2629417060131994069
 Transform:
   m_ObjectHideFlags: 0
@@ -34667,7 +34667,7 @@ MonoBehaviour:
   speedOffset: 1.7
   canSpawn: 1
   currentBlockNumber: 2
-  spawnOffset: 20
+  spawnOffset: -20
 --- !u!4 &5475516761421861989
 Transform:
   m_ObjectHideFlags: 0
@@ -35049,9 +35049,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speedOffset: 1
-  canSpawn: 0
+  canSpawn: 1
   currentBlockNumber: 0
-  spawnOffset: 20
+  spawnOffset: -22.4
 --- !u!1001 &5889919793868626942
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -38251,6 +38251,10 @@ PrefabInstance:
       propertyPath: trainCollider
       value: 
       objectReference: {fileID: 2042117574}
+    - target: {fileID: 995032294139566379, guid: d7f2d7e6643153744bbdc766918d5eaf, type: 3}
+      propertyPath: colliderOffset
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 3450606250641564517, guid: d7f2d7e6643153744bbdc766918d5eaf, type: 3}
       propertyPath: m_Name
       value: GameManager
@@ -38291,6 +38295,10 @@ PrefabInstance:
       propertyPath: autoCollectToggle
       value: 
       objectReference: {fileID: 1401247971}
+    - target: {fileID: 6013072587387181096, guid: d7f2d7e6643153744bbdc766918d5eaf, type: 3}
+      propertyPath: decelerationOffset
+      value: 0.848
+      objectReference: {fileID: 0}
     - target: {fileID: 6013072587387181096, guid: d7f2d7e6643153744bbdc766918d5eaf, type: 3}
       propertyPath: destinationCityText
       value: 

@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -76,6 +75,16 @@ public class CarManager : MonoBehaviour
         }
 
         return allCars;
+    }
+
+    void Update()
+    {
+        UpdateTrainCollider();
+    }
+
+    void UpdateTrainCollider()
+    {
+        trainCollider.size = new Vector2(startPos.x + colliderOffset * currentCars.Count, 1);
     }
 
     public void BuyNewCar(int weight, int speed, int income)

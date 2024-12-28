@@ -113,6 +113,8 @@ public class Slot : MonoBehaviour
 
     void CalculateCost()
     {
+        if (hasBeenBought) { return; }
+
         // Base cost calculation
         float baseCost = (speed + income - weight) * pricePerPoint;
 
