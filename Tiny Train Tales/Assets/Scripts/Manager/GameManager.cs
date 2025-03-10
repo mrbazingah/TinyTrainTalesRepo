@@ -11,6 +11,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] float coins;
     [SerializeField] TextMeshProUGUI cointext;
     [SerializeField] float profitMultiplier = 1;
+    [Space]
+    [SerializeField] float networth;
     [Header("Gems")]
     [SerializeField] float gems;
     [SerializeField] TextMeshProUGUI gemsText;
@@ -86,6 +88,14 @@ public class GameManager : MonoBehaviour
         {
             coins = PlayerPrefs.GetFloat("Coins");
         }
+        if (PlayerPrefs.HasKey("Networth"))
+        {
+            networth = PlayerPrefs.GetFloat("Networth");
+        }
+        else
+        {
+            networth = coins;
+        }
         if (PlayerPrefs.HasKey("Gems"))
         {
             gems = PlayerPrefs.GetFloat("Gems");
@@ -134,10 +144,12 @@ public class GameManager : MonoBehaviour
             if (distance - remainingDistance > stationDestructDistance)
             {
                 Destroy(startStation);
+                Debug.Log("Station Destroyed");
             }
             else
             {
                 Destroy(startStation, 5f);
+                Debug.Log("Station Destroyed with timer");
             }
         }
         else if (PlayerPrefs.HasKey("Distance"))
@@ -195,6 +207,9 @@ public class GameManager : MonoBehaviour
     {
         coins += amountAdded * profitMultiplier;
         PlayerPrefs.SetFloat("Coins", coins);
+
+        networth += coins;
+        PlayerPrefs.SetFloat("Networth", networth);
     }
 
     public void BuyWithCoins(float cost)
@@ -206,6 +221,11 @@ public class GameManager : MonoBehaviour
     public float GetCoins()
     {
         return coins;
+    }
+
+    public float GetNetworth()
+    {
+        return networth;
     }
     #endregion
 
@@ -516,6 +536,7 @@ public class GameManager : MonoBehaviour
         PlayerPrefs.SetFloat("MaxPassangers", maxPassangers);
         PlayerPrefs.SetFloat("MaxSpeed", maxSpeed);
         PlayerPrefs.SetFloat("Coins", coins);
+        PlayerPrefs.SetFloat("Networth", networth);
         PlayerPrefs.SetFloat("Gems", gems);
         PlayerPrefs.SetFloat("Passangers", passangers);
 

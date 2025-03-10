@@ -6,6 +6,7 @@ public class Slot : MonoBehaviour
 {
     [SerializeField] float pricePerPoint;
     [SerializeField] float startPrice;
+    [SerializeField] float priceOffset;
     [Space]
     [SerializeField] TextMeshProUGUI weightText;
     [SerializeField] TextMeshProUGUI speedText;
@@ -75,15 +76,7 @@ public class Slot : MonoBehaviour
             speed = PlayerPrefs.GetInt(gameObject.name + "Speed");
             income = PlayerPrefs.GetInt(gameObject.name + "Income");
 
-            if (PlayerPrefs.HasKey(gameObject.name + "HasBeenBought"))
-            {
-                hasBeenBought = true;
-            }
-            else
-            {
-                hasBeenBought = false;
-            }
-
+            hasBeenBought = PlayerPrefs.HasKey(gameObject.name + "HasBeenBought");
             cross.SetActive(hasBeenBought);
         }
         else
@@ -102,12 +95,19 @@ public class Slot : MonoBehaviour
         speedText.text = "Speed: " + speed.ToString() + "/5";
         incomeText.text = "Income: " + income.ToString() + "/5";
 
-        CalculateCost();
+        if (PlayerPrefs.HasKey(gameObject.name + "Cost"))
+        {
+            cost = PlayerPrefs.GetFloat(gameObject.name + "Cost");
+            costText.text = cost.ToString();
+        }
+        else
+        {
+            CalculateCost();
+        }
     }
 
     void Update()
     {
-        CalculateCost();
         UpdateButtons();
     }
 
@@ -115,26 +115,26 @@ public class Slot : MonoBehaviour
     {
         if (hasBeenBought) { return; }
 
-        // Base cost calculation
-        float baseCost = (speed + income - weight) * pricePerPoint;
+        float networth = gameManager.GetNetworth();
 
-        // Get the average cost from UpgradeManager
-        float averageCost = upgradeManager.GetAverageCost();
-        if (averageCost <= 0)
-        {
-            cost = Mathf.Round(baseCost) + startPrice; // Fallback if average cost is invalid
-            return;
-        }
+        // Calculate a slot quality metric.
+        // Higher speed and income improve quality, while weight detracts.
+        float slotQuality = Mathf.Max(1, (speed + income - weight));
 
-        // Align cost to the average using a weight factor
-        float weightFactor = 0.75f; // Higher weight pulls the cost closer to the average
-        cost = Mathf.Lerp(baseCost, averageCost, weightFactor);
+        // Use a scaling factor to adjust how networth influences the cost.
+        // For example, if networth is 5000 and scalingFactor is 10000, multiplier becomes 1 + (5000/10000) = 1.5.
+        float costMultiplier = 1 + (networth / priceOffset);
 
-        // Add start price and round
-        cost = Mathf.Round(cost) + startPrice;
+        // Apply exponential scaling to emphasize differences in slot quality.
+        float exponent = 1.2f; // Adjust for more/less aggressive scaling.
+        float baseCost = startPrice + pricePerPoint * Mathf.Pow(slotQuality, exponent);
 
-        // Update UI
+        cost = Mathf.Round(baseCost * costMultiplier);
+
+        // Update the UI with the calculated cost.
         costText.text = cost.ToString();
+
+        PlayerPrefs.SetFloat(gameObject.name + "Cost", cost);
     }
 
     void UpdateButtons()
