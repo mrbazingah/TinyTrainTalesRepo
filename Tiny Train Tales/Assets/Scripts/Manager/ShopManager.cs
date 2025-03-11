@@ -52,6 +52,7 @@ public class ShopManager : MonoBehaviour
             Slot slotScript = slots[i].GetComponent<Slot>();
             slotScript.ResetPlayerPrefs();
             slotScript.SetUpSlot();
+            slotScript.CalculateCost();
         }
     }
 }

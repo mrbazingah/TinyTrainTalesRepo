@@ -51,5 +51,5 @@ MonoBehaviour:
   passangerQuests: []
   amountOfQuests: 5
   questParent: {fileID: 0}
-  startPos: {x: 30, y: 160}
+  startPos: {x: -70, y: 160}
   yOffset: 80

@@ -16,12 +16,11 @@ public class Train : MonoBehaviour
     new Rigidbody2D rigidbody;
     GameManager gameManager;
     Station station;
-    AudioManager audioManager;
 
     void Awake()
     {
         gameManager = FindObjectOfType<GameManager>();
-        audioManager = FindObjectOfType<AudioManager>();
+
         FindRigidbody();
     }
 

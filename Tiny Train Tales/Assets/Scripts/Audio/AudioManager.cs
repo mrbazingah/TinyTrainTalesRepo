@@ -5,7 +5,7 @@ using System.Collections.Generic;
 public class AudioManager : MonoBehaviour
 {
     [field:Header("Sound Effects")]
-    [field:SerializeField] public AudioClip trainChuggingSFX { get; private set; }
+    [field:SerializeField] public AudioClip[] trainAudios { get; private set; }
 
     [Header("Settings")]
     [SerializeField] Slider sFXVolumeSlider;
@@ -13,16 +13,14 @@ public class AudioManager : MonoBehaviour
     [SerializeField] float sFXVolume;
     [SerializeField] float musicVolume;
 
-    [Header("Audio Pool Settings")]
-    [SerializeField] int poolSize = 5;
-    List<AudioSource> audioSourcePool = new List<AudioSource>();
+    [Header("Audio Sources")]
+    [SerializeField] AudioSource sFXAudioSource;
+    [SerializeField] AudioSource musicAudioSource;
+    [SerializeField] AudioSource trainAudioSource;
 
     void Start()
     {
         SettingsSetUp();
-        SetupAudioPool();
-
-        PlayAudioClip(trainChuggingSFX);
     }
 
     void SettingsSetUp()
@@ -47,81 +45,34 @@ public class AudioManager : MonoBehaviour
         musicVolume = Mathf.Clamp(musicVolumeSlider.value, 0, 1);
         PlayerPrefs.SetFloat("MusicVolume", musicVolume);
 
+        sFXAudioSource.volume = sFXVolume;
+        musicAudioSource.volume = musicVolume;
+        trainAudioSource.volume = sFXVolume;
+
         PlayerPrefs.Save();
-
-        // Update volumes on all pooled AudioSources
-        UpdateAudioSourceVolumes();
     }
 
-    void UpdateAudioSourceVolumes()
-    {
-        foreach (AudioSource audioSource in audioSourcePool)
-        {
-            AudioFollow audioFollow = audioSource.gameObject.GetComponent<AudioFollow>();
-            if (audioFollow != null)
-            {
-                // Use music volume if flagged as music; otherwise, use sFX volume.
-                audioSource.volume = audioFollow.GetIsMusic ? musicVolume : sFXVolume;
-            }
-            else
-            {
-                audioSource.volume = sFXVolume;
-            }
-        }
-    }
-
-    /// Plays an audio clip from the pool and makes the AudioSource follow the provided target.
-    /// If followTarget is null, the AudioSource will not follow any object.
     public void PlayAudioClip(AudioClip clip, bool isMusic = false)
     {
-        if (clip == null)
-            return;
+        if (clip == null) return;
 
-        AudioSource audioSource = GetPooledAudioSource();
-        if (audioSource == null) { return; }
-
-        // Set the volume based on whether it's music or sfx.
-        audioSource.volume = isMusic ? musicVolume : sFXVolume;
-        // Enable 3D audio.
-
-        AudioFollow audioFollow = audioSource.gameObject.GetComponent<AudioFollow>();
-        if (audioFollow == null)
+        if (isMusic)
         {
-            audioFollow = audioSource.gameObject.AddComponent<AudioFollow>();
+            musicAudioSource.PlayOneShot(clip);
         }
-        audioFollow.GetIsMusic = isMusic;
-
-        // Play the clip using PlayOneShot.
-        audioSource.PlayOneShot(clip, audioSource.volume);
-    }
-
-    void SetupAudioPool()
-    {
-        for (int i = 0; i < poolSize; i++)
+        else
         {
-            GameObject go = new GameObject("PooledAudioSource_" + i);
-            go.transform.parent = transform;
-            AudioSource source = go.AddComponent<AudioSource>();
-            audioSourcePool.Add(source);
+            sFXAudioSource.PlayOneShot(clip);
         }
     }
 
-    // Returns an available AudioSource from the pool.
-    // If all are busy, creates a new one, adds it to the pool, and returns it.
-    AudioSource GetPooledAudioSource()
+    public void PlayTrainAudio(AudioClip clip)
     {
-        foreach (AudioSource source in audioSourcePool)
-        {
-            if (!source.isPlaying)
-            {
-                return source;
-            }
-        }
+        if (clip == null) return;
 
-        GameObject go = new GameObject("PooledAudioSource_New");
-        go.transform.parent = transform;
-        AudioSource newSource = go.AddComponent<AudioSource>();
-        audioSourcePool.Add(newSource);
-        return newSource;
+        trainAudioSource.clip = clip;
+        trainAudioSource.Play();
+
+        trainAudioSource.loop = clip == trainAudios[0];
     }
 }

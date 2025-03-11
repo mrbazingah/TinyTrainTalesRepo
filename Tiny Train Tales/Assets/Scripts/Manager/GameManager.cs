@@ -43,6 +43,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] float passangers;
     [SerializeField] TextMeshProUGUI passangerText;
     [SerializeField] float coinsPerPassanger;
+    [Header("Audio")]
+    [SerializeField] AudioSource trainAudioSource;
 
     float remainingDistance;
     float velocity;
@@ -57,6 +59,7 @@ public class GameManager : MonoBehaviour
     CityManager cityManager;
     QuestManager questManager;
     CarManager carManager;
+    AudioManager audioManager;
     #endregion
 
     void Awake()
@@ -66,6 +69,7 @@ public class GameManager : MonoBehaviour
         cityManager = FindObjectOfType<CityManager>();
         questManager = FindObjectOfType<QuestManager>();
         carManager = FindObjectOfType<CarManager>();
+        audioManager = FindObjectOfType<AudioManager>();
     }
 
     void Start()
@@ -144,12 +148,10 @@ public class GameManager : MonoBehaviour
             if (distance - remainingDistance > stationDestructDistance)
             {
                 Destroy(startStation);
-                Debug.Log("Station Destroyed");
             }
             else
             {
                 Destroy(startStation, 5f);
-                Debug.Log("Station Destroyed with timer");
             }
         }
         else if (PlayerPrefs.HasKey("Distance"))
@@ -341,6 +343,18 @@ public class GameManager : MonoBehaviour
                 distance /= decelerationOffset;
 
                 Instantiate(stationBlockPrefab, new Vector2(transform.position.x + distance, 0.72f), Quaternion.identity);
+            }
+            
+            if (trainAudioSource.clip != audioManager.trainAudios[0] || hasArrivedAtStation) { return; }
+
+            audioManager.PlayTrainAudio(audioManager.trainAudios[1]);
+        }
+        else
+        {
+            if (!trainAudioSource.isPlaying)
+            {
+                trainAudioSource.loop = true;
+                audioManager.PlayTrainAudio(audioManager.trainAudios[0]);
             }
         }
     }

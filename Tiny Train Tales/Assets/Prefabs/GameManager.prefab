@@ -45,10 +45,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77d18488882549f49a6dabee514ebe29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  coins: 2500
+  coins: 1000000
   cointext: {fileID: 0}
   profitMultiplier: 1
-  gems: 1000
+  networth: 0
+  gems: 10
   gemsText: {fileID: 0}
   maxSpeed: 80
   speedText: {fileID: 0}
@@ -70,6 +71,7 @@ MonoBehaviour:
   passangers: 0
   passangerText: {fileID: 0}
   coinsPerPassanger: 40
+  trainAudioSource: {fileID: 0}
 --- !u!114 &995032294139566379
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -86,5 +88,5 @@ MonoBehaviour:
   currentCars: []
   spawnOffset: 4.4
   trainCollider: {fileID: 0}
-  colliderOffset: 20
+  colliderOffset: 35
   startPos: {x: -2.89, y: -1.15}

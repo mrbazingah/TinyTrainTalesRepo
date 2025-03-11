@@ -111,7 +111,7 @@ public class Slot : MonoBehaviour
         UpdateButtons();
     }
 
-    void CalculateCost()
+    public void CalculateCost()
     {
         if (hasBeenBought) { return; }
 
