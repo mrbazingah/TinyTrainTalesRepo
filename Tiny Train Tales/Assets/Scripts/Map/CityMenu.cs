@@ -6,11 +6,10 @@ using UnityEngine.SceneManagement;
 public class CityMenu : MonoBehaviour
 {
     [SerializeField] TextMeshProUGUI cityText;
+    [SerializeField] TextMeshProUGUI countrytext;
     [SerializeField] float speed;
 
     bool mouseIsOnMenu;
-
-    Color startColor;
 
     CityManager cityManager;
     GameManager gameManager;
@@ -48,5 +47,11 @@ public class CityMenu : MonoBehaviour
 
         int sceneIndex = SceneManager.GetActiveScene().buildIndex;
         SceneManager.LoadScene(sceneIndex);
+    }
+
+    public void SetTexts(string cityName, string countryName)
+    {
+        cityText.text = cityName;
+        countrytext.text = countryName;
     }
 }

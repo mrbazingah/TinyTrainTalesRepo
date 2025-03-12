@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -45,6 +46,11 @@ public class GameManager : MonoBehaviour
     [SerializeField] float coinsPerPassanger;
     [Header("Audio")]
     [SerializeField] AudioSource trainAudioSource;
+    [Header("Regions")]
+    [SerializeField] GameObject[] allRegions;
+    [SerializeField] List<GameObject> unlockedRegions;
+    [SerializeField] List<GameObject> unlockableRegions;
+    [SerializeField] List<int> unlockedRegionIndexes;
 
     float remainingDistance;
     float velocity;
@@ -74,7 +80,9 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+        UnlockNewRegion(1);
         PlayerPrefsSetUp();
+        LoadUnlockedRegions();
     }
 
     public void UpdateCityTexts()
@@ -82,6 +90,7 @@ public class GameManager : MonoBehaviour
         cityManager.UpdateCityTexts(currentCityText, destinationCityText);
     }
 
+    #region PlayerPrefs
     void PlayerPrefsSetUp()
     {
         if (PlayerPrefs.HasKey("MaxSpeed"))
@@ -174,6 +183,7 @@ public class GameManager : MonoBehaviour
         remainingDistance = Mathf.Round(remainingDistance);
         remainingDistanceText.text = remainingDistance.ToString() + "km";
     }
+    #endregion
 
     void Update()
     {
@@ -479,6 +489,66 @@ public class GameManager : MonoBehaviour
     {
         return subPassangers;
     }
+    #endregion
+
+    #region Regions
+    void LoadUnlockedRegions()
+    {
+        for (int i = 0; i < allRegions.Length; i++)
+        {
+            if (unlockedRegionIndexes.Count != 0)
+            {
+                for (int ii = 0; ii < unlockedRegionIndexes.Count; ii++)
+                {
+                    allRegions[unlockedRegionIndexes[ii]].GetComponent<Region>().SetCityActivity(true);
+                    unlockedRegions.Add(allRegions[i]);
+                }
+
+                if (!unlockedRegionIndexes.Contains(i))
+                {
+                    allRegions[i].GetComponent<Region>().SetCityActivity(false);
+                }
+
+                continue;
+            }
+
+
+            Region currentRegionScript = allRegions[i].GetComponent<Region>();
+
+            if (PlayerPrefs.HasKey("UnlockedRegion" + i))
+            {
+                currentRegionScript.SetCityActivity(true);
+                unlockedRegions.Add(allRegions[i]);
+            }
+            else
+            {
+                currentRegionScript.SetCityActivity(false);
+            }
+        }
+
+        for (int i = 0; i < unlockedRegions.Count; i++)
+        {
+            GameObject[] currentNeighbors = unlockedRegions[i].GetComponent<Region>().GetNeighbors();
+
+            for (int ii = 0; ii < currentNeighbors.Length; ii++)
+            {
+                if (unlockableRegions.Contains(currentNeighbors[ii])) { continue; }
+
+                unlockableRegions.Add(currentNeighbors[ii]);
+            }
+        }
+    }
+
+    public void UnlockNewRegion(int selectedRegionIndex)
+    {
+        //PlayerPrefs.SetInt("UnlockedRegion" + selectedRegionIndex, 1);
+    }
+
+    //Choose which region to start in
+    //Choose next region to unlock
+    //Turn off all cities and lines inside locked regions
+    //Keep track and remember which regions are unlocked
+    //Each region is assigned a number
     #endregion
 
     #region Save

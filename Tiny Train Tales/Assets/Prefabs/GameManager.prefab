@@ -59,7 +59,7 @@ MonoBehaviour:
   remainingDistanceText: {fileID: 0}
   currentCityText: {fileID: 0}
   destinationCityText: {fileID: 0}
-  decelerationOffset: 0.848
+  decelerationOffset: 0.847
   startStation: {fileID: 0}
   stationBlockPrefab: {fileID: 6283405741849151963, guid: 7effc8ca566350141806a29bf9d4d20e, type: 3}
   stationHasSpawned: 0
@@ -72,6 +72,9 @@ MonoBehaviour:
   passangerText: {fileID: 0}
   coinsPerPassanger: 40
   trainAudioSource: {fileID: 0}
+  covers:
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!114 &995032294139566379
 MonoBehaviour:
   m_ObjectHideFlags: 0

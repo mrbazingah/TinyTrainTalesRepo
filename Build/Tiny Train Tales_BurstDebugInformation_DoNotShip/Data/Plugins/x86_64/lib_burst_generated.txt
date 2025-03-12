@@ -1,4 +1,4 @@
-Library: C:\Users\fabian.hanssonvallg\Desktop\Unity Projekt\Egna Project\TinyTrainTalesRepo\Tiny Train Tales\Temp\BurstOutput\Data\Plugins\x86_64\lib_burst_generated
+Library: D:\Unity\Projects\TinyTrainTalesRepo\Tiny Train Tales\Temp\BurstOutput\Data\Plugins\x86_64\lib_burst_generated
 --platform=Windows
 --backend=burst-llvm-15
 --target=X64_SSE2
@@ -53,10 +53,10 @@ Library: C:\Users\fabian.hanssonvallg\Desktop\Unity Projekt\Egna Project\TinyTra
 --assembly-defines=mscorlib;
 --linker-options=PdbAltPath="Tiny Train Tales_Data/Plugins/x86_64/lib_burst_generated.pdb"
 --generate-link-xml=Temp\burst.link.xml
---temp-folder=C:\Users\fabian.hanssonvallg\Desktop\Unity Projekt\Egna Project\TinyTrainTalesRepo\Tiny Train Tales\Temp\Burst
---key-folder=C:/Program Files/Unity/Hub/Editor/2022.3.7f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport
---decode-folder=C:\Users\fabian.hanssonvallg\Desktop\Unity Projekt\Egna Project\TinyTrainTalesRepo\Tiny Train Tales\Library\Burst
---output=C:\Users\fabian.hanssonvallg\Desktop\Unity Projekt\Egna Project\TinyTrainTalesRepo\Tiny Train Tales\Temp\BurstOutput\Data\Plugins\x86_64\lib_burst_generated
+--temp-folder=D:\Unity\Projects\TinyTrainTalesRepo\Tiny Train Tales\Temp\Burst
+--key-folder=D:/Unity/Program/Editors/2022.3.7f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport
+--decode-folder=D:\Unity\Projects\TinyTrainTalesRepo\Tiny Train Tales\Library\Burst
+--output=D:\Unity\Projects\TinyTrainTalesRepo\Tiny Train Tales\Temp\BurstOutput\Data\Plugins\x86_64\lib_burst_generated
 --pdb-search-paths=Temp/ManagedSymbols/
 
 --method=Unity.Burst.BurstCompiler+BurstCompilerHelper, Unity.Burst, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null::IsBurstEnabled()--8c2be93e18276203cbd918daa2748a10
@@ -144,10 +144,10 @@ Library: C:\Users\fabian.hanssonvallg\Desktop\Unity Projekt\Egna Project\TinyTra
 --assembly-defines=mscorlib;
 --linker-options=PdbAltPath="Tiny Train Tales_Data/Plugins/x86_64/lib_burst_generated.pdb"
 --generate-link-xml=Temp\burst.link.xml
---temp-folder=C:\Users\fabian.hanssonvallg\Desktop\Unity Projekt\Egna Project\TinyTrainTalesRepo\Tiny Train Tales\Temp\Burst
---key-folder=C:/Program Files/Unity/Hub/Editor/2022.3.7f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport
---decode-folder=C:\Users\fabian.hanssonvallg\Desktop\Unity Projekt\Egna Project\TinyTrainTalesRepo\Tiny Train Tales\Library\Burst
---output=C:\Users\fabian.hanssonvallg\Desktop\Unity Projekt\Egna Project\TinyTrainTalesRepo\Tiny Train Tales\Temp\BurstOutput\Data\Plugins\x86_64\lib_burst_generated
+--temp-folder=D:\Unity\Projects\TinyTrainTalesRepo\Tiny Train Tales\Temp\Burst
+--key-folder=D:/Unity/Program/Editors/2022.3.7f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport
+--decode-folder=D:\Unity\Projects\TinyTrainTalesRepo\Tiny Train Tales\Library\Burst
+--output=D:\Unity\Projects\TinyTrainTalesRepo\Tiny Train Tales\Temp\BurstOutput\Data\Plugins\x86_64\lib_burst_generated
 --pdb-search-paths=Temp/ManagedSymbols/
 
 --method=Unity.Burst.BurstCompiler+BurstCompilerHelper, Unity.Burst, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null::IsBurstEnabled()--8c2be93e18276203cbd918daa2748a10

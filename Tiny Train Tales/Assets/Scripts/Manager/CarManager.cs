@@ -25,12 +25,7 @@ public class CarManager : MonoBehaviour
 
     void Start()
     {
-        if (carPrefab == null)
-        {
-            Debug.LogError("Car Prefab is not assigned!");
-            return;
-        }
-
+        if (carPrefab == null) return;
         currentCars = SetUpCars();
     }
 

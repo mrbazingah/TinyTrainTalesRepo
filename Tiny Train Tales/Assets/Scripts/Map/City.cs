@@ -9,6 +9,7 @@ public class City : MonoBehaviour
     [SerializeField] GameObject[] neighborLines;
 
     string cityName;
+    string countryName;
 
     CityMenu cityMenuScript;
 
@@ -20,6 +21,8 @@ public class City : MonoBehaviour
     void Start()
     {
         cityName = gameObject.name;
+        countryName = transform.parent.name;
+
         cityMenu?.SetActive(false);
     }
 
@@ -43,8 +46,13 @@ public class City : MonoBehaviour
     public void OpenMenu()
     {
         cityMenu?.SetActive(true);
-        TextMeshProUGUI nameText = cityMenu.GetComponentInChildren<TextMeshProUGUI>();
-        nameText.text = cityName;
+
+        if (cityMenuScript == null)
+        {
+            cityMenuScript = FindObjectOfType<CityMenu>();
+        }
+
+        cityMenuScript.SetTexts(cityName, countryName);
     }
 
     public void CloseMenu()

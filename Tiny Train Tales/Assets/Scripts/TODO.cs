@@ -3,7 +3,6 @@ using UnityEngine;
 public class TODO : MonoBehaviour
 {
     //--------Priority--------
-    //Make every city
     //Make it so it can reach every city
 
     //Quests:
@@ -21,7 +20,6 @@ public class TODO : MonoBehaviour
     //Passanger Icon
     //Coins Icon
     //Train Image
-    //Leave Station Button
     //The Whole Background
     //Station
     //Cursor

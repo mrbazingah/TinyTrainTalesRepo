@@ -6,7 +6,7 @@ public class Slot : MonoBehaviour
 {
     [SerializeField] float pricePerPoint;
     [SerializeField] float startPrice;
-    [SerializeField] float priceOffset;
+    [SerializeField] float priceIncrease;
     [Space]
     [SerializeField] TextMeshProUGUI weightText;
     [SerializeField] TextMeshProUGUI speedText;
@@ -17,6 +17,7 @@ public class Slot : MonoBehaviour
     [Space]
     [SerializeField] Color cantBuyColor;
     [SerializeField] Color originalColor;
+    [SerializeField] string slotID; // Unique identifier for PlayerPrefs keys
 
     [SerializeField] float cost;
     bool hasBeenBought;
@@ -25,6 +26,8 @@ public class Slot : MonoBehaviour
     int weight;
     int speed;
     int income;
+
+    int timesBought;
 
     Button button;
     ColorBlock buyColorBlock;
@@ -35,6 +38,12 @@ public class Slot : MonoBehaviour
 
     void Awake()
     {
+        // Ensure slotID is set; if empty, use the GameObject's name.
+        if (string.IsNullOrEmpty(slotID))
+        {
+            slotID = gameObject.name;
+        }
+
         gameManager = FindObjectOfType<GameManager>();
         carManager = FindObjectOfType<CarManager>();
         upgradeManager = FindObjectOfType<UpgradeManager>();
@@ -50,91 +59,67 @@ public class Slot : MonoBehaviour
 
     public void SetUpSlot()
     {
-        int pastDay = PlayerPrefs.GetInt(gameObject.name + "PastDay");
-        int pasthMonth = PlayerPrefs.GetInt(gameObject.name + "PastMonth");
-        int pastYear = PlayerPrefs.GetInt(gameObject.name + "PastYear");
-
-        int currentDay = System.DateTime.Now.Day;
-        int currentMonth = System.DateTime.Now.Month;
-        int currentYear = System.DateTime.Now.Year;
-
-        if (pastDay < currentDay || pasthMonth < currentMonth || pastYear < currentYear)
+        string keyPrefix = slotID;
+        // Use a single string to track the last update date in YYYYMMDD format.
+        string pastDate = PlayerPrefs.GetString(keyPrefix + "PastDate", "");
+        string currentDate = System.DateTime.Now.ToString("yyyyMMdd");
+        if (pastDate != currentDate)
         {
-            PlayerPrefs.DeleteKey(gameObject.name + "Weight");
-            PlayerPrefs.DeleteKey(gameObject.name + "Speed");
-            PlayerPrefs.DeleteKey(gameObject.name + "Income");
-            PlayerPrefs.DeleteKey(gameObject.name + "HasBeenBought");
+            // Reset keys if it’s a new day
+            PlayerPrefs.DeleteKey(keyPrefix + "Weight");
+            PlayerPrefs.DeleteKey(keyPrefix + "Speed");
+            PlayerPrefs.DeleteKey(keyPrefix + "Income");
+            PlayerPrefs.DeleteKey(keyPrefix + "HasBeenBought");
 
-            PlayerPrefs.SetInt(gameObject.name + "PastDay", currentDay);
-            PlayerPrefs.SetInt(gameObject.name + "PastMonth", currentMonth);
-            PlayerPrefs.SetInt(gameObject.name + "PastYear", currentYear);
+            PlayerPrefs.SetString(keyPrefix + "PastDate", currentDate);
         }
 
-        if (PlayerPrefs.HasKey(gameObject.name + "Weight"))
+        if (PlayerPrefs.HasKey(keyPrefix + "Weight"))
         {
-            weight = PlayerPrefs.GetInt(gameObject.name + "Weight");
-            speed = PlayerPrefs.GetInt(gameObject.name + "Speed");
-            income = PlayerPrefs.GetInt(gameObject.name + "Income");
+            weight = PlayerPrefs.GetInt(keyPrefix + "Weight");
+            speed = PlayerPrefs.GetInt(keyPrefix + "Speed");
+            income = PlayerPrefs.GetInt(keyPrefix + "Income");
 
-            hasBeenBought = PlayerPrefs.HasKey(gameObject.name + "HasBeenBought");
+            hasBeenBought = PlayerPrefs.HasKey(keyPrefix + "HasBeenBought");
             cross.SetActive(hasBeenBought);
         }
         else
         {
             weight = Random.Range(1, 6);
-            PlayerPrefs.SetInt(gameObject.name + "Weight", weight);
+            PlayerPrefs.SetInt(keyPrefix + "Weight", weight);
 
             speed = Random.Range(1, 6);
-            PlayerPrefs.SetInt(gameObject.name + "Speed", speed);
+            PlayerPrefs.SetInt(keyPrefix + "Speed", speed);
 
             income = Random.Range(1, 6);
-            PlayerPrefs.SetInt(gameObject.name + "Income", income);
+            PlayerPrefs.SetInt(keyPrefix + "Income", income);
         }
 
         weightText.text = "Weight: " + weight.ToString() + "/5";
         speedText.text = "Speed: " + speed.ToString() + "/5";
         incomeText.text = "Income: " + income.ToString() + "/5";
 
-        if (PlayerPrefs.HasKey(gameObject.name + "Cost"))
-        {
-            cost = PlayerPrefs.GetFloat(gameObject.name + "Cost");
-            costText.text = cost.ToString();
-        }
-        else
-        {
-            CalculateCost();
-        }
+        CalculateCost();
     }
 
     void Update()
     {
         UpdateButtons();
+        // If coins or external factors change, cost may need to be recalculated.
+        // Consider optimizing this update call if performance becomes an issue.
+        CalculateCost();
     }
 
     public void CalculateCost()
     {
         if (hasBeenBought) { return; }
 
-        float networth = gameManager.GetNetworth();
+        timesBought = PlayerPrefs.GetInt("TimesBought");
 
-        // Calculate a slot quality metric.
-        // Higher speed and income improve quality, while weight detracts.
-        float slotQuality = Mathf.Max(1, (speed + income - weight));
-
-        // Use a scaling factor to adjust how networth influences the cost.
-        // For example, if networth is 5000 and scalingFactor is 10000, multiplier becomes 1 + (5000/10000) = 1.5.
-        float costMultiplier = 1 + (networth / priceOffset);
-
-        // Apply exponential scaling to emphasize differences in slot quality.
-        float exponent = 1.2f; // Adjust for more/less aggressive scaling.
-        float baseCost = startPrice + pricePerPoint * Mathf.Pow(slotQuality, exponent);
-
-        cost = Mathf.Round(baseCost * costMultiplier);
-
-        // Update the UI with the calculated cost.
+        // Calculate cost using startPrice as a base and ensure the cost is not negative.
+        cost = startPrice + (speed + income - weight) * pricePerPoint + (timesBought * priceIncrease);
+        cost = Mathf.Max(cost, 0f);
         costText.text = cost.ToString();
-
-        PlayerPrefs.SetFloat(gameObject.name + "Cost", cost);
     }
 
     void UpdateButtons()
@@ -165,18 +150,22 @@ public class Slot : MonoBehaviour
         cross.SetActive(true);
         hasBeenBought = true;
 
-        PlayerPrefs.SetString(gameObject.name + "HasBeenBought", "hey");
+        string keyPrefix = slotID;
+        // Save the purchase state so it persists across sessions.
+        PlayerPrefs.SetInt(keyPrefix + "HasBeenBought", 1);
+
+        timesBought = PlayerPrefs.GetInt("TimesBought");
+        PlayerPrefs.SetInt("TimesBought", timesBought + 1);
     }
 
     public void ResetPlayerPrefs()
     {
-        PlayerPrefs.DeleteKey(gameObject.name + "HasBeenBought");
-        PlayerPrefs.DeleteKey(gameObject.name + "Weight");
-        PlayerPrefs.DeleteKey(gameObject.name + "Speed");
-        PlayerPrefs.DeleteKey(gameObject.name + "Income");
-        PlayerPrefs.DeleteKey(gameObject.name + "PastDay");
-        PlayerPrefs.DeleteKey(gameObject.name + "PastMonth");
-        PlayerPrefs.DeleteKey(gameObject.name + "PastYear");
+        string keyPrefix = slotID;
+        PlayerPrefs.DeleteKey(keyPrefix + "HasBeenBought");
+        PlayerPrefs.DeleteKey(keyPrefix + "Weight");
+        PlayerPrefs.DeleteKey(keyPrefix + "Speed");
+        PlayerPrefs.DeleteKey(keyPrefix + "Income");
+        PlayerPrefs.DeleteKey(keyPrefix + "PastDate");
 
         hasBeenBought = false;
         cross.SetActive(false);
