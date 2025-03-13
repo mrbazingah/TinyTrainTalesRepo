@@ -11,17 +11,17 @@ public class PathFinding : MonoBehaviour
 
         if (nextCity != null)
         {
-            // Add nextCity as the first city in the path
+            // Add nextCity as the first city in the path.
             fullPath.Add(nextCity);
 
-            // Find path from nextCity to targetCity
+            // Find path from nextCity to targetCity.
             List<GameObject> pathFromNextCityToTarget = FindPathInternal(nextCity, targetCity);
             if (pathFromNextCityToTarget == null)
             {
-                return null; // No path found from nextCity to targetCity
+                return null; // No path found.
             }
 
-            // Combine paths, skipping the first element to avoid duplication
+            // Combine paths (skipping the duplicate).
             fullPath.AddRange(pathFromNextCityToTarget);
         }
         else
@@ -37,7 +37,6 @@ public class PathFinding : MonoBehaviour
         Node startNode = new Node(startCity);
         Node targetNode = new Node(targetCity);
 
-        // Initialize startNode with 0 cost since it is the starting point
         startNode.gCost = 0;
         startNode.hCost = GetDistance(startCity, targetCity);
 
@@ -54,10 +53,9 @@ public class PathFinding : MonoBehaviour
                 Debug.LogError("Max iterations reached, unable to find path.");
                 return null;
             }
-
             iterations++;
 
-            // Get the node in openSet with the lowest FCost
+            // Get the node in openSet with the lowest FCost.
             Node currentNode = openSet[0];
             for (int i = 1; i < openSet.Count; i++)
             {
@@ -71,38 +69,37 @@ public class PathFinding : MonoBehaviour
             openSet.Remove(currentNode);
             closedSet.Add(currentNode);
 
-            // If the target city is reached, retrace the path
+            // Check if target is reached.
             if (currentNode.City == targetCity)
             {
                 return RetracePath(startNode, currentNode);
             }
 
-            // Check each neighbor of the current node
+            // Process each neighbor.
             foreach (GameObject neighborCity in currentNode.GetCityNeighbors())
             {
+                // Skip if neighbor is locked (inactive).
+                if (!neighborCity.activeInHierarchy)
+                    continue;
+
                 Node neighborNode = new Node(neighborCity);
 
-                // Skip if already processed
                 if (closedSet.Contains(neighborNode))
-                {
                     continue;
-                }
 
                 int tentativeGCost = currentNode.gCost + GetDistance(currentNode.City, neighborCity);
 
-                // Check if the neighbor is already in openSet
                 bool inOpenSet = false;
                 foreach (Node node in openSet)
                 {
                     if (node.Equals(neighborNode))
                     {
-                        neighborNode = node; // Use the existing node
+                        neighborNode = node; // Use the existing node.
                         inOpenSet = true;
                         break;
                     }
                 }
 
-                // Update the neighbor's costs if a better path is found
                 if (tentativeGCost < neighborNode.gCost || !inOpenSet)
                 {
                     neighborNode.gCost = tentativeGCost;
@@ -116,8 +113,7 @@ public class PathFinding : MonoBehaviour
                 }
             }
         }
-
-        // No path found
+        // No path found.
         return null;
     }
 
@@ -137,14 +133,13 @@ public class PathFinding : MonoBehaviour
 
     static int GetDistance(GameObject cityA, GameObject cityB)
     {
-        // Uses Euclidean distance; adjust if you need a different metric.
         return Mathf.RoundToInt(Vector3.Distance(cityA.transform.position, cityB.transform.position));
     }
 
     class Node
     {
         public GameObject City;
-        public int gCost = int.MaxValue; // Set to maximum so that any computed cost will be lower
+        public int gCost = int.MaxValue;
         public int hCost;
         public Node parent;
 
@@ -161,7 +156,6 @@ public class PathFinding : MonoBehaviour
             return cityScript != null ? cityScript.GetCityNeighbors() : new GameObject[0];
         }
 
-        // Override equality so that nodes with the same city are considered equal
         public override bool Equals(object obj)
         {
             if (obj == null) return false;

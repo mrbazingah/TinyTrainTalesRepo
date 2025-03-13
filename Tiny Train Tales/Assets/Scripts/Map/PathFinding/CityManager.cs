@@ -21,7 +21,7 @@ public class CityManager : MonoBehaviour
 
     void Awake()
     {
-        gameManager = FindObjectOfType<GameManager>();   
+        gameManager = FindObjectOfType<GameManager>();
         pathfinding = FindObjectOfType<PathFinding>();
     }
 
@@ -39,7 +39,7 @@ public class CityManager : MonoBehaviour
 
             FindPathAtStart(currentCity, destinationCity);
         }
-        else if (destinationCity != null) 
+        else if (destinationCity != null)
         {
             FindPathAtStart(currentCity, destinationCity);
         }
@@ -119,8 +119,22 @@ public class CityManager : MonoBehaviour
         City currentCityScript = currentCity.GetComponent<City>();
         GameObject[] currentCityNeighbors = currentCityScript.GetCityNeighbors();
 
-        int nextCityInt = (int)Random.Range(0, currentCityNeighbors.Length);
-        destinationCity = currentCityNeighbors[nextCityInt];
+        // Filter out locked (inactive) cities.
+        List<GameObject> unlockedNeighbors = new List<GameObject>();
+        foreach (GameObject neighbor in currentCityNeighbors)
+        {
+            if (neighbor.activeInHierarchy)
+                unlockedNeighbors.Add(neighbor);
+        }
+
+        if (unlockedNeighbors.Count == 0)
+        {
+            Debug.LogWarning("No unlocked neighbors available from the current city!");
+            return;
+        }
+
+        int nextCityInt = Random.Range(0, unlockedNeighbors.Count);
+        destinationCity = unlockedNeighbors[nextCityInt];
 
         FindPathAtStart(currentCity, destinationCity);
         ColorAll();
@@ -143,7 +157,7 @@ public class CityManager : MonoBehaviour
 
         GameObject[] cityNeighbors = cityScript.GetCityNeighbors();
         GameObject[] cityNeighborLines = cityScript.GetCityNeighborLines();
-        
+
         for (int j = 0; j < cityNeighbors.Length; j++)
         {
             if (i != path.Count - 1)
@@ -201,8 +215,8 @@ public class CityManager : MonoBehaviour
         return nextCity;
     }
 
-    public GameObject GetDestinationCity() 
-    { 
+    public GameObject GetDestinationCity()
+    {
         return destinationCity;
     }
 
