@@ -6,7 +6,7 @@ using UnityEngine.EventSystems;
 public class Region : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
 {
     [SerializeField] GameObject[] neighbors;
-    [SerializeField] public GameObject[] regionCities; // For global access.
+    [SerializeField] GameObject[] regionCities; // For global access.
     [SerializeField] List<GameObject> regionCitiesLines;
     [SerializeField] GameObject cover;
     [SerializeField] Color selectColor;
@@ -19,82 +19,105 @@ public class Region : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler,
 
     void Start()
     {
+        if (cover == null)
+        {
+            Debug.LogError("Cover is not assigned in " + gameObject.name);
+            return;
+        }
         coverImage = cover.GetComponent<Image>();
-        startColor = coverImage.color;
+        if (coverImage == null)
+        {
+            Debug.LogError("Cover does not have an Image component on " + cover.name);
+        }
+        else
+        {
+            startColor = coverImage.color;
+        }
     }
 
     public void SetCityActivity(bool active)
     {
         isUnlocked = active;
 
-        // Set each city's active state and gather its connection lines.
-        for (int i = 0; i < regionCities.Length; i++)
+        // Activate or deactivate each city and collect their connection lines.
+        foreach (GameObject city in regionCities)
         {
-            if (regionCities[i] == null)
+            if (city == null)
                 continue;
 
-            regionCities[i].SetActive(isUnlocked);
-
-            City cityComp = regionCities[i].GetComponent<City>();
+            city.SetActive(isUnlocked);
+            City cityComp = city.GetComponent<City>();
             if (cityComp == null)
             {
-                Debug.LogWarning("City component missing on " + regionCities[i].name);
+                Debug.LogWarning("City component missing on " + city.name);
                 continue;
             }
 
-            GameObject[] currentCityLines = cityComp.GetCityNeighborLines();
-            for (int ii = 0; ii < currentCityLines.Length; ii++)
+            GameObject[] cityLines = cityComp.GetCityNeighborLines();
+            foreach (GameObject line in cityLines)
             {
-                if (currentCityLines[ii] == null)
+                if (line == null)
                     continue;
-
-                if (!regionCitiesLines.Contains(currentCityLines[ii]))
+                if (!regionCitiesLines.Contains(line))
                 {
-                    regionCitiesLines.Add(currentCityLines[ii]);
+                    regionCitiesLines.Add(line);
                 }
-                currentCityLines[ii].SetActive(isUnlocked);
+                line.SetActive(isUnlocked);
             }
         }
 
-        // The cover is active when the region is locked.
+        // When the region is locked (not unlocked), ensure the cover is active.
         if (cover != null)
         {
             cover.SetActive(!isUnlocked);
         }
     }
 
-    // IPointerClickHandler implementation.
+    // IPointerClickHandler: called when this object is clicked.
     public void OnPointerClick(PointerEventData eventData)
     {
-        // Change the cover color on click.
-        coverImage.color = selectColor;
-        // If the region is locked, always keep the cover active.
-        // Otherwise, toggle its active state.
+        Debug.Log("Region " + gameObject.name + " was clicked.");
+        if (coverImage != null)
+        {
+            coverImage.color = selectColor;
+            Debug.Log("Cover color set to " + selectColor);
+        }
+        // If locked, keep the cover on. If unlocked, toggle its active state.
         if (!isUnlocked)
         {
             cover.SetActive(true);
+            Debug.Log("Region is locked, so cover remains active.");
         }
         else
         {
-            cover.SetActive(!cover.activeSelf);
+            bool newState = !cover.activeSelf;
+            cover.SetActive(newState);
+            Debug.Log("Region is unlocked, toggling cover to " + newState);
         }
     }
 
-    // IPointerEnterHandler implementation.
+    // IPointerEnterHandler: fires when pointer enters the area.
     public void OnPointerEnter(PointerEventData eventData)
     {
         mouseOver = true;
+        Debug.Log("Pointer entered " + gameObject.name);
     }
 
-    // IPointerExitHandler implementation.
+    // IPointerExitHandler: fires when pointer exits the area.
     public void OnPointerExit(PointerEventData eventData)
     {
         mouseOver = false;
+        Debug.Log("Pointer exited " + gameObject.name);
     }
 
-    // Returns the region's neighbor GameObjects.
+    // Returns the region's neighbors.
     public GameObject[] GetNeighbors()
     {
         return neighbors;
+    }
+
+    public GameObject[] GetRegionCities()
+    {
+        return regionCities;
     }
 }

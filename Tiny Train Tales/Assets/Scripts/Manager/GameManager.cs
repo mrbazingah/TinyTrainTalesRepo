@@ -569,7 +569,7 @@ public class GameManager : MonoBehaviour
                 continue;
 
             // Loop through each city in this region.
-            foreach (GameObject cityObj in regionScript.regionCities)
+            foreach (GameObject cityObj in regionScript.GetRegionCities())
             {
                 if (cityObj == null)
                     continue;
