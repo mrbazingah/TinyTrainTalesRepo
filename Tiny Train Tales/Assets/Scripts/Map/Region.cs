@@ -7,24 +7,19 @@ public class Region : MonoBehaviour
     [SerializeField] GameObject[] neighbors;
     [SerializeField] GameObject[] regionCities; 
     [SerializeField] List<GameObject> regionCitiesLines;
-    [SerializeField] Color selectColor; 
+    [SerializeField] Color selectColor;
+    [SerializeField] GameObject unlockButton;
 
     Image coverImage;   
-    Color startColor;   
+    Color startColor;
 
     bool isUnlocked;    
-    bool mouseIsOver;   
+    bool mouseIsOver;
+    bool isSelected;
 
     void Start()
     {
-        // Get the Image component from the same GameObject (this is your cover)
         coverImage = GetComponent<Image>();
-        if (coverImage == null)
-        {
-            Debug.LogError("No Image component found on " + gameObject.name);
-            return;
-        }
-        // Save the original color (which should have a nonzero alpha)
         startColor = coverImage.color;
     }
 
@@ -80,23 +75,27 @@ public class Region : MonoBehaviour
 
     void Update()
     {
-        // When the mouse is over this region and clicked, change the cover color to selectColor.
-        if (mouseIsOver && Input.GetKeyDown(KeyCode.Mouse0))
+        if (!mouseIsOver && Input.GetKeyDown(KeyCode.Mouse0))
         {
-            coverImage.color = selectColor;
-        }
-        // When clicking outside this region (mouse not over), reset to startColor.
-        else if (!mouseIsOver && Input.GetKeyDown(KeyCode.Mouse0))
-        {
-            // Reset the color to the starting color.
             coverImage.color = startColor;
-            // If the region is unlocked, make it invisible (alpha 0).
+
             if (isUnlocked)
             {
                 coverImage.color = new Color(startColor.r, startColor.g, startColor.b, 0f);
             }
-            // Otherwise (if locked), keep the original visible color.
+
+            unlockButton.SetActive(false);
         }
+        else if (mouseIsOver && Input.GetKeyDown(KeyCode.Mouse0))
+        {
+            coverImage.color = selectColor;
+            unlockButton.SetActive(true);
+        }
+    }
+
+    public void OnButtonClick()
+    {
+       Debug.Log("Button Clicked");    
     }
 
     void OnMouseEnter()
@@ -117,5 +116,10 @@ public class Region : MonoBehaviour
     public GameObject[] GetRegionCities()
     {
         return regionCities;
+    }
+
+    public bool GetIsSelected()
+    {
+        return isSelected;
     }
 }

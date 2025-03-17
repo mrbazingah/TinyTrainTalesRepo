@@ -70,7 +70,6 @@ public class City : MonoBehaviour
         return cityNeighborsDistances;
     }
 
-    // Returns the connection lines this city uses.
     public GameObject[] GetCityNeighborLines()
     {
         return neighborLines;
