@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class Region : MonoBehaviour
@@ -9,6 +10,9 @@ public class Region : MonoBehaviour
     [SerializeField] List<GameObject> regionCitiesLines;
     [SerializeField] Color selectColor;
     [SerializeField] GameObject unlockButton;
+    [SerializeField] int regionNumber;
+    [SerializeField] string startCity;
+    [SerializeField] string destinationCity;
 
     Image coverImage;   
     Color startColor;
@@ -17,8 +21,11 @@ public class Region : MonoBehaviour
     bool mouseIsOver;
     bool isSelected;
 
+    GameManager gameManager;
+
     void Start()
     {
+        gameManager = FindObjectOfType<GameManager>();
         coverImage = GetComponent<Image>();
         startColor = coverImage.color;
     }
@@ -27,7 +34,6 @@ public class Region : MonoBehaviour
     {
         isUnlocked = active;
 
-        // Update each city in the region and collect connection lines.
         for (int i = 0; i < regionCities.Length; i++)
         {
             if (regionCities[i] == null)
@@ -52,22 +58,18 @@ public class Region : MonoBehaviour
                 {
                     regionCitiesLines.Add(currentCityLines[ii]);
                 }
-                // Set the connection line's active state based on region state.
                 currentCityLines[ii].SetActive(isUnlocked);
             }
         }
 
-        // Instead of turning off the cover, adjust its transparency.
         if (coverImage != null)
         {
             if (isUnlocked)
             {
-                // Unlocked: make cover invisible by setting alpha to 0.
                 coverImage.color = new Color(startColor.r, startColor.g, startColor.b, 0f);
             }
             else
             {
-                // Locked: show the cover with its original color.
                 coverImage.color = startColor;
             }
         }
@@ -93,9 +95,20 @@ public class Region : MonoBehaviour
         }
     }
 
-    public void OnButtonClick()
+    public void UnlockButton()
     {
-       Debug.Log("Button Clicked");    
+        if (SceneManager.GetActiveScene().name == "StartScene")
+        {
+            PlayerPrefs.SetInt("UnlockedRegion" + regionNumber.ToString(), 1);
+            PlayerPrefs.SetString("CurrentCity", startCity);
+            PlayerPrefs.SetString("DestinationCity", destinationCity);
+
+            SceneManager.LoadScene("GameScene");
+        }
+        else
+        {
+            gameManager.UnlockNewRegion(regionNumber);
+        }
     }
 
     void OnMouseEnter()

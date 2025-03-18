@@ -72,9 +72,16 @@ MonoBehaviour:
   passangerText: {fileID: 0}
   coinsPerPassanger: 40
   trainAudioSource: {fileID: 0}
-  covers:
+  allRegions:
   - {fileID: 0}
   - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  unlockedRegions: []
+  unlockableRegions: []
+  unlockedRegionIndexes: 
 --- !u!114 &995032294139566379
 MonoBehaviour:
   m_ObjectHideFlags: 0

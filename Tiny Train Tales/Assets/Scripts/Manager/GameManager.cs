@@ -493,12 +493,10 @@ public class GameManager : MonoBehaviour
     #region Regions
     void LoadUnlockedRegions()
     {
-        // Process each region.
         for (int i = 0; i < allRegions.Length; i++)
         {
             Region currentRegionScript = allRegions[i].GetComponent<Region>();
 
-            // If there are manually tracked unlocked region indexes, use those.
             if (PlayerPrefs.HasKey("UnlockedRegion" + i))
             {
                 currentRegionScript.SetCityActivity(true);
@@ -530,11 +528,8 @@ public class GameManager : MonoBehaviour
                 }
             }
 
-            // Fallback to using PlayerPrefs.
-            
         }
 
-        // Process neighbor regions.
         for (int i = 0; i < unlockedRegions.Count; i++)
         {
             GameObject[] currentNeighbors = unlockedRegions[i].GetComponent<Region>().GetNeighbors();
@@ -547,28 +542,19 @@ public class GameManager : MonoBehaviour
             }
         }
 
-        // Finally, update all connection lines globally.
         UpdateAllConnectionLines();
     }
 
-    /// <summary>
-    /// Checks every connection line (from every city's City script) and sets its active state.
-    /// A connection line will be active only if all the cities that reference it are active.
-    /// This ensures that if one region is locked, its city (and thus its shared connection) takes priority.
-    /// </summary>
     void UpdateAllConnectionLines()
     {
-        // Dictionary to map each line to the list of cities that reference it.
         Dictionary<GameObject, List<GameObject>> lineToCities = new Dictionary<GameObject, List<GameObject>>();
 
-        // Loop through every region.
         foreach (GameObject regionObj in allRegions)
         {
             Region regionScript = regionObj.GetComponent<Region>();
             if (regionScript == null)
                 continue;
 
-            // Loop through each city in this region.
             foreach (GameObject cityObj in regionScript.GetRegionCities())
             {
                 if (cityObj == null)
@@ -587,7 +573,6 @@ public class GameManager : MonoBehaviour
                     if (line == null)
                         continue;
 
-                    // Add this city to the mapping for the line.
                     if (!lineToCities.ContainsKey(line))
                     {
                         lineToCities[line] = new List<GameObject>();
@@ -600,7 +585,6 @@ public class GameManager : MonoBehaviour
             }
         }
 
-        // For each connection line, if any connected city is inactive, turn the line off.
         foreach (var kvp in lineToCities)
         {
             GameObject line = kvp.Key;
@@ -615,24 +599,16 @@ public class GameManager : MonoBehaviour
                 }
             }
             line.SetActive(allCitiesActive);
-            // Uncomment below for debugging:
-            // Debug.Log("Line " + line.name + " set to " + allCitiesActive);
         }
     }
 
     public void UnlockNewRegion(int selectedRegionIndex)
     {
-        PlayerPrefs.SetInt("UnlockedRegion" + selectedRegionIndex, 1);
+        PlayerPrefs.SetInt("UnlockedRegion" + selectedRegionIndex.ToString(), 1);
 
         int sceneIndex = SceneManager.GetActiveScene().buildIndex;
         SceneManager.LoadScene(sceneIndex);
     }
-
-    //Choose which region to start in
-    //Choose next region to unlock
-    //Turn off all cities and lines inside locked regions
-    //Keep track and remember which regions are unlocked
-    //Each region is assigned a number
     #endregion
 
     #region Save
@@ -669,8 +645,7 @@ public class GameManager : MonoBehaviour
     {
         PlayerPrefs.DeleteAll();
 
-        int currentScene = SceneManager.GetActiveScene().buildIndex;
-        SceneManager.LoadScene(currentScene);
+        SceneManager.LoadScene("StartScene");
     }
 
     public void SaveAll()
