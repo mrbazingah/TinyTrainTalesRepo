@@ -91,7 +91,11 @@ public class Region : MonoBehaviour
         else if (mouseIsOver && Input.GetKeyDown(KeyCode.Mouse0))
         {
             coverImage.color = selectColor;
-            unlockButton.SetActive(true);
+
+            if (!isUnlocked)
+            {
+                unlockButton.SetActive(true);
+            }
         }
     }
 

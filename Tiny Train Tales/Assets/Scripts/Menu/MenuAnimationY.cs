@@ -1,4 +1,6 @@
+using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class MenuAnimationY : MonoBehaviour
 {
@@ -61,7 +63,7 @@ public class MenuAnimationY : MonoBehaviour
     public void StartAnimation()
     {
         MenuAnimationX otherMenu = FindObjectOfType<MenuAnimationX>();
-        otherMenu.ResetAnimation(true);
+        otherMenu?.ResetAnimation(true);
 
         startAnimation = true;
         cam.LockMovement(true);

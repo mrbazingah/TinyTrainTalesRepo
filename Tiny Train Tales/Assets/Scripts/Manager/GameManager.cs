@@ -606,6 +606,8 @@ public class GameManager : MonoBehaviour
     {
         PlayerPrefs.SetInt("UnlockedRegion" + selectedRegionIndex.ToString(), 1);
 
+        SaveAll();
+
         int sceneIndex = SceneManager.GetActiveScene().buildIndex;
         SceneManager.LoadScene(sceneIndex);
     }
