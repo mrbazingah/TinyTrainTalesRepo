@@ -703,7 +703,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 0.07
   destination: 0.3
-  delay: 0.75
 --- !u!4 &684118420 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3604225267333160776, guid: c7ea1122520ed4a4cb5d16a045e32170, type: 3}
@@ -978,7 +977,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 0.07
   destination: -0.27
-  delay: 0.75
 --- !u!4 &799642288 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3698300565624578289, guid: 9b797d9fd317e8b4a9944f5360d2e194, type: 3}

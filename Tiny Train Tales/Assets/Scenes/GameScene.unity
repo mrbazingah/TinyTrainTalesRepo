@@ -18853,46 +18853,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Covers
       objectReference: {fileID: 0}
-    - target: {fileID: 436048169493060943, guid: dc1bfdbc641dfd0408dec2fc6a021680, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 577494931451384344, guid: dc1bfdbc641dfd0408dec2fc6a021680, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1029241096913200406, guid: dc1bfdbc641dfd0408dec2fc6a021680, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1248698228072870437, guid: dc1bfdbc641dfd0408dec2fc6a021680, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2012792979056816880, guid: dc1bfdbc641dfd0408dec2fc6a021680, type: 3}
-      propertyPath: m_Color.a
-      value: 0.6784314
-      objectReference: {fileID: 0}
-    - target: {fileID: 2012792979056816880, guid: dc1bfdbc641dfd0408dec2fc6a021680, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2337964983980857856, guid: dc1bfdbc641dfd0408dec2fc6a021680, type: 3}
-      propertyPath: m_Color.a
-      value: 0.6784314
-      objectReference: {fileID: 0}
-    - target: {fileID: 2337964983980857856, guid: dc1bfdbc641dfd0408dec2fc6a021680, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2615992952564274669, guid: dc1bfdbc641dfd0408dec2fc6a021680, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3629744322197800428, guid: dc1bfdbc641dfd0408dec2fc6a021680, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 4207713683963976141, guid: dc1bfdbc641dfd0408dec2fc6a021680, type: 3}
       propertyPath: regionCities.Array.data[0]
       value: 
@@ -18989,18 +18949,6 @@ PrefabInstance:
       propertyPath: regionCities.Array.data[11]
       value: 
       objectReference: {fileID: 129463719}
-    - target: {fileID: 6131632155508622628, guid: dc1bfdbc641dfd0408dec2fc6a021680, type: 3}
-      propertyPath: m_Color.a
-      value: 0.6784314
-      objectReference: {fileID: 0}
-    - target: {fileID: 6131632155508622628, guid: dc1bfdbc641dfd0408dec2fc6a021680, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6533407774985977864, guid: dc1bfdbc641dfd0408dec2fc6a021680, type: 3}
-      propertyPath: regionCities.Array.size
-      value: 14
-      objectReference: {fileID: 0}
     - target: {fileID: 6533407774985977864, guid: dc1bfdbc641dfd0408dec2fc6a021680, type: 3}
       propertyPath: regionCities.Array.data[0]
       value: 
@@ -19057,26 +19005,6 @@ PrefabInstance:
       propertyPath: regionCities.Array.data[13]
       value: 
       objectReference: {fileID: 1847993419}
-    - target: {fileID: 6989285563346059972, guid: dc1bfdbc641dfd0408dec2fc6a021680, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7911138384216211829, guid: dc1bfdbc641dfd0408dec2fc6a021680, type: 3}
-      propertyPath: m_Color.a
-      value: 0.6784314
-      objectReference: {fileID: 0}
-    - target: {fileID: 7911138384216211829, guid: dc1bfdbc641dfd0408dec2fc6a021680, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8389241405125575192, guid: dc1bfdbc641dfd0408dec2fc6a021680, type: 3}
-      propertyPath: m_Color.a
-      value: 0.6784314
-      objectReference: {fileID: 0}
-    - target: {fileID: 8389241405125575192, guid: dc1bfdbc641dfd0408dec2fc6a021680, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 8629232783950040287, guid: dc1bfdbc641dfd0408dec2fc6a021680, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -19225,14 +19153,6 @@ PrefabInstance:
       propertyPath: regionCities.Array.data[16]
       value: 
       objectReference: {fileID: 168545724}
-    - target: {fileID: 9153752422954562993, guid: dc1bfdbc641dfd0408dec2fc6a021680, type: 3}
-      propertyPath: m_Color.a
-      value: 0.6784314
-      objectReference: {fileID: 0}
-    - target: {fileID: 9153752422954562993, guid: dc1bfdbc641dfd0408dec2fc6a021680, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 9164803575513150260, guid: dc1bfdbc641dfd0408dec2fc6a021680, type: 3}
       propertyPath: regionCities.Array.data[0]
       value: 
