@@ -106,6 +106,7 @@ public class Region : MonoBehaviour
             PlayerPrefs.SetInt("UnlockedRegion" + regionNumber.ToString(), 1);
             PlayerPrefs.SetString("CurrentCity", startCity);
             PlayerPrefs.SetString("DestinationCity", destinationCity);
+            PlayerPrefs.SetString("NextCity", destinationCity);
 
             SceneManager.LoadScene("GameScene");
         }
