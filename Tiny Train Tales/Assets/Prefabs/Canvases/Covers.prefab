@@ -1142,8 +1142,8 @@ MonoBehaviour:
   selectColor: {r: 0, g: 0.3882353, b: 0.023529412, a: 0.84313726}
   unlockButton: {fileID: 9097387622990254748}
   regionNumber: 2
-  startCity: Paris
-  destinationCity: London
+  startCity: Amsterdam
+  destinationCity: Brussels
 --- !u!1 &830532331896742770
 GameObject:
   m_ObjectHideFlags: 0

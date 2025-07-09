@@ -5,6 +5,10 @@ public class TODO : MonoBehaviour
     //--------Priority--------
     //Make it so it can reach every city
 
+    //--------Bugs--------
+    //Unable to reach cities when first starting the game
+    //
+
     //Quests:
     //One for every city
     //Some to unlock next area
@@ -14,7 +18,6 @@ public class TODO : MonoBehaviour
     //Zoom in on map
     //Timer for upgrades
     //Animate train wheels
-    //Info menu for cars
 
     //Make new or update Sprites for:
     //Passanger Icon
