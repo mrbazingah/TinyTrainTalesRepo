@@ -48,6 +48,8 @@ public class Region : MonoBehaviour
                 continue;
             }
 
+            cityComp.SetUnlockedState(isUnlocked);
+
             GameObject[] currentCityLines = cityComp.GetCityNeighborLines();
             for (int ii = 0; ii < currentCityLines.Length; ii++)
             {
@@ -107,6 +109,8 @@ public class Region : MonoBehaviour
             PlayerPrefs.SetString("CurrentCity", startCity);
             PlayerPrefs.SetString("DestinationCity", destinationCity);
             PlayerPrefs.SetString("NextCity", destinationCity);
+
+            Debug.Log(destinationCity);
 
             SceneManager.LoadScene("GameScene");
         }

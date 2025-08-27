@@ -76,12 +76,13 @@ public class GameManager : MonoBehaviour
         questManager = FindObjectOfType<QuestManager>();
         carManager = FindObjectOfType<CarManager>();
         audioManager = FindObjectOfType<AudioManager>();
+
+        LoadUnlockedRegions();
     }
 
     void Start()
     {
         PlayerPrefsSetUp();
-        LoadUnlockedRegions();
     }
 
     public void UpdateCityTexts()

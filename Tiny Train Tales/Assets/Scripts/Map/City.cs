@@ -11,6 +11,8 @@ public class City : MonoBehaviour
     string cityName;
     string countryName;
 
+    bool isUnlocked = false;
+
     CityMenu cityMenuScript;
 
     void Awake()
@@ -60,6 +62,11 @@ public class City : MonoBehaviour
         cityMenu?.SetActive(false);
     }
 
+    public void SetUnlockedState(bool b)
+    {
+        isUnlocked = b;
+    }
+
     public GameObject[] GetCityNeighbors()
     {
         return cityNeighbors;
@@ -73,5 +80,10 @@ public class City : MonoBehaviour
     public GameObject[] GetCityNeighborLines()
     {
         return neighborLines;
+    }
+
+    public bool GetIsUnlocked()
+    {
+        return isUnlocked;
     }
 }

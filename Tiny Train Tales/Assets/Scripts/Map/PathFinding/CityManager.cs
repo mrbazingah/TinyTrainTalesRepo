@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -78,6 +79,7 @@ public class CityManager : MonoBehaviour
             {
                 GameObject inBetweenCity = GameObject.Find(PlayerPrefs.GetString("NextCity"));
                 path = pathfinding.FindPath(currentCity, destinationCity, inBetweenCity);
+
             }
             else
             {
@@ -127,16 +129,21 @@ public class CityManager : MonoBehaviour
         GameObject[] currentCityNeighbors = currentCityScript.GetCityNeighbors();
 
         List<GameObject> unlockedNeighbors = new List<GameObject>();
-        foreach (GameObject neighbor in currentCityNeighbors)
+        for (int i = 0; i < currentCityNeighbors.Length; i++)
         {
-            if (neighbor.activeInHierarchy)
-                unlockedNeighbors.Add(neighbor);
+            if (currentCityNeighbors[i].GetComponent<City>().GetIsUnlocked())
+                unlockedNeighbors.Add(currentCityNeighbors[i]);
         }
 
         if (unlockedNeighbors.Count == 0)
         {
             Debug.LogWarning("No unlocked neighbors available from the current city!");
             return;
+        }
+
+        for (int i = 0; i < unlockedNeighbors.Count; i++)
+        {
+            Debug.Log("Unlocked Neighbor: " + unlockedNeighbors[i].name);
         }
 
         int nextCityInt = Random.Range(0, unlockedNeighbors.Count);
