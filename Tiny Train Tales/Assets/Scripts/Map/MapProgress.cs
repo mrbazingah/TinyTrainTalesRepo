@@ -56,7 +56,6 @@ public class MapProgress : MonoBehaviour
                 if (currentCityNeighbors[i] == nextCity)
                 {
                     line = currentCity.GetComponent<City>().GetCityNeighborLines()[i];
-                    Debug.Log("Line found: " + line.name);
                 }
             }
 

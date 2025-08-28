@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -139,11 +138,6 @@ public class CityManager : MonoBehaviour
         {
             Debug.LogWarning("No unlocked neighbors available from the current city!");
             return;
-        }
-
-        for (int i = 0; i < unlockedNeighbors.Count; i++)
-        {
-            Debug.Log("Unlocked Neighbor: " + unlockedNeighbors[i].name);
         }
 
         int nextCityInt = Random.Range(0, unlockedNeighbors.Count);
