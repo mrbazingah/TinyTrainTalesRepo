@@ -9,7 +9,7 @@ public class CityMenu : MonoBehaviour
     [SerializeField] TextMeshProUGUI countrytext;
     [SerializeField] float speed;
 
-    bool mouseIsOnMenu;
+    bool mouseIsOver;
 
     CityManager cityManager;
     GameManager gameManager;
@@ -22,17 +22,23 @@ public class CityMenu : MonoBehaviour
 
     void OnMouseEnter()
     {
-        mouseIsOnMenu = true;
+        Region[] regions = FindObjectsOfType<Region>();
+        for (int i = 0; i < regions.Length; i++)
+        {
+            if (regions[i].GetMouseIsOver()) { return; }
+        }
+
+        mouseIsOver = true;
     }
 
     void OnMouseExit()
     {
-        mouseIsOnMenu = false;
+        mouseIsOver = false;
     }
 
-    public bool GetMouseIsOnMenu()
+    public bool GetMouseIsOver()
     {
-        return mouseIsOnMenu;
+        return mouseIsOver;
     }
 
     public void TravelButton()
@@ -53,5 +59,10 @@ public class CityMenu : MonoBehaviour
     {
         cityText.text = cityName;
         countrytext.text = countryName;
+    }
+
+    public bool GetMouseIsOnMenu()
+    {
+        return mouseIsOver;
     }
 }

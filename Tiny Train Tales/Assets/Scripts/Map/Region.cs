@@ -22,10 +22,12 @@ public class Region : MonoBehaviour
     bool isSelected;
 
     GameManager gameManager;
+    CityMenu cityMenu;
 
     void Start()
     {
         gameManager = FindObjectOfType<GameManager>();
+        cityMenu = FindObjectOfType<CityMenu>();
         coverImage = GetComponent<Image>();
         startColor = coverImage.color;
     }
@@ -120,6 +122,13 @@ public class Region : MonoBehaviour
 
     void OnMouseEnter()
     {
+        Region[] regions = FindObjectsOfType<Region>();
+        for (int i = 0; i < regions.Length; i++)
+        {
+            if (regions[i].GetMouseIsOver() && regions[i] != this ) { return; }
+            if (cityMenu != null && cityMenu.GetMouseIsOver()) { return; }
+        }
+
         mouseIsOver = true;
     }
 
@@ -141,5 +150,10 @@ public class Region : MonoBehaviour
     public bool GetIsSelected()
     {
         return isSelected;
+    }
+
+    public bool GetMouseIsOver()
+    {
+        return mouseIsOver;
     }
 }
