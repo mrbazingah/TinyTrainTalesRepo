@@ -1,12 +1,11 @@
-using TMPro;
 using UnityEngine;
 
 public class City : MonoBehaviour
 {
     [SerializeField] GameObject cityMenu;
-    [SerializeField] GameObject[] cityNeighbors;
-    [SerializeField] int[] cityNeighborsDistances;
-    [SerializeField] GameObject[] neighborLines;
+    [SerializeField] GameObject[] cityNeighbors = new GameObject[0];
+    [SerializeField] int[] cityNeighborsDistances = new int[0];
+    [SerializeField] GameObject[] neighborLines = new GameObject[0];
 
     string cityName;
     string countryName;
@@ -69,6 +68,11 @@ public class City : MonoBehaviour
 
     public GameObject[] GetCityNeighbors()
     {
+        if (cityNeighbors == null)
+        {
+            Debug.LogError($"{name} has NULL cityNeighbors! Check this object in Inspector.");
+            return new GameObject[0]; // prevents crash
+        }
         return cityNeighbors;
     }
 

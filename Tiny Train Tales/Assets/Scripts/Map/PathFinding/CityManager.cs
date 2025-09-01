@@ -107,6 +107,13 @@ public class CityManager : MonoBehaviour
         nextCity = path[0];
 
         GameObject[] destinationNeighbors = nextCity.GetComponent<City>().GetCityNeighbors();
+        if (destinationNeighbors == null)
+        {
+            Debug.LogError("destinationNeighbors is NULL on " + nextCity.name);
+            return;
+        }
+
+
         for (int i = 0; i < destinationNeighbors.Length; i++)
         {
             if (currentCity == destinationNeighbors[i])

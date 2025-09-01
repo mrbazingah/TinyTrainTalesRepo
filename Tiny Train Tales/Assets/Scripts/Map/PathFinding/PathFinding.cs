@@ -153,7 +153,7 @@ public class PathFinding : MonoBehaviour
         public GameObject[] GetCityNeighbors()
         {
             City cityScript = City.GetComponent<City>();
-            return cityScript != null ? cityScript.GetCityNeighbors() : new GameObject[0];
+            return cityScript.GetCityNeighbors();
         }
 
         public override bool Equals(object obj)
