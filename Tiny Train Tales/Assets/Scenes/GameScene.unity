@@ -272,6 +272,81 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 11373996}
   m_CullTransparentMesh: 1
+--- !u!1 &19287687
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 19287690}
+  - component: {fileID: 19287689}
+  - component: {fileID: 19287688}
+  m_Layer: 0
+  m_Name: Wroclaw-Prag
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &19287688
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 19287687}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.6603774, g: 0.05386056, b: 0.034264866, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &19287689
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 19287687}
+  m_CullTransparentMesh: 1
+--- !u!224 &19287690
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 19287687}
+  m_LocalRotation: {x: 0.004318178, y: -0.014336692, z: -0.96274424, w: 0.2699989}
+  m_LocalPosition: {x: 0, y: 0, z: -0}
+  m_LocalScale: {x: 1, y: 1.5, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1879275609}
+  m_LocalEulerAnglesHint: {x: -1.448, y: -0.92, z: 35851.344}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 40.12, y: -70.52}
+  m_SizeDelta: {x: 62.65, y: 2}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &19540086
 GameObject:
   m_ObjectHideFlags: 0
@@ -4852,6 +4927,81 @@ RectTransform:
   m_AnchoredPosition: {x: 106.8, y: 229.7}
   m_SizeDelta: {x: 13, y: 13}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &336667858
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 336667859}
+  - component: {fileID: 336667861}
+  - component: {fileID: 336667860}
+  m_Layer: 0
+  m_Name: Wroclaw-Warsaw
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &336667859
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 336667858}
+  m_LocalRotation: {x: 0.0054570325, y: -0.013943032, z: -0.98133767, w: 0.19170864}
+  m_LocalPosition: {x: 0, y: 0, z: 0.21}
+  m_LocalScale: {x: 1, y: 1.5, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1879275609}
+  m_LocalEulerAnglesHint: {x: -1.448, y: -0.92, z: 35842.117}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 95.49, y: -43.79}
+  m_SizeDelta: {x: 76.68, y: 2}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &336667860
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 336667858}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.6603774, g: 0.05386056, b: 0.034264866, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &336667861
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 336667858}
+  m_CullTransparentMesh: 1
 --- !u!1 &341366901
 GameObject:
   m_ObjectHideFlags: 0
@@ -7457,9 +7607,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cityMenu: {fileID: 531979694}
-  cityNeighbors: []
-  cityNeighborsDistances: 
-  neighborLines: []
+  cityNeighbors:
+  - {fileID: 644729923}
+  - {fileID: 1549471858}
+  cityNeighborsDistances: d800000031010000
+  neighborLines:
+  - {fileID: 19287687}
+  - {fileID: 336667858}
 --- !u!114 &474707328
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10528,10 +10682,12 @@ MonoBehaviour:
   cityNeighbors:
   - {fileID: 1538117714}
   - {fileID: 1983148513}
-  cityNeighborsDistances: 2301000017010000
+  - {fileID: 474707325}
+  cityNeighborsDistances: 2301000017010000d8000000
   neighborLines:
   - {fileID: 698971142}
   - {fileID: 405561862}
+  - {fileID: 19287687}
 --- !u!114 &644729926
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18936,6 +19092,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Covers
       objectReference: {fileID: 0}
+    - target: {fileID: 425249980588394994, guid: dc1bfdbc641dfd0408dec2fc6a021680, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4207713683963976141, guid: dc1bfdbc641dfd0408dec2fc6a021680, type: 3}
       propertyPath: regionCities.Array.data[0]
       value: 
@@ -26742,10 +26902,12 @@ MonoBehaviour:
   cityNeighbors:
   - {fileID: 2053786984}
   - {fileID: 644729923}
-  cityNeighborsDistances: 3600000023010000
+  - {fileID: 1659957315}
+  cityNeighborsDistances: 360000002301000028010000
   neighborLines:
   - {fileID: 2018586345}
   - {fileID: 698971142}
+  - {fileID: 1801960975}
 --- !u!114 &1538117717
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -27159,10 +27321,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cityMenu: {fileID: 531979694}
   cityNeighbors:
-  - {fileID: 1549471858}
-  cityNeighborsDistances: 1e010000
+  - {fileID: 2003246975}
+  - {fileID: 474707325}
+  - {fileID: 1659957315}
+  cityNeighborsDistances: 1e01000031010000fe000000
   neighborLines:
   - {fileID: 280632501}
+  - {fileID: 336667858}
+  - {fileID: 1621946166}
 --- !u!1 &1560896620
 GameObject:
   m_ObjectHideFlags: 0
@@ -28141,6 +28307,81 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1620842087}
   m_CullTransparentMesh: 1
+--- !u!1 &1621946166
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1621946167}
+  - component: {fileID: 1621946169}
+  - component: {fileID: 1621946168}
+  m_Layer: 0
+  m_Name: "Krak\xF3w-Warsaw"
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1621946167
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1621946166}
+  m_LocalRotation: {x: -0, y: -0, z: 0.5564124, w: 0.83090633}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1.5, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1879275609}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 36067.617}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 117.85, y: -55.74}
+  m_SizeDelta: {x: 62.71, y: 2}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1621946168
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1621946166}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.6603774, g: 0.05386056, b: 0.034264866, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &1621946169
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1621946166}
+  m_CullTransparentMesh: 1
 --- !u!1 &1647066592
 GameObject:
   m_ObjectHideFlags: 0
@@ -28512,9 +28753,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cityMenu: {fileID: 531979694}
-  cityNeighbors: []
-  cityNeighborsDistances: 
-  neighborLines: []
+  cityNeighbors:
+  - {fileID: 1538117714}
+  - {fileID: 1549471858}
+  cityNeighborsDistances: 28010000fe000000
+  neighborLines:
+  - {fileID: 1801960975}
+  - {fileID: 1621946166}
 --- !u!114 &1659957318
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -31545,6 +31790,81 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1801413348}
   m_CullTransparentMesh: 1
+--- !u!1 &1801960975
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1801960978}
+  - component: {fileID: 1801960977}
+  - component: {fileID: 1801960976}
+  m_Layer: 0
+  m_Name: "Bratislava-Krak\xF3w"
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1801960976
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1801960975}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.6603774, g: 0.05386056, b: 0.034264866, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &1801960977
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1801960975}
+  m_CullTransparentMesh: 1
+--- !u!224 &1801960978
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1801960975}
+  m_LocalRotation: {x: -0, y: -0, z: 0.39059874, w: 0.920561}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1.5, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1879275609}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 36045.984}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 86.6, y: -103.2}
+  m_SizeDelta: {x: 71.4, y: 2}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1001 &1803523071
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -33278,7 +33598,11 @@ RectTransform:
   - {fileID: 729631846}
   - {fileID: 2018586348}
   - {fileID: 698971145}
+  - {fileID: 1801960978}
+  - {fileID: 1621946167}
   - {fileID: 405561865}
+  - {fileID: 19287690}
+  - {fileID: 336667859}
   - {fileID: 497058733}
   - {fileID: 1851718523}
   - {fileID: 2116731387}
