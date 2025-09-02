@@ -98,13 +98,17 @@ public class CityManager : MonoBehaviour
 
     void GetNextCityInPath()
     {
-        if (path == null)
+        if (path == null || path.Count == 0)
         {
             GetRandomCity();
             return;
         }
 
-        nextCity = path[0];
+        // Skip currentCity if it's the first in path
+        if (path[0] == currentCity && path.Count > 1)
+            nextCity = path[1];
+        else
+            nextCity = path[0];
 
         GameObject[] destinationNeighbors = nextCity.GetComponent<City>().GetCityNeighbors();
         if (destinationNeighbors == null)
@@ -112,7 +116,6 @@ public class CityManager : MonoBehaviour
             Debug.LogError("destinationNeighbors is NULL on " + nextCity.name);
             return;
         }
-
 
         for (int i = 0; i < destinationNeighbors.Length; i++)
         {
@@ -125,8 +128,16 @@ public class CityManager : MonoBehaviour
         }
 
         gameManager.SetNewDestination(currentCity.name, nextCity.name, destinationDistance);
-        pathfinding.FindPath(currentCity, destinationCity, null);
         ColorAll();
+    }
+
+    public void ArriveAtNextCity()
+    {
+        currentCity = nextCity;
+        PlayerPrefs.SetString("CurrentCity", currentCity.name);
+
+        GetNextCityInPath();
+        gameManager.UpdateCityTexts();
     }
 
     public void GetRandomCity()

@@ -43,16 +43,16 @@ public class Region : MonoBehaviour
 
             regionCities[i].SetActive(isUnlocked);
 
-            City cityComp = regionCities[i].GetComponent<City>();
-            if (cityComp == null)
+            City cityScript = regionCities[i].GetComponent<City>();
+            if (cityScript == null)
             {
                 Debug.LogWarning("City component missing on " + regionCities[i].name);
                 continue;
             }
 
-            cityComp.SetUnlockedState(isUnlocked);
+            cityScript.SetUnlockedState(isUnlocked);
 
-            GameObject[] currentCityLines = cityComp.GetCityNeighborLines();
+            GameObject[] currentCityLines = cityScript.GetCityNeighborLines();
             for (int ii = 0; ii < currentCityLines.Length; ii++)
             {
                 if (currentCityLines[ii] == null)

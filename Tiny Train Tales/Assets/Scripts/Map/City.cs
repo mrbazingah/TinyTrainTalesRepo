@@ -1,4 +1,6 @@
+using System.Linq;
 using UnityEngine;
+using UnityEngine.EventSystems; // NEW
 
 public class City : MonoBehaviour
 {
@@ -25,17 +27,33 @@ public class City : MonoBehaviour
         countryName = transform.parent.name;
 
         cityMenu?.SetActive(false);
+
+        if (isUnlocked && cityNeighbors.Length != 0 && neighborLines.Length != 0)
+        {
+            for (int i = 0; i < cityNeighbors.Length; i++)
+            {
+                neighborLines[i]?.SetActive(cityNeighbors[i].GetComponent<City>().GetIsUnlocked());
+            }
+        }
     }
 
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Mouse0) && cityMenu.activeInHierarchy)
         {
+            // Ensure CityMenu reference
             if (cityMenuScript == null)
             {
                 cityMenuScript = FindObjectOfType<CityMenu>();
             }
 
+            // Don’t close if mouse is on any UI element
+            if (EventSystem.current != null && EventSystem.current.IsPointerOverGameObject())
+            {
+                return;
+            }
+
+            // Close if not inside the city menu
             bool mouseIsOnMenu = cityMenuScript.GetMouseIsOnMenu();
             if (!mouseIsOnMenu)
             {
@@ -68,7 +86,7 @@ public class City : MonoBehaviour
 
     public GameObject[] GetCityNeighbors()
     {
-        if (cityNeighbors == null)
+        if (cityNeighbors.Length == 0)
         {
             Debug.LogError($"{name} has NULL cityNeighbors! Check this object in Inspector.");
             return new GameObject[0]; // prevents crash

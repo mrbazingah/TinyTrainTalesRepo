@@ -1,7 +1,7 @@
-using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.EventSystems; 
 
 public class CityMenu : MonoBehaviour
 {
@@ -22,6 +22,12 @@ public class CityMenu : MonoBehaviour
 
     void OnMouseEnter()
     {
+        // Prevents conflict if we're hovering a UI element
+        if (EventSystem.current != null && EventSystem.current.IsPointerOverGameObject())
+        {
+            return;
+        }
+
         Region[] regions = FindObjectsOfType<Region>();
         for (int i = 0; i < regions.Length; i++)
         {
@@ -33,6 +39,12 @@ public class CityMenu : MonoBehaviour
 
     void OnMouseExit()
     {
+        // If leaving due to UI hover, don’t immediately flag as outside
+        if (EventSystem.current != null && EventSystem.current.IsPointerOverGameObject())
+        {
+            return;
+        }
+
         mouseIsOver = false;
     }
 
@@ -63,6 +75,12 @@ public class CityMenu : MonoBehaviour
 
     public bool GetMouseIsOnMenu()
     {
+        // If pointer is over UI, we consider it "on the menu"
+        if (EventSystem.current != null && EventSystem.current.IsPointerOverGameObject())
+        {
+            return true;
+        }
+
         return mouseIsOver;
     }
 }

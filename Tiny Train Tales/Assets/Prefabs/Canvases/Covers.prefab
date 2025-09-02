@@ -595,8 +595,8 @@ MonoBehaviour:
   selectColor: {r: 0, g: 0.3882353, b: 0.023529412, a: 0.84313726}
   unlockButton: {fileID: 7173221749079525863}
   regionNumber: 3
-  startCity: Monaco
-  destinationCity: Milan
+  startCity: Bari
+  destinationCity: Naples
 --- !u!1 &577494931451384344
 GameObject:
   m_ObjectHideFlags: 0
