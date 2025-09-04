@@ -13,6 +13,7 @@ public class Region : MonoBehaviour
     [SerializeField] int regionNumber;
     [SerializeField] string startCity;
     [SerializeField] string destinationCity;
+    [SerializeField] GameObject cityMenuCanvas;
 
     Image coverImage;   
     Color startColor;
@@ -100,6 +101,8 @@ public class Region : MonoBehaviour
             {
                 unlockButton.SetActive(true);
             }
+
+            cityMenuCanvas.SetActive(false);
         }
     }
 

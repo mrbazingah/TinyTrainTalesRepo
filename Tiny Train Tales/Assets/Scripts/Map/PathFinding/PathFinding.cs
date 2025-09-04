@@ -7,21 +7,26 @@ public class PathFinding : MonoBehaviour
 
     public List<GameObject> FindPath(GameObject startCity, GameObject targetCity, GameObject nextCity)
     {
+        // Direct neighbor check
+        City startCityScript = startCity.GetComponent<City>();
+        foreach (GameObject neighbor in startCityScript.GetCityNeighbors())
+        {
+            if (neighbor == targetCity)
+            {
+                return new List<GameObject> { targetCity };
+            }
+        }
+
         List<GameObject> fullPath = new List<GameObject>();
 
         if (nextCity != null)
         {
-            // Add nextCity as the first city in the path.
             fullPath.Add(nextCity);
-
-            // Find path from nextCity to targetCity.
             List<GameObject> pathFromNextCityToTarget = FindPathInternal(nextCity, targetCity);
             if (pathFromNextCityToTarget == null)
             {
-                return null; // No path found.
+                return null;
             }
-
-            // Combine paths (skipping the duplicate).
             fullPath.AddRange(pathFromNextCityToTarget);
         }
         else
@@ -55,7 +60,6 @@ public class PathFinding : MonoBehaviour
             }
             iterations++;
 
-            // Get the node in openSet with the lowest FCost.
             Node currentNode = openSet[0];
             for (int i = 1; i < openSet.Count; i++)
             {
@@ -69,16 +73,13 @@ public class PathFinding : MonoBehaviour
             openSet.Remove(currentNode);
             closedSet.Add(currentNode);
 
-            // Check if target is reached.
             if (currentNode.City == targetCity)
             {
                 return RetracePath(startNode, currentNode);
             }
 
-            // Process each neighbor.
             foreach (GameObject neighborCity in currentNode.GetCityNeighbors())
             {
-                // Skip if neighbor is locked (inactive).
                 if (!neighborCity.activeInHierarchy)
                     continue;
 
@@ -94,7 +95,7 @@ public class PathFinding : MonoBehaviour
                 {
                     if (node.Equals(neighborNode))
                     {
-                        neighborNode = node; // Use the existing node.
+                        neighborNode = node;
                         inOpenSet = true;
                         break;
                     }
@@ -113,7 +114,6 @@ public class PathFinding : MonoBehaviour
                 }
             }
         }
-        // No path found.
         return null;
     }
 
@@ -133,6 +133,18 @@ public class PathFinding : MonoBehaviour
 
     static int GetDistance(GameObject cityA, GameObject cityB)
     {
+        City cityScript = cityA.GetComponent<City>();
+        GameObject[] neighbors = cityScript.GetCityNeighbors();
+        int[] distances = cityScript.GetCityNeighborsDistance();
+
+        for (int i = 0; i < neighbors.Length; i++)
+        {
+            if (neighbors[i] == cityB)
+            {
+                return distances[i];
+            }
+        }
+
         return Mathf.RoundToInt(Vector3.Distance(cityA.transform.position, cityB.transform.position));
     }
 

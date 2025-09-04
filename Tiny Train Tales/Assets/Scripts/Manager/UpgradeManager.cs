@@ -17,18 +17,21 @@ public class UpgradeManager : MonoBehaviour
     [SerializeField] float maxPassangerCost;
     [SerializeField] float addToMaxPassangers;
     [SerializeField] float maxPassangerCostIncrease;
+    [SerializeField] int maxPassangerAmount;
     [Header("Acceleration")]
     [SerializeField] TextMeshProUGUI accelerationText;
     [SerializeField] TextMeshProUGUI accelerationCostText;
     [SerializeField] float accelerationCost;
     [SerializeField] float addToAcceleration;
     [SerializeField] float accelerationCostIncrease;
+    [SerializeField] int maxAccelerationAmount;
     [Header("Profit")]
     [SerializeField] TextMeshProUGUI profitText;
     [SerializeField] TextMeshProUGUI profitCostText;
     [SerializeField] float profitCost;
     [SerializeField] float addToProfit;
     [SerializeField] float profitCostIncrease;
+    [SerializeField] int maxProfitAmount;
     [Header("Cars")]
     [SerializeField] TextMeshProUGUI carsText;
     [SerializeField] TextMeshProUGUI carsCostText;

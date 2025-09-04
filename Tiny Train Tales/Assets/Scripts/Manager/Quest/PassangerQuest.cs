@@ -22,11 +22,6 @@ public class PassangerQuest : MonoBehaviour
         questManager = FindObjectOfType<QuestManager>();
     }
 
-    void Start()
-    {
-        collectButton.SetActive(false);
-    }
-
     public void SetUpQuest()
     {
         if (PlayerPrefs.HasKey(gameObject.name + "PassangersToDropOff"))
@@ -34,10 +29,21 @@ public class PassangerQuest : MonoBehaviour
             // Load saved quest data
             passangersToDropOff = PlayerPrefs.GetFloat(gameObject.name + "PassangersToDropOff");
             passangersDroppedOff = PlayerPrefs.GetFloat(gameObject.name + "PassangersDroppedOff");
+
+            if (passangersDroppedOff >= passangersToDropOff)
+            {
+                passangersDroppedOff = passangersToDropOff;
+                CompleteQuest();
+            }
+            else
+            {
+                collectButton.SetActive(false);
+            }
         }
         else
         {
             passangersToDropOff = (int)Random.Range(minPassangers, maxPassangers + 1) * multiplier;
+            collectButton.SetActive(false);
         }
 
         questText.text = passangersDroppedOff.ToString() + "/" + passangersToDropOff.ToString();
@@ -55,6 +61,8 @@ public class PassangerQuest : MonoBehaviour
             CompleteQuest();
         }
 
+        SaveQuest();
+
         questText.text = passangersDroppedOff.ToString() + "/" + passangersToDropOff.ToString();
     }
 
@@ -70,6 +78,7 @@ public class PassangerQuest : MonoBehaviour
         if (getGems)
         {
             reward = passangersToDropOff / 100;
+            Mathf.Clamp(reward, 1, 100);
             gameManager.AddGems(reward);
         }
         else

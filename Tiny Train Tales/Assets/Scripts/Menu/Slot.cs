@@ -17,9 +17,9 @@ public class Slot : MonoBehaviour
     [Space]
     [SerializeField] Color cantBuyColor;
     [SerializeField] Color originalColor;
-    [SerializeField] string slotID; // Unique identifier for PlayerPrefs keys
-
+    [SerializeField] string slotID; 
     [SerializeField] float cost;
+
     bool hasBeenBought;
     float coins;
 
@@ -38,7 +38,6 @@ public class Slot : MonoBehaviour
 
     void Awake()
     {
-        // Ensure slotID is set; if empty, use the GameObject's name.
         if (string.IsNullOrEmpty(slotID))
         {
             slotID = gameObject.name;
@@ -60,7 +59,6 @@ public class Slot : MonoBehaviour
     public void SetUpSlot()
     {
         string keyPrefix = slotID;
-        // Use a single string to track the last update date in YYYYMMDD format.
         string pastDate = PlayerPrefs.GetString(keyPrefix + "PastDate", "");
         string currentDate = System.DateTime.Now.ToString("yyyyMMdd");
         if (pastDate != currentDate)
@@ -105,8 +103,6 @@ public class Slot : MonoBehaviour
     void Update()
     {
         UpdateButtons();
-        // If coins or external factors change, cost may need to be recalculated.
-        // Consider optimizing this update call if performance becomes an issue.
         CalculateCost();
     }
 

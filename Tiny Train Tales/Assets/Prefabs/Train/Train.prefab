@@ -253,6 +253,7 @@ MonoBehaviour:
   speed: 0
   interval: 0.1
   carSpeedOffset: 0.035
+  carWeightOffset: 0.07
 --- !u!1 &5558884406876648256
 GameObject:
   m_ObjectHideFlags: 0

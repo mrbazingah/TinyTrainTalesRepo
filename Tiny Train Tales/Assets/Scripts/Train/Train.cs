@@ -7,6 +7,7 @@ public class Train : MonoBehaviour
     [SerializeField] float speed;
     [SerializeField] float interval;
     [SerializeField] float carSpeedOffset;
+    [SerializeField] float carWeightOffset;
 
     bool isDriving;
     bool hasLoaded;
@@ -122,7 +123,7 @@ public class Train : MonoBehaviour
 
         float averageWeight = ((allweight / allCars.Length) * 2);
         averageWeight /= 100;
-        averageWeight = 1 - averageWeight;
+        averageWeight = 1 - averageWeight - carWeightOffset;
 
         float averageSpeed = ((allSpeed / allCars.Length) * 2);
         averageSpeed /= 100;

@@ -74,16 +74,29 @@ public class CityManager : MonoBehaviour
 
         if (pathfinding != null)
         {
-            if (PlayerPrefs.HasKey("NextCity"))
-            {
-                GameObject inBetweenCity = GameObject.Find(PlayerPrefs.GetString("NextCity"));
-                path = pathfinding.FindPath(currentCity, destinationCity, inBetweenCity);
+            List<GameObject> newPath;
 
+            if (nextCity != null && nextCity != currentCity)
+            {
+                // Preserve travel from currentCity -> nextCity
+                List<GameObject> remainingPath = pathfinding.FindPath(nextCity, destinationCity, null);
+                if (remainingPath != null)
+                {
+                    newPath = new List<GameObject> { nextCity };
+                    newPath.AddRange(remainingPath);
+                }
+                else
+                {
+                    newPath = new List<GameObject> { nextCity }; // fallback
+                }
             }
             else
             {
-                path = pathfinding.FindPath(currentCity, destinationCity, null);
+                newPath = pathfinding.FindPath(currentCity, destinationCity, null);
             }
+
+            if (newPath != null)
+                path = newPath;
         }
 
         GetNextCityInPath();
@@ -93,7 +106,7 @@ public class CityManager : MonoBehaviour
     public void UpdateCityTexts(TextMeshProUGUI currentCityText, TextMeshProUGUI destinationCityText)
     {
         currentCityText.text = currentCity.name;
-        destinationCityText.text = nextCity.name;
+        destinationCityText.text = nextCity != null ? nextCity.name : destinationCity.name;
     }
 
     void GetNextCityInPath()
@@ -106,9 +119,14 @@ public class CityManager : MonoBehaviour
 
         // Skip currentCity if it's the first in path
         if (path[0] == currentCity && path.Count > 1)
+        {
             nextCity = path[1];
+            path.RemoveAt(0);
+        }
         else
+        {
             nextCity = path[0];
+        }
 
         GameObject[] destinationNeighbors = nextCity.GetComponent<City>().GetCityNeighbors();
         if (destinationNeighbors == null)
@@ -161,7 +179,9 @@ public class CityManager : MonoBehaviour
         int nextCityInt = Random.Range(0, unlockedNeighbors.Count);
         destinationCity = unlockedNeighbors[nextCityInt];
 
-        FindPathAtStart(currentCity, destinationCity);
+        path = new List<GameObject> { destinationCity };
+
+        GetNextCityInPath();
         ColorAll();
     }
 
