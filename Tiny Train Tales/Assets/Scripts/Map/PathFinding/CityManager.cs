@@ -63,6 +63,11 @@ public class CityManager : MonoBehaviour
             return;
         }
 
+        // Use nextCity as path start if traveling, otherwise use startCity
+        GameObject pathStartCity = startCityGameObject;
+        if (nextCity != null && nextCity != startCityGameObject)
+            pathStartCity = nextCity;
+
         currentCity = startCityGameObject;
         destinationCity = targetCityGameObject;
 
@@ -74,29 +79,15 @@ public class CityManager : MonoBehaviour
 
         if (pathfinding != null)
         {
-            List<GameObject> newPath;
-
-            if (nextCity != null && nextCity != currentCity)
+            if (PlayerPrefs.HasKey("NextCity"))
             {
-                // Preserve travel from currentCity -> nextCity
-                List<GameObject> remainingPath = pathfinding.FindPath(nextCity, destinationCity, null);
-                if (remainingPath != null)
-                {
-                    newPath = new List<GameObject> { nextCity };
-                    newPath.AddRange(remainingPath);
-                }
-                else
-                {
-                    newPath = new List<GameObject> { nextCity }; // fallback
-                }
+                GameObject inBetweenCity = GameObject.Find(PlayerPrefs.GetString("NextCity"));
+                path = pathfinding.FindPath(pathStartCity, destinationCity, inBetweenCity);
             }
             else
             {
-                newPath = pathfinding.FindPath(currentCity, destinationCity, null);
+                path = pathfinding.FindPath(pathStartCity, destinationCity, null);
             }
-
-            if (newPath != null)
-                path = newPath;
         }
 
         GetNextCityInPath();
@@ -106,7 +97,7 @@ public class CityManager : MonoBehaviour
     public void UpdateCityTexts(TextMeshProUGUI currentCityText, TextMeshProUGUI destinationCityText)
     {
         currentCityText.text = currentCity.name;
-        destinationCityText.text = nextCity != null ? nextCity.name : destinationCity.name;
+        destinationCityText.text = nextCity.name;
     }
 
     void GetNextCityInPath()
@@ -117,7 +108,6 @@ public class CityManager : MonoBehaviour
             return;
         }
 
-        // Skip currentCity if it's the first in path
         if (path[0] == currentCity && path.Count > 1)
         {
             nextCity = path[1];

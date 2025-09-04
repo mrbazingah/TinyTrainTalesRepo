@@ -41347,6 +41347,10 @@ PrefabInstance:
       value: QuestManager
       objectReference: {fileID: 0}
     - target: {fileID: 9173003003584550724, guid: e2cace444bded594b9f1b41e18776698, type: 3}
+      propertyPath: yOffset
+      value: 70
+      objectReference: {fileID: 0}
+    - target: {fileID: 9173003003584550724, guid: e2cace444bded594b9f1b41e18776698, type: 3}
       propertyPath: startPos.y
       value: 120
       objectReference: {fileID: 0}
@@ -49172,7 +49176,7 @@ PrefabInstance:
       objectReference: {fileID: 1864777221}
     - target: {fileID: 6013072587387181096, guid: d7f2d7e6643153744bbdc766918d5eaf, type: 3}
       propertyPath: maxSpeed
-      value: 500
+      value: 650
       objectReference: {fileID: 0}
     - target: {fileID: 6013072587387181096, guid: d7f2d7e6643153744bbdc766918d5eaf, type: 3}
       propertyPath: speedText
