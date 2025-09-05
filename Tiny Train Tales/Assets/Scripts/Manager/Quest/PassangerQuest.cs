@@ -77,7 +77,7 @@ public class PassangerQuest : MonoBehaviour
         float reward;
         if (getGems)
         {
-            reward = passangersToDropOff / 100;
+            reward = passangersToDropOff / 10;
             Mathf.Clamp(reward, 1, 100);
             gameManager.AddGems(reward);
         }

@@ -108,12 +108,12 @@ public class DistanceQuest : MonoBehaviour
         float reward;
         if (getGems)
         {
-            reward = distanceToTravel / 100; 
+            reward = distanceToTravel / 10; 
             gameManager.AddGems(reward);
         }
         else
         {
-            reward = distanceToTravel * 10; 
+            reward = distanceToTravel; 
             gameManager.AddCoins(reward);
         }
 

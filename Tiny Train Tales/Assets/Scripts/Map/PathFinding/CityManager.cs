@@ -110,12 +110,17 @@ public class CityManager : MonoBehaviour
 
         if (path[0] == currentCity && path.Count > 1)
         {
-            nextCity = path[1];
             path.RemoveAt(0);
+        }
+
+        if (path.Count > 0)
+        {
+            nextCity = path[0];
         }
         else
         {
-            nextCity = path[0];
+            GetRandomCity();
+            return;
         }
 
         GameObject[] destinationNeighbors = nextCity.GetComponent<City>().GetCityNeighbors();

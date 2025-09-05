@@ -41,19 +41,11 @@ public class City : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Mouse0) && cityMenu.activeInHierarchy)
         {
-            // Ensure CityMenu reference
             if (cityMenuScript == null)
             {
                 cityMenuScript = FindObjectOfType<CityMenu>();
             }
 
-            // Don’t close if mouse is on any UI element
-            if (EventSystem.current != null && EventSystem.current.IsPointerOverGameObject())
-            {
-                return;
-            }
-
-            // Close if not inside the city menu
             bool mouseIsOnMenu = cityMenuScript.GetMouseIsOnMenu();
             if (!mouseIsOnMenu)
             {
@@ -86,11 +78,6 @@ public class City : MonoBehaviour
 
     public GameObject[] GetCityNeighbors()
     {
-        if (cityNeighbors.Length == 0)
-        {
-            Debug.LogError($"{name} has NULL cityNeighbors! Check this object in Inspector.");
-            return new GameObject[0]; // prevents crash
-        }
         return cityNeighbors;
     }
 

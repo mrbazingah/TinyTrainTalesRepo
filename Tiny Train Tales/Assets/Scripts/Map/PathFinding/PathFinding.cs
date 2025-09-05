@@ -7,6 +7,55 @@ public class PathFinding : MonoBehaviour
 
     public List<GameObject> FindPath(GameObject startCity, GameObject targetCity, GameObject nextCity)
     {
+        List<GameObject> fullPath = new List<GameObject>();
+
+        // If we are already traveling towards nextCity, make sure to finish that leg first
+        if (nextCity != null)
+        {
+            // Only add nextCity if it is a neighbor of currentCity to avoid invalid jumps
+            GameObject[] neighbors = startCity.GetComponent<City>().GetCityNeighbors();
+            bool isNeighbor = false;
+            foreach (GameObject n in neighbors)
+            {
+                if (n == nextCity)
+                {
+                    isNeighbor = true;
+                    break;
+                }
+            }
+
+            if (isNeighbor)
+            {
+                fullPath.Add(nextCity); // include the nextCity as first step
+            }
+
+            if (nextCity != targetCity)
+            {
+                // Calculate path from nextCity to targetCity
+                List<GameObject> continuation = FindPathInternal(nextCity, targetCity);
+                if (continuation == null)
+                {
+                    return null;
+                }
+                fullPath.AddRange(continuation);
+            }
+        }
+        else
+        {
+            // No travel in progress, calculate path from startCity to targetCity
+            fullPath = FindPathInternal(startCity, targetCity);
+        }
+
+        if (fullPath != null)
+        {
+            fullPath = CleanPath(fullPath, startCity);
+        }
+
+        return fullPath;
+    }
+
+    private List<GameObject> FindPathInternal(GameObject startCity, GameObject targetCity)
+    {
         // Direct neighbor check
         City startCityScript = startCity.GetComponent<City>();
         foreach (GameObject neighbor in startCityScript.GetCityNeighbors())
@@ -17,28 +66,6 @@ public class PathFinding : MonoBehaviour
             }
         }
 
-        List<GameObject> fullPath = new List<GameObject>();
-
-        if (nextCity != null)
-        {
-            fullPath.Add(nextCity);
-            List<GameObject> pathFromNextCityToTarget = FindPathInternal(nextCity, targetCity);
-            if (pathFromNextCityToTarget == null)
-            {
-                return null;
-            }
-            fullPath.AddRange(pathFromNextCityToTarget);
-        }
-        else
-        {
-            fullPath = FindPathInternal(startCity, targetCity);
-        }
-
-        return fullPath;
-    }
-
-    private List<GameObject> FindPathInternal(GameObject startCity, GameObject targetCity)
-    {
         Node startNode = new Node(startCity);
         Node targetNode = new Node(targetCity);
 
@@ -146,6 +173,26 @@ public class PathFinding : MonoBehaviour
         }
 
         return Mathf.RoundToInt(Vector3.Distance(cityA.transform.position, cityB.transform.position));
+    }
+
+    static List<GameObject> CleanPath(List<GameObject> path, GameObject startCity)
+    {
+        // Remove any duplicate start city at the beginning
+        if (path.Count > 0 && path[0] == startCity)
+        {
+            path.RemoveAt(0);
+        }
+
+        // Remove consecutive duplicates
+        for (int i = path.Count - 1; i > 0; i--)
+        {
+            if (path[i] == path[i - 1])
+            {
+                path.RemoveAt(i);
+            }
+        }
+
+        return path;
     }
 
     class Node

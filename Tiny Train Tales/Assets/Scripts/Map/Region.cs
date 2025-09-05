@@ -91,7 +91,7 @@ public class Region : MonoBehaviour
                 coverImage.color = new Color(startColor.r, startColor.g, startColor.b, 0f);
             }
 
-            unlockButton.SetActive(false);
+            unlockButton?.SetActive(false);
         }
         else if (mouseIsOver && Input.GetKeyDown(KeyCode.Mouse0))
         {
@@ -99,10 +99,10 @@ public class Region : MonoBehaviour
 
             if (!isUnlocked)
             {
-                unlockButton.SetActive(true);
+                unlockButton?.SetActive(true);
             }
 
-            cityMenuCanvas.SetActive(false);
+            cityMenuCanvas?.SetActive(false);
         }
     }
 
