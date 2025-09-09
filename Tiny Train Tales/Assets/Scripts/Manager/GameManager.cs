@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using UnityEditor.Build.Content;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -70,6 +71,11 @@ public class GameManager : MonoBehaviour
 
     void Awake()
     {
+        if (!PlayerPrefs.HasKey("HasStartedGame"))
+        {
+            SceneManager.LoadScene("StartScene");
+        }
+
         train = FindObjectOfType<Train>();
         cam = FindObjectOfType<CameraMovement>();
         cityManager = FindObjectOfType<CityManager>();

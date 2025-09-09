@@ -59,7 +59,11 @@ public class MapProgress : MonoBehaviour
                 }
             }
 
-            transform.position = line.transform.position;
+            if (line != null)
+            {
+                transform.position = line.transform.position;
+            }
+            
             RectTransform lineRectTransform = line.GetComponent<RectTransform>();
             myRectTransform.rotation = Quaternion.Euler(0, 0, lineRectTransform.eulerAngles.z - 180);
 

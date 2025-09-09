@@ -116,6 +116,8 @@ public class Region : MonoBehaviour
             PlayerPrefs.SetString("NextCity", destinationCity);
 
             SceneManager.LoadScene("GameScene");
+
+            PlayerPrefs.SetInt("HasStartedGame", 1);
         }
         else
         {
