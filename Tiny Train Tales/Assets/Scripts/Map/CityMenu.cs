@@ -1,7 +1,9 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.EventSystems; 
+using UnityEngine.EventSystems;
+using System.Collections.Generic;
+using UnityEngine.UI; // <-- for GraphicRaycaster
 
 public class CityMenu : MonoBehaviour
 {
@@ -9,25 +11,42 @@ public class CityMenu : MonoBehaviour
     [SerializeField] TextMeshProUGUI countrytext;
     [SerializeField] float speed;
 
+    [SerializeField] List<GameObject> dontUnselectOnClick = new List<GameObject>();
+    [SerializeField] List<GraphicRaycaster> uiRaycasters = new List<GraphicRaycaster>();
+
     bool mouseIsOver;
 
     CityManager cityManager;
     GameManager gameManager;
+    EventSystem eventSystem;
 
     void Awake()
     {
         cityManager = FindObjectOfType<CityManager>();
         gameManager = FindObjectOfType<GameManager>();
+
+        if (eventSystem == null) eventSystem = EventSystem.current;
+        if (uiRaycasters == null) uiRaycasters = new List<GraphicRaycaster>();
+        if (uiRaycasters.Count == 0)
+        {
+            var found = FindObjectsOfType<GraphicRaycaster>(true);
+            uiRaycasters.AddRange(found);
+        }
     }
 
     void OnMouseEnter()
     {
-        // Prevents conflict if we're hovering a UI element
+        // If we're hovering UI, only consider it "over the menu" if it's protected UI
         if (EventSystem.current != null && EventSystem.current.IsPointerOverGameObject())
         {
+            if (PointerOverProtectedUI())
+            {
+                mouseIsOver = true;
+            }
             return;
         }
 
+        // Prevent conflict with regions already owning hover
         Region[] regions = FindObjectsOfType<Region>();
         for (int i = 0; i < regions.Length; i++)
         {
@@ -39,10 +58,13 @@ public class CityMenu : MonoBehaviour
 
     void OnMouseExit()
     {
-        // If leaving due to UI hover, don’t immediately flag as outside
+        // If we "exit" due to hovering UI, keep the flag true when it's protected UI
         if (EventSystem.current != null && EventSystem.current.IsPointerOverGameObject())
         {
-            return;
+            if (PointerOverProtectedUI())
+            {
+                return; 
+            }
         }
 
         mouseIsOver = false;
@@ -75,12 +97,52 @@ public class CityMenu : MonoBehaviour
 
     public bool GetMouseIsOnMenu()
     {
-        // If pointer is over UI, we consider it "on the menu"
+        // If pointer is over UI, treat as "on the menu" only when it's protected UI
         if (EventSystem.current != null && EventSystem.current.IsPointerOverGameObject())
         {
-            return true;
+            if (PointerOverProtectedUI()) return true;
+            return false;
         }
 
         return mouseIsOver;
+    }
+
+    bool PointerOverProtectedUI()
+    {
+        if (eventSystem == null || uiRaycasters == null || uiRaycasters.Count == 0)
+            return false;
+
+        var data = new PointerEventData(eventSystem) { position = Input.mousePosition };
+        var results = new List<RaycastResult>();
+
+        for (int i = 0; i < uiRaycasters.Count; i++)
+        {
+            var gr = uiRaycasters[i];
+            if (gr == null || !gr.isActiveAndEnabled) continue;
+            gr.Raycast(data, results);
+        }
+
+        for (int r = 0; r < results.Count; r++)
+        {
+            if (IsInProtectedList(results[r].gameObject))
+                return true;
+        }
+
+        return false;
+    }
+
+    bool IsInProtectedList(GameObject go)
+    {
+        if (go == null || dontUnselectOnClick == null) return false;
+
+        for (int i = 0; i < dontUnselectOnClick.Count; i++)
+        {
+            var target = dontUnselectOnClick[i];
+            if (target == null) continue;
+
+            if (go == target) return true;
+        }
+
+        return false;
     }
 }

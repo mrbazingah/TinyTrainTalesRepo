@@ -2,11 +2,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;   // keep
 
 public class Region : MonoBehaviour
 {
     [SerializeField] GameObject[] neighbors;
-    [SerializeField] GameObject[] regionCities; 
+    [SerializeField] GameObject[] regionCities;
     [SerializeField] List<GameObject> regionCitiesLines;
     [SerializeField] Color selectColor;
     [SerializeField] GameObject unlockButton;
@@ -15,15 +16,20 @@ public class Region : MonoBehaviour
     [SerializeField] string destinationCity;
     [SerializeField] GameObject cityMenuCanvas;
 
-    Image coverImage;   
+    [SerializeField] List<GameObject> dontUnselectOnClick = new List<GameObject>();
+    [SerializeField] List<GraphicRaycaster> uiRaycasters = new List<GraphicRaycaster>();
+
+    Image coverImage;
     Color startColor;
 
-    bool isUnlocked;    
+    bool isUnlocked;
     bool mouseIsOver;
     bool isSelected;
 
     GameManager gameManager;
     CityMenu cityMenu;
+
+    EventSystem eventSystem;
 
     void Start()
     {
@@ -31,6 +37,14 @@ public class Region : MonoBehaviour
         cityMenu = FindObjectOfType<CityMenu>();
         coverImage = GetComponent<Image>();
         startColor = coverImage.color;
+
+        if (eventSystem == null) eventSystem = EventSystem.current;
+        if (uiRaycasters == null) uiRaycasters = new List<GraphicRaycaster>();
+        if (uiRaycasters.Count == 0)
+        {
+            var found = FindObjectsOfType<GraphicRaycaster>(true);
+            uiRaycasters.AddRange(found);
+        }
     }
 
     public void SetCityActivity(bool active)
@@ -84,6 +98,9 @@ public class Region : MonoBehaviour
     {
         if (!mouseIsOver && Input.GetKeyDown(KeyCode.Mouse0))
         {
+            if ((cityMenu != null && cityMenu.GetMouseIsOnMenu()) || ClickIsOnProtectedUI())
+                return;
+
             coverImage.color = startColor;
 
             if (isUnlocked)
@@ -95,6 +112,10 @@ public class Region : MonoBehaviour
         }
         else if (mouseIsOver && Input.GetKeyDown(KeyCode.Mouse0))
         {
+            if ((cityMenu != null && cityMenu.GetMouseIsOnMenu()) ||
+                (EventSystem.current != null && EventSystem.current.IsPointerOverGameObject()))
+                return;
+
             coverImage.color = selectColor;
 
             if (!isUnlocked)
@@ -102,7 +123,10 @@ public class Region : MonoBehaviour
                 unlockButton?.SetActive(true);
             }
 
-            cityMenuCanvas?.SetActive(false);
+            if (cityMenuCanvas != null)
+            {
+                cityMenuCanvas.SetActive(false);
+            }
         }
     }
 
@@ -127,11 +151,14 @@ public class Region : MonoBehaviour
 
     void OnMouseEnter()
     {
+        if (cityMenu != null && cityMenu.GetMouseIsOnMenu())
+            return;
+
         Region[] regions = FindObjectsOfType<Region>();
         for (int i = 0; i < regions.Length; i++)
         {
-            if (regions[i].GetMouseIsOver() && regions[i] != this ) { return; }
-            if (cityMenu != null && cityMenu.GetMouseIsOver()) { return; }
+            if (regions[i].GetMouseIsOver() && regions[i] != this) { return; }
+            if (cityMenu != null && cityMenu.GetMouseIsOnMenu()) { return; }
         }
 
         mouseIsOver = true;
@@ -142,23 +169,51 @@ public class Region : MonoBehaviour
         mouseIsOver = false;
     }
 
-    public GameObject[] GetNeighbors()
+    public GameObject[] GetNeighbors() => neighbors;
+    public GameObject[] GetRegionCities() => regionCities;
+    public bool GetIsSelected() => isSelected;
+    public bool GetMouseIsOver() => mouseIsOver;
+
+    bool ClickIsOnProtectedUI()
     {
-        return neighbors;
+        if (eventSystem == null || uiRaycasters == null || uiRaycasters.Count == 0)
+            return false;
+
+        var pointerData = new PointerEventData(eventSystem)
+        {
+            position = Input.mousePosition
+        };
+
+        var results = new List<RaycastResult>();
+        for (int i = 0; i < uiRaycasters.Count; i++)
+        {
+            var gr = uiRaycasters[i];
+            if (gr == null || !gr.isActiveAndEnabled) continue;
+            gr.Raycast(pointerData, results);
+        }
+
+        for (int r = 0; r < results.Count; r++)
+        {
+            var hit = results[r].gameObject;
+            if (IsInProtectedList(hit))
+                return true;
+        }
+
+        return false;
     }
 
-    public GameObject[] GetRegionCities()
+    bool IsInProtectedList(GameObject go)
     {
-        return regionCities;
-    }
+        if (go == null || dontUnselectOnClick == null) return false;
 
-    public bool GetIsSelected()
-    {
-        return isSelected;
-    }
+        for (int i = 0; i < dontUnselectOnClick.Count; i++)
+        {
+            var target = dontUnselectOnClick[i];
+            if (target == null) continue;
 
-    public bool GetMouseIsOver()
-    {
-        return mouseIsOver;
+            if (go == target) return true;
+        }
+
+        return false;
     }
 }

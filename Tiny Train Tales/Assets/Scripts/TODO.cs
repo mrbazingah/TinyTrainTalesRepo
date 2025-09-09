@@ -2,17 +2,9 @@ using UnityEngine;
 
 public class TODO : MonoBehaviour
 {
-    //--------Priority--------
-    //Make it so it can reach every city
-
-    //--------Bugs--------
-    //Unable to reach cities when first starting the game
-    //
-
     //Quests:
     //One for every city
     //Some to unlock next area
-    //Five everyday
 
     //Have a market at every city
     //Zoom in on map
@@ -21,7 +13,6 @@ public class TODO : MonoBehaviour
 
     //Make new or update Sprites for:
     //Passanger Icon
-    //Coins Icon
     //Train Image
     //The Whole Background
     //Station

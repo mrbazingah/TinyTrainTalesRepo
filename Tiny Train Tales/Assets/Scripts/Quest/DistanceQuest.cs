@@ -7,15 +7,19 @@ public class DistanceQuest : MonoBehaviour
     [SerializeField] TextMeshProUGUI travelText;
     [SerializeField] Slider progressSlider;
     [SerializeField] GameObject collectButton;
-    [SerializeField] float distanceToTravel;        // Total distance needed to complete the quest
-    [SerializeField] float distanceTraveled;        // Distance already traveled
+    [Space]
+    [SerializeField] float distanceToTravel;        
+    [SerializeField] float distanceTraveled;        
     [SerializeField] float maxDistance, minDistance;
-    [SerializeField] float multiplier;
-    [SerializeField] float currentDistanceToTravel; // Remaining distance to travel
+    [SerializeField] float currentDistanceToTravel;
     [SerializeField] float savedDistanceTraveled;
-    [SerializeField] bool getGems; // Specify if this quest gives gems as a reward
+    [Space]
+    [SerializeField] float minSpeedForMultiplier;
+    [SerializeField] float multiplier;
+    [Space]
+    [SerializeField] bool getGems;
 
-    float originalDistance; // Corrected spelling
+    float originalDistance; 
     bool hasCompleted;
 
     GameManager gameManager;
@@ -34,6 +38,24 @@ public class DistanceQuest : MonoBehaviour
 
     public void SetUpQuest()
     {
+        string pastDate = PlayerPrefs.GetString("PastDate" + gameObject.name, "");
+        string currentDate = System.DateTime.Now.ToString("yyyyMMdd");
+        if (pastDate != currentDate)
+        {
+            if (PlayerPrefs.HasKey(gameObject.name + "DistanceToTravel"))
+            {
+                ResetQuest();
+            }
+
+            PlayerPrefs.SetString("PastDate" + gameObject.name, currentDate);
+        }
+        else if (PlayerPrefs.HasKey("QuestCompleted" + gameObject.name))
+        {
+            UpdateQuestVisuals();
+            hasCompleted = true;
+            return;
+        }
+
         if (PlayerPrefs.HasKey(gameObject.name + "DistanceToTravel"))
         {
             // Load saved quest data
@@ -42,10 +64,13 @@ public class DistanceQuest : MonoBehaviour
         }
         else
         {
-            // Generate a new quest
-            distanceToTravel = Random.Range(minDistance, maxDistance + 1) * multiplier;
+            float distanceMultiplier = gameManager.GetMaxSpeed() < minSpeedForMultiplier ? 100 : multiplier;
+
+            distanceToTravel = Random.Range(minDistance, maxDistance + 1) * distanceMultiplier;
             distanceTraveled = 0;
-            originalDistance = gameManager.GetRemainingDistance(); // Start tracking from here
+            originalDistance = gameManager.GetRemainingDistance(); 
+
+            getGems = ((int)Random.Range(0, 2) == 0) ? true : false;
         }
 
         progressSlider.maxValue = distanceToTravel;
@@ -117,7 +142,15 @@ public class DistanceQuest : MonoBehaviour
             gameManager.AddCoins(reward);
         }
 
-        ResetQuest();
+        PlayerPrefs.SetInt("QuestCompleted" + gameObject.name, 1);
+        UpdateQuestVisuals();
+    }
+
+    void UpdateQuestVisuals()
+    {
+        collectButton.SetActive(false);
+        progressSlider.gameObject.SetActive(false);
+        travelText.text = "Completed!";
     }
 
     void ResetQuest()

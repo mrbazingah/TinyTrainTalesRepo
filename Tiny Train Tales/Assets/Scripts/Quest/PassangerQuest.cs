@@ -5,10 +5,14 @@ public class PassangerQuest : MonoBehaviour
 {
     [SerializeField] TextMeshProUGUI questText;
     [SerializeField] GameObject collectButton;
+    [Space]
     [SerializeField] float passangersToDropOff; // Total distance needed to complete the quest
     [SerializeField] float passangersDroppedOff; // Distance already traveled
     [SerializeField] float minPassangers, maxPassangers;
+    [Space]
+    [SerializeField] float minPassangerForMultiplier;
     [SerializeField] float multiplier;
+    [Space]
     [SerializeField] bool getGems; // Specify if this quest gives gems as a reward
 
     bool hasCompleted;
@@ -24,6 +28,24 @@ public class PassangerQuest : MonoBehaviour
 
     public void SetUpQuest()
     {
+        string pastDate = PlayerPrefs.GetString("PastDate" + gameObject.name, "");
+        string currentDate = System.DateTime.Now.ToString("yyyyMMdd");
+        if (pastDate != currentDate)
+        {
+            if (PlayerPrefs.HasKey(gameObject.name + "DistanceToTravel"))
+            {
+                ResetQuest();
+            }
+
+            PlayerPrefs.SetString("PastDate" + gameObject.name, currentDate);
+        }
+        else if (PlayerPrefs.HasKey("QuestCompleted" + gameObject.name))
+        {
+            UpdateQuestVisuals();
+            hasCompleted = true;
+            return;
+        }
+
         if (PlayerPrefs.HasKey(gameObject.name + "PassangersToDropOff"))
         {
             // Load saved quest data
@@ -42,8 +64,12 @@ public class PassangerQuest : MonoBehaviour
         }
         else
         {
-            passangersToDropOff = (int)Random.Range(minPassangers, maxPassangers + 1) * multiplier;
+            // Initialize new quest
+            float passnagerMultiplier = gameManager.GetMaxPassangers() < minPassangerForMultiplier ? 10 : multiplier;
+            passangersToDropOff = (int)Random.Range(minPassangers, maxPassangers + 1) * passnagerMultiplier;
             collectButton.SetActive(false);
+
+            getGems = ((int)Random.Range(0, 2) == 0) ? true : false;
         }
 
         questText.text = passangersDroppedOff.ToString() + "/" + passangersToDropOff.ToString();
@@ -87,7 +113,13 @@ public class PassangerQuest : MonoBehaviour
             gameManager.AddCoins(reward);
         }
 
-        ResetQuest();
+        UpdateQuestVisuals();
+    }
+
+    void UpdateQuestVisuals()
+    {
+        collectButton.SetActive(false);
+        questText.text = "Completed!";
     }
 
     void ResetQuest()
