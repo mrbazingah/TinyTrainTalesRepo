@@ -6,14 +6,14 @@ public class PassangerQuest : MonoBehaviour
     [SerializeField] TextMeshProUGUI questText;
     [SerializeField] GameObject collectButton;
     [Space]
-    [SerializeField] float passangersToDropOff; // Total distance needed to complete the quest
-    [SerializeField] float passangersDroppedOff; // Distance already traveled
+    [SerializeField] float passangersToDropOff; 
+    [SerializeField] float passangersDroppedOff; 
     [SerializeField] float minPassangers, maxPassangers;
     [Space]
     [SerializeField] float minPassangerForMultiplier;
     [SerializeField] float multiplier;
     [Space]
-    [SerializeField] bool getGems; // Specify if this quest gives gems as a reward
+    [SerializeField] bool getGems;
 
     bool hasCompleted;
 
@@ -113,6 +113,7 @@ public class PassangerQuest : MonoBehaviour
             gameManager.AddCoins(reward);
         }
 
+        PlayerPrefs.SetInt("QuestCompleted" + gameObject.name, 1);
         UpdateQuestVisuals();
     }
 

@@ -10,33 +10,43 @@ public class UpgradeManager : MonoBehaviour
     [SerializeField] float maxSpeedCost;
     [SerializeField] float addToMaxSpeed;
     [SerializeField] float maxSpeedCostIncrease;
-    [SerializeField] int maxSpeedAmount;
+    [Space]
+    [SerializeField] TextMeshProUGUI maxSpeedUpgradeAmountText;
+    [SerializeField] int maxSpeedUpgradeAmount;
     [Header("Max Passangers")]
     [SerializeField] TextMeshProUGUI maxPassangersText;
     [SerializeField] TextMeshProUGUI maxPassangerCostText;
     [SerializeField] float maxPassangerCost;
     [SerializeField] float addToMaxPassangers;
     [SerializeField] float maxPassangerCostIncrease;
-    [SerializeField] int maxPassangerAmount;
+    [Space]
+    [SerializeField] TextMeshProUGUI maxPassangerUpgradeAmountText;
     [Header("Acceleration")]
     [SerializeField] TextMeshProUGUI accelerationText;
     [SerializeField] TextMeshProUGUI accelerationCostText;
     [SerializeField] float accelerationCost;
     [SerializeField] float addToAcceleration;
     [SerializeField] float accelerationCostIncrease;
-    [SerializeField] int maxAccelerationAmount;
+    [Space]
+    [SerializeField] TextMeshProUGUI maxAccelerationUpgradeAmountText;
+    [SerializeField] int maxAccelerationUpgradeAmount;
     [Header("Profit")]
     [SerializeField] TextMeshProUGUI profitText;
     [SerializeField] TextMeshProUGUI profitCostText;
     [SerializeField] float profitCost;
     [SerializeField] float addToProfit;
     [SerializeField] float profitCostIncrease;
-    [SerializeField] int maxProfitAmount;
+    [Space]
+    [SerializeField] TextMeshProUGUI maxProfitUpgradeAmountText;
+    [SerializeField] int maxProfitUpgradeAmount;
     [Header("Cars")]
     [SerializeField] TextMeshProUGUI carsText;
     [SerializeField] TextMeshProUGUI carsCostText;
     [SerializeField] float carsCost;
     [SerializeField] float carsCostIncrease;
+    [Space]
+    [SerializeField] TextMeshProUGUI maxCarUpgradeAmountText;
+    [SerializeField] int maxCarUpgradeAmount;
     [Header("Colors")]
     [SerializeField] Color originalColor;
     [SerializeField] Color cantAffordColor;
@@ -46,6 +56,10 @@ public class UpgradeManager : MonoBehaviour
     int amountOfCars = 1;
 
     int currentMaxSpeedAmount;
+    int currentMaxPassangerAmount;
+    int currentAccelerationAmount;
+    int currentProfitAmount;
+    int currentCarsAmount;
 
     ColorBlock accelerationColorBlock;
     ColorBlock maxSpeedColorBlock;
@@ -102,6 +116,12 @@ public class UpgradeManager : MonoBehaviour
         {
             amountOfCars = PlayerPrefs.GetInt("AmountOfCars");
         }
+
+        currentMaxSpeedAmount = PlayerPrefs.GetInt("CurrentMaxSpeedAmount");
+        currentMaxPassangerAmount = PlayerPrefs.GetInt("CurrentMaxPassangerAmount");
+        currentAccelerationAmount = PlayerPrefs.GetInt("CurrentAccelerationAmount");
+        currentProfitAmount = PlayerPrefs.GetInt("CurrentProfitAmount");
+        currentCarsAmount = PlayerPrefs.GetInt("CurrentCarsAmount");
 
         accelerationCostText.text = accelerationCost.ToString();
         maxSpeedCostText.text = maxSpeedCost.ToString();
@@ -184,11 +204,17 @@ public class UpgradeManager : MonoBehaviour
         accelerationText.text = "Current: " + (train.GetAcceleration() * 10).ToString();
         profitText.text = "Current: " + gameManager.GetProfit().ToString() + "X";
         carsText.text = "Current: " + amountOfCars.ToString();
+
+        maxSpeedUpgradeAmountText.text = currentMaxSpeedAmount + "/" + maxSpeedUpgradeAmount;
+        maxPassangerUpgradeAmountText.text = currentMaxPassangerAmount.ToString();
+        maxAccelerationUpgradeAmountText.text = currentAccelerationAmount + "/" + maxAccelerationUpgradeAmount;
+        maxProfitUpgradeAmountText.text = currentProfitAmount + "/" + maxProfitUpgradeAmount;
+        maxCarUpgradeAmountText.text = currentCarsAmount + "/" + maxCarUpgradeAmount;
     }
 
     public void UpgradeMaxSpeed()
     {
-        if (coins < maxSpeedCost || currentMaxSpeedAmount >= maxSpeedAmount) { return; }
+        if (coins < maxSpeedCost || currentMaxSpeedAmount >= maxSpeedUpgradeAmount) { return; }
 
         gameManager.BuyWithCoins(maxSpeedCost);
         maxSpeedCost += maxSpeedCostIncrease;
@@ -199,6 +225,7 @@ public class UpgradeManager : MonoBehaviour
         gameManager?.AddToMaxSpeed(addToMaxSpeed);
 
         currentMaxSpeedAmount++;
+        PlayerPrefs.SetInt("CurrentMaxSpeedAmount", currentMaxSpeedAmount);
     }
 
     public void UpgradeMaxPassangers()
@@ -212,11 +239,14 @@ public class UpgradeManager : MonoBehaviour
 
         PlayerPrefs.SetFloat("MaxPassangerCost", maxPassangerCost);
         gameManager?.AddToMaxPassangers(addToMaxPassangers);
+
+        currentMaxPassangerAmount++;
+        PlayerPrefs.SetInt("CurrentMaxPassangerAmount", currentMaxPassangerAmount);
     }
 
     public void UpgradeAcceleration()
     {
-        if (coins < accelerationCost) { return; }
+        if (coins < accelerationCost || currentAccelerationAmount >= maxAccelerationUpgradeAmount) { return; }
 
         gameManager.BuyWithCoins(accelerationCost);
         accelerationCost += accelerationCostIncrease;
@@ -225,11 +255,14 @@ public class UpgradeManager : MonoBehaviour
 
         PlayerPrefs.SetFloat("AccelerationCost", accelerationCost);
         train?.AddToAcceleration(addToAcceleration);
+
+        currentAccelerationAmount++;
+        PlayerPrefs.SetInt("CurrentAccelerationAmount", currentAccelerationAmount);
     }
 
     public void UprgadeProfit()
     {
-        if (coins < profitCost) { return; }
+        if (coins < profitCost || currentProfitAmount >= maxProfitUpgradeAmount) { return; }
 
         gameManager.BuyWithCoins(profitCost);
         profitCost += profitCostIncrease;
@@ -238,11 +271,14 @@ public class UpgradeManager : MonoBehaviour
 
         PlayerPrefs.SetFloat("ProfitCost", profitCost);
         gameManager?.AddToProfit(addToProfit);
+
+        currentProfitAmount++;
+        PlayerPrefs.SetInt("CurrentProfitAmount", currentProfitAmount);
     }
 
     public void UpgradeCars()
     {
-        if (coins < carsCost) { return; }
+        if (coins < carsCost || currentCarsAmount >= maxCarUpgradeAmount) { return; }
 
         gameManager.BuyWithCoins(carsCost);
         carsCost += carsCostIncrease;
@@ -252,6 +288,9 @@ public class UpgradeManager : MonoBehaviour
 
         PlayerPrefs.SetFloat("CarsCost", carsCost);
         PlayerPrefs.SetInt("AmountOfCars", amountOfCars);
+
+        currentCarsAmount++;
+        PlayerPrefs.SetInt("CurrentCarsAmount", currentCarsAmount);
     }
 
     public int GetAmountOfCars()

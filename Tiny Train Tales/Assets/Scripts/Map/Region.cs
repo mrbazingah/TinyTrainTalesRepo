@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using UnityEngine.EventSystems;   // keep
 
 public class Region : MonoBehaviour
 {
@@ -16,9 +15,6 @@ public class Region : MonoBehaviour
     [SerializeField] string destinationCity;
     [SerializeField] GameObject cityMenuCanvas;
 
-    [SerializeField] List<GameObject> dontUnselectOnClick = new List<GameObject>();
-    [SerializeField] List<GraphicRaycaster> uiRaycasters = new List<GraphicRaycaster>();
-
     Image coverImage;
     Color startColor;
 
@@ -29,22 +25,12 @@ public class Region : MonoBehaviour
     GameManager gameManager;
     CityMenu cityMenu;
 
-    EventSystem eventSystem;
-
     void Start()
     {
         gameManager = FindObjectOfType<GameManager>();
         cityMenu = FindObjectOfType<CityMenu>();
         coverImage = GetComponent<Image>();
         startColor = coverImage.color;
-
-        if (eventSystem == null) eventSystem = EventSystem.current;
-        if (uiRaycasters == null) uiRaycasters = new List<GraphicRaycaster>();
-        if (uiRaycasters.Count == 0)
-        {
-            var found = FindObjectsOfType<GraphicRaycaster>(true);
-            uiRaycasters.AddRange(found);
-        }
     }
 
     public void SetCityActivity(bool active)
@@ -98,7 +84,7 @@ public class Region : MonoBehaviour
     {
         if (!mouseIsOver && Input.GetKeyDown(KeyCode.Mouse0))
         {
-            if ((cityMenu != null && cityMenu.GetMouseIsOnMenu()) || ClickIsOnProtectedUI())
+            if (cityMenu != null && cityMenu.GetMouseIsOnMenu())
                 return;
 
             coverImage.color = startColor;
@@ -112,8 +98,7 @@ public class Region : MonoBehaviour
         }
         else if (mouseIsOver && Input.GetKeyDown(KeyCode.Mouse0))
         {
-            if ((cityMenu != null && cityMenu.GetMouseIsOnMenu()) ||
-                (EventSystem.current != null && EventSystem.current.IsPointerOverGameObject()))
+            if (cityMenu != null && cityMenu.GetMouseIsOnMenu())
                 return;
 
             coverImage.color = selectColor;
@@ -173,47 +158,4 @@ public class Region : MonoBehaviour
     public GameObject[] GetRegionCities() => regionCities;
     public bool GetIsSelected() => isSelected;
     public bool GetMouseIsOver() => mouseIsOver;
-
-    bool ClickIsOnProtectedUI()
-    {
-        if (eventSystem == null || uiRaycasters == null || uiRaycasters.Count == 0)
-            return false;
-
-        var pointerData = new PointerEventData(eventSystem)
-        {
-            position = Input.mousePosition
-        };
-
-        var results = new List<RaycastResult>();
-        for (int i = 0; i < uiRaycasters.Count; i++)
-        {
-            var gr = uiRaycasters[i];
-            if (gr == null || !gr.isActiveAndEnabled) continue;
-            gr.Raycast(pointerData, results);
-        }
-
-        for (int r = 0; r < results.Count; r++)
-        {
-            var hit = results[r].gameObject;
-            if (IsInProtectedList(hit))
-                return true;
-        }
-
-        return false;
-    }
-
-    bool IsInProtectedList(GameObject go)
-    {
-        if (go == null || dontUnselectOnClick == null) return false;
-
-        for (int i = 0; i < dontUnselectOnClick.Count; i++)
-        {
-            var target = dontUnselectOnClick[i];
-            if (target == null) continue;
-
-            if (go == target) return true;
-        }
-
-        return false;
-    }
 }
