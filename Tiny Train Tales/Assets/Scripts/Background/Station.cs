@@ -15,11 +15,13 @@ public class Station : MonoBehaviour
 
     GameManager gameManager;
     CityManager cityManager;
+    CityCargoMenu cityCargoMenu;
 
     void Awake()
     {
         gameManager = FindObjectOfType<GameManager>();
         cityManager = FindObjectOfType<CityManager>();
+        cityCargoMenu = FindObjectOfType<CityCargoMenu>();
     }
 
     void Start()
@@ -53,6 +55,11 @@ public class Station : MonoBehaviour
         boardedPassangersText.text = addPassangers.ToString();
         deboardedPassangersText.text = subPassangers.ToString();
         coinsText.text = "+" + coinsAdded.ToString();
+    }
+
+    public void OpenCargoMenu()
+    {
+        cityCargoMenu.OpenCargoMenu();
     }
 
     public void LeaveStation()

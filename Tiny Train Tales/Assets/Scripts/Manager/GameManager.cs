@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
-using UnityEditor.Build.Content;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -430,8 +429,9 @@ public class GameManager : MonoBehaviour
 
         if (!hasClosedMenus)
         {
-            SaveAll();
+            cityManager.GetNextCity().GetComponent<City>().CreateCargoItemForCity();
             AddAndSubtractPassangers();
+            SaveAll();
 
             if (autoLeaveStation.isOn)
             {

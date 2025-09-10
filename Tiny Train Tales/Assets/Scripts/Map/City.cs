@@ -13,13 +13,17 @@ public class City : MonoBehaviour
 
     bool isUnlocked = false;
 
+    List<GameObject> cargo = new List<GameObject>();
+
     CityMenu cityMenuScript;
     CargoManager cargoManager;
+    CityCargoMenu cityCargoMenu;
 
     void Awake()
     {
         cityMenuScript = FindObjectOfType<CityMenu>();
         cargoManager = FindObjectOfType<CargoManager>();
+        cityCargoMenu = FindObjectOfType<CityCargoMenu>();
     }
 
     void Start()
@@ -75,6 +79,44 @@ public class City : MonoBehaviour
     public void SetUnlockedState(bool b)
     {
         isUnlocked = b;
+    }
+
+    public void CreateCargoItemForCity()
+    {
+        int randomCargoAmount = Random.Range(cargoManager.GetCityMinCargoAmount(), cargoManager.GetCityMaxCargoAmount() + 1);
+        for (int i = 0; i < randomCargoAmount; i++)
+        {
+            if (cargoManager != null)
+            {
+                GameObject newCargoItem = cargoManager.CreateCargoItem(gameObject.name);
+                if (!CheckForDuplicates(newCargoItem))
+                {
+                    cargo.Add(newCargoItem);
+                }
+                else
+                {
+                    newCargoItem.SetActive(false);
+                    Destroy(newCargoItem);
+
+                    continue;
+                }
+            }
+        }
+
+        cityCargoMenu.SetCargoList(cargo);
+    }
+
+    bool CheckForDuplicates(GameObject newCargo)
+    {
+        for (int i = 0; i < cargo.Count; i++)
+        {
+            if (cargo[i].GetComponent<CargoItem>().GetItemIcon().sprite == newCargo.GetComponent<CargoItem>().GetItemIcon().sprite)
+            {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     public GameObject[] GetCityNeighbors()

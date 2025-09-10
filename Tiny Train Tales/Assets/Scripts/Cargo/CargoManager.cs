@@ -3,13 +3,17 @@ using UnityEngine;
 
 public class CargoManager : MonoBehaviour
 {
-    [SerializeField] int maxCragoTypesPerCity;
-    [SerializeField] int maxCargoAmount;
-    [Space]
+    [Header("City Cargo Parameters")]
+    [SerializeField] int minSpawnCount;
+    [SerializeField] int maxSpawnCount;
+    [SerializeField] int minCityCargoAmount;
+    [SerializeField] int maxCityCargoAmount;
+    [Header("Cargo Intiate")]
     [SerializeField] Sprite[] cargoTypesSprites;
     [SerializeField] string[] cargoTypesNames;
     [Space]
     [SerializeField] GameObject cargoItemPrefab;
+    [SerializeField] int maxCargoCount;
 
     int currentCargoAmount;
 
@@ -18,9 +22,9 @@ public class CargoManager : MonoBehaviour
     public void AddCargo()
     {
         currentCargoAmount++;
-        if (currentCargoAmount > maxCargoAmount)
+        if (currentCargoAmount > maxCargoCount)
         {
-            currentCargoAmount = maxCargoAmount;
+            currentCargoAmount = maxCargoCount;
         }
 
         bool hasItem = false;
@@ -51,15 +55,28 @@ public class CargoManager : MonoBehaviour
         }
     }
 
-    public GameObject CreateCargoItem()
+    public GameObject CreateCargoItem(string cityName)
     {
         GameObject cargoItem = Instantiate(cargoItemPrefab);
         CargoItem cargoItemScript = cargoItem.GetComponent<CargoItem>();
 
         int randomIndex = Random.Range(0, cargoTypesSprites.Length);
         cargoItemScript.SetItemIcon(cargoTypesSprites[randomIndex]);
-        cargoItemScript.SetItemName(cargoTypesNames[randomIndex]);
+        cargoItemScript.SetItemName(cargoTypesNames[randomIndex] + " " + cityName);
+
+        int randomCount = Random.Range(minSpawnCount, maxSpawnCount + 1);
+        cargoItemScript.SetItemCount(randomCount);
 
         return cargoItem;
+    }
+
+    public int GetCityMinCargoAmount()
+    {
+        return minCityCargoAmount;
+    }
+
+    public int GetCityMaxCargoAmount()
+    {
+        return maxCityCargoAmount;
     }
 }

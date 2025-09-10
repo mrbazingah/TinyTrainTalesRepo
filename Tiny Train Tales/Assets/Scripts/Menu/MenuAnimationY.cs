@@ -4,6 +4,7 @@ public class MenuAnimationY : MonoBehaviour
 {
     [SerializeField] float speed;
     [SerializeField] float destination;
+    [SerializeField] bool isAbove;
 
     Vector2 savedPos;
 
@@ -37,7 +38,8 @@ public class MenuAnimationY : MonoBehaviour
         if (startAnimation && !hasReachedDestination)
         {
             transform.position = Vector2.Lerp(transform.position, new Vector2(cam.transform.position.x, destination), speed);
-            if (transform.position.y >= destination - 0.05f)
+
+            if ((transform.position.y >= destination - 0.05f && !isAbove) || (transform.position.y <= destination + 0.05f && isAbove))
             {
                 hasReachedDestination = true;
             }
@@ -45,7 +47,7 @@ public class MenuAnimationY : MonoBehaviour
         else if (!startAnimation && !stop)
         {
             transform.position = Vector2.Lerp(transform.position, savedPos, speed);
-            if (transform.position.y <= savedPos.y + 0.2f)
+            if ((transform.position.y <= savedPos.y + 0.2f && !isAbove) || (transform.position.y >= savedPos.y - 0.2f && isAbove))
             {
                 stop = true;
                 transform.position = new Vector2(cam.transform.position.x, savedPos.y);

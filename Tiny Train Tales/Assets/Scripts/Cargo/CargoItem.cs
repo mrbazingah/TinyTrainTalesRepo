@@ -7,6 +7,7 @@ public class CargoItem : MonoBehaviour
     [SerializeField] Image itemIcon;
     [SerializeField] TextMeshProUGUI itemCountText;
 
+    int itemCount;
     string itemName;
 
     public void SetItemIcon(Sprite itemSprite)
@@ -17,7 +18,12 @@ public class CargoItem : MonoBehaviour
     public void SetItemName(string name)
     {
         itemName = name;
-        gameObject.name = name + " Item";
+    }
+
+    public void SetItemCount(int count)
+    {
+        itemCount = count;
+        itemCountText.text = itemCount.ToString();
     }
 
     public Image GetItemIcon()
@@ -28,5 +34,10 @@ public class CargoItem : MonoBehaviour
     public TextMeshProUGUI GetItemCountText()
     {
         return itemCountText;
+    }
+
+    public string GetItemName()
+    {
+        return itemName;
     }
 }

@@ -44,12 +44,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6ba3b8c425bc45429fc39a32baf2361, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxCragoTypesPerCity: 5
-  maxCargoAmount: 100
+  minSpawnCount: 5
+  maxSpawnCount: 10
+  minCityCargoAmount: 1
+  maxCityCargoAmount: 20
   cargoTypesSprites:
   - {fileID: 21300000, guid: 08abc56858592d644a6d5986b96d9e9e, type: 3}
   - {fileID: 21300000, guid: 10c051b9c3f51a741a87d4455c335f1e, type: 3}
   cargoTypesNames:
   - Banana
   - Log
-  cargoItemPrefab: {fileID: 0}
+  cargoItemPrefab: {fileID: 5281844532400729776, guid: 5aab2d53964cc3042ab7d9dc638b961d, type: 3}
+  maxCargoCount: 50
