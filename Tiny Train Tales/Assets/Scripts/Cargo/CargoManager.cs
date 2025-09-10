@@ -3,8 +3,13 @@ using UnityEngine;
 
 public class CargoManager : MonoBehaviour
 {
+    [SerializeField] int maxCragoTypesPerCity;
     [SerializeField] int maxCargoAmount;
+    [Space]
     [SerializeField] Sprite[] cargoTypesSprites;
+    [SerializeField] string[] cargoTypesNames;
+    [Space]
+    [SerializeField] GameObject cargoItemPrefab;
 
     int currentCargoAmount;
 
@@ -32,6 +37,7 @@ public class CargoManager : MonoBehaviour
                 }
             }
 
+            if (hasItem) break;
             hasItem = false;
         }
 
@@ -43,5 +49,17 @@ public class CargoManager : MonoBehaviour
         {
             //Has Index
         }
+    }
+
+    public GameObject CreateCargoItem()
+    {
+        GameObject cargoItem = Instantiate(cargoItemPrefab);
+        CargoItem cargoItemScript = cargoItem.GetComponent<CargoItem>();
+
+        int randomIndex = Random.Range(0, cargoTypesSprites.Length);
+        cargoItemScript.SetItemIcon(cargoTypesSprites[randomIndex]);
+        cargoItemScript.SetItemName(cargoTypesNames[randomIndex]);
+
+        return cargoItem;
     }
 }

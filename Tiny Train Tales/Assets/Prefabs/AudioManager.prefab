@@ -175,12 +175,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <trainAudios>k__BackingField:
-  - {fileID: 8300000, guid: ffd3060b5a1da6d40970e76fd0a260ad, type: 3}
+  - {fileID: 8300000, guid: cb14ca3856ea8d149806210fc2203ba1, type: 3}
   - {fileID: 8300000, guid: fb687231d0db0a743b00e20def054707, type: 3}
   sFXVolumeSlider: {fileID: 0}
   musicVolumeSlider: {fileID: 0}
-  sFXVolume: 0.5
-  musicVolume: 0.5
+  sFXVolume: 0
+  musicVolume: 0
   sFXAudioSource: {fileID: 9115335525998611057}
   musicAudioSource: {fileID: 1792084357815330828}
   trainAudioSource: {fileID: 0}

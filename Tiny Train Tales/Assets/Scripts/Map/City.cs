@@ -1,6 +1,5 @@
-using System.Linq;
+using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems; // NEW
 
 public class City : MonoBehaviour
 {
@@ -15,10 +14,12 @@ public class City : MonoBehaviour
     bool isUnlocked = false;
 
     CityMenu cityMenuScript;
+    CargoManager cargoManager;
 
     void Awake()
     {
         cityMenuScript = FindObjectOfType<CityMenu>();
+        cargoManager = FindObjectOfType<CargoManager>();
     }
 
     void Start()

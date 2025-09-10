@@ -42039,17 +42039,9 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 34222866}
     - target: {fileID: 3104360152833878173, guid: f2929c3dec4229d4dbdbfcf07e0b3dc2, type: 3}
-      propertyPath: maxSpeedAmount
-      value: 25
-      objectReference: {fileID: 0}
-    - target: {fileID: 3104360152833878173, guid: f2929c3dec4229d4dbdbfcf07e0b3dc2, type: 3}
       propertyPath: profitCostText
       value: 
       objectReference: {fileID: 65905397}
-    - target: {fileID: 3104360152833878173, guid: f2929c3dec4229d4dbdbfcf07e0b3dc2, type: 3}
-      propertyPath: accelerationCost
-      value: 1000
-      objectReference: {fileID: 0}
     - target: {fileID: 3104360152833878173, guid: f2929c3dec4229d4dbdbfcf07e0b3dc2, type: 3}
       propertyPath: accelerationText
       value: 
@@ -42063,10 +42055,6 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2109931888}
     - target: {fileID: 3104360152833878173, guid: f2929c3dec4229d4dbdbfcf07e0b3dc2, type: 3}
-      propertyPath: maxCarUpgradeAmount
-      value: 25
-      objectReference: {fileID: 0}
-    - target: {fileID: 3104360152833878173, guid: f2929c3dec4229d4dbdbfcf07e0b3dc2, type: 3}
       propertyPath: accelerationCostText
       value: 
       objectReference: {fileID: 1265809140}
@@ -42075,21 +42063,9 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 654572736}
     - target: {fileID: 3104360152833878173, guid: f2929c3dec4229d4dbdbfcf07e0b3dc2, type: 3}
-      propertyPath: maxSpeedUpgradeAmount
-      value: 25
-      objectReference: {fileID: 0}
-    - target: {fileID: 3104360152833878173, guid: f2929c3dec4229d4dbdbfcf07e0b3dc2, type: 3}
-      propertyPath: maxProfitUpgradeAmount
-      value: 16
-      objectReference: {fileID: 0}
-    - target: {fileID: 3104360152833878173, guid: f2929c3dec4229d4dbdbfcf07e0b3dc2, type: 3}
       propertyPath: maxCarUpgradeAmountText
       value: 
       objectReference: {fileID: 1156876386}
-    - target: {fileID: 3104360152833878173, guid: f2929c3dec4229d4dbdbfcf07e0b3dc2, type: 3}
-      propertyPath: accelerationCostIncrease
-      value: 500
-      objectReference: {fileID: 0}
     - target: {fileID: 3104360152833878173, guid: f2929c3dec4229d4dbdbfcf07e0b3dc2, type: 3}
       propertyPath: maxSpeedUpgradeAmountText
       value: 
@@ -42098,10 +42074,6 @@ PrefabInstance:
       propertyPath: maxProfitUpgradeAmountText
       value: 
       objectReference: {fileID: 1710043629}
-    - target: {fileID: 3104360152833878173, guid: f2929c3dec4229d4dbdbfcf07e0b3dc2, type: 3}
-      propertyPath: maxAccelerationUpgradeAmount
-      value: 15
-      objectReference: {fileID: 0}
     - target: {fileID: 3104360152833878173, guid: f2929c3dec4229d4dbdbfcf07e0b3dc2, type: 3}
       propertyPath: maxPassangerUpgradeAmountText
       value: 
@@ -42426,14 +42398,6 @@ PrefabInstance:
     - target: {fileID: 7661914925183875220, guid: e2cace444bded594b9f1b41e18776698, type: 3}
       propertyPath: m_Name
       value: QuestManager
-      objectReference: {fileID: 0}
-    - target: {fileID: 9173003003584550724, guid: e2cace444bded594b9f1b41e18776698, type: 3}
-      propertyPath: yOffset
-      value: 70
-      objectReference: {fileID: 0}
-    - target: {fileID: 9173003003584550724, guid: e2cace444bded594b9f1b41e18776698, type: 3}
-      propertyPath: startPos.y
-      value: 120
       objectReference: {fileID: 0}
     - target: {fileID: 9173003003584550724, guid: e2cace444bded594b9f1b41e18776698, type: 3}
       propertyPath: questParent
@@ -45447,14 +45411,6 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7617466412071550856, guid: 95e7db7532b0e774c80d8841f65d07f8, type: 3}
-      propertyPath: sFXVolume
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7617466412071550856, guid: 95e7db7532b0e774c80d8841f65d07f8, type: 3}
-      propertyPath: musicVolume
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7617466412071550856, guid: 95e7db7532b0e774c80d8841f65d07f8, type: 3}
       propertyPath: sFXVolumeSlider
       value: 
       objectReference: {fileID: 1883544933}
@@ -45466,10 +45422,6 @@ PrefabInstance:
       propertyPath: musicVolumeSlider
       value: 
       objectReference: {fileID: 2052773386}
-    - target: {fileID: 7617466412071550856, guid: 95e7db7532b0e774c80d8841f65d07f8, type: 3}
-      propertyPath: <trainAudios>k__BackingField.Array.data[0]
-      value: 
-      objectReference: {fileID: 8300000, guid: cb14ca3856ea8d149806210fc2203ba1, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -50172,6 +50124,63 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7863593971807538416, guid: add178ffe0633914ca6d7a783a262349, type: 3}
   m_PrefabInstance: {fileID: 6272940435350782659}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &7677165789318426574
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 7550580617388173977, guid: 1e1a5ac1c328e0e4791d66dab0209d33, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7550580617388173977, guid: 1e1a5ac1c328e0e4791d66dab0209d33, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7550580617388173977, guid: 1e1a5ac1c328e0e4791d66dab0209d33, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7550580617388173977, guid: 1e1a5ac1c328e0e4791d66dab0209d33, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7550580617388173977, guid: 1e1a5ac1c328e0e4791d66dab0209d33, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7550580617388173977, guid: 1e1a5ac1c328e0e4791d66dab0209d33, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7550580617388173977, guid: 1e1a5ac1c328e0e4791d66dab0209d33, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7550580617388173977, guid: 1e1a5ac1c328e0e4791d66dab0209d33, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7550580617388173977, guid: 1e1a5ac1c328e0e4791d66dab0209d33, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7550580617388173977, guid: 1e1a5ac1c328e0e4791d66dab0209d33, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8071991982392841250, guid: 1e1a5ac1c328e0e4791d66dab0209d33, type: 3}
+      propertyPath: m_Name
+      value: CargoManager
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 1e1a5ac1c328e0e4791d66dab0209d33, type: 3}
 --- !u!4 &7683729502666982107
 Transform:
   m_ObjectHideFlags: 0
@@ -51827,13 +51836,14 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 519420032}
-  - {fileID: 1688613802266039053}
-  - {fileID: 4206471878066024702}
   - {fileID: 7698767031593942036}
-  - {fileID: 9107061435259170535}
+  - {fileID: 1688613802266039053}
   - {fileID: 1919756747744110202}
+  - {fileID: 7677165789318426574}
   - {fileID: 1772713133}
   - {fileID: 1984954364}
+  - {fileID: 4206471878066024702}
+  - {fileID: 9107061435259170535}
   - {fileID: 1011250643}
   - {fileID: 3698562619360685032}
   - {fileID: 729048467}

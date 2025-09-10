@@ -49,26 +49,34 @@ MonoBehaviour:
   maxSpeedCost: 1000
   addToMaxSpeed: 5
   maxSpeedCostIncrease: 500
-  maxSpeedAmount: 20
+  maxSpeedUpgradeAmountText: {fileID: 0}
+  maxSpeedUpgradeAmount: 25
   maxPassangersText: {fileID: 0}
   maxPassangerCostText: {fileID: 0}
   maxPassangerCost: 500
   addToMaxPassangers: 5
   maxPassangerCostIncrease: 250
+  maxPassangerUpgradeAmountText: {fileID: 0}
   accelerationText: {fileID: 0}
   accelerationCostText: {fileID: 0}
-  accelerationCost: 500
+  accelerationCost: 1000
   addToAcceleration: 1
-  accelerationCostIncrease: 250
+  accelerationCostIncrease: 500
+  maxAccelerationUpgradeAmountText: {fileID: 0}
+  maxAccelerationUpgradeAmount: 15
   profitText: {fileID: 0}
   profitCostText: {fileID: 0}
   profitCost: 2000
   addToProfit: 0.25
   profitCostIncrease: 2000
+  maxProfitUpgradeAmountText: {fileID: 0}
+  maxProfitUpgradeAmount: 16
   carsText: {fileID: 0}
   carsCostText: {fileID: 0}
   carsCost: 1000
   carsCostIncrease: 500
+  maxCarUpgradeAmountText: {fileID: 0}
+  maxCarUpgradeAmount: 25
   originalColor: {r: 1, g: 1, b: 1, a: 1}
   cantAffordColor: {r: 0.7058824, g: 0.7058824, b: 0.7058824, a: 1}
   doneColor: {r: 0.21124823, g: 0.7264151, b: 0.10051019, a: 1}
