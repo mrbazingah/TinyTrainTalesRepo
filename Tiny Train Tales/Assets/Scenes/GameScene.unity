@@ -24278,7 +24278,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Cargo
+  m_text: 'City Market
+
+'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: a40d25adf0a91cc4dbd5f57e6b4f5c18, type: 2}
   m_sharedMaterial: {fileID: -191329156657266487, guid: a40d25adf0a91cc4dbd5f57e6b4f5c18, type: 2}
@@ -24905,7 +24907,7 @@ GameObject:
   - component: {fileID: 1344660987}
   - component: {fileID: 1344660991}
   m_Layer: 0
-  m_Name: CargoCanvas
+  m_Name: MarketCanvas
   m_TagString: QuestMenu
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -25018,12 +25020,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1344660985}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dbef0deb8a7e6d54fa9da8629f7fcd39, type: 3}
+  m_Script: {fileID: 11500000, guid: 88132db430f7e43459b603f64814f2d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   menuAnimY: {fileID: 1344660987}
   cargoItemParent: {fileID: 341745264}
-  startPos: {x: -70, y: 120}
+  startPos: {x: 0, y: 120}
   yOffset: 100
 --- !u!1 &1345918894
 GameObject:
@@ -50657,6 +50659,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4633670734247654484, guid: 1e1a5ac1c328e0e4791d66dab0209d33, type: 3}
+      propertyPath: yOffset
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 4633670734247654484, guid: 1e1a5ac1c328e0e4791d66dab0209d33, type: 3}
+      propertyPath: startPos.y
+      value: 120
+      objectReference: {fileID: 0}
     - target: {fileID: 4633670734247654484, guid: 1e1a5ac1c328e0e4791d66dab0209d33, type: 3}
       propertyPath: cargoItemParent
       value: 

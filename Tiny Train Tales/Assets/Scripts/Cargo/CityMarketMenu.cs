@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CityCargoMenu : MonoBehaviour
+public class CityMarketMenu : MonoBehaviour
 {
     [SerializeField] MenuAnimationY menuAnimY;
     [SerializeField] GameObject cargoItemParent;
@@ -13,7 +13,6 @@ public class CityCargoMenu : MonoBehaviour
     public void OpenCargoMenu()
     {
         menuAnimY.StartAnimation();
-        Debug.Log("Cargo Menu Opened"); 
     }
 
     public void SetCargoList(List<GameObject> newCargoItems)

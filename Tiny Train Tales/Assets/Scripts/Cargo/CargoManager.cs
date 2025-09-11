@@ -35,17 +35,13 @@ public class CargoManager : MonoBehaviour
         int index = 0;
         for (int i = 0; i < cargoItemList.Count; i++)
         {
-            for (int ii = 0; ii < cargoItemsSprites.Length; ii++)
+            if (cargoItemList[i].GetComponent<CargoItem>().GetItemName() == newItem.GetComponent<CargoItem>().GetItemName())
             {
-                if (cargoItemList[i].GetComponent<CargoItem>().GetItemIcon().sprite == cargoItemsSprites[ii])
-                {
-                    hasItem = true;
-                    index = i;
-                    break;
-                }
+                hasItem = true;
+                index = i;
+                break;
             }
 
-            if (hasItem) break;
             hasItem = false;
         }
 
@@ -77,6 +73,7 @@ public class CargoManager : MonoBehaviour
         cargoItemList.Add(newSpawnedItem);
 
         cargoItemScript.SetItemCount(1);
+        cargoItemScript.SetItemName(newItemScript.GetItemName(), "");
 
         Vector2 lastPos = Vector2.zero;
 
@@ -84,7 +81,7 @@ public class CargoManager : MonoBehaviour
         {
             cargoItemList[i].transform.SetParent(cargoItemParent.transform);
             cargoItemList[i].transform.localPosition = Vector2.zero;
-            cargoItemList[i].transform.localScale = Vector3.one;
+            cargoItemList[i].transform.localScale = new Vector3(2, 2, 1);
 
             if (i == 0)
             {
@@ -97,6 +94,8 @@ public class CargoManager : MonoBehaviour
 
             lastPos = cargoItemList[i].transform.localPosition;
         }
+
+        cargoItemScript.ChangeUI();
     }
 
     public GameObject CreateCargoItem(string cityName)
@@ -106,7 +105,7 @@ public class CargoManager : MonoBehaviour
 
         int randomIndex = Random.Range(0, cargoItemsSprites.Length);
         cargoItemScript.SetItemIcon(cargoItemsSprites[randomIndex]);
-        cargoItemScript.SetItemName(cargoItemsNames[randomIndex] + " " + cityName);
+        cargoItemScript.SetItemName(cargoItemsNames[randomIndex], cityName);
 
         int randomCount = Random.Range(minSpawnCount, maxSpawnCount + 1);
         cargoItemScript.SetItemCount(randomCount);

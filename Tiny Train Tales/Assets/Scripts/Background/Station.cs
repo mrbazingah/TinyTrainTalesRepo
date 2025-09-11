@@ -15,13 +15,13 @@ public class Station : MonoBehaviour
 
     GameManager gameManager;
     CityManager cityManager;
-    CityCargoMenu cityCargoMenu;
+    CityMarketMenu cityCargoMenu;
 
     void Awake()
     {
         gameManager = FindObjectOfType<GameManager>();
         cityManager = FindObjectOfType<CityManager>();
-        cityCargoMenu = FindObjectOfType<CityCargoMenu>();
+        cityCargoMenu = FindObjectOfType<CityMarketMenu>();
     }
 
     void Start()

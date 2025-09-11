@@ -17,13 +17,13 @@ public class City : MonoBehaviour
 
     CityMenu cityMenuScript;
     CargoManager cargoManager;
-    CityCargoMenu cityCargoMenu;
+    CityMarketMenu cityCargoMenu;
 
     void Awake()
     {
         cityMenuScript = FindObjectOfType<CityMenu>();
         cargoManager = FindObjectOfType<CargoManager>();
-        cityCargoMenu = FindObjectOfType<CityCargoMenu>();
+        cityCargoMenu = FindObjectOfType<CityMarketMenu>();
     }
 
     void Start()
