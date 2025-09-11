@@ -14,10 +14,14 @@ public class CargoManager : MonoBehaviour
     [Space]
     [SerializeField] GameObject cargoItemPrefab;
     [SerializeField] int maxCargoCount;
+    [Header("Visuals")]
+    [SerializeField] GameObject cargoItemParent;
+    [SerializeField] Vector2 startPos;
+    [SerializeField] float yOffset;
 
     int currentCargoAmount;
 
-    List<GameObject> cargoItems = new List<GameObject>();
+    List<GameObject> cargoItemList = new List<GameObject>();
 
     public void AddCargo(GameObject newItem)
     {
@@ -29,11 +33,11 @@ public class CargoManager : MonoBehaviour
 
         bool hasItem = false;
         int index = 0;
-        for (int i = 0; i < cargoItems.Count; i++)
+        for (int i = 0; i < cargoItemList.Count; i++)
         {
             for (int ii = 0; ii < cargoItemsSprites.Length; ii++)
             {
-                if (cargoItems[i].GetComponent<CargoItem>().GetItemIcon().sprite == cargoItemsSprites[ii])
+                if (cargoItemList[i].GetComponent<CargoItem>().GetItemIcon().sprite == cargoItemsSprites[ii])
                 {
                     hasItem = true;
                     index = i;
@@ -49,13 +53,49 @@ public class CargoManager : MonoBehaviour
         {
             CargoItem newItemScript = newItem.GetComponent<CargoItem>();
 
-            cargoItems[index].GetComponent<CargoItem>().AddCount(1);
+            cargoItemList[index].GetComponent<CargoItem>().AddCount(1);
             newItemScript.AddCount(-1);
 
             if (newItemScript.GetItemCount() <= 0)
             {
                 newItemScript.TurnOffBuyOption();
             }
+        }
+        else
+        {
+            CreateCargoItemForInventory(newItem);
+        }
+    }
+
+    void CreateCargoItemForInventory(GameObject newItem)
+    {
+        CargoItem newItemScript = newItem.GetComponent<CargoItem>();
+        newItemScript.AddCount(-1);
+
+        GameObject newSpawnedItem = Instantiate(newItem);
+        CargoItem cargoItemScript = newSpawnedItem.GetComponent<CargoItem>();
+        cargoItemList.Add(newSpawnedItem);
+
+        cargoItemScript.SetItemCount(1);
+
+        Vector2 lastPos = Vector2.zero;
+
+        for (int i = 0; i < cargoItemList.Count; i++)
+        {
+            cargoItemList[i].transform.SetParent(cargoItemParent.transform);
+            cargoItemList[i].transform.localPosition = Vector2.zero;
+            cargoItemList[i].transform.localScale = Vector3.one;
+
+            if (i == 0)
+            {
+                cargoItemList[i].transform.localPosition = startPos;
+            }
+            else
+            {
+                cargoItemList[i].transform.localPosition = new Vector2(lastPos.x, lastPos.y - yOffset);
+            }
+
+            lastPos = cargoItemList[i].transform.localPosition;
         }
     }
 

@@ -8,10 +8,18 @@ public class CargoItem : MonoBehaviour
     [SerializeField] TextMeshProUGUI itemCountText;
     [SerializeField] GameObject[] cityUI;
     [SerializeField] GameObject[] trainUI;
+    [Space]
+    [SerializeField] GameObject buyButton;
+    [SerializeField] GameObject sellButton;
+    [SerializeField] Color originalColor;
+    [SerializeField] Color cantAffordColor;
 
     int itemCount;
     string itemName;
     bool isInCity = true;
+
+    ColorBlock buyButtonColorBlock;
+    ColorBlock sellButtonColorBlock;
 
     CargoManager cargoManager;
 
@@ -48,7 +56,22 @@ public class CargoItem : MonoBehaviour
 
     public void TurnOffBuyOption()
     {
+        Button buttonComp = buyButton.GetComponent<Button>();
+        sellButtonColorBlock = buttonComp.colors;
+        sellButtonColorBlock.normalColor = cantAffordColor;
+        sellButtonColorBlock.highlightedColor = cantAffordColor;
+        sellButtonColorBlock.pressedColor = cantAffordColor;
+        buttonComp.colors = sellButtonColorBlock;
+    }
 
+    public void TurnOffSellButton()
+    {
+        Button buttonComp = sellButton.GetComponent<Button>();
+        buyButtonColorBlock = buttonComp.colors;
+        buyButtonColorBlock.normalColor = cantAffordColor;
+        buyButtonColorBlock.highlightedColor = cantAffordColor;
+        buyButtonColorBlock.pressedColor = cantAffordColor;
+        buttonComp.colors = buyButtonColorBlock;
     }
 
     public void ChangeUI()

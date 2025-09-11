@@ -451,7 +451,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2204459064069373483}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2158440586725658471}
+        m_TargetAssemblyTypeName: CargoItem, Assembly-CSharp
+        m_MethodName: BuyItem
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &3863784992967877108
 GameObject:
   m_ObjectHideFlags: 0
@@ -722,6 +734,10 @@ MonoBehaviour:
   - {fileID: 1213297093188912804}
   trainUI:
   - {fileID: 1093667976387152566}
+  buyButton: {fileID: 3533859294796224623}
+  sellButton: {fileID: 1213297093188912804}
+  originalColor: {r: 1, g: 1, b: 1, a: 1}
+  cantAffordColor: {r: 0.7058824, g: 0.7058824, b: 0.7058824, a: 1}
 --- !u!1 &5823530831607113100
 GameObject:
   m_ObjectHideFlags: 0
