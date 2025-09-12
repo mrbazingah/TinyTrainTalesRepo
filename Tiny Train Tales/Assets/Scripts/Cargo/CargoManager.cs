@@ -23,6 +23,23 @@ public class CargoManager : MonoBehaviour
 
     List<GameObject> cargoItemList = new List<GameObject>();
 
+    void Start()
+    {
+        LoadCargoItems();
+    }
+
+    void LoadCargoItems()
+    {
+        if (PlayerPrefs.HasKey("NumberOfCargoItems"))
+        {
+            int numberOfCargoItems = PlayerPrefs.GetInt("NumberOfCargoItems");
+            for (int i = 0; i < numberOfCargoItems; i++)
+            {
+                CreateCargoItemForInventory(null);
+            }
+        }
+    }
+
     public void AddCargo(GameObject newItem)
     {
         currentCargoAmount++;
@@ -65,6 +82,13 @@ public class CargoManager : MonoBehaviour
 
     void CreateCargoItemForInventory(GameObject newItem)
     {
+        if (newItem == null)
+        {
+            newItem = Instantiate(cargoItemPrefab);
+            newItem.GetComponent<CargoItem>().LoadItemPlayerPrefs();
+            newItem.GetComponent<CargoItem>().SetIsInCity(false);
+        }
+
         CargoItem newItemScript = newItem.GetComponent<CargoItem>();
         newItemScript.AddCount(-1);
 

@@ -83,8 +83,19 @@ public class City : MonoBehaviour
 
     public void CreateCargoItemForCity()
     {
-        int randomCargoAmount = Random.Range(cargoManager.GetCityMinCargoAmount(), cargoManager.GetCityMaxCargoAmount() + 1);
-        for (int i = 0; i < randomCargoAmount; i++)
+        int index = 0;
+        if (PlayerPrefs.HasKey("ItemCount" + gameObject.name))
+        {
+            index = PlayerPrefs.GetInt("ItemCount" + gameObject.name);
+        }
+        else
+        {
+            index = Random.Range(cargoManager.GetCityMinCargoAmount(), cargoManager.GetCityMaxCargoAmount() + 1);
+
+            PlayerPrefs.SetInt("ItemCount" + gameObject.name, index);
+        }
+
+        for (int i = 0; i < index; i++)
         {
             if (cargoManager != null)
             {
@@ -137,5 +148,10 @@ public class City : MonoBehaviour
     public bool GetIsUnlocked()
     {
         return isUnlocked;
+    }
+
+    public void SaveCityCargo()
+    {
+
     }
 }
