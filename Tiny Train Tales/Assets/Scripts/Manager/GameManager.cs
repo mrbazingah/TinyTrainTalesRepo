@@ -66,6 +66,7 @@ public class GameManager : MonoBehaviour
     QuestManager questManager;
     CarManager carManager;
     AudioManager audioManager;
+    CargoManager cargoManager;
     #endregion
 
     void Awake()
@@ -81,6 +82,7 @@ public class GameManager : MonoBehaviour
         questManager = FindObjectOfType<QuestManager>();
         carManager = FindObjectOfType<CarManager>();
         audioManager = FindObjectOfType<AudioManager>();
+        cargoManager = FindObjectOfType<CargoManager>();
 
         LoadUnlockedRegions();
     }
@@ -663,6 +665,7 @@ public class GameManager : MonoBehaviour
         cam?.SavePos();
         questManager?.SaveQuests();
         carManager?.SaveCars();
+        cargoManager?.SaveCargo();
 
         if (hasArrivedAtStation)
         {

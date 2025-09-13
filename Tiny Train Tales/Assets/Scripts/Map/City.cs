@@ -84,15 +84,15 @@ public class City : MonoBehaviour
     public void CreateCargoItemForCity()
     {
         int index = 0;
-        if (PlayerPrefs.HasKey("ItemCount" + gameObject.name))
+        if (PlayerPrefs.HasKey("CargoItemAmount" + gameObject.name))
         {
-            index = PlayerPrefs.GetInt("ItemCount" + gameObject.name);
+            index = PlayerPrefs.GetInt("CargoItemAmount" + gameObject.name);
         }
         else
         {
             index = Random.Range(cargoManager.GetCityMinCargoAmount(), cargoManager.GetCityMaxCargoAmount() + 1);
 
-            PlayerPrefs.SetInt("ItemCount" + gameObject.name, index);
+            PlayerPrefs.SetInt("CargoItemAmount" + gameObject.name, index);
         }
 
         for (int i = 0; i < index; i++)
@@ -152,6 +152,11 @@ public class City : MonoBehaviour
 
     public void SaveCityCargo()
     {
+        PlayerPrefs.SetInt("CargoItemAmount" + gameObject.name, cargo.Count);
 
+        for (int i = 0; i < cargo.Count; i++)
+        {
+            cargo[i].GetComponent<CargoItem>().SaveCargoItem();
+        }
     }
 }

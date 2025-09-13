@@ -146,4 +146,14 @@ public class CargoManager : MonoBehaviour
     {
         return maxCityCargoAmount;
     }
+
+    public void SaveCargo()
+    {
+        PlayerPrefs.SetInt("NumberOfCargoItems", cargoItemList.Count);
+
+        for (int i = 0; i < cargoItemList.Count; i++)
+        {
+            cargoItemList[i].GetComponent<CargoItem>().SaveCargoItem();
+        }
+    }
 }
