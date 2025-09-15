@@ -20,6 +20,7 @@ public class CargoManager : MonoBehaviour
     [SerializeField] float yOffset;
 
     int currentCargoAmount;
+    string currentSaveString;
 
     List<GameObject> cargoItemList = new List<GameObject>();
 
@@ -35,6 +36,7 @@ public class CargoManager : MonoBehaviour
             int numberOfCargoItems = PlayerPrefs.GetInt("NumberOfCargoItems");
             for (int i = 0; i < numberOfCargoItems; i++)
             {
+                currentSaveString = PlayerPrefs.GetString("SaveString" + i.ToString());
                 CreateCargoItemForInventory(null);
             }
         }
@@ -82,22 +84,33 @@ public class CargoManager : MonoBehaviour
 
     void CreateCargoItemForInventory(GameObject newItem)
     {
+        CargoItem newItemScript;
+
         if (newItem == null)
         {
             newItem = Instantiate(cargoItemPrefab);
-            newItem.GetComponent<CargoItem>().LoadItemPlayerPrefs();
-            newItem.GetComponent<CargoItem>().SetIsInCity(false);
+            newItemScript = newItem.GetComponent<CargoItem>();
+
+            newItemScript.SetSaveString(currentSaveString);
+            newItemScript.SetIsInCity(false);
+            newItemScript.LoadItemPlayerPrefs();
+
+            cargoItemList.Add(newItem);
         }
+        else
+        {
+            newItemScript = newItem.GetComponent<CargoItem>();
+            newItemScript.AddCount(-1);
 
-        CargoItem newItemScript = newItem.GetComponent<CargoItem>();
-        newItemScript.AddCount(-1);
+            GameObject newSpawnedItem = Instantiate(newItem);
+            CargoItem cargoItemScript = newSpawnedItem.GetComponent<CargoItem>();
 
-        GameObject newSpawnedItem = Instantiate(newItem);
-        CargoItem cargoItemScript = newSpawnedItem.GetComponent<CargoItem>();
-        cargoItemList.Add(newSpawnedItem);
+            cargoItemScript.SetItemCount(1);
+            cargoItemScript.SetItemName(newItemScript.GetItemName(), "");
 
-        cargoItemScript.SetItemCount(1);
-        cargoItemScript.SetItemName(newItemScript.GetItemName(), "");
+            cargoItemList.Add(newSpawnedItem);
+            cargoItemScript.ChangeUI();
+        }
 
         Vector2 lastPos = Vector2.zero;
 
@@ -119,10 +132,9 @@ public class CargoManager : MonoBehaviour
             lastPos = cargoItemList[i].transform.localPosition;
         }
 
-        cargoItemScript.ChangeUI();
     }
 
-    public GameObject CreateCargoItem(string cityName)
+    public GameObject CreateCargoItemForCity(string cityName)
     {
         GameObject cargoItem = Instantiate(cargoItemPrefab);
         CargoItem cargoItemScript = cargoItem.GetComponent<CargoItem>();
@@ -133,6 +145,18 @@ public class CargoManager : MonoBehaviour
 
         int randomCount = Random.Range(minSpawnCount, maxSpawnCount + 1);
         cargoItemScript.SetItemCount(randomCount);
+
+        return cargoItem;
+    }
+
+    public GameObject CreateSavedCargoItemForCity(string saveString, string cityName)
+    {
+        GameObject cargoItem = Instantiate(cargoItemPrefab);
+        CargoItem cargoItemScript = cargoItem.GetComponent<CargoItem>();
+
+        cargoItemScript.SetSaveString(saveString);
+        cargoItemScript.SetIsInCity(true);
+        cargoItemScript.LoadItemPlayerPrefs();
 
         return cargoItem;
     }
@@ -153,7 +177,9 @@ public class CargoManager : MonoBehaviour
 
         for (int i = 0; i < cargoItemList.Count; i++)
         {
-            cargoItemList[i].GetComponent<CargoItem>().SaveCargoItem();
+            CargoItem cargoItemScript = cargoItemList[i].GetComponent<CargoItem>();
+            string saveString = cargoItemScript.GetSaveString();
+            PlayerPrefs.SetString("SaveString" + i.ToString(), saveString);
         }
     }
 }

@@ -16,12 +16,14 @@ public class Station : MonoBehaviour
     GameManager gameManager;
     CityManager cityManager;
     CityMarketMenu cityCargoMenu;
+    CargoManager cargoManager;
 
     void Awake()
     {
         gameManager = FindObjectOfType<GameManager>();
         cityManager = FindObjectOfType<CityManager>();
         cityCargoMenu = FindObjectOfType<CityMarketMenu>();
+        cargoManager = FindObjectOfType<CargoManager>();
     }
 
     void Start()
@@ -71,6 +73,7 @@ public class Station : MonoBehaviour
         gameManager?.DeleteSavedDestination(false);
         cityManager?.SaveOnDeparture();
         cityManager?.ResetPath();
+        cargoManager?.SaveCargo();
 
         cityManager.GetNextCity().GetComponent<City>().SaveCityCargo();
 

@@ -17,13 +17,13 @@ public class City : MonoBehaviour
 
     CityMenu cityMenuScript;
     CargoManager cargoManager;
-    CityMarketMenu cityCargoMenu;
+    CityMarketMenu cityMarketMenu;
 
     void Awake()
     {
         cityMenuScript = FindObjectOfType<CityMenu>();
         cargoManager = FindObjectOfType<CargoManager>();
-        cityCargoMenu = FindObjectOfType<CityMarketMenu>();
+        cityMarketMenu = FindObjectOfType<CityMarketMenu>();
     }
 
     void Start()
@@ -87,19 +87,25 @@ public class City : MonoBehaviour
         if (PlayerPrefs.HasKey("CargoItemAmount" + gameObject.name))
         {
             index = PlayerPrefs.GetInt("CargoItemAmount" + gameObject.name);
+
+            for (int i = 0; i < index; i++)
+            {
+                string saveString = "CitySaveString" + i.ToString();
+                GameObject newCargoItem = cargoManager.CreateSavedCargoItemForCity(saveString, gameObject.name);
+                cargo.Add(newCargoItem);
+            }
         }
         else
         {
             index = Random.Range(cargoManager.GetCityMinCargoAmount(), cargoManager.GetCityMaxCargoAmount() + 1);
 
             PlayerPrefs.SetInt("CargoItemAmount" + gameObject.name, index);
-        }
 
-        for (int i = 0; i < index; i++)
-        {
-            if (cargoManager != null)
+            for (int i = 0; i < index; i++)
             {
-                GameObject newCargoItem = cargoManager.CreateCargoItem(gameObject.name);
+                if (cargoManager == null) { return; }
+
+                GameObject newCargoItem = cargoManager.CreateCargoItemForCity(gameObject.name);
                 if (!CheckForDuplicates(newCargoItem))
                 {
                     cargo.Add(newCargoItem);
@@ -114,7 +120,7 @@ public class City : MonoBehaviour
             }
         }
 
-        cityCargoMenu.SetCargoList(cargo);
+        cityMarketMenu.SetCargoList(cargo);
     }
 
     bool CheckForDuplicates(GameObject newCargo)
@@ -156,7 +162,9 @@ public class City : MonoBehaviour
 
         for (int i = 0; i < cargo.Count; i++)
         {
-            cargo[i].GetComponent<CargoItem>().SaveCargoItem();
+            CargoItem cargoItemScript = cargo[i].GetComponent<CargoItem>();
+            string saveString = cargoItemScript.GetSaveString();
+            PlayerPrefs.SetString("CitySaveString" + i.ToString(), saveString);
         }
     }
 }

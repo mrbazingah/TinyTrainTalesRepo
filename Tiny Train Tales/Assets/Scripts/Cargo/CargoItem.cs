@@ -20,6 +20,8 @@ public class CargoItem : MonoBehaviour
     string cityName;
     float itemPrice;
 
+    string saveString;
+
     bool turnOffBuyOption = false;
     bool turnOffSellButton = false;
 
@@ -37,6 +39,11 @@ public class CargoItem : MonoBehaviour
         sellButtonComp = sellButton.GetComponent<Button>();
     }
 
+    public void SetSaveString(string newSaveString)
+    {
+        saveString = newSaveString;
+    }
+
     public void SetIsInCity(bool b)
     {
         isInCity = b;
@@ -44,7 +51,6 @@ public class CargoItem : MonoBehaviour
 
     public void LoadItemPlayerPrefs()
     {
-        string saveString = isInCity ? itemName + " " + cityName : itemName;
         if (PlayerPrefs.HasKey(saveString + "itemName"))
         {
             SetItemName(PlayerPrefs.GetString(saveString + "itemName"), cityName);
@@ -154,9 +160,14 @@ public class CargoItem : MonoBehaviour
         return itemCount;
     }
 
+    public string GetSaveString()
+    {
+        return isInCity ? itemName + " " + cityName : itemName;
+    }
+
     public void SaveCargoItem()
     {
-        string saveString = isInCity ? itemName + " " + cityName : itemName;
+        saveString = isInCity ? itemName + " " + cityName : itemName;
 
         PlayerPrefs.SetString(saveString + "itemName", itemName);
         PlayerPrefs.SetInt(saveString + "itemCount", itemCount);
