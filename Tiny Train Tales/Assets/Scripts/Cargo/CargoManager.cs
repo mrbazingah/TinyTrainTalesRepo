@@ -44,6 +44,9 @@ public class CargoManager : MonoBehaviour
 
     public void AddCargo(GameObject newItem)
     {
+        CargoItem newItemScript = newItem.GetComponent<CargoItem>();
+        if (newItemScript.GetItemCount() <= 0) { return; }
+
         currentCargoAmount++;
         if (currentCargoAmount > maxCargoCount)
         {
@@ -66,8 +69,6 @@ public class CargoManager : MonoBehaviour
 
         if (hasItem)
         {
-            CargoItem newItemScript = newItem.GetComponent<CargoItem>();
-
             cargoItemList[index].GetComponent<CargoItem>().AddCount(1);
             newItemScript.AddCount(-1);
 
@@ -92,7 +93,7 @@ public class CargoManager : MonoBehaviour
             newItemScript = newItem.GetComponent<CargoItem>();
 
             newItemScript.SetSaveString(currentSaveString);
-            newItemScript.SetIsInCity(false);
+            newItemScript.SetIsInCity(false, "");
             newItemScript.LoadItemPlayerPrefs();
 
             cargoItemList.Add(newItem);
@@ -155,7 +156,7 @@ public class CargoManager : MonoBehaviour
         CargoItem cargoItemScript = cargoItem.GetComponent<CargoItem>();
 
         cargoItemScript.SetSaveString(saveString);
-        cargoItemScript.SetIsInCity(true);
+        cargoItemScript.SetIsInCity(true, cityName);
         cargoItemScript.LoadItemPlayerPrefs();
 
         return cargoItem;
@@ -171,6 +172,11 @@ public class CargoManager : MonoBehaviour
         return maxCityCargoAmount;
     }
 
+    public Sprite[] GetCargoItemsSprites()
+    {
+        return cargoItemsSprites;
+    }
+
     public void SaveCargo()
     {
         PlayerPrefs.SetInt("NumberOfCargoItems", cargoItemList.Count);
@@ -180,6 +186,8 @@ public class CargoManager : MonoBehaviour
             CargoItem cargoItemScript = cargoItemList[i].GetComponent<CargoItem>();
             string saveString = cargoItemScript.GetSaveString();
             PlayerPrefs.SetString("SaveString" + i.ToString(), saveString);
+
+            cargoItemScript.SaveCargoItem();
         }
     }
 }

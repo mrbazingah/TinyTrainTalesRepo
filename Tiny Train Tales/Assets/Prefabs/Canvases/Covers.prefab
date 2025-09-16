@@ -598,11 +598,6 @@ MonoBehaviour:
   startCity: Bari
   destinationCity: Naples
   cityMenuCanvas: {fileID: 0}
-  dontUnselectOnClick:
-  - {fileID: 7173221749079525863}
-  - {fileID: 924111098752180612}
-  - {fileID: 1147567708205638965}
-  uiRaycasters: []
 --- !u!1 &577494931451384344
 GameObject:
   m_ObjectHideFlags: 0
@@ -1151,11 +1146,6 @@ MonoBehaviour:
   startCity: Amsterdam
   destinationCity: Brussels
   cityMenuCanvas: {fileID: 0}
-  dontUnselectOnClick:
-  - {fileID: 9097387622990254748}
-  - {fileID: 7220456267772118181}
-  - {fileID: 5855158907545982707}
-  uiRaycasters: []
 --- !u!1 &830532331896742770
 GameObject:
   m_ObjectHideFlags: 0
@@ -2198,11 +2188,6 @@ MonoBehaviour:
   startCity: 
   destinationCity: 
   cityMenuCanvas: {fileID: 0}
-  dontUnselectOnClick:
-  - {fileID: 3147774707882805744}
-  - {fileID: 2372225396359625238}
-  - {fileID: 5460215117628721209}
-  uiRaycasters: []
 --- !u!1 &1147567708205638965
 GameObject:
   m_ObjectHideFlags: 0
@@ -3419,14 +3404,9 @@ MonoBehaviour:
   selectColor: {r: 0, g: 0.3882353, b: 0.023529412, a: 0.84313726}
   unlockButton: {fileID: 1021719544358326244}
   regionNumber: 5
-  startCity: "G\xF6teborg"
+  startCity: Gothenburg
   destinationCity: Stockholm
   cityMenuCanvas: {fileID: 0}
-  dontUnselectOnClick:
-  - {fileID: 1021719544358326244}
-  - {fileID: 3752667733495008833}
-  - {fileID: 1708269232536867353}
-  uiRaycasters: []
 --- !u!1 &3095898197625075747
 GameObject:
   m_ObjectHideFlags: 0
@@ -4252,11 +4232,6 @@ MonoBehaviour:
   startCity: 
   destinationCity: 
   cityMenuCanvas: {fileID: 0}
-  dontUnselectOnClick:
-  - {fileID: 1825713943813333344}
-  - {fileID: 3452898218130868823}
-  - {fileID: 1909274948334705244}
-  uiRaycasters: []
 --- !u!1 &3752667733495008833
 GameObject:
   m_ObjectHideFlags: 0
@@ -4946,11 +4921,6 @@ MonoBehaviour:
   startCity: Berlin
   destinationCity: Frankfurt
   cityMenuCanvas: {fileID: 0}
-  dontUnselectOnClick:
-  - {fileID: 3095898197625075747}
-  - {fileID: 8972385065194832895}
-  - {fileID: 830532331896742770}
-  uiRaycasters: []
 --- !u!1 &7173221749079525863
 GameObject:
   m_ObjectHideFlags: 0

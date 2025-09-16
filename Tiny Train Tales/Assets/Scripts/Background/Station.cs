@@ -9,6 +9,7 @@ public class Station : MonoBehaviour
     [SerializeField] TextMeshProUGUI boardedPassangersText;
     [SerializeField] TextMeshProUGUI deboardedPassangersText;
     [SerializeField] TextMeshProUGUI coinsText;
+    [SerializeField] TextMeshProUGUI cityNameText;
     [SerializeField] Canvas canvas;
 
     bool hasArrived;
@@ -35,6 +36,7 @@ public class Station : MonoBehaviour
     void SetUpCanvas()
     {
         canvas.worldCamera = Camera.main;
+        cityNameText.text = cityManager.GetNextCity().name;
     }
 
     void Update()

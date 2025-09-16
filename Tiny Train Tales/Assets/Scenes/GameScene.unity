@@ -50805,7 +50805,7 @@ PrefabInstance:
       objectReference: {fileID: 1864777221}
     - target: {fileID: 6013072587387181096, guid: d7f2d7e6643153744bbdc766918d5eaf, type: 3}
       propertyPath: maxSpeed
-      value: 650
+      value: 850
       objectReference: {fileID: 0}
     - target: {fileID: 6013072587387181096, guid: d7f2d7e6643153744bbdc766918d5eaf, type: 3}
       propertyPath: speedText

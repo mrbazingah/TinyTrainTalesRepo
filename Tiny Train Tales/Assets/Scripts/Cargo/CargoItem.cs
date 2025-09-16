@@ -44,18 +44,22 @@ public class CargoItem : MonoBehaviour
         saveString = newSaveString;
     }
 
-    public void SetIsInCity(bool b)
+    public void SetIsInCity(bool b, string cityName)
     {
         isInCity = b;
+        this.cityName = b ? cityName : "";
     }
 
     public void LoadItemPlayerPrefs()
     {
         if (PlayerPrefs.HasKey(saveString + "itemName"))
         {
+            Debug.Log("Loading cargo item: " + saveString);
+
             SetItemName(PlayerPrefs.GetString(saveString + "itemName"), cityName);
             SetItemCount(PlayerPrefs.GetInt(saveString + "itemCount"));
             SetItemPrice(PlayerPrefs.GetFloat(saveString + "itemPrice"));
+            SetItemIcon(cargoManager.GetCargoItemsSprites()[PlayerPrefs.GetInt(saveString + "itemSpriteIndex")]);
         }
     }
 
@@ -96,22 +100,22 @@ public class CargoItem : MonoBehaviour
 
     void Update()
     {
-        if (!turnOffBuyOption)
+        if (turnOffSellButton)
         {
-            sellButtonColorBlock = buyButtonComp.colors;
+            sellButtonColorBlock = sellButtonComp.colors;
             sellButtonColorBlock.normalColor = cantAffordColor;
             sellButtonColorBlock.highlightedColor = cantAffordColor;
             sellButtonColorBlock.pressedColor = cantAffordColor;
-            buyButtonComp.colors = sellButtonColorBlock;
+            sellButtonComp.colors = sellButtonColorBlock;
         }
 
-        if (!turnOffSellButton)
+        if (turnOffBuyOption)
         {
-            buyButtonColorBlock = sellButtonComp.colors;
+            buyButtonColorBlock = buyButtonComp.colors;
             buyButtonColorBlock.normalColor = cantAffordColor;
             buyButtonColorBlock.highlightedColor = cantAffordColor;
             buyButtonColorBlock.pressedColor = cantAffordColor;
-            sellButtonComp.colors = buyButtonColorBlock;
+            buyButtonComp.colors = buyButtonColorBlock;
         }
     }
 
@@ -172,5 +176,15 @@ public class CargoItem : MonoBehaviour
         PlayerPrefs.SetString(saveString + "itemName", itemName);
         PlayerPrefs.SetInt(saveString + "itemCount", itemCount);
         PlayerPrefs.SetFloat(saveString + "itemPrice", itemPrice);
+
+        Sprite[] spriteArray = cargoManager.GetCargoItemsSprites();
+        for (int i = 0; i < spriteArray.Length; i++)
+        {
+            if (itemIcon.sprite == spriteArray[i])
+            {
+                PlayerPrefs.SetInt(saveString + "itemSpriteIndex", i);
+                break;
+            }
+        }
     }
 }
