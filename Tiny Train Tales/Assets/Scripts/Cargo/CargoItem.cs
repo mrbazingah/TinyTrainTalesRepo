@@ -54,12 +54,19 @@ public class CargoItem : MonoBehaviour
     {
         if (PlayerPrefs.HasKey(saveString + "itemName"))
         {
-            Debug.Log("Loading cargo item: " + saveString);
-
             SetItemName(PlayerPrefs.GetString(saveString + "itemName"), cityName);
             SetItemCount(PlayerPrefs.GetInt(saveString + "itemCount"));
             SetItemPrice(PlayerPrefs.GetFloat(saveString + "itemPrice"));
             SetItemIcon(cargoManager.GetCargoItemsSprites()[PlayerPrefs.GetInt(saveString + "itemSpriteIndex")]);
+        }
+        else
+        {
+            if (cityName != "")
+            {
+                GameObject.Find(cityName)?.GetComponent<City>()?.CreateCargoItemForCity();
+                Destroy(gameObject);
+                gameObject.SetActive(false);
+            }
         }
     }
 

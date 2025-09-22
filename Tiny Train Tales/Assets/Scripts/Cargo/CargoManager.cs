@@ -147,6 +147,9 @@ public class CargoManager : MonoBehaviour
         int randomCount = Random.Range(minSpawnCount, maxSpawnCount + 1);
         cargoItemScript.SetItemCount(randomCount);
 
+        string saveString = cityName + " " + cargoItemsNames[randomIndex];
+        cargoItemScript.SetSaveString(saveString);
+
         return cargoItem;
     }
 

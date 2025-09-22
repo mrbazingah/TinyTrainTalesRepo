@@ -63,7 +63,6 @@ public class CityManager : MonoBehaviour
             return;
         }
 
-        // Always start from the actual current city; if we're mid-travel, pass that leg via 'nextCity'
         currentCity = startCityGameObject;
         destinationCity = targetCityGameObject;
 
@@ -75,35 +74,15 @@ public class CityManager : MonoBehaviour
 
         if (pathfinding != null)
         {
-            GameObject inBetweenCity = null;
-
             if (PlayerPrefs.HasKey("NextCity"))
             {
-                inBetweenCity = GameObject.Find(PlayerPrefs.GetString("NextCity"));
+                GameObject inBetweenCity = GameObject.Find(PlayerPrefs.GetString("NextCity"));
+                path = pathfinding.FindPath(currentCity, destinationCity, inBetweenCity);
             }
             else
             {
-                inBetweenCity = nextCity; // may be null
+                path = pathfinding.FindPath(currentCity, destinationCity, null);
             }
-
-            // Keep inBetweenCity only if it's actually a neighbor of currentCity
-            if (inBetweenCity != null)
-            {
-                var neighbors = currentCity.GetComponent<City>().GetCityNeighbors();
-                bool isNeighbor = false;
-                for (int i = 0; i < neighbors.Length; i++)
-                {
-                    if (neighbors[i] == inBetweenCity)
-                    {
-                        isNeighbor = true;
-                        break;
-                    }
-                }
-                if (!isNeighbor) inBetweenCity = null;
-            }
-
-            // Call the pathfinder from the real current city; let it prepend the in-flight leg
-            path = pathfinding.FindPath(currentCity, destinationCity, inBetweenCity);
         }
 
         GetNextCityInPath();
@@ -157,13 +136,14 @@ public class CityManager : MonoBehaviour
         }
 
         gameManager.SetNewDestination(currentCity.name, nextCity.name, destinationDistance);
+        pathfinding.FindPath(currentCity, destinationCity, null);
         ColorAll();
     }
 
     public void ArriveAtNextCity()
     {
-        currentCity = nextCity;
-        PlayerPrefs.SetString("CurrentCity", currentCity.name);
+        //currentCity = nextCity;
+        //PlayerPrefs.SetString("CurrentCity", currentCity.name);
 
         GetNextCityInPath();
         gameManager.UpdateCityTexts();

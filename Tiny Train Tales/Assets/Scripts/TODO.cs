@@ -6,12 +6,10 @@ public class TODO : MonoBehaviour
     //One for every city
     //Some to unlock next area
 
-    //Have a market at every city
     //Zoom in on map
     //Timer for upgrades
     //Animate train wheels
     //Cargo
-    //Cargo to buy at different cities
 
     //Make new or update Sprites for:
     //Passanger Icon

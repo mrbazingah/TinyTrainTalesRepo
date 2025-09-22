@@ -90,7 +90,7 @@ public class City : MonoBehaviour
 
             for (int i = 0; i < index; i++)
             {
-                string saveString = PlayerPrefs.GetString("CitySaveString" + i.ToString());
+                string saveString = PlayerPrefs.GetString("CitySaveString" + i.ToString() + gameObject.name);
                 GameObject newCargoItem = cargoManager.CreateSavedCargoItemForCity(saveString, gameObject.name);
                 cargo.Add(newCargoItem);
             }
@@ -164,7 +164,9 @@ public class City : MonoBehaviour
         {
             CargoItem cargoItemScript = cargo[i].GetComponent<CargoItem>();
             string saveString = cargoItemScript.GetSaveString();
-            PlayerPrefs.SetString("CitySaveString" + i.ToString(), saveString);
+            PlayerPrefs.SetString("CitySaveString" + i.ToString() + gameObject.name, saveString);
+
+            cargoItemScript.SaveCargoItem();
         }
     }
 }
