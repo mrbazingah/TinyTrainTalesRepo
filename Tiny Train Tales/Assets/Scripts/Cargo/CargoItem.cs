@@ -6,13 +6,10 @@ public class CargoItem : MonoBehaviour
 {
     [SerializeField] Image itemIcon;
     [SerializeField] TextMeshProUGUI itemCountText;
+    [SerializeField] TextMeshProUGUI itemPriceText;
+    [SerializeField] TextMeshProUGUI itemNameText;
     [SerializeField] GameObject[] cityUI;
     [SerializeField] GameObject[] trainUI;
-    [Space]
-    [SerializeField] GameObject buyButton;
-    [SerializeField] GameObject sellButton;
-    [SerializeField] Color originalColor;
-    [SerializeField] Color cantAffordColor;
 
     int itemCount;
     string itemName;
@@ -22,21 +19,11 @@ public class CargoItem : MonoBehaviour
 
     string saveString;
 
-    bool turnOffBuyOption = false;
-    bool turnOffSellButton = false;
-
-    ColorBlock buyButtonColorBlock;
-    ColorBlock sellButtonColorBlock;
-
     CargoManager cargoManager;
-    Button buyButtonComp;
-    Button sellButtonComp;
 
     void Awake()
     {
         cargoManager = FindObjectOfType<CargoManager>();
-        buyButtonComp = buyButton.GetComponent<Button>();
-        sellButtonComp = sellButton.GetComponent<Button>();
     }
 
     public void SetSaveString(string newSaveString)
@@ -65,7 +52,7 @@ public class CargoItem : MonoBehaviour
             SetItemIcon(cargoManager.GetCargoItemsSprites()[PlayerPrefs.GetInt(saveString + "itemSpriteIndex")]);
         }
         else
-        {
+        { 
             if (cityName != "")
             {
                 GameObject.Find(cityName)?.GetComponent<City>()?.CreateCargoItemForCity();
@@ -83,6 +70,8 @@ public class CargoItem : MonoBehaviour
     public void SetItemName(string name, string nameOfCity)
     {
         itemName = name;
+        itemNameText.text = itemName;
+
         cityName = nameOfCity;
 
         gameObject.name = itemName + " " + cityName;
@@ -97,6 +86,7 @@ public class CargoItem : MonoBehaviour
     public void SetItemPrice(float price)
     {
         itemPrice = price;
+        itemPriceText.text = itemPrice.ToString();
     }
 
     public void BuyItem()
@@ -108,37 +98,6 @@ public class CargoItem : MonoBehaviour
     {
         itemCount += count;
         itemCountText.text = itemCount.ToString();
-    }
-
-    void Update()
-    {
-        if (turnOffSellButton)
-        {
-            sellButtonColorBlock = sellButtonComp.colors;
-            sellButtonColorBlock.normalColor = cantAffordColor;
-            sellButtonColorBlock.highlightedColor = cantAffordColor;
-            sellButtonColorBlock.pressedColor = cantAffordColor;
-            sellButtonComp.colors = sellButtonColorBlock;
-        }
-
-        if (turnOffBuyOption)
-        {
-            buyButtonColorBlock = buyButtonComp.colors;
-            buyButtonColorBlock.normalColor = cantAffordColor;
-            buyButtonColorBlock.highlightedColor = cantAffordColor;
-            buyButtonColorBlock.pressedColor = cantAffordColor;
-            buyButtonComp.colors = buyButtonColorBlock;
-        }
-    }
-
-    public void TurnOffBuyOption()
-    {
-        turnOffBuyOption = true;
-    }
-
-    public void TurnOffSellButton()
-    {
-        turnOffSellButton = true;
     }
 
     public void ChangeUI()

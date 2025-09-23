@@ -86,7 +86,7 @@ public class CargoManager : MonoBehaviour
 
             if (newItemScript.GetItemCount() <= 0)
             {
-                newItemScript.TurnOffBuyOption();
+                //Do Stuff
             }
         }
         else
@@ -194,6 +194,16 @@ public class CargoManager : MonoBehaviour
         return cargoItemsSprites;
     }
 
+    public float GetCityCargoResetTime()
+    {
+        return cityCargoResetTime;
+    }
+
+    public List<GameObject> GetCargoItemList()
+    {
+        return cargoItemList;
+    }
+
     public void SaveCargo()
     {
         PlayerPrefs.SetInt("NumberOfCargoItems", cargoItemList.Count);
@@ -207,10 +217,5 @@ public class CargoManager : MonoBehaviour
 
             cargoItemScript.SaveCargoItem();
         }
-    }
-
-    public float GetCityCargoResetTime()
-    {
-        return cityCargoResetTime;
     }
 }

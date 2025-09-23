@@ -4,20 +4,39 @@ using UnityEngine;
 public class CityMarketMenu : MonoBehaviour
 {
     [SerializeField] MenuAnimationY menuAnimY;
-    [SerializeField] GameObject cargoItemParent;
+    [SerializeField] GameObject marketCargoItemParent;
+    [SerializeField] GameObject inventoryCargoItemParent;
     [SerializeField] Vector2 startPos;
     [SerializeField] float yOffset;
 
-    List<GameObject> cargoItemList = new List<GameObject>();
+    List<GameObject> marketCargoItems = new List<GameObject>();
+    List<GameObject> inventoryCargoItems = new List<GameObject>();
+
+    CargoManager cargoManager;
+
+    void Awake()
+    {
+        cargoManager = FindObjectOfType<CargoManager>();
+    }
 
     public void OpenCargoMenu()
     {
         menuAnimY.StartAnimation();
     }
 
-    public void SetCargoList(List<GameObject> newCargoItems)
+    public void SetCargoList(List<GameObject> newMarketItems)
     {
-        cargoItemList = newCargoItems;
+        marketCargoItems = newMarketItems;
+
+        List<GameObject> newInventoryItems = new List<GameObject>();
+        for (int i = 0; i < cargoManager.GetCargoItemList().Count; i++)
+        {
+            GameObject cargoItem = Instantiate(cargoManager.GetCargoItemList()[i]);
+            newInventoryItems.Add(cargoItem);
+        }
+
+        inventoryCargoItems = newInventoryItems;
+
         SetUpCargoItems();
     }
 
@@ -25,21 +44,40 @@ public class CityMarketMenu : MonoBehaviour
     {
         Vector2 lastPos = Vector2.zero;
 
-        for (int i = 0; i < cargoItemList.Count; i++)
+        //Market Cargo
+        for (int i = 0; i < marketCargoItems.Count; i++)
         {
-            cargoItemList[i].transform.SetParent(cargoItemParent.transform);
-            cargoItemList[i].transform.localPosition = Vector2.zero;
+            marketCargoItems[i].transform.SetParent(marketCargoItemParent.transform);
+            marketCargoItems[i].transform.localPosition = Vector2.zero;
 
             if (i == 0)
             {
-                cargoItemList[i].transform.localPosition = startPos;
+                marketCargoItems[i].transform.localPosition = startPos;
             }
             else
             {
-                cargoItemList[i].transform.localPosition = new Vector2(lastPos.x, lastPos.y - yOffset);
+                marketCargoItems[i].transform.localPosition = new Vector2(lastPos.x, lastPos.y - yOffset);
             }
 
-            lastPos = cargoItemList[i].transform.localPosition;
+            lastPos = marketCargoItems[i].transform.localPosition;
+        }
+
+        //Inventory Cargo
+        for (int i = 0; i < inventoryCargoItems.Count; i++)
+        {
+            inventoryCargoItems[i].transform.SetParent(inventoryCargoItemParent.transform);
+            inventoryCargoItems[i].transform.localPosition = Vector2.zero;
+
+            if (i == 0)
+            {
+                inventoryCargoItems[i].transform.localPosition = startPos;
+            }
+            else
+            {
+                inventoryCargoItems[i].transform.localPosition = new Vector2(lastPos.x, lastPos.y - yOffset);
+            }
+
+            lastPos = inventoryCargoItems[i].transform.localPosition;
         }
     }
 }
