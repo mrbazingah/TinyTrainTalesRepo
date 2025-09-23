@@ -11,10 +11,11 @@ public class TODO : MonoBehaviour
     //Animate train wheels
     //Cargo
 
-    //Make new or update Sprites for:
+    //Make or update Sprites for:
     //Passanger Icon
     //Train Image
     //The Whole Background
     //Station
-    //Cursor
+    //Cargo Icons
+    //Cargo Button
 }

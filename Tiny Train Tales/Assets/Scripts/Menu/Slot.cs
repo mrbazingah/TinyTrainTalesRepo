@@ -19,6 +19,8 @@ public class Slot : MonoBehaviour
     [SerializeField] Color originalColor;
     [SerializeField] string slotID; 
     [SerializeField] float cost;
+    [Space]
+    [SerializeField] float resetTime; // in hours
 
     bool hasBeenBought;
     float coins;
@@ -35,6 +37,7 @@ public class Slot : MonoBehaviour
     UpgradeManager upgradeManager;
     GameManager gameManager;
     CarManager carManager;
+    TimeManager timeManager;
 
     void Awake()
     {
@@ -46,6 +49,7 @@ public class Slot : MonoBehaviour
         gameManager = FindObjectOfType<GameManager>();
         carManager = FindObjectOfType<CarManager>();
         upgradeManager = FindObjectOfType<UpgradeManager>();
+        timeManager = FindObjectOfType<TimeManager>();
 
         button = costText.GetComponentInParent<Button>();
     }
@@ -59,17 +63,13 @@ public class Slot : MonoBehaviour
     public void SetUpSlot()
     {
         string keyPrefix = slotID;
-        string pastDate = PlayerPrefs.GetString(keyPrefix + "PastDate", "");
-        string currentDate = System.DateTime.Now.ToString("yyyyMMdd");
-        if (pastDate != currentDate)
+        if (timeManager.GetCurrentTime(resetTime, keyPrefix + "Time"))
         {
             // Reset keys if it’s a new day
             PlayerPrefs.DeleteKey(keyPrefix + "Weight");
             PlayerPrefs.DeleteKey(keyPrefix + "Speed");
             PlayerPrefs.DeleteKey(keyPrefix + "Income");
             PlayerPrefs.DeleteKey(keyPrefix + "HasBeenBought");
-
-            PlayerPrefs.SetString(keyPrefix + "PastDate", currentDate);
         }
 
         if (PlayerPrefs.HasKey(keyPrefix + "Weight"))
@@ -91,6 +91,8 @@ public class Slot : MonoBehaviour
 
             income = Random.Range(1, 6);
             PlayerPrefs.SetInt(keyPrefix + "Income", income);
+
+            timeManager.SaveCurrentTime(keyPrefix + "Time");
         }
 
         weightText.text = "Weight: " + weight.ToString() + "/5";
@@ -161,7 +163,6 @@ public class Slot : MonoBehaviour
         PlayerPrefs.DeleteKey(keyPrefix + "Weight");
         PlayerPrefs.DeleteKey(keyPrefix + "Speed");
         PlayerPrefs.DeleteKey(keyPrefix + "Income");
-        PlayerPrefs.DeleteKey(keyPrefix + "PastDate");
 
         hasBeenBought = false;
         cross.SetActive(false);

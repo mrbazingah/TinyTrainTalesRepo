@@ -11,6 +11,7 @@ public class Train : MonoBehaviour
 
     bool isDriving;
     bool hasLoaded;
+    bool isDeclerating;
     float highestVelocity;
     float localMaxSpeed;
 
@@ -49,8 +50,6 @@ public class Train : MonoBehaviour
 
     public void SaveTrain()
     {
-        //SaveSystem.SaveTrain(this);
-
         PlayerPrefs.SetFloat("Speed", speed);
         PlayerPrefs.SetFloat("Acceleration", acceleration);
 
@@ -85,7 +84,7 @@ public class Train : MonoBehaviour
             speed = 0;
         }
 
-        if (speed > highestVelocity)
+        if (!isDeclerating && highestVelocity != speed)
         {
             highestVelocity = speed;
         }
@@ -103,6 +102,7 @@ public class Train : MonoBehaviour
         else if ((!isDriving && -rigidbody.velocity.x > 0f) || -rigidbody.velocity.x > localMaxSpeed)
         {
             speed -= decelartion * Time.fixedDeltaTime;
+            isDeclerating = true;
         }
     }
 

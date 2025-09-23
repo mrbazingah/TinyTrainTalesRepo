@@ -7,7 +7,8 @@ public class City : MonoBehaviour
     [SerializeField] GameObject[] cityNeighbors = new GameObject[0];
     [SerializeField] int[] cityNeighborsDistances = new int[0];
     [SerializeField] GameObject[] neighborLines = new GameObject[0];
-
+    
+    float cargoResetTime; 
     string cityName;
     string countryName;
 
@@ -18,12 +19,14 @@ public class City : MonoBehaviour
     CityMenu cityMenuScript;
     CargoManager cargoManager;
     CityMarketMenu cityMarketMenu;
+    TimeManager timeManager;
 
     void Awake()
     {
         cityMenuScript = FindObjectOfType<CityMenu>();
         cargoManager = FindObjectOfType<CargoManager>();
         cityMarketMenu = FindObjectOfType<CityMarketMenu>();
+        timeManager = FindObjectOfType<TimeManager>();
     }
 
     void Start()
@@ -40,6 +43,8 @@ public class City : MonoBehaviour
                 neighborLines[i]?.SetActive(cityNeighbors[i].GetComponent<City>().GetIsUnlocked());
             }
         }
+
+        cargoResetTime = cargoManager.GetCityCargoResetTime();
     }
 
     void Update()
@@ -83,6 +88,11 @@ public class City : MonoBehaviour
 
     public void CreateCargoItemForCity()
     {
+        if (timeManager.GetCurrentTime(cargoResetTime, "CityTime"))
+        {
+            PlayerPrefs.DeleteKey("CargoItemAmount" + gameObject.name);
+        }
+
         int index = 0;
         if (PlayerPrefs.HasKey("CargoItemAmount" + gameObject.name))
         {
@@ -118,6 +128,8 @@ public class City : MonoBehaviour
                     continue;
                 }
             }
+
+            timeManager.SaveCurrentTime("Time" + gameObject.name);
         }
 
         cityMarketMenu.SetCargoList(cargo);

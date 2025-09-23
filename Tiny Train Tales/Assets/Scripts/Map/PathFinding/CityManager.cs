@@ -74,15 +74,7 @@ public class CityManager : MonoBehaviour
 
         if (pathfinding != null)
         {
-            if (PlayerPrefs.HasKey("NextCity"))
-            {
-                GameObject inBetweenCity = GameObject.Find(PlayerPrefs.GetString("NextCity"));
-                path = pathfinding.FindPath(currentCity, destinationCity, inBetweenCity);
-            }
-            else
-            {
-                path = pathfinding.FindPath(currentCity, destinationCity, null);
-            }
+            path = pathfinding.FindPath(currentCity, destinationCity, nextCity);
         }
 
         GetNextCityInPath();
@@ -138,15 +130,6 @@ public class CityManager : MonoBehaviour
         gameManager.SetNewDestination(currentCity.name, nextCity.name, destinationDistance);
         pathfinding.FindPath(currentCity, destinationCity, null);
         ColorAll();
-    }
-
-    public void ArriveAtNextCity()
-    {
-        //currentCity = nextCity;
-        //PlayerPrefs.SetString("CurrentCity", currentCity.name);
-
-        GetNextCityInPath();
-        gameManager.UpdateCityTexts();
     }
 
     public void GetRandomCity()
@@ -213,6 +196,7 @@ public class CityManager : MonoBehaviour
     {
         PlayerPrefs.SetString("CurrentCity", nextCity.name);
         PlayerPrefs.SetString("DestinationCity", destinationCity.name);
+        PlayerPrefs.DeleteKey("NextCity");
     }
 
     public void SaveCityOnQuit()

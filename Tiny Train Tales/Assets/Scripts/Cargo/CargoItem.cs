@@ -48,6 +48,11 @@ public class CargoItem : MonoBehaviour
     {
         isInCity = b;
         this.cityName = b ? cityName : "";
+
+        if (!isInCity)
+        {
+            ChangeUI();
+        }
     }
 
     public void LoadItemPlayerPrefs()
@@ -145,10 +150,8 @@ public class CargoItem : MonoBehaviour
 
         for (int i = 0; i < trainUI.Length; i++)
         {
-            trainUI[i].SetActive(isInCity);
+            trainUI[i].SetActive(!isInCity);
         }
-
-        isInCity = !isInCity;   
     }
 
     public Image GetItemIcon()

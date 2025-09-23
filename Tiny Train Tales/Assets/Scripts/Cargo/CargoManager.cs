@@ -8,9 +8,11 @@ public class CargoManager : MonoBehaviour
     [SerializeField] int maxSpawnCount;
     [SerializeField] int minCityCargoAmount;
     [SerializeField] int maxCityCargoAmount;
+    [SerializeField] float cityCargoResetTime; // in hours
     [Header("Cargo Intiate")]
     [SerializeField] Sprite[] cargoItemsSprites;
     [SerializeField] string[] cargoItemsNames;
+    [SerializeField] float[] cargoItemPrices;
     [Space]
     [SerializeField] GameObject cargoItemPrefab;
     [SerializeField] int maxCargoCount;
@@ -19,7 +21,7 @@ public class CargoManager : MonoBehaviour
     [SerializeField] Vector2 startPos;
     [SerializeField] float yOffset;
 
-    int currentCargoAmount;
+    int currentCargCount;
     string currentSaveString;
 
     List<GameObject> cargoItemList = new List<GameObject>();
@@ -31,6 +33,8 @@ public class CargoManager : MonoBehaviour
 
     void LoadCargoItems()
     {
+        currentCargCount = PlayerPrefs.GetInt("CurrentCargoAmount");
+
         if (PlayerPrefs.HasKey("NumberOfCargoItems"))
         {
             int numberOfCargoItems = PlayerPrefs.GetInt("NumberOfCargoItems");
@@ -40,6 +44,14 @@ public class CargoManager : MonoBehaviour
                 CreateCargoItemForInventory(null);
             }
         }
+
+        if (currentCargCount == 0 && cargoItemList.Count > 0)
+        {
+            for (int i = 0; i < cargoItemList.Count; i++)
+            {
+                currentCargCount += cargoItemList[i].GetComponent<CargoItem>().GetItemCount();
+            }
+        }
     }
 
     public void AddCargo(GameObject newItem)
@@ -47,10 +59,10 @@ public class CargoManager : MonoBehaviour
         CargoItem newItemScript = newItem.GetComponent<CargoItem>();
         if (newItemScript.GetItemCount() <= 0) { return; }
 
-        currentCargoAmount++;
-        if (currentCargoAmount > maxCargoCount)
+        currentCargCount++;
+        if (currentCargCount > maxCargoCount)
         {
-            currentCargoAmount = maxCargoCount;
+            currentCargCount = maxCargoCount;
         }
 
         bool hasItem = false;
@@ -108,6 +120,7 @@ public class CargoManager : MonoBehaviour
 
             cargoItemScript.SetItemCount(1);
             cargoItemScript.SetItemName(newItemScript.GetItemName(), "");
+            cargoItemScript.SetIsInCity(false, "");
 
             cargoItemList.Add(newSpawnedItem);
             cargoItemScript.ChangeUI();
@@ -143,6 +156,7 @@ public class CargoManager : MonoBehaviour
         int randomIndex = Random.Range(0, cargoItemsSprites.Length);
         cargoItemScript.SetItemIcon(cargoItemsSprites[randomIndex]);
         cargoItemScript.SetItemName(cargoItemsNames[randomIndex], cityName);
+        cargoItemScript.SetItemPrice(cargoItemPrices[randomIndex]);
 
         int randomCount = Random.Range(minSpawnCount, maxSpawnCount + 1);
         cargoItemScript.SetItemCount(randomCount);
@@ -183,6 +197,7 @@ public class CargoManager : MonoBehaviour
     public void SaveCargo()
     {
         PlayerPrefs.SetInt("NumberOfCargoItems", cargoItemList.Count);
+        PlayerPrefs.SetInt("CurrentCargoAmount", currentCargCount);
 
         for (int i = 0; i < cargoItemList.Count; i++)
         {
@@ -192,5 +207,10 @@ public class CargoManager : MonoBehaviour
 
             cargoItemScript.SaveCargoItem();
         }
+    }
+
+    public float GetCityCargoResetTime()
+    {
+        return cityCargoResetTime;
     }
 }
