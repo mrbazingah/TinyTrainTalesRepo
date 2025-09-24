@@ -8,7 +8,7 @@ public class CargoItem : MonoBehaviour
     [SerializeField] TextMeshProUGUI itemCountText;
     [SerializeField] TextMeshProUGUI itemPriceText;
     [SerializeField] TextMeshProUGUI itemNameText;
-    [SerializeField] GameObject[] cityUI;
+    [SerializeField] GameObject panel;
     [SerializeField] GameObject[] trainUI;
 
     int itemCount;
@@ -20,10 +20,17 @@ public class CargoItem : MonoBehaviour
     string saveString;
 
     CargoManager cargoManager;
+    CityMarketMenu cityMarketMenu;
 
     void Awake()
     {
         cargoManager = FindObjectOfType<CargoManager>();
+        cityMarketMenu = FindObjectOfType<CityMarketMenu>();
+    }
+
+    void Start()
+    {
+        panel.SetActive(false);
     }
 
     public void SetSaveString(string newSaveString)
@@ -102,15 +109,27 @@ public class CargoItem : MonoBehaviour
 
     public void ChangeUI()
     {
-        for (int i = 0; i < cityUI.Length; i++)
-        {
-            cityUI[i].SetActive(isInCity);
-        }
-
         for (int i = 0; i < trainUI.Length; i++)
         {
             trainUI[i].SetActive(!isInCity);
         }
+    }
+
+    public void OnSelect()
+    {
+        panel.SetActive(true);
+
+        cityMarketMenu.SwitchBuyAndSell(gameObject);
+    }
+
+    public void OnDeselect()
+    {
+        panel.SetActive(false);
+    }
+
+    public void SetTempCountText(string count)
+    {
+        itemCountText.text = count;
     }
 
     public Image GetItemIcon()
@@ -132,6 +151,16 @@ public class CargoItem : MonoBehaviour
     {
         return itemCount;
     }
+
+    public float GetItemPrice()
+    {
+        return itemPrice;
+    }
+
+    public bool GetIsInCity()
+    {
+        return isInCity;
+    }   
 
     public string GetSaveString()
     {

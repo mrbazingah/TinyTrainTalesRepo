@@ -100,6 +100,8 @@ public class City : MonoBehaviour
 
             for (int i = 0; i < index; i++)
             {
+                if (index > 50) { break; }
+
                 string saveString = PlayerPrefs.GetString("CitySaveString" + i.ToString() + gameObject.name);
                 GameObject newCargoItem = cargoManager.CreateSavedCargoItemForCity(saveString, gameObject.name);
                 cargo.Add(newCargoItem);
