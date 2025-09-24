@@ -59,12 +59,15 @@ public class CargoItem : MonoBehaviour
             SetItemIcon(cargoManager.GetCargoItemsSprites()[PlayerPrefs.GetInt(saveString + "itemSpriteIndex")]);
         }
         else
-        { 
+        {
             if (cityName != "")
             {
-                GameObject.Find(cityName)?.GetComponent<City>()?.CreateCargoItemForCity();
-                Destroy(gameObject);
-                gameObject.SetActive(false);
+                // Tell the City this item failed to load
+                City city = GameObject.Find(cityName)?.GetComponent<City>();
+                if (city != null)
+                {
+                    city.HandleMissingCargo(this.gameObject);
+                }
             }
         }
     }
@@ -96,11 +99,6 @@ public class CargoItem : MonoBehaviour
         itemPriceText.text = itemPrice.ToString();
     }
 
-    public void BuyItem()
-    {
-        cargoManager.AddCargo(gameObject);
-    }
-
     public void AddCount(int count)
     {
         itemCount += count;
@@ -109,10 +107,14 @@ public class CargoItem : MonoBehaviour
 
     public void ChangeUI()
     {
+        /*
+
         for (int i = 0; i < trainUI.Length; i++)
         {
             trainUI[i].SetActive(!isInCity);
         }
+
+        */
     }
 
     public void OnSelect()

@@ -7,11 +7,16 @@ public class CityMarketMenu : MonoBehaviour
     [SerializeField] MenuAnimationY menuAnimY;
     [SerializeField] GameObject marketCargoItemParent;
     [SerializeField] GameObject inventoryCargoItemParent;
-    [SerializeField] Vector2 startPos;
+    [SerializeField] Vector2 marketStartPos;
+    [SerializeField] Vector2 inventoryStartPos;
     [SerializeField] float yOffset;
     [Space]
     [SerializeField] GameObject[] buyAndSellUI;
+    [SerializeField] TextMeshProUGUI cityText;
+    [SerializeField] TextMeshProUGUI countText;
     [SerializeField] TextMeshProUGUI totalText;
+    [SerializeField] GameObject resetButton;
+    [SerializeField] GameObject allButton;
 
     List<GameObject> marketCargoItems = new List<GameObject>();
     List<GameObject> inventoryCargoItems = new List<GameObject>();
@@ -23,10 +28,18 @@ public class CityMarketMenu : MonoBehaviour
     float totalCount;
 
     CargoManager cargoManager;
+    CityManager cityManager;
 
     void Awake()
     {
         cargoManager = FindObjectOfType<CargoManager>();
+        cityManager = FindObjectOfType<CityManager>();
+    }
+
+    void Start()
+    {
+        resetButton.SetActive(false);
+        allButton.SetActive(true);
     }
 
     public void OpenCargoMenu()
@@ -50,19 +63,49 @@ public class CityMarketMenu : MonoBehaviour
         SetUpCargoItems();
     }
 
+    public void ResetInventoryItems()
+    {
+        for (int i = 0; i < inventoryCargoItems.Count; i++)
+        {
+            inventoryCargoItems[i].SetActive(false);
+            Destroy(inventoryCargoItems[i]);
+
+            inventoryCargoItems.Clear();
+        }
+
+        List<GameObject> newInventoryItems = new List<GameObject>();
+        for (int i = 0; i < cargoManager.GetCargoItemList().Count; i++)
+        {
+            GameObject cargoItem = Instantiate(cargoManager.GetCargoItemList()[i]);
+            newInventoryItems.Add(cargoItem);
+        }
+
+        inventoryCargoItems = newInventoryItems;
+
+        SetUpCargoItems();
+    }
+
     void SetUpCargoItems()
     {
+        cityText.text = cityManager.GetNextCity().name;
+
         Vector2 lastPos = Vector2.zero;
 
         //Market Cargo
         for (int i = 0; i < marketCargoItems.Count; i++)
         {
+            if (marketCargoItems[i] == null)
+            {
+                marketCargoItems.RemoveAt(i);
+                continue;
+            }
+
             marketCargoItems[i].transform.SetParent(marketCargoItemParent.transform);
             marketCargoItems[i].transform.localPosition = Vector2.zero;
 
             if (i == 0)
             {
-                marketCargoItems[i].transform.localPosition = startPos;
+                marketCargoItems[i].transform.localPosition = marketStartPos;
             }
             else
             {
@@ -75,12 +118,19 @@ public class CityMarketMenu : MonoBehaviour
         //Inventory Cargo
         for (int i = 0; i < inventoryCargoItems.Count; i++)
         {
+            if (inventoryCargoItems[i] == null)
+            {
+                inventoryCargoItems.RemoveAt(i);
+                continue;
+            }
+
             inventoryCargoItems[i].transform.SetParent(inventoryCargoItemParent.transform);
             inventoryCargoItems[i].transform.localPosition = Vector2.zero;
+            inventoryCargoItems[i].transform.localScale = Vector3.one;
 
             if (i == 0)
             {
-                inventoryCargoItems[i].transform.localPosition = startPos;
+                inventoryCargoItems[i].transform.localPosition = inventoryStartPos;
             }
             else
             {
@@ -141,9 +191,9 @@ public class CityMarketMenu : MonoBehaviour
         }
 
         CargoItem cargoItemScript = lastSelectedCargoItem.GetComponent<CargoItem>();
-        if (cargoItemScript == null || cargoItemScript.GetItemCount() == 0) { return; }
+        if (cargoItemScript == null || selectedCargoItemCounts[index] >= cargoItemScript.GetItemCount()) { return; }
 
-        int currentTotal = cargoItemScript.GetItemCount() - int.Parse(cargoItemScript.GetItemCountText().text);
+        float currentTotal = selectedCargoItemCounts[index] + 1;
         selectedCargoItemCounts[index] = currentTotal;
 
         string tempCount = (cargoItemScript.GetItemCount() - currentTotal).ToString();
@@ -158,6 +208,11 @@ public class CityMarketMenu : MonoBehaviour
         }
 
         totalText.text = totalPrice.ToString();
+
+        resetButton.SetActive(true);
+        allButton.SetActive(false);
+
+        countText.text = totalCount.ToString();
     }
 
     public void CommitAll()
@@ -177,17 +232,17 @@ public class CityMarketMenu : MonoBehaviour
         if (!found)
         {
             selectedCargoItems.Add(lastSelectedCargoItem);
+            selectedCargoItemCounts.Add(0);
             index = selectedCargoItems.Count - 1;
         }
 
         CargoItem cargoItemScript = lastSelectedCargoItem.GetComponent<CargoItem>();
-        if (cargoItemScript == null || cargoItemScript.GetItemCount() == 0) { return; }
+        if (cargoItemScript == null || selectedCargoItemCounts[index] >= cargoItemScript.GetItemCount()) { return; }
 
-        int currentTotal = cargoItemScript.GetItemCount();
+        float currentTotal = cargoItemScript.GetItemCount();
         selectedCargoItemCounts[index] = currentTotal;
 
-        string tempCount = currentTotal.ToString();
-        cargoItemScript.SetTempCountText(tempCount);
+        cargoItemScript.SetTempCountText("0");
 
         totalCount += currentTotal;
 
@@ -198,5 +253,105 @@ public class CityMarketMenu : MonoBehaviour
         }
 
         totalText.text = totalPrice.ToString();
+
+        resetButton.SetActive(true);
+        allButton.SetActive(false);
+
+        countText.text = totalCount.ToString();
     }
+
+    public void CommitEverything()
+    {
+        for (int i = 0; i < marketCargoItems.Count; i++)
+        {
+            bool found = false;
+            int index = 0;
+            for (int ii = 0; ii < selectedCargoItems.Count; ii++)
+            {
+                if (selectedCargoItems[ii] == marketCargoItems[i])
+                {
+                    found = true;
+                    index = ii;
+                    break;
+                }
+            }
+
+            if (!found)
+            {
+                selectedCargoItems.Add(marketCargoItems[i]);
+                selectedCargoItemCounts.Add(0);
+                index = selectedCargoItems.Count - 1;
+            }
+
+            CargoItem cargoItemScript = marketCargoItems[i].GetComponent<CargoItem>();
+            if (cargoItemScript == null || selectedCargoItemCounts[index] >= cargoItemScript.GetItemCount()) { continue; }
+
+            float currentTotal = cargoItemScript.GetItemCount();
+            selectedCargoItemCounts[index] = currentTotal;
+
+
+            float totalPrice = 0;
+            for (int ii = 0; ii < selectedCargoItems.Count; ii++)
+            {
+                totalPrice += selectedCargoItemCounts[ii] * selectedCargoItems[ii].GetComponent<CargoItem>().GetItemPrice();
+            }
+
+            totalText.text = totalPrice.ToString();
+
+            cargoItemScript.SetTempCountText("0");
+            totalCount += currentTotal;
+
+            resetButton.SetActive(true);
+            allButton.SetActive(false);
+
+            countText.text = totalCount.ToString();
+        }
+    }
+
+    public void ResetMarket()
+    {
+        for (int i = 0; i < selectedCargoItems.Count; i++)
+        {
+            CargoItem cargoItemScript = selectedCargoItems[i].GetComponent<CargoItem>();
+            cargoItemScript.SetTempCountText(cargoItemScript.GetItemCount().ToString());
+        }
+
+        totalCount = 0;
+        totalText.text = "0";
+        countText.text = "0";
+
+        selectedCargoItems.Clear();
+        selectedCargoItemCounts.Clear();
+
+        resetButton.SetActive(false);
+        allButton.SetActive(true);
+    }
+
+    public void BuySell()
+    {
+        bool isBuying = buyAndSellUI[0].GetComponent<TextMeshProUGUI>().text == "Buy";
+        if (isBuying)
+        {
+            for (int i = 0; i < selectedCargoItems.Count; i++)
+            {
+                CargoItem cargoItemScript = selectedCargoItems[i].GetComponent<CargoItem>();
+                if (cargoItemScript == null) { continue; }
+
+                int buyAmount = (int)selectedCargoItemCounts[i];
+                int currentStock = cargoItemScript.GetItemCount();
+
+                // Prevent buying more than available
+                int finalStock = Mathf.Max(0, currentStock - buyAmount);
+
+                // Add cargo to player
+                cargoManager.AddCargo(selectedCargoItems[i], buyAmount);
+
+                // Update real stock
+                cargoItemScript.SetItemCount(finalStock);
+            }
+        }
+
+        ResetMarket();
+    }
+
 }

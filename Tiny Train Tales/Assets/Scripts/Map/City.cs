@@ -11,6 +11,7 @@ public class City : MonoBehaviour
     float cargoResetTime; 
     string cityName;
     string countryName;
+    int iterations;
 
     bool isUnlocked = false;
 
@@ -100,7 +101,8 @@ public class City : MonoBehaviour
 
             for (int i = 0; i < index; i++)
             {
-                if (index > 50) { break; }
+                iterations++;
+                if (iterations > 2) { break; }
 
                 string saveString = PlayerPrefs.GetString("CitySaveString" + i.ToString() + gameObject.name);
                 GameObject newCargoItem = cargoManager.CreateSavedCargoItemForCity(saveString, gameObject.name);
@@ -150,6 +152,25 @@ public class City : MonoBehaviour
         return false;
     }
 
+    public void HandleMissingCargo(GameObject brokenItem)
+    {
+        // Try to replace with a new one instead of regenerating everything
+        GameObject newCargoItem = cargoManager.CreateCargoItemForCity(gameObject.name);
+
+        int index = cargo.IndexOf(brokenItem);
+        if (index != -1)
+        {
+            cargo[index] = newCargoItem;
+        }
+        else
+        {
+            cargo.Add(newCargoItem);
+        }
+
+        Destroy(brokenItem);
+        cityMarketMenu.SetCargoList(cargo);
+    }
+
     public GameObject[] GetCityNeighbors()
     {
         return cityNeighbors;
@@ -176,6 +197,12 @@ public class City : MonoBehaviour
 
         for (int i = 0; i < cargo.Count; i++)
         {
+            if (cargo[i] == null)
+            {
+                cargo.RemoveAt(i);
+                continue;
+            }
+
             CargoItem cargoItemScript = cargo[i].GetComponent<CargoItem>();
             string saveString = cargoItemScript.GetSaveString();
             PlayerPrefs.SetString("CitySaveString" + i.ToString() + gameObject.name, saveString);

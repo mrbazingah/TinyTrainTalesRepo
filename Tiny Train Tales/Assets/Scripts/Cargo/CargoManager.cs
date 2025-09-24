@@ -26,6 +26,13 @@ public class CargoManager : MonoBehaviour
 
     List<GameObject> cargoItemList = new List<GameObject>();
 
+    CityMarketMenu cityMarketMenu;
+
+    void Awake()
+    {
+        cityMarketMenu = FindObjectOfType<CityMarketMenu>();
+    }
+
     void Start()
     {
         LoadCargoItems();
@@ -41,7 +48,7 @@ public class CargoManager : MonoBehaviour
             for (int i = 0; i < numberOfCargoItems; i++)
             {
                 currentSaveString = PlayerPrefs.GetString("SaveString" + i.ToString());
-                CreateCargoItemForInventory(null);
+                CreateCargoItemForInventory(null, 0);
             }
         }
 
@@ -54,12 +61,12 @@ public class CargoManager : MonoBehaviour
         }
     }
 
-    public void AddCargo(GameObject newItem)
+    public void AddCargo(GameObject newItem, int count)
     {
         CargoItem newItemScript = newItem.GetComponent<CargoItem>();
         if (newItemScript.GetItemCount() <= 0) { return; }
 
-        currentCargCount++;
+        currentCargCount += count;
         if (currentCargCount > maxCargoCount)
         {
             currentCargCount = maxCargoCount;
@@ -81,21 +88,23 @@ public class CargoManager : MonoBehaviour
 
         if (hasItem)
         {
-            cargoItemList[index].GetComponent<CargoItem>().AddCount(1);
-            newItemScript.AddCount(-1);
-
-            if (newItemScript.GetItemCount() <= 0)
-            {
-                //Do Stuff
-            }
+            cargoItemList[index].GetComponent<CargoItem>().AddCount(count);
+            newItemScript.AddCount(-count);
         }
         else
         {
-            CreateCargoItemForInventory(newItem);
+            CreateCargoItemForInventory(newItem, count);
         }
+
+        cityMarketMenu.ResetInventoryItems();
     }
 
-    void CreateCargoItemForInventory(GameObject newItem)
+    public void RemoveCargo()
+    {
+
+    }
+
+    void CreateCargoItemForInventory(GameObject newItem, int count)
     {
         CargoItem newItemScript;
 
@@ -113,12 +122,12 @@ public class CargoManager : MonoBehaviour
         else
         {
             newItemScript = newItem.GetComponent<CargoItem>();
-            newItemScript.AddCount(-1);
+            newItemScript.AddCount(count);
 
             GameObject newSpawnedItem = Instantiate(newItem);
             CargoItem cargoItemScript = newSpawnedItem.GetComponent<CargoItem>();
 
-            cargoItemScript.SetItemCount(1);
+            cargoItemScript.SetItemCount(count);
             cargoItemScript.SetItemName(newItemScript.GetItemName(), "");
             cargoItemScript.SetIsInCity(false, "");
 
