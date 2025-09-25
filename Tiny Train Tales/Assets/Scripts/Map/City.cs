@@ -155,18 +155,16 @@ public class City : MonoBehaviour
     public void HandleMissingCargo(GameObject brokenItem)
     {
         // Try to replace with a new one instead of regenerating everything
+
         GameObject newCargoItem = cargoManager.CreateCargoItemForCity(gameObject.name);
 
         int index = cargo.IndexOf(brokenItem);
         if (index != -1)
         {
-            cargo[index] = newCargoItem;
-        }
-        else
-        {
-            cargo.Add(newCargoItem);
+            cargo.RemoveAt(index);
         }
 
+        cargo.Add(newCargoItem);
         Destroy(brokenItem);
         cityMarketMenu.SetCargoList(cargo);
     }

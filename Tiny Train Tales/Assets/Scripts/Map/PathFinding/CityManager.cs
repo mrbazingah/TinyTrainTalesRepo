@@ -66,10 +66,23 @@ public class CityManager : MonoBehaviour
         currentCity = startCityGameObject;
         destinationCity = targetCityGameObject;
 
+        // If player tries to set destination to the same as current
         if (currentCity == destinationCity)
         {
-            GetRandomCity();
-            return;
+            if (nextCity != null && nextCity != currentCity)
+            {
+                // Continue traveling to nextCity, then return to currentCity
+                path = pathfinding.FindPath(nextCity, currentCity, null);
+                path.Insert(0, nextCity); // ensure nextCity is included as first step
+                GetNextCityInPath();
+                gameManager.UpdateCityTexts();
+                return;
+            }
+            else
+            {
+                GetRandomCity();
+                return;
+            }
         }
 
         if (pathfinding != null)
@@ -80,6 +93,7 @@ public class CityManager : MonoBehaviour
         GetNextCityInPath();
         gameManager.UpdateCityTexts();
     }
+
 
     public void UpdateCityTexts(TextMeshProUGUI currentCityText, TextMeshProUGUI destinationCityText)
     {

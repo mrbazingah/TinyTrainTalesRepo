@@ -26,14 +26,17 @@ public class CityMarketMenu : MonoBehaviour
 
     GameObject lastSelectedCargoItem;
     float totalCount;
+    bool isBuying;
 
     CargoManager cargoManager;
     CityManager cityManager;
+    GameManager gameManager;
 
     void Awake()
     {
         cargoManager = FindObjectOfType<CargoManager>();
         cityManager = FindObjectOfType<CityManager>();
+        gameManager = FindObjectOfType<GameManager>();
     }
 
     void Start()
@@ -94,12 +97,6 @@ public class CityMarketMenu : MonoBehaviour
         //Market Cargo
         for (int i = 0; i < marketCargoItems.Count; i++)
         {
-            if (marketCargoItems[i] == null)
-            {
-                marketCargoItems.RemoveAt(i);
-                continue;
-            }
-
             marketCargoItems[i].transform.SetParent(marketCargoItemParent.transform);
             marketCargoItems[i].transform.localPosition = Vector2.zero;
 
@@ -118,12 +115,6 @@ public class CityMarketMenu : MonoBehaviour
         //Inventory Cargo
         for (int i = 0; i < inventoryCargoItems.Count; i++)
         {
-            if (inventoryCargoItems[i] == null)
-            {
-                inventoryCargoItems.RemoveAt(i);
-                continue;
-            }
-
             inventoryCargoItems[i].transform.SetParent(inventoryCargoItemParent.transform);
             inventoryCargoItems[i].transform.localPosition = Vector2.zero;
             inventoryCargoItems[i].transform.localScale = Vector3.one;
@@ -138,8 +129,58 @@ public class CityMarketMenu : MonoBehaviour
             }
 
             lastPos = inventoryCargoItems[i].transform.localPosition;
+
+            CargoItem newCargoItemScript = inventoryCargoItems[i].GetComponent<CargoItem>();
+            CargoItem cargoItemScript = cargoManager.GetCargoItemList()[i].GetComponent<CargoItem>();
+
+            newCargoItemScript.SetItemCount(cargoItemScript.GetItemCount());
+            newCargoItemScript.SetItemName(cargoItemScript.GetItemName(), "");
+            newCargoItemScript.SetIsInCity(false, "");
         }
     }
+
+    void Update()
+    {
+        CheckItems();
+    }
+
+    void CheckItems()
+    {
+        // 1. Remove nulls safely
+        marketCargoItems.RemoveAll(item => item == null);
+
+        // 2. Merge duplicates by name
+        Dictionary<string, CargoItem> uniqueItems = new Dictionary<string, CargoItem>();
+
+        for (int i = 0; i < marketCargoItems.Count; i++)
+        {
+            CargoItem cargoItem = marketCargoItems[i].GetComponent<CargoItem>();
+            if (cargoItem == null) continue;
+
+            string itemName = cargoItem.GetItemName();
+
+            if (uniqueItems.ContainsKey(itemName))
+            {
+                // Merge counts into the first one
+                uniqueItems[itemName].AddCount(cargoItem.GetItemCount());
+
+                // Destroy the duplicate
+                Destroy(cargoItem.gameObject);
+                marketCargoItems[i] = null;
+            }
+            else
+            {
+                uniqueItems[itemName] = cargoItem;
+            }
+        }
+
+        // 3. Clean up any destroyed entries
+        marketCargoItems.RemoveAll(item => item == null);
+
+        // 4. Re-setup the UI if anything changed
+        SetUpCargoItems();
+    }
+
 
     public void SwitchBuyAndSell(GameObject cargoItem)
     {
@@ -151,6 +192,12 @@ public class CityMarketMenu : MonoBehaviour
         for (int i = 0; i < buyAndSellUI.Length; i++)
         {
             bool isMarketItem = cargoItem.GetComponent<CargoItem>().GetIsInCity();
+            if (isMarketItem != isBuying)
+            {
+                ResetMarket();
+            }
+
+            isBuying = isMarketItem;
 
             TextMeshProUGUI text = buyAndSellUI[i].GetComponent<TextMeshProUGUI>();
             if (text != null)
@@ -171,6 +218,11 @@ public class CityMarketMenu : MonoBehaviour
 
     public void CommitOne()
     {
+        if (lastSelectedCargoItem == null)
+        {
+            selectedCargoItems.Remove(lastSelectedCargoItem);
+        }
+
         bool found = false;
         int index = 0;
         for (int i = 0; i < selectedCargoItems.Count; i++)
@@ -217,6 +269,11 @@ public class CityMarketMenu : MonoBehaviour
 
     public void CommitAll()
     {
+        if (lastSelectedCargoItem == null)
+        {
+            selectedCargoItems.Remove(lastSelectedCargoItem);
+        }
+
         bool found = false;
         int index = 0;
         for (int i = 0; i < selectedCargoItems.Count; i++)
@@ -262,13 +319,23 @@ public class CityMarketMenu : MonoBehaviour
 
     public void CommitEverything()
     {
-        for (int i = 0; i < marketCargoItems.Count; i++)
+        List<GameObject> currentList = isBuying ? marketCargoItems : inventoryCargoItems;
+
+        for (int i = 0; i < currentList.Count; i++)
         {
+            if (currentList[i] == null)
+            {
+                currentList.RemoveAt(i);
+
+                Debug.LogWarning("Market Cargo Item was null, removing from list.");
+                continue;
+            }
+
             bool found = false;
             int index = 0;
             for (int ii = 0; ii < selectedCargoItems.Count; ii++)
             {
-                if (selectedCargoItems[ii] == marketCargoItems[i])
+                if (selectedCargoItems[ii] == currentList[i])
                 {
                     found = true;
                     index = ii;
@@ -278,12 +345,12 @@ public class CityMarketMenu : MonoBehaviour
 
             if (!found)
             {
-                selectedCargoItems.Add(marketCargoItems[i]);
+                selectedCargoItems.Add(currentList[i]);
                 selectedCargoItemCounts.Add(0);
                 index = selectedCargoItems.Count - 1;
             }
 
-            CargoItem cargoItemScript = marketCargoItems[i].GetComponent<CargoItem>();
+            CargoItem cargoItemScript = currentList[i].GetComponent<CargoItem>();
             if (cargoItemScript == null || selectedCargoItemCounts[index] >= cargoItemScript.GetItemCount()) { continue; }
 
             float currentTotal = cargoItemScript.GetItemCount();
@@ -329,9 +396,17 @@ public class CityMarketMenu : MonoBehaviour
 
     public void BuySell()
     {
-        bool isBuying = buyAndSellUI[0].GetComponent<TextMeshProUGUI>().text == "Buy";
         if (isBuying)
         {
+            float totalPrice = 0;
+            for (int i = 0; i < selectedCargoItems.Count; i++)
+            {
+                totalPrice += selectedCargoItemCounts[i] * selectedCargoItems[i].GetComponent<CargoItem>().GetItemPrice();
+            }
+
+            if (gameManager.GetCoins() < totalPrice) { return; }
+            gameManager.AddCoins(-totalPrice);
+
             for (int i = 0; i < selectedCargoItems.Count; i++)
             {
                 CargoItem cargoItemScript = selectedCargoItems[i].GetComponent<CargoItem>();
@@ -350,8 +425,12 @@ public class CityMarketMenu : MonoBehaviour
                 cargoItemScript.SetItemCount(finalStock);
             }
         }
+        else
+        {
 
-        ResetMarket();
+        }
+
+            ResetMarket();
     }
 
 }

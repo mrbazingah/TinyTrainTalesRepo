@@ -1793,7 +1793,7 @@ MonoBehaviour:
   marketCargoItemParent: {fileID: 603674237}
   inventoryCargoItemParent: {fileID: 891858732}
   marketStartPos: {x: 0, y: 100}
-  inventoryStartPos: {x: 35, y: 100}
+  inventoryStartPos: {x: 31, y: 100}
   yOffset: 70
   buyAndSellUI:
   - {fileID: 1014987003}
@@ -14665,7 +14665,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 24.380001, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &724453289
