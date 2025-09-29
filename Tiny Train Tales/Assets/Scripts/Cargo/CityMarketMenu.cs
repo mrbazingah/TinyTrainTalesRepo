@@ -27,6 +27,7 @@ public class CityMarketMenu : MonoBehaviour
     GameObject lastSelectedCargoItem;
     float totalCount;
     bool isBuying;
+    int discount;
 
     CargoManager cargoManager;
     CityManager cityManager;
@@ -64,6 +65,23 @@ public class CityMarketMenu : MonoBehaviour
         inventoryCargoItems = newInventoryItems;
 
         SetUpCargoItems();
+    }
+
+    public void SetDiscount(int newDiscount)
+    {
+        discount = newDiscount;
+
+        for (int i = 0; i < marketCargoItems.Count; i++)
+        {
+            CargoItem cargoItemScript = marketCargoItems[i].GetComponent<CargoItem>();
+            if (cargoItemScript == null) { continue; }
+
+            float originalPrice = cargoItemScript.GetItemPrice();
+            float discountedPrice = originalPrice - (originalPrice * ((float)discount / 100f));
+            discountedPrice = Mathf.Round(discountedPrice);
+
+            cargoItemScript.SetItemPrice(discountedPrice);
+        }
     }
 
     public void ResetInventoryItems()
@@ -136,6 +154,9 @@ public class CityMarketMenu : MonoBehaviour
             newCargoItemScript.SetItemCount(cargoItemScript.GetItemCount());
             newCargoItemScript.SetItemName(cargoItemScript.GetItemName(), "");
             newCargoItemScript.SetIsInCity(false, "");
+            newCargoItemScript.SetItemPrice(cargoItemScript.GetItemPrice());
+
+            newCargoItemScript.CalculateProfit();
         }
     }
 
@@ -419,7 +440,7 @@ public class CityMarketMenu : MonoBehaviour
                 int finalStock = Mathf.Max(0, currentStock - buyAmount);
 
                 // Add cargo to player
-                cargoManager.AddCargo(selectedCargoItems[i], buyAmount);
+                cargoManager.AddCargo(selectedCargoItems[i], buyAmount, cargoItemScript.GetItemPrice());
 
                 // Update real stock
                 cargoItemScript.SetItemCount(finalStock);
@@ -433,4 +454,8 @@ public class CityMarketMenu : MonoBehaviour
             ResetMarket();
     }
 
+    public List<GameObject> GetMarketCargoItems() 
+    { 
+        return marketCargoItems; 
+    }
 }

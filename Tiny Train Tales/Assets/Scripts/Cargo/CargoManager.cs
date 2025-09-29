@@ -48,7 +48,7 @@ public class CargoManager : MonoBehaviour
             for (int i = 0; i < numberOfCargoItems; i++)
             {
                 currentSaveString = PlayerPrefs.GetString("SaveString" + i.ToString());
-                CreateCargoItemForInventory(null, 0);
+                CreateCargoItemForInventory(null, 0, 0);
             }
         }
 
@@ -61,7 +61,7 @@ public class CargoManager : MonoBehaviour
         }
     }
 
-    public void AddCargo(GameObject newItem, int count)
+    public void AddCargo(GameObject newItem, int count, float price)
     {
         CargoItem newItemScript = newItem.GetComponent<CargoItem>();
         if (newItemScript.GetItemCount() <= 0) { return; }
@@ -93,7 +93,7 @@ public class CargoManager : MonoBehaviour
         }
         else
         {
-            CreateCargoItemForInventory(newItem, count);
+            CreateCargoItemForInventory(newItem, count, price);
         }
 
         cityMarketMenu.ResetInventoryItems();
@@ -104,7 +104,7 @@ public class CargoManager : MonoBehaviour
 
     }
 
-    void CreateCargoItemForInventory(GameObject newItem, int count)
+    void CreateCargoItemForInventory(GameObject newItem, int count, float price)
     {
         CargoItem newItemScript;
 
@@ -130,6 +130,7 @@ public class CargoManager : MonoBehaviour
             cargoItemScript.SetItemCount(count);
             cargoItemScript.SetItemName(newItemScript.GetItemName(), "");
             cargoItemScript.SetIsInCity(false, "");
+            cargoItemScript.SetItemPrice(price);
 
             cargoItemList.Add(newSpawnedItem);
             cargoItemScript.ChangeUI();

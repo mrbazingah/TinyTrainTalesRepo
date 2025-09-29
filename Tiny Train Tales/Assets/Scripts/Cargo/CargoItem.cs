@@ -1,3 +1,4 @@
+using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -7,6 +8,7 @@ public class CargoItem : MonoBehaviour
     [SerializeField] Image itemIcon;
     [SerializeField] TextMeshProUGUI itemCountText;
     [SerializeField] TextMeshProUGUI itemPriceText;
+    [SerializeField] TextMeshProUGUI itemPriceLabelText;
     [SerializeField] TextMeshProUGUI itemNameText;
     [SerializeField] GameObject panel;
     [SerializeField] GameObject[] trainUI;
@@ -14,8 +16,10 @@ public class CargoItem : MonoBehaviour
     int itemCount;
     string itemName;
     bool isInCity = true;
+    bool isInMarket;
     string cityName;
     float itemPrice;
+    float profit;
 
     string saveString;
 
@@ -33,6 +37,7 @@ public class CargoItem : MonoBehaviour
         panel.SetActive(false);
     }
 
+    #region Sets
     public void SetSaveString(string newSaveString)
     {
         saveString = newSaveString;
@@ -97,12 +102,47 @@ public class CargoItem : MonoBehaviour
     {
         itemPrice = price;
         itemPriceText.text = itemPrice.ToString();
+
+        if (!isInCity)
+        {
+            itemPriceLabelText.text = "Profit:";
+        }
     }
+
+    public void SetIsInMarket(bool b)
+    {
+        isInMarket = b;
+    }
+    #endregion
 
     public void AddCount(int count)
     {
         itemCount += count;
         itemCountText.text = itemCount.ToString();
+    }
+
+    public void CalculateProfit()
+    {
+        GameObject matchingItem = null;
+        
+        for (int i = 0; i < cityMarketMenu.GetMarketCargoItems().Count; i++)
+        {
+            if (cityMarketMenu.GetMarketCargoItems()[i].GetComponent<CargoItem>().GetItemName() == itemName && cityMarketMenu.GetMarketCargoItems()[i].GetComponent<CargoItem>().GetIsInCity())
+            {
+                matchingItem = cityMarketMenu.GetMarketCargoItems()[i].gameObject;
+                break;
+            }
+        }
+
+        if (matchingItem != null)
+        {
+            profit = matchingItem.GetComponent<CargoItem>().GetItemPrice() - itemPrice;
+            itemPriceText.text = profit.ToString("");
+        }
+        else
+        {
+            itemPriceText.text = "0";
+        }
     }
 
     public void ChangeUI()
@@ -117,6 +157,7 @@ public class CargoItem : MonoBehaviour
         */
     }
 
+    #region Gets
     public void OnSelect()
     {
         panel.SetActive(true);
@@ -164,10 +205,16 @@ public class CargoItem : MonoBehaviour
         return isInCity;
     }   
 
+    public bool GetIsInMarket()
+    {
+        return isInMarket;
+    }
+
     public string GetSaveString()
     {
         return isInCity ? itemName + " " + cityName : itemName;
     }
+    #endregion
 
     public void SaveCargoItem()
     {

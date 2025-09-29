@@ -7,7 +7,9 @@ public class City : MonoBehaviour
     [SerializeField] GameObject[] cityNeighbors = new GameObject[0];
     [SerializeField] int[] cityNeighborsDistances = new int[0];
     [SerializeField] GameObject[] neighborLines = new GameObject[0];
-    
+
+    int[] discounts = {15, 20, 25};
+
     float cargoResetTime; 
     string cityName;
     string countryName;
@@ -89,7 +91,7 @@ public class City : MonoBehaviour
 
     public void CreateCargoItemForCity()
     {
-        if (timeManager.GetCurrentTime(cargoResetTime, "CityTime"))
+        if (timeManager.GetCurrentTime(cargoResetTime, "CityTime" + gameObject.name))
         {
             PlayerPrefs.DeleteKey("CargoItemAmount" + gameObject.name);
         }
@@ -137,6 +139,12 @@ public class City : MonoBehaviour
         }
 
         cityMarketMenu.SetCargoList(cargo);
+
+        if (Random.Range(1, 4) == 1)
+        {
+            int discountIndex = Random.Range(0, discounts.Length);
+            cityMarketMenu.SetDiscount(discounts[discountIndex]);
+        }
     }
 
     bool CheckForDuplicates(GameObject newCargo)
