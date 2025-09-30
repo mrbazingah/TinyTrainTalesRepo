@@ -107,6 +107,8 @@ public class CargoItem : MonoBehaviour
         {
             itemPriceLabelText.text = "Profit:";
         }
+
+        PlayerPrefs.SetFloat(saveString + "itemPrice", itemPrice);
     }
 
     public void SetIsInMarket(bool b)
@@ -123,6 +125,8 @@ public class CargoItem : MonoBehaviour
 
     public void CalculateProfit()
     {
+        if (isInCity) { return; }
+        
         GameObject matchingItem = null;
         
         for (int i = 0; i < cityMarketMenu.GetMarketCargoItems().Count; i++)
@@ -136,8 +140,14 @@ public class CargoItem : MonoBehaviour
 
         if (matchingItem != null)
         {
-            profit = matchingItem.GetComponent<CargoItem>().GetItemPrice() - itemPrice;
-            itemPriceText.text = profit.ToString("");
+            CargoItem matchingItemScript = matchingItem.GetComponent<CargoItem>();
+            profit = matchingItemScript.GetItemPrice() - itemPrice;
+            itemPriceText.text = profit.ToString();
+
+            if (profit > 0)
+            {
+                itemPrice = matchingItemScript.GetItemPrice() + profit;
+            }
         }
         else
         {
@@ -222,7 +232,6 @@ public class CargoItem : MonoBehaviour
 
         PlayerPrefs.SetString(saveString + "itemName", itemName);
         PlayerPrefs.SetInt(saveString + "itemCount", itemCount);
-        PlayerPrefs.SetFloat(saveString + "itemPrice", itemPrice);
 
         Sprite[] spriteArray = cargoManager.GetCargoItemsSprites();
         for (int i = 0; i < spriteArray.Length; i++)

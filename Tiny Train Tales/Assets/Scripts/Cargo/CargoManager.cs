@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class CargoManager : MonoBehaviour
@@ -76,19 +76,28 @@ public class CargoManager : MonoBehaviour
         int index = 0;
         for (int i = 0; i < cargoItemList.Count; i++)
         {
-            if (cargoItemList[i].GetComponent<CargoItem>().GetItemName() == newItem.GetComponent<CargoItem>().GetItemName())
+            if (cargoItemList[i].GetComponent<CargoItem>().GetItemName() == newItemScript.GetItemName())
             {
                 hasItem = true;
                 index = i;
                 break;
             }
-
-            hasItem = false;
         }
 
         if (hasItem)
         {
-            cargoItemList[index].GetComponent<CargoItem>().AddCount(count);
+            CargoItem invItem = cargoItemList[index].GetComponent<CargoItem>();
+            invItem.AddCount(count);
+
+            // --- Option A: overwrite with last price paid ---
+            invItem.SetItemPrice(price);
+
+            // --- Option B: average price paid ---
+            // int oldCount = invItem.GetItemCount();
+            // float oldPrice = invItem.GetItemPrice();
+            // float newAveragePrice = ((oldPrice * (oldCount - count)) + (price * count)) / oldCount;
+            // invItem.SetItemPrice(newAveragePrice);
+
             newItemScript.AddCount(-count);
         }
         else
@@ -97,11 +106,6 @@ public class CargoManager : MonoBehaviour
         }
 
         cityMarketMenu.ResetInventoryItems();
-    }
-
-    public void RemoveCargo()
-    {
-
     }
 
     void CreateCargoItemForInventory(GameObject newItem, int count, float price)
@@ -130,6 +134,7 @@ public class CargoManager : MonoBehaviour
             cargoItemScript.SetItemCount(count);
             cargoItemScript.SetItemName(newItemScript.GetItemName(), "");
             cargoItemScript.SetIsInCity(false, "");
+
             cargoItemScript.SetItemPrice(price);
 
             cargoItemList.Add(newSpawnedItem);
@@ -155,6 +160,10 @@ public class CargoManager : MonoBehaviour
 
             lastPos = cargoItemList[i].transform.localPosition;
         }
+    }
+
+    public void RemoveCargo()
+    {
 
     }
 

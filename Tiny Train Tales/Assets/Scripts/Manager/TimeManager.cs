@@ -14,7 +14,7 @@ public class TimeManager : MonoBehaviour
         }
         else
         {
-            Debug.LogWarning("No saved time found!");
+            Debug.LogWarning("No saved time found for " + saveKey);
             return DateTime.MinValue;
         }
     }
