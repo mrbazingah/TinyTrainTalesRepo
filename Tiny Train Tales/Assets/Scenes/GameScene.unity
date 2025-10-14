@@ -38,7 +38,6 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -14633,10 +14632,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 935657408}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: -10, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: -10, y: -15.795}
+  m_SizeDelta: {x: 8.76, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &724453289
 MonoBehaviour:
@@ -47390,15 +47389,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3318365291836785203, guid: 7faf69e302eee414e8e32bd331162885, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 196.82759
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3318365291836785203, guid: 7faf69e302eee414e8e32bd331162885, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 78.960205
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3318365291836785203, guid: 7faf69e302eee414e8e32bd331162885, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -11.409735
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3318365291836785203, guid: 7faf69e302eee414e8e32bd331162885, type: 3}
       propertyPath: m_LocalRotation.w
@@ -54359,10 +54358,6 @@ PrefabInstance:
       value: GameManager
       objectReference: {fileID: 0}
     - target: {fileID: 6013072587387181096, guid: d7f2d7e6643153744bbdc766918d5eaf, type: 3}
-      propertyPath: coins
-      value: 2500
-      objectReference: {fileID: 0}
-    - target: {fileID: 6013072587387181096, guid: d7f2d7e6643153744bbdc766918d5eaf, type: 3}
       propertyPath: cointext
       value: 
       objectReference: {fileID: 42324986}
@@ -54370,10 +54365,6 @@ PrefabInstance:
       propertyPath: gemsText
       value: 
       objectReference: {fileID: 1864777221}
-    - target: {fileID: 6013072587387181096, guid: d7f2d7e6643153744bbdc766918d5eaf, type: 3}
-      propertyPath: maxSpeed
-      value: 850
-      objectReference: {fileID: 0}
     - target: {fileID: 6013072587387181096, guid: d7f2d7e6643153744bbdc766918d5eaf, type: 3}
       propertyPath: speedText
       value: 

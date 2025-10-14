@@ -20,6 +20,7 @@ public class CargoItem : MonoBehaviour
     string cityName;
     float itemPrice;
     float profit;
+    float purchasePrice; 
 
     string saveString;
 
@@ -62,6 +63,16 @@ public class CargoItem : MonoBehaviour
             SetItemCount(PlayerPrefs.GetInt(saveString + "itemCount"));
             SetItemPrice(PlayerPrefs.GetFloat(saveString + "itemPrice"));
             SetItemIcon(cargoManager.GetCargoItemsSprites()[PlayerPrefs.GetInt(saveString + "itemSpriteIndex")]);
+
+            // NEW — load stored purchase price if exists
+            if (PlayerPrefs.HasKey(saveString + "purchasePrice"))
+            {
+                purchasePrice = PlayerPrefs.GetFloat(saveString + "purchasePrice");
+            }
+            else
+            {
+                purchasePrice = itemPrice;
+            }
         }
         else
         {
@@ -92,10 +103,15 @@ public class CargoItem : MonoBehaviour
         gameObject.name = itemName + " " + cityName;
     }
 
-    public void SetItemCount(int count)
+    public void SetItemCount(int count, bool selling = false)
     {
         itemCount = count;
         itemCountText.text = itemCount.ToString();
+
+        if (selling && count <= 0)
+        {
+            cargoManager.RemoveCargo(itemName);
+        }
     }
 
     public void SetItemPrice(float price)
@@ -109,6 +125,11 @@ public class CargoItem : MonoBehaviour
         }
 
         PlayerPrefs.SetFloat(saveString + "itemPrice", itemPrice);
+    }
+
+    public void SetPurchasePrice(float price)
+    {
+        purchasePrice = price;
     }
 
     public void SetIsInMarket(bool b)
@@ -126,12 +147,13 @@ public class CargoItem : MonoBehaviour
     public void CalculateProfit()
     {
         if (isInCity) { return; }
-        
+
         GameObject matchingItem = null;
-        
+
         for (int i = 0; i < cityMarketMenu.GetMarketCargoItems().Count; i++)
         {
-            if (cityMarketMenu.GetMarketCargoItems()[i].GetComponent<CargoItem>().GetItemName() == itemName && cityMarketMenu.GetMarketCargoItems()[i].GetComponent<CargoItem>().GetIsInCity())
+            if (cityMarketMenu.GetMarketCargoItems()[i].GetComponent<CargoItem>().GetItemName() == itemName &&
+                cityMarketMenu.GetMarketCargoItems()[i].GetComponent<CargoItem>().GetIsInCity())
             {
                 matchingItem = cityMarketMenu.GetMarketCargoItems()[i].gameObject;
                 break;
@@ -141,13 +163,11 @@ public class CargoItem : MonoBehaviour
         if (matchingItem != null)
         {
             CargoItem matchingItemScript = matchingItem.GetComponent<CargoItem>();
-            profit = matchingItemScript.GetItemPrice() - itemPrice;
-            itemPriceText.text = profit.ToString();
+            float sellPrice = matchingItemScript.GetItemPrice();
 
-            if (profit > 0)
-            {
-                itemPrice = matchingItemScript.GetItemPrice() + profit;
-            }
+            // FIXED — use purchasePrice instead of itemPrice
+            profit = sellPrice - purchasePrice;
+            itemPriceText.text = profit.ToString("0");
         }
         else
         {
@@ -158,16 +178,13 @@ public class CargoItem : MonoBehaviour
     public void ChangeUI()
     {
         /*
-
         for (int i = 0; i < trainUI.Length; i++)
         {
             trainUI[i].SetActive(!isInCity);
         }
-
         */
     }
 
-    #region Gets
     public void OnSelect()
     {
         panel.SetActive(true);
@@ -185,6 +202,7 @@ public class CargoItem : MonoBehaviour
         itemCountText.text = count;
     }
 
+    #region Gets
     public Image GetItemIcon()
     {
         return itemIcon;
@@ -213,7 +231,7 @@ public class CargoItem : MonoBehaviour
     public bool GetIsInCity()
     {
         return isInCity;
-    }   
+    }
 
     public bool GetIsInMarket()
     {
@@ -224,6 +242,12 @@ public class CargoItem : MonoBehaviour
     {
         return isInCity ? itemName + " " + cityName : itemName;
     }
+
+    public float GetPurchasePrice()
+    {
+        return purchasePrice;
+    }
+
     #endregion
 
     public void SaveCargoItem()
@@ -232,6 +256,8 @@ public class CargoItem : MonoBehaviour
 
         PlayerPrefs.SetString(saveString + "itemName", itemName);
         PlayerPrefs.SetInt(saveString + "itemCount", itemCount);
+
+        PlayerPrefs.SetFloat(saveString + "itemPrice", itemPrice);
 
         Sprite[] spriteArray = cargoManager.GetCargoItemsSprites();
         for (int i = 0; i < spriteArray.Length; i++)

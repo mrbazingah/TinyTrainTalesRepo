@@ -89,14 +89,8 @@ public class CargoManager : MonoBehaviour
             CargoItem invItem = cargoItemList[index].GetComponent<CargoItem>();
             invItem.AddCount(count);
 
-            // --- Option A: overwrite with last price paid ---
             invItem.SetItemPrice(price);
-
-            // --- Option B: average price paid ---
-            // int oldCount = invItem.GetItemCount();
-            // float oldPrice = invItem.GetItemPrice();
-            // float newAveragePrice = ((oldPrice * (oldCount - count)) + (price * count)) / oldCount;
-            // invItem.SetItemPrice(newAveragePrice);
+            invItem.SetPurchasePrice(price); 
 
             newItemScript.AddCount(-count);
         }
@@ -106,6 +100,25 @@ public class CargoManager : MonoBehaviour
         }
 
         cityMarketMenu.ResetInventoryItems();
+    }
+
+    public void RemoveCargo(string itemName)
+    {
+        int index = -1;
+        for (int i = 0; i < cargoItemList.Count; i++)
+        {
+            if (cargoItemList[i].GetComponent<CargoItem>().GetItemName() == itemName)
+            {
+                index = i;
+            }
+        }
+
+        if (index == -1) { return; }
+
+        Destroy(cargoItemList[index]);
+        cargoItemList.RemoveAt(index);
+
+        cityMarketMenu.RemoveInventoryItem(index);
     }
 
     void CreateCargoItemForInventory(GameObject newItem, int count, float price)
@@ -136,6 +149,7 @@ public class CargoManager : MonoBehaviour
             cargoItemScript.SetIsInCity(false, "");
 
             cargoItemScript.SetItemPrice(price);
+            cargoItemScript.SetPurchasePrice(price); // NEW — track actual price paid
 
             cargoItemList.Add(newSpawnedItem);
             cargoItemScript.ChangeUI();
@@ -160,11 +174,6 @@ public class CargoManager : MonoBehaviour
 
             lastPos = cargoItemList[i].transform.localPosition;
         }
-    }
-
-    public void RemoveCargo()
-    {
-
     }
 
     public GameObject CreateCargoItemForCity(string cityName)

@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
@@ -90,9 +90,9 @@ public class CityMarketMenu : MonoBehaviour
         {
             inventoryCargoItems[i].SetActive(false);
             Destroy(inventoryCargoItems[i]);
-
-            inventoryCargoItems.Clear();
         }
+
+        inventoryCargoItems.Clear();
 
         List<GameObject> newInventoryItems = new List<GameObject>();
         for (int i = 0; i < cargoManager.GetCargoItemList().Count; i++)
@@ -155,6 +155,9 @@ public class CityMarketMenu : MonoBehaviour
             newCargoItemScript.SetItemName(cargoItemScript.GetItemName(), "");
             newCargoItemScript.SetIsInCity(false, "");
             newCargoItemScript.SetItemPrice(cargoItemScript.GetItemPrice());
+
+            //MINIMAL ADDITION: copy purchase price so profit calc uses correct buy price
+            newCargoItemScript.SetPurchasePrice(cargoItemScript.GetPurchasePrice());
 
             newCargoItemScript.CalculateProfit();
         }
@@ -448,14 +451,36 @@ public class CityMarketMenu : MonoBehaviour
         }
         else
         {
+            float totalPrice = 0;
+            for (int i = 0; i < selectedCargoItems.Count; i++)
+            {
+                totalPrice += selectedCargoItemCounts[i] * selectedCargoItems[i].GetComponent<CargoItem>().GetPurchasePrice();
 
+                CargoItem cargoItemScript = selectedCargoItems[i].GetComponent<CargoItem>();
+                if (cargoItemScript == null) { continue; }
+
+                int sellAmount = (int)selectedCargoItemCounts[i];
+                int currentStock = cargoItemScript.GetItemCount();
+
+                int finalStock = Mathf.Max(0, currentStock - sellAmount);
+
+                cargoItemScript.SetItemCount(finalStock, true);
+            }
+
+            gameManager.AddCoins(totalPrice);
         }
 
-            ResetMarket();
+        ResetMarket();
     }
 
-    public List<GameObject> GetMarketCargoItems() 
-    { 
-        return marketCargoItems; 
+    public void RemoveInventoryItem(int index)
+    {
+        Destroy(inventoryCargoItems[index]);
+        inventoryCargoItems.RemoveAt(index);
+    }
+
+    public List<GameObject> GetMarketCargoItems()
+    {
+        return marketCargoItems;
     }
 }
