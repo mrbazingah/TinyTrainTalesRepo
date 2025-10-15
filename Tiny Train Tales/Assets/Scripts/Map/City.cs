@@ -8,7 +8,7 @@ public class City : MonoBehaviour
     [SerializeField] int[] cityNeighborsDistances = new int[0];
     [SerializeField] GameObject[] neighborLines = new GameObject[0];
 
-    int[] discounts = {15, 20, 25};
+    int[] discounts = {15, 20, 25, 105, 110, 115};
 
     float cargoResetTime; 
     string cityName;
@@ -135,7 +135,7 @@ public class City : MonoBehaviour
                 }
             }
 
-            timeManager.SaveCurrentTime("Time" + gameObject.name);
+            timeManager.SaveCurrentTime("CityTime" + gameObject.name);
         }
 
         cityMarketMenu.SetCargoList(cargo);

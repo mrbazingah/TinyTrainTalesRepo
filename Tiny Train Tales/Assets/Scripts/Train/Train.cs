@@ -14,6 +14,7 @@ public class Train : MonoBehaviour
     bool isDeclerating;
     float highestVelocity;
     float localMaxSpeed;
+    bool hasStopped;
 
     new Rigidbody2D rigidbody;
     GameManager gameManager;
@@ -77,6 +78,8 @@ public class Train : MonoBehaviour
         {
             FindRigidbody();
         }
+
+        if (hasStopped) { return; }
 
         if (-rigidbody.velocity.x <= 0 && !hasLoaded)
         {
@@ -147,6 +150,7 @@ public class Train : MonoBehaviour
                 speed = 0;
 
                 gameManager.HandleArrival(true);
+                hasStopped = true;
             }
         }
     }

@@ -12,6 +12,8 @@ public class CargoItem : MonoBehaviour
     [SerializeField] TextMeshProUGUI itemNameText;
     [SerializeField] GameObject panel;
     [SerializeField] GameObject[] trainUI;
+    [SerializeField] Color profitColor;
+    [SerializeField] Color lossColor;
 
     int itemCount;
     string itemName;
@@ -108,11 +110,24 @@ public class CargoItem : MonoBehaviour
         itemCount = count;
         itemCountText.text = itemCount.ToString();
 
-        if (selling && count <= 0)
+        if (selling)
         {
-            cargoManager.RemoveCargo(itemName);
+            if (count <= 0)
+            {
+                cargoManager.RemoveCargo(itemName);
+
+                Destroy(gameObject);
+            }
+            else
+            {
+                int index = cargoManager.FindMatch(itemName);
+                cargoManager.GetCargoItemList()[index].GetComponent<CargoItem>().SetItemCount(count);
+
+                cityMarketMenu.ResetInventoryItems();
+            }
         }
     }
+
 
     public void SetItemPrice(float price)
     {
@@ -122,6 +137,15 @@ public class CargoItem : MonoBehaviour
         if (!isInCity)
         {
             itemPriceLabelText.text = "Profit:";
+
+            if (profit >= 0)
+            {
+                itemPriceText.color = profitColor;
+            }
+            else
+            {
+                itemPriceText.color = lossColor;
+            }
         }
 
         PlayerPrefs.SetFloat(saveString + "itemPrice", itemPrice);

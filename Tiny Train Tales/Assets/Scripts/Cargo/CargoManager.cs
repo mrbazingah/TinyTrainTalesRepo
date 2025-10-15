@@ -102,7 +102,7 @@ public class CargoManager : MonoBehaviour
         cityMarketMenu.ResetInventoryItems();
     }
 
-    public void RemoveCargo(string itemName)
+    public int FindMatch(string itemName)
     {
         int index = -1;
         for (int i = 0; i < cargoItemList.Count; i++)
@@ -113,7 +113,12 @@ public class CargoManager : MonoBehaviour
             }
         }
 
-        if (index == -1) { return; }
+        return index;
+    }
+
+    public void RemoveCargo(string itemName)
+    {
+        int index = FindMatch(itemName);
 
         Destroy(cargoItemList[index]);
         cargoItemList.RemoveAt(index);

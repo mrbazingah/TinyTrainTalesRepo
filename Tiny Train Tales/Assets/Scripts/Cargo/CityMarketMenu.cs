@@ -77,10 +77,22 @@ public class CityMarketMenu : MonoBehaviour
             if (cargoItemScript == null) { continue; }
 
             float originalPrice = cargoItemScript.GetItemPrice();
-            float discountedPrice = originalPrice - (originalPrice * ((float)discount / 100f));
-            discountedPrice = Mathf.Round(discountedPrice);
+            float newPrice;
 
-            cargoItemScript.SetItemPrice(discountedPrice);
+            if (discount < 100)
+            {
+                // Apply discount normally
+                newPrice = originalPrice - (originalPrice * (discount / 100f));
+            }
+            else
+            {
+                // Treat values above 100 as a markup instead
+                float markup = discount - 100;
+                newPrice = originalPrice + (originalPrice * (markup / 100f));
+            }
+
+            newPrice = Mathf.Max(1, Mathf.Round(newPrice)); // prevent negatives or zero
+            cargoItemScript.SetItemPrice(newPrice);
         }
     }
 
@@ -452,21 +464,50 @@ public class CityMarketMenu : MonoBehaviour
         else
         {
             float totalPrice = 0;
+
             for (int i = 0; i < selectedCargoItems.Count; i++)
             {
-                totalPrice += selectedCargoItemCounts[i] * selectedCargoItems[i].GetComponent<CargoItem>().GetPurchasePrice();
-
                 CargoItem cargoItemScript = selectedCargoItems[i].GetComponent<CargoItem>();
-                if (cargoItemScript == null) { continue; }
+                if (cargoItemScript == null) continue;
 
                 int sellAmount = (int)selectedCargoItemCounts[i];
                 int currentStock = cargoItemScript.GetItemCount();
-
                 int finalStock = Mathf.Max(0, currentStock - sellAmount);
 
+                // Find corresponding market item in the city
+                CargoItem marketMatch = null;
+                foreach (GameObject marketObj in marketCargoItems)
+                {
+                    CargoItem marketScript = marketObj.GetComponent<CargoItem>();
+                    if (marketScript.GetItemName() == cargoItemScript.GetItemName())
+                    {
+                        marketMatch = marketScript;
+                        break;
+                    }
+                }
+
+                // Determine sale price
+                float sellPricePerUnit = marketMatch != null
+                    ? marketMatch.GetItemPrice()
+                    : cargoItemScript.GetItemPrice(); // fallback
+
+                float saleRevenue = sellPricePerUnit * sellAmount;
+                totalPrice += saleRevenue;
+
+                // Update player cargo
                 cargoItemScript.SetItemCount(finalStock, true);
+
+                cargoManager.SaveCargo();
+
+                // Return stock to market if exists
+                if (marketMatch != null)
+                {
+                    marketMatch.AddCount(sellAmount);
+                    marketMatch.SaveCargoItem();
+                }
             }
 
+            // Add total money to player
             gameManager.AddCoins(totalPrice);
         }
 
