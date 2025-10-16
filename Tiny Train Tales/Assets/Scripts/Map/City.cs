@@ -7,6 +7,8 @@ public class City : MonoBehaviour
     [SerializeField] GameObject[] cityNeighbors = new GameObject[0];
     [SerializeField] int[] cityNeighborsDistances = new int[0];
     [SerializeField] GameObject[] neighborLines = new GameObject[0];
+    [SerializeField] string cargoDemandName;
+    [SerializeField] int cargoDemandAmount;
 
     int[] discounts = {15, 20, 25, 105, 110, 115};
 
@@ -14,6 +16,8 @@ public class City : MonoBehaviour
     string cityName;
     string countryName;
     int iterations;
+
+    int currentCargoDemandCount;
 
     bool isUnlocked = false;
 
@@ -48,6 +52,7 @@ public class City : MonoBehaviour
         }
 
         cargoResetTime = cargoManager.GetCityCargoResetTime();
+        currentCargoDemandCount = PlayerPrefs.GetInt("CargoDemandCount" + gameObject.name);
     }
 
     void Update()
@@ -197,9 +202,25 @@ public class City : MonoBehaviour
         return isUnlocked;
     }
 
+    public string GetCargoDemandName()
+    {
+        return cargoDemandName;
+    }
+
+    public int GetCargoDemandAmount()
+    {
+        return cargoDemandAmount;
+    }
+
+    public int GetCurrentCargoDemandCount()
+    {
+        return currentCargoDemandCount;
+    }
+
     public void SaveCityCargo()
     {
         PlayerPrefs.SetInt("CargoItemAmount" + gameObject.name, cargo.Count);
+        PlayerPrefs.SetInt("CargoDemandCount" + gameObject.name, currentCargoDemandCount);
 
         for (int i = 0; i < cargo.Count; i++)
         {

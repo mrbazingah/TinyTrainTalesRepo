@@ -17,6 +17,7 @@ public class CityMarketMenu : MonoBehaviour
     [SerializeField] TextMeshProUGUI totalText;
     [SerializeField] GameObject resetButton;
     [SerializeField] GameObject allButton;
+    [SerializeField] GameObject warningMessage;
 
     List<GameObject> marketCargoItems = new List<GameObject>();
     List<GameObject> inventoryCargoItems = new List<GameObject>();
@@ -32,12 +33,14 @@ public class CityMarketMenu : MonoBehaviour
     CargoManager cargoManager;
     CityManager cityManager;
     GameManager gameManager;
+    CargoDemand cargoDemand;
 
     void Awake()
     {
         cargoManager = FindObjectOfType<CargoManager>();
         cityManager = FindObjectOfType<CityManager>();
         gameManager = FindObjectOfType<GameManager>();
+        cargoDemand = FindObjectOfType<CargoDemand>();
     }
 
     void Start()
@@ -259,6 +262,13 @@ public class CityMarketMenu : MonoBehaviour
             selectedCargoItems.Remove(lastSelectedCargoItem);
         }
 
+        int cargoSpace = CargoSpaceLeft();
+        if (cargoSpace >= cargoManager.GetMaxCargoCount() && isBuying)
+        {
+            warningMessage.SetActive(true);
+            return;
+        }
+
         bool found = false;
         int index = 0;
         for (int i = 0; i < selectedCargoItems.Count; i++)
@@ -335,7 +345,17 @@ public class CityMarketMenu : MonoBehaviour
         float currentTotal = cargoItemScript.GetItemCount();
         selectedCargoItemCounts[index] = currentTotal;
 
-        cargoItemScript.SetTempCountText("0");
+        int cargoSpace = CargoSpaceLeft();
+        if (cargoSpace > cargoManager.GetMaxCargoCount() && isBuying)
+        {
+            warningMessage.SetActive(true);
+            selectedCargoItemCounts[index] = cargoManager.GetMaxCargoCount() - cargoManager.GetCurrentCargoCount();
+            currentTotal = selectedCargoItemCounts[index];
+        }
+        else
+        {
+            cargoItemScript.SetTempCountText("0");
+        }
 
         totalCount += currentTotal;
 
@@ -392,7 +412,6 @@ public class CityMarketMenu : MonoBehaviour
             float currentTotal = cargoItemScript.GetItemCount();
             selectedCargoItemCounts[index] = currentTotal;
 
-
             float totalPrice = 0;
             for (int ii = 0; ii < selectedCargoItems.Count; ii++)
             {
@@ -408,7 +427,26 @@ public class CityMarketMenu : MonoBehaviour
             allButton.SetActive(false);
 
             countText.text = totalCount.ToString();
+
+            int cargoSpaceLeft = CargoSpaceLeft();
+            if (cargoSpaceLeft > cargoManager.GetMaxCargoCount() && isBuying)
+            {
+                warningMessage.SetActive(true);
+                ResetMarket();
+            }
         }
+    }
+
+    int CargoSpaceLeft()
+    {
+        int currentCargo = cargoManager.GetCurrentCargoCount();
+        int selectedCargoCount = 0;
+        for (int i = 0; i < selectedCargoItemCounts.Count; i++)
+        {
+            selectedCargoCount += (int)selectedCargoItemCounts[i];
+        }
+
+        return currentCargo + selectedCargoCount;
     }
 
     public void ResetMarket()
@@ -504,6 +542,11 @@ public class CityMarketMenu : MonoBehaviour
                 {
                     marketMatch.AddCount(sellAmount);
                     marketMatch.SaveCargoItem();
+                }
+
+                if (cargoItemScript.GetItemName() == cargoDemand.GetItemName())
+                {
+                    cargoDemand.AddCount(finalStock);
                 }
             }
 

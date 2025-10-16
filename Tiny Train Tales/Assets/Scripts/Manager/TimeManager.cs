@@ -14,7 +14,6 @@ public class TimeManager : MonoBehaviour
         }
         else
         {
-            Debug.LogWarning("No saved time found for " + saveKey);
             return DateTime.MinValue;
         }
     }
@@ -35,6 +34,5 @@ public class TimeManager : MonoBehaviour
         string currentTime = DateTime.Now.ToBinary().ToString();
         PlayerPrefs.SetString(saveKey, currentTime);
         PlayerPrefs.Save();
-        Debug.Log("Time saved: " + DateTime.Now);
     }
 }

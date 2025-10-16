@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class CargoManager : MonoBehaviour
@@ -17,11 +18,12 @@ public class CargoManager : MonoBehaviour
     [SerializeField] GameObject cargoItemPrefab;
     [SerializeField] int maxCargoCount;
     [Header("Visuals")]
+    [SerializeField] TextMeshProUGUI cargoCountText;
     [SerializeField] GameObject cargoItemParent;
     [SerializeField] Vector2 startPos;
     [SerializeField] float yOffset;
 
-    int currentCargCount;
+    int currentCargoCount;
     string currentSaveString;
 
     List<GameObject> cargoItemList = new List<GameObject>();
@@ -40,7 +42,7 @@ public class CargoManager : MonoBehaviour
 
     void LoadCargoItems()
     {
-        currentCargCount = PlayerPrefs.GetInt("CurrentCargoAmount");
+        currentCargoCount = PlayerPrefs.GetInt("CurrentCargoAmount");
 
         if (PlayerPrefs.HasKey("NumberOfCargoItems"))
         {
@@ -52,11 +54,11 @@ public class CargoManager : MonoBehaviour
             }
         }
 
-        if (currentCargCount == 0 && cargoItemList.Count > 0)
+        if (currentCargoCount == 0 && cargoItemList.Count > 0)
         {
             for (int i = 0; i < cargoItemList.Count; i++)
             {
-                currentCargCount += cargoItemList[i].GetComponent<CargoItem>().GetItemCount();
+                currentCargoCount += cargoItemList[i].GetComponent<CargoItem>().GetItemCount();
             }
         }
     }
@@ -66,10 +68,10 @@ public class CargoManager : MonoBehaviour
         CargoItem newItemScript = newItem.GetComponent<CargoItem>();
         if (newItemScript.GetItemCount() <= 0) { return; }
 
-        currentCargCount += count;
-        if (currentCargCount > maxCargoCount)
+        currentCargoCount += count;
+        if (currentCargoCount > maxCargoCount)
         {
-            currentCargCount = maxCargoCount;
+            currentCargoCount = maxCargoCount;
         }
 
         bool hasItem = false;
@@ -119,6 +121,8 @@ public class CargoManager : MonoBehaviour
     public void RemoveCargo(string itemName)
     {
         int index = FindMatch(itemName);
+
+        currentCargoCount -= cargoItemList[index].GetComponent<CargoItem>().GetItemCount();
 
         Destroy(cargoItemList[index]);
         cargoItemList.RemoveAt(index);
@@ -212,6 +216,11 @@ public class CargoManager : MonoBehaviour
         return cargoItem;
     }
 
+    void Update()
+    {
+        cargoCountText.text = currentCargoCount.ToString() + "/" + maxCargoCount.ToString();
+    }
+
     public int GetCityMinCargoAmount()
     {
         return minCityCargoAmount;
@@ -237,10 +246,20 @@ public class CargoManager : MonoBehaviour
         return cargoItemList;
     }
 
+    public int GetCurrentCargoCount()
+    {
+        return currentCargoCount;
+    }
+
+    public int GetMaxCargoCount()
+    {
+        return maxCargoCount;
+    }
+
     public void SaveCargo()
     {
         PlayerPrefs.SetInt("NumberOfCargoItems", cargoItemList.Count);
-        PlayerPrefs.SetInt("CurrentCargoAmount", currentCargCount);
+        PlayerPrefs.SetInt("CurrentCargoAmount", currentCargoCount);
 
         for (int i = 0; i < cargoItemList.Count; i++)
         {
