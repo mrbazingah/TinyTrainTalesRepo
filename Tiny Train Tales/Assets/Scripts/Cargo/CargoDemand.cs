@@ -11,16 +11,29 @@ public class CargoDemand : MonoBehaviour
     int itemMaxCount;
     string itemName;
 
+    City currentCity;
+
     #region Sets
     public void SetItemIcon(Sprite itemSprite)
     {
         itemIcon.sprite = itemSprite;
     }
 
-    public void SetItemCount(int count)
+    public void SetItemCount(int count, int maxCount)
     {
         itemCount = count;
+        itemMaxCount = maxCount;
         itemCountText.text = itemCount.ToString() + "/" + itemMaxCount.ToString();
+    }
+
+    public void SetItemName(string newName)
+    {
+        itemName = newName;
+    }
+
+    public void SetCity(City city)
+    {
+        currentCity = city;
     }
     #endregion
 
@@ -28,17 +41,19 @@ public class CargoDemand : MonoBehaviour
     {
         itemCount += count;
         itemCountText.text = itemCount.ToString() + "/" + itemMaxCount.ToString();
+
+        currentCity.AddCargoCount(count);
     }
 
     #region Gets
-    public string GetItemName()
-    {
-        return itemName;
-    }
-
     public int GetItemCount()
     {
         return itemCount;
+    }
+
+    public string GetItemName()
+    {
+        return itemName;
     }
     #endregion
 }

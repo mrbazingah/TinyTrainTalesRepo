@@ -35,4 +35,22 @@ public class TimeManager : MonoBehaviour
         PlayerPrefs.SetString(saveKey, currentTime);
         PlayerPrefs.Save();
     }
+
+    public TimeSpan GetTimeUntilReset(float hours, string saveKey)
+    {
+        DateTime savedTime = LoadPastTime(saveKey);
+        if (savedTime == DateTime.MinValue)
+            return TimeSpan.Zero; // nothing saved yet
+
+        TimeSpan elapsed = DateTime.Now - savedTime;
+        TimeSpan totalDuration = TimeSpan.FromHours(hours);
+        TimeSpan remaining = totalDuration - elapsed;
+
+        // Prevent negative results
+        if (remaining.TotalSeconds < 0)
+            remaining = TimeSpan.Zero;
+
+        return remaining;
+    }
+
 }

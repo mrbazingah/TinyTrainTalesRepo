@@ -18,6 +18,7 @@ public class CityMarketMenu : MonoBehaviour
     [SerializeField] GameObject resetButton;
     [SerializeField] GameObject allButton;
     [SerializeField] GameObject warningMessage;
+    [SerializeField] TextMeshProUGUI resetTimerText;
 
     List<GameObject> marketCargoItems = new List<GameObject>();
     List<GameObject> inventoryCargoItems = new List<GameObject>();
@@ -481,6 +482,8 @@ public class CityMarketMenu : MonoBehaviour
             if (gameManager.GetCoins() < totalPrice) { return; }
             gameManager.AddCoins(-totalPrice);
 
+            List<int> indexes = new List<int>();
+
             for (int i = 0; i < selectedCargoItems.Count; i++)
             {
                 CargoItem cargoItemScript = selectedCargoItems[i].GetComponent<CargoItem>();
@@ -497,6 +500,19 @@ public class CityMarketMenu : MonoBehaviour
 
                 // Update real stock
                 cargoItemScript.SetItemCount(finalStock);
+
+                if (cargoItemScript.GetItemCount() <= 0)
+                {
+                    indexes.Add(i);
+                }
+            }
+
+            for (int i = indexes.Count - 1; i >= 0; i--)
+            {
+                int index = indexes[i];
+                GameObject toRemove = selectedCargoItems[index];
+                marketCargoItems.Remove(toRemove);
+                Destroy(toRemove);
             }
         }
         else
@@ -537,13 +553,6 @@ public class CityMarketMenu : MonoBehaviour
 
                 cargoManager.SaveCargo();
 
-                // Return stock to market if exists
-                if (marketMatch != null)
-                {
-                    marketMatch.AddCount(sellAmount);
-                    marketMatch.SaveCargoItem();
-                }
-
                 if (cargoItemScript.GetItemName() == cargoDemand.GetItemName())
                 {
                     cargoDemand.AddCount(finalStock);
@@ -566,5 +575,10 @@ public class CityMarketMenu : MonoBehaviour
     public List<GameObject> GetMarketCargoItems()
     {
         return marketCargoItems;
+    }
+
+    public TextMeshProUGUI GetResetTimerText()
+    {
+        return resetTimerText;
     }
 }

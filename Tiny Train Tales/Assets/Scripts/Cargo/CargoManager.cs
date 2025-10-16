@@ -236,6 +236,11 @@ public class CargoManager : MonoBehaviour
         return cargoItemsSprites;
     }
 
+    public string[] GetCargoItemsNames()
+    {
+        return cargoItemsNames;
+    }
+
     public float GetCityCargoResetTime()
     {
         return cityCargoResetTime;

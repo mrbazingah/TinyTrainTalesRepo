@@ -1,5 +1,8 @@
+using System;
 using System.Collections.Generic;
+using Random = UnityEngine.Random;
 using UnityEngine;
+using TMPro;
 
 public class City : MonoBehaviour
 {
@@ -9,6 +12,9 @@ public class City : MonoBehaviour
     [SerializeField] GameObject[] neighborLines = new GameObject[0];
     [SerializeField] string cargoDemandName;
     [SerializeField] int cargoDemandAmount;
+    
+    TextMeshProUGUI resetTimerText; 
+    TimeSpan timeUntilReset;
 
     int[] discounts = {15, 20, 25, 105, 110, 115};
 
@@ -27,6 +33,7 @@ public class City : MonoBehaviour
     CargoManager cargoManager;
     CityMarketMenu cityMarketMenu;
     TimeManager timeManager;
+    CargoDemand cargoDemand;
 
     void Awake()
     {
@@ -34,6 +41,7 @@ public class City : MonoBehaviour
         cargoManager = FindObjectOfType<CargoManager>();
         cityMarketMenu = FindObjectOfType<CityMarketMenu>();
         timeManager = FindObjectOfType<TimeManager>();
+        cargoDemand = FindObjectOfType<CargoDemand>();
     }
 
     void Start()
@@ -52,8 +60,9 @@ public class City : MonoBehaviour
         }
 
         cargoResetTime = cargoManager.GetCityCargoResetTime();
-        currentCargoDemandCount = PlayerPrefs.GetInt("CargoDemandCount" + gameObject.name);
     }
+
+
 
     void Update()
     {
@@ -70,7 +79,26 @@ public class City : MonoBehaviour
                 CloseMenu();
             }
         }
+
+        // --- Add countdown timer update ---
+        timeUntilReset = timeManager.GetTimeUntilReset(cargoResetTime, "CityTime" + gameObject.name);
+
+        if (resetTimerText != null)
+        {
+            if (timeUntilReset.TotalSeconds > 0)
+            {
+                resetTimerText.text = "Resets in: " + string.Format("{0:D2}:{1:D2}:{2:D2}",
+                    timeUntilReset.Hours,
+                    timeUntilReset.Minutes,
+                    timeUntilReset.Seconds);
+            }
+            else
+            {
+                resetTimerText.text = "Ready to reset!";
+            }
+        }
     }
+
 
     public void OpenMenu()
     {
@@ -96,6 +124,8 @@ public class City : MonoBehaviour
 
     public void CreateCargoItemForCity()
     {
+        resetTimerText = cityMarketMenu.GetResetTimerText();
+
         if (timeManager.GetCurrentTime(cargoResetTime, "CityTime" + gameObject.name))
         {
             PlayerPrefs.DeleteKey("CargoItemAmount" + gameObject.name);
@@ -150,6 +180,8 @@ public class City : MonoBehaviour
             int discountIndex = Random.Range(0, discounts.Length);
             cityMarketMenu.SetDiscount(discounts[discountIndex]);
         }
+
+        SetUpDemandCargo();
     }
 
     bool CheckForDuplicates(GameObject newCargo)
@@ -180,6 +212,27 @@ public class City : MonoBehaviour
         cargo.Add(newCargoItem);
         Destroy(brokenItem);
         cityMarketMenu.SetCargoList(cargo);
+    }
+
+    void SetUpDemandCargo()
+    {
+        currentCargoDemandCount = PlayerPrefs.GetInt("CargoDemandCount" + gameObject.name);
+        for (int i = 0; i < cargoManager.GetCargoItemsNames().Length; i++)
+        {
+            if (cargoManager.GetCargoItemsNames()[i] == cargoDemandName)
+            {
+                cargoDemand.SetItemIcon(cargoManager.GetCargoItemsSprites()[i]);
+                cargoDemand.SetItemCount(currentCargoDemandCount, cargoDemandAmount);
+                cargoDemand.SetItemName(cargoDemandName);
+                cargoDemand.SetCity(this);
+                break;
+            }
+        }
+    }
+
+    public void AddCargoCount(int count)
+    {
+        currentCargoDemandCount += count;
     }
 
     public GameObject[] GetCityNeighbors()
