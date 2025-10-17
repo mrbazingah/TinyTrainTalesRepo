@@ -12,10 +12,10 @@ public class TODO : MonoBehaviour
     //Cargo
 
     //Make or update Sprites for:
-    //Passanger Icon
-    //Train Image
-    //The Whole Background
-    //Station
-    //Cargo Icons
+    //Everything!
+
+    //Sprites that are done:
     //Cargo Button
+    //Passanger Icon
+    //Button Backdrop
 }
