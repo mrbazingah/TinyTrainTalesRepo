@@ -18,4 +18,6 @@ public class TODO : MonoBehaviour
     //Cargo Button
     //Passanger Icon
     //Button Backdrop
+    //Coin
+    //Gems
 }
