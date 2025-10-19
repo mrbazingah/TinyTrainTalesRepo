@@ -20,4 +20,11 @@ public class TODO : MonoBehaviour
     //Button Backdrop
     //Coin
     //Gems
+    //Map Button
+    //Upgrade Button
+    //Quest Button
+    //Shop Button
+    //Music Symbol
+    //SFX Symbol
+
 }
