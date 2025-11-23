@@ -22774,6 +22774,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Covers
       objectReference: {fileID: 0}
+    - target: {fileID: 425249980588394994, guid: dc1bfdbc641dfd0408dec2fc6a021680, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4207713683963976141, guid: dc1bfdbc641dfd0408dec2fc6a021680, type: 3}
       propertyPath: cityMenuCanvas
       value: 
