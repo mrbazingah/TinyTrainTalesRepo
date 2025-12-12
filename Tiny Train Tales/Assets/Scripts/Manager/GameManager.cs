@@ -202,6 +202,14 @@ public class GameManager : MonoBehaviour
         gemsText.text = gems.ToString();
 
         passangerText.text = passangers.ToString() + "/" + maxPassangers.ToString();
+
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            for (int i = 0; i < allRegions.Length; i++)
+            {
+                UnlockNewRegion(i);
+            }
+        }
     }
 
     #region Coins
@@ -328,6 +336,131 @@ public class GameManager : MonoBehaviour
     public float GetProfit()
     {
         return profitMultiplier;
+    }
+    #endregion
+
+     #region Regions
+    void LoadUnlockedRegions()
+    {
+        for (int i = 0; i < allRegions.Length; i++)
+        {
+            Region currentRegionScript = allRegions[i].GetComponent<Region>();
+
+            if (PlayerPrefs.HasKey("UnlockedRegion" + i))
+            {
+                currentRegionScript.SetCityActivity(true);
+                if (!unlockedRegions.Contains(allRegions[i]))
+                    unlockedRegions.Add(allRegions[i]);
+
+                unlockedRegionIndexes.Add(i);
+                continue;
+            }
+            else
+            {
+                currentRegionScript.SetCityActivity(false);
+            }
+
+            if (unlockedRegionIndexes.Count != 0)
+            {
+                if (unlockedRegionIndexes.Contains(i))
+                {
+                    currentRegionScript.SetCityActivity(true);
+                    if (!unlockedRegions.Contains(allRegions[i]))
+                        unlockedRegions.Add(allRegions[i]);
+
+                    unlockedRegionIndexes.Add(i);
+                    PlayerPrefs.SetInt("UnlockedRegion" + i, 1);
+                }
+                else
+                {
+                    currentRegionScript.SetCityActivity(false);
+                }
+            }
+
+        }
+
+        for (int i = 0; i < unlockedRegions.Count; i++)
+        {
+            GameObject[] currentNeighbors = unlockedRegions[i].GetComponent<Region>().GetNeighbors();
+
+            for (int ii = 0; ii < currentNeighbors.Length; ii++)
+            {
+                if (unlockableRegions.Contains(currentNeighbors[ii])) { continue; }
+
+                unlockableRegions.Add(currentNeighbors[ii]);
+            }
+        }
+
+        UpdateAllConnectionLines();
+    }
+
+    void UpdateAllConnectionLines()
+    {
+        Dictionary<GameObject, List<GameObject>> lineToCities = new Dictionary<GameObject, List<GameObject>>();
+
+        foreach (GameObject regionObj in allRegions)
+        {
+            Region regionScript = regionObj.GetComponent<Region>();
+            if (regionScript == null)
+                continue;
+
+            foreach (GameObject cityObj in regionScript.GetRegionCities())
+            {
+                if (cityObj == null)
+                    continue;
+
+                City cityScript = cityObj.GetComponent<City>();
+                if (cityScript == null)
+                    continue;
+
+                GameObject[] cityLines = cityScript.GetCityNeighborLines();
+                if (cityLines == null)
+                    continue;
+
+                foreach (GameObject line in cityLines)
+                {
+                    if (line == null)
+                        continue;
+
+                    if (!lineToCities.ContainsKey(line))
+                    {
+                        lineToCities[line] = new List<GameObject>();
+                    }
+                    if (!lineToCities[line].Contains(cityObj))
+                    {
+                        lineToCities[line].Add(cityObj);
+                    }
+                }
+            }
+        }
+
+        foreach (var kvp in lineToCities)
+        {
+            GameObject line = kvp.Key;
+            List<GameObject> connectedCities = kvp.Value;
+            bool allCitiesActive = true;
+            foreach (GameObject city in connectedCities)
+            {
+                if (!city.activeInHierarchy)
+                {
+                    allCitiesActive = false;
+                    break;
+                }
+            }
+            line.SetActive(allCitiesActive);
+        }
+    }
+
+    public void UnlockNewRegion(int selectedRegionIndex)
+    {
+        PlayerPrefs.SetInt("UnlockedRegion" + selectedRegionIndex.ToString(), 1);
+
+        SaveAll();
+
+        int sceneIndex = SceneManager.GetActiveScene().buildIndex;
+        SceneManager.LoadScene(sceneIndex);
+
+        Debug.Log("Unlocked region " + selectedRegionIndex.ToString());
     }
     #endregion
 
@@ -496,129 +629,6 @@ public class GameManager : MonoBehaviour
     public int GetSubPassangers()
     {
         return subPassangers;
-    }
-    #endregion
-
-    #region Regions
-    void LoadUnlockedRegions()
-    {
-        for (int i = 0; i < allRegions.Length; i++)
-        {
-            Region currentRegionScript = allRegions[i].GetComponent<Region>();
-
-            if (PlayerPrefs.HasKey("UnlockedRegion" + i))
-            {
-                currentRegionScript.SetCityActivity(true);
-                if (!unlockedRegions.Contains(allRegions[i]))
-                    unlockedRegions.Add(allRegions[i]);
-
-                unlockedRegionIndexes.Add(i);
-                continue;
-            }
-            else
-            {
-                currentRegionScript.SetCityActivity(false);
-            }
-
-            if (unlockedRegionIndexes.Count != 0)
-            {
-                if (unlockedRegionIndexes.Contains(i))
-                {
-                    currentRegionScript.SetCityActivity(true);
-                    if (!unlockedRegions.Contains(allRegions[i]))
-                        unlockedRegions.Add(allRegions[i]);
-
-                    unlockedRegionIndexes.Add(i);
-                    PlayerPrefs.SetInt("UnlockedRegion" + i, 1);
-                }
-                else
-                {
-                    currentRegionScript.SetCityActivity(false);
-                }
-            }
-
-        }
-
-        for (int i = 0; i < unlockedRegions.Count; i++)
-        {
-            GameObject[] currentNeighbors = unlockedRegions[i].GetComponent<Region>().GetNeighbors();
-
-            for (int ii = 0; ii < currentNeighbors.Length; ii++)
-            {
-                if (unlockableRegions.Contains(currentNeighbors[ii])) { continue; }
-
-                unlockableRegions.Add(currentNeighbors[ii]);
-            }
-        }
-
-        UpdateAllConnectionLines();
-    }
-
-    void UpdateAllConnectionLines()
-    {
-        Dictionary<GameObject, List<GameObject>> lineToCities = new Dictionary<GameObject, List<GameObject>>();
-
-        foreach (GameObject regionObj in allRegions)
-        {
-            Region regionScript = regionObj.GetComponent<Region>();
-            if (regionScript == null)
-                continue;
-
-            foreach (GameObject cityObj in regionScript.GetRegionCities())
-            {
-                if (cityObj == null)
-                    continue;
-
-                City cityScript = cityObj.GetComponent<City>();
-                if (cityScript == null)
-                    continue;
-
-                GameObject[] cityLines = cityScript.GetCityNeighborLines();
-                if (cityLines == null)
-                    continue;
-
-                foreach (GameObject line in cityLines)
-                {
-                    if (line == null)
-                        continue;
-
-                    if (!lineToCities.ContainsKey(line))
-                    {
-                        lineToCities[line] = new List<GameObject>();
-                    }
-                    if (!lineToCities[line].Contains(cityObj))
-                    {
-                        lineToCities[line].Add(cityObj);
-                    }
-                }
-            }
-        }
-
-        foreach (var kvp in lineToCities)
-        {
-            GameObject line = kvp.Key;
-            List<GameObject> connectedCities = kvp.Value;
-            bool allCitiesActive = true;
-            foreach (GameObject city in connectedCities)
-            {
-                if (!city.activeInHierarchy)
-                {
-                    allCitiesActive = false;
-                    break;
-                }
-            }
-            line.SetActive(allCitiesActive);
-        }
-    }
-
-    public void UnlockNewRegion(int selectedRegionIndex)
-    {
-        PlayerPrefs.SetInt("UnlockedRegion" + selectedRegionIndex.ToString(), 1);
-
-        SaveAll();
-
-        int sceneIndex = SceneManager.GetActiveScene().buildIndex;
-        SceneManager.LoadScene(sceneIndex);
     }
     #endregion
 
