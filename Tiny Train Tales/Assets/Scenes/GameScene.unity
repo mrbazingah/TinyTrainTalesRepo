@@ -1916,6 +1916,8 @@ MonoBehaviour:
   speed: 0.08
   destination: 0.05
   isAbove: 1
+  isMapMenu: 0
+  otherMenu: {fileID: 0}
 --- !u!114 &68509458
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3623,7 +3625,7 @@ RectTransform:
   m_GameObject: {fileID: 213822636}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.4167017, y: 0.4167017, z: 0.02733951}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1892251089}
@@ -4998,6 +5000,8 @@ MonoBehaviour:
   speed: 0.08
   destination: 0.05
   isAbove: 0
+  isMapMenu: 0
+  otherMenu: {fileID: 0}
 --- !u!114 &263113998
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12309,6 +12313,8 @@ MonoBehaviour:
   speed: 0.08
   destination: 0.3
   isAbove: 0
+  isMapMenu: 1
+  otherMenu: {fileID: 786239554}
 --- !u!1 &634625569
 GameObject:
   m_ObjectHideFlags: 0
@@ -16538,6 +16544,8 @@ MonoBehaviour:
   speed: 0.08
   destination: -0.27
   isAbove: 0
+  isMapMenu: 0
+  otherMenu: {fileID: 0}
 --- !u!1 &786794117
 GameObject:
   m_ObjectHideFlags: 0
@@ -26975,6 +26983,8 @@ MonoBehaviour:
   speed: 0.08
   destination: 0.05
   isAbove: 0
+  isMapMenu: 0
+  otherMenu: {fileID: 0}
 --- !u!114 &1277917550
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -37771,6 +37781,8 @@ MonoBehaviour:
   speed: 0.08
   destination: 0.2
   isAbove: 0
+  isMapMenu: 0
+  otherMenu: {fileID: 0}
 --- !u!1 &1785245153
 GameObject:
   m_ObjectHideFlags: 0
@@ -40332,7 +40344,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 29.1, y: -25.00002}
-  m_SizeDelta: {x: 50.000004, y: 50}
+  m_SizeDelta: {x: 20, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1892251090
 MonoBehaviour:

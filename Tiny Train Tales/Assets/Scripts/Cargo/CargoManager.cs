@@ -136,6 +136,7 @@ public class CargoManager : MonoBehaviour
 
         if (newItem == null)
         {
+            //New Cargo Item Created
             newItem = Instantiate(cargoItemPrefab);
             newItemScript = newItem.GetComponent<CargoItem>();
 
@@ -158,7 +159,7 @@ public class CargoManager : MonoBehaviour
             cargoItemScript.SetIsInCity(false, "");
 
             cargoItemScript.SetItemPrice(price);
-            cargoItemScript.SetPurchasePrice(price); // NEW — track actual price paid
+            cargoItemScript.SetPurchasePrice(price); 
 
             cargoItemList.Add(newSpawnedItem);
             cargoItemScript.ChangeUI();
@@ -170,7 +171,7 @@ public class CargoManager : MonoBehaviour
         {
             cargoItemList[i].transform.SetParent(cargoItemParent.transform);
             cargoItemList[i].transform.localPosition = Vector2.zero;
-            cargoItemList[i].transform.localScale = new Vector3(2, 2, 1);
+            cargoItemList[i].transform.localScale = new Vector3(1, 1, 1);
 
             if (i == 0)
             {

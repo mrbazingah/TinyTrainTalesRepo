@@ -5,6 +5,8 @@ public class MenuAnimationY : MonoBehaviour
     [SerializeField] float speed;
     [SerializeField] float destination;
     [SerializeField] bool isAbove;
+    [SerializeField] bool isMapMenu;
+    [SerializeField] MenuAnimationY otherMenu;
 
     Vector2 savedPos;
 
@@ -12,6 +14,8 @@ public class MenuAnimationY : MonoBehaviour
     bool stop;
     bool hasReachedDestination;
     bool stopped;
+
+    static bool mapMenuOpen;
 
     CameraMovement cam;
 
@@ -24,6 +28,15 @@ public class MenuAnimationY : MonoBehaviour
     {
         LoadSavedPos();
         savedPos = transform.position;
+
+        if (isMapMenu && mapMenuOpen)
+        {
+            StartAnimation();
+            SetMenuPosition();
+
+            otherMenu.StartAnimation();
+            otherMenu.SetMenuPosition();
+        }
     }
 
     void Update()
@@ -60,15 +73,29 @@ public class MenuAnimationY : MonoBehaviour
         }
     }
 
+    public void SetMenuPosition()
+    {
+        transform.position = new Vector2(cam.transform.position.x, destination);
+        hasReachedDestination = true;
+    }
+
     public void StartAnimation()
     {
-        MenuAnimationX otherMenu = FindObjectOfType<MenuAnimationX>();
-        otherMenu?.ResetAnimation(true);
+        MenuAnimationX[] otherMenus = FindObjectsOfType<MenuAnimationX>();
+        for (int i = 0; i < otherMenus.Length; i++)
+        {
+            otherMenus[i].ResetAnimation(true);
+        }
 
         startAnimation = true;
         cam.LockMovement(true);
 
         stopped = false;
+
+        if (isMapMenu)
+        {
+            mapMenuOpen = true;
+        }
     }
 
     public void ResetAnimation(bool isStoppedByOther)
@@ -78,6 +105,15 @@ public class MenuAnimationY : MonoBehaviour
         stop = false;
         startAnimation = false;
         hasReachedDestination = false;
+        
+        if (isMapMenu)
+        {
+            mapMenuOpen = false;
+            if (otherMenu != null && (otherMenu.startAnimation || otherMenu.hasReachedDestination))
+            {
+                otherMenu.ResetAnimation(false);
+            }
+        }
     }
 
     public void SavePos()
