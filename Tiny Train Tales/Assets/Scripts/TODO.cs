@@ -11,6 +11,9 @@ public class TODO : MonoBehaviour
     //Animate train wheels
     //Cargo
 
+    //----Bugs----
+    //Shop slots acting as one
+
     //Make or update Sprites for:
     //Everything!
 
