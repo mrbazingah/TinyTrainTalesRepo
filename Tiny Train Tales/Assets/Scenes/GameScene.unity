@@ -2247,9 +2247,9 @@ ParticleSystemRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 1112802073
-  m_SortingLayer: 5
-  m_SortingOrder: -1
+  m_SortingLayerID: 1902026399
+  m_SortingLayer: 6
+  m_SortingOrder: 1
   m_RenderMode: 0
   m_MeshDistribution: 0
   m_SortMode: 3
@@ -9638,7 +9638,7 @@ MonoBehaviour:
   cross: {fileID: 321284804}
   cantBuyColor: {r: 0.7058824, g: 0.7058824, b: 0.7058824, a: 1}
   originalColor: {r: 1, g: 1, b: 1, a: 1}
-  slotID: Slot 1
+  slotID: Slot 2
   cost: 0
   resetTime: 12
 --- !u!1 &253653669
@@ -14789,7 +14789,7 @@ Camera:
   field of view: 60
   orthographic: 1
   orthographic size: 5.414407
-  m_Depth: -1
+  m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
     m_Bits: 55
@@ -15573,7 +15573,7 @@ Transform:
   m_GameObject: {fileID: 581780750}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.28506547, y: 1.3475518, z: -0.033405304}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -15615,7 +15615,7 @@ Camera:
   field of view: 60
   orthographic: 1
   orthographic size: 5.414407
-  m_Depth: -1
+  m_Depth: 12
   m_CullingMask:
     serializedVersion: 2
     m_Bits: 64
@@ -26959,7 +26959,7 @@ GameObject:
   - component: {fileID: 1058999905}
   - component: {fileID: 1058999907}
   - component: {fileID: 1058999906}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: SmokeOverlay
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -26980,10 +26980,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1101706596}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.000061035, y: 0}
-  m_SizeDelta: {x: 1179, y: 663}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: -0.000030517578, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1058999906
 MonoBehaviour:
@@ -26998,8 +26998,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_Color: {r: 0.003921569, g: 0.003921569, b: 0.003921569, a: 0.003921569}
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -28254,7 +28254,7 @@ GameObject:
   - component: {fileID: 1101706599}
   - component: {fileID: 1101706598}
   - component: {fileID: 1101706597}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -28330,9 +28330,9 @@ Canvas:
   m_GameObject: {fileID: 1101706595}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 0
-  m_Camera: {fileID: 0}
-  m_PlaneDistance: 100
+  m_RenderMode: 1
+  m_Camera: {fileID: 519420031}
+  m_PlaneDistance: 1
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
   m_OverrideSorting: 0
@@ -33001,7 +33001,7 @@ MonoBehaviour:
   cross: {fileID: 870172872}
   cantBuyColor: {r: 0.7058824, g: 0.7058824, b: 0.7058824, a: 1}
   originalColor: {r: 1, g: 1, b: 1, a: 1}
-  slotID: Slot 1
+  slotID: Slot 3
   cost: 0
   resetTime: 12
 --- !u!1 &1315071602
@@ -35921,7 +35921,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1456176965}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Smoke
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -56104,6 +56104,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 938922049}
     - target: {fileID: 7827810439277896617, guid: 99cf9d11154a4484b9363d7ddcdb2782, type: 3}
+      propertyPath: acceleration
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 7827810439277896617, guid: 99cf9d11154a4484b9363d7ddcdb2782, type: 3}
       propertyPath: maxAnimationSpeed
       value: 400
       objectReference: {fileID: 0}
@@ -61660,6 +61664,14 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 995032294139566379, guid: d7f2d7e6643153744bbdc766918d5eaf, type: 3}
+      propertyPath: startPos.x
+      value: -2.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 995032294139566379, guid: d7f2d7e6643153744bbdc766918d5eaf, type: 3}
+      propertyPath: startPos.y
+      value: -1.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 995032294139566379, guid: d7f2d7e6643153744bbdc766918d5eaf, type: 3}
       propertyPath: trainCollider
       value: 
       objectReference: {fileID: 2042117574}
@@ -61679,6 +61691,10 @@ PrefabInstance:
       propertyPath: gemsText
       value: 
       objectReference: {fileID: 1864777221}
+    - target: {fileID: 6013072587387181096, guid: d7f2d7e6643153744bbdc766918d5eaf, type: 3}
+      propertyPath: maxSpeed
+      value: 80
+      objectReference: {fileID: 0}
     - target: {fileID: 6013072587387181096, guid: d7f2d7e6643153744bbdc766918d5eaf, type: 3}
       propertyPath: speedText
       value: 
