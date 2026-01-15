@@ -8,6 +8,9 @@ public class Train : MonoBehaviour
     [SerializeField] float interval;
     [SerializeField] float carSpeedOffset;
     [SerializeField] float carWeightOffset;
+    [Space]
+    [SerializeField] Animator animator;
+    [SerializeField] float maxAnimationSpeed;
 
     bool isDriving;
     bool hasLoaded;
@@ -70,6 +73,7 @@ public class Train : MonoBehaviour
     void Update()
     {
         StopAtStation();
+        Animation();
     }
 
     void Movement()
@@ -155,6 +159,13 @@ public class Train : MonoBehaviour
         }
     }
     
+    void Animation()
+    {
+        float currentSpeed = speed * 5f;
+        float animatorSpeed = (currentSpeed / maxAnimationSpeed) * 2.5f;
+        animator.speed = animatorSpeed;
+    }
+
     public void StopTrain()
     {
         isDriving = false;

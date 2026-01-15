@@ -50978,6 +50978,14 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7827810439277896617, guid: 99cf9d11154a4484b9363d7ddcdb2782, type: 3}
+      propertyPath: animator
+      value: 
+      objectReference: {fileID: 938922049}
+    - target: {fileID: 7827810439277896617, guid: 99cf9d11154a4484b9363d7ddcdb2782, type: 3}
+      propertyPath: maxAnimationSpeed
+      value: 400
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 5558884406876648256, guid: 99cf9d11154a4484b9363d7ddcdb2782, type: 3}

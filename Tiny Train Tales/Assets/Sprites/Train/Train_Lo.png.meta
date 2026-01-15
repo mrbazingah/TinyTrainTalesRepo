@@ -151,6 +151,48 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: Train_Lo_2
+      rect:
+        serializedVersion: 2
+        x: 122
+        y: 0
+        width: 60
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ba87a016bfd5410488123083e94f1209
+      internalID: -506736062
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Train_Lo_3
+      rect:
+        serializedVersion: 2
+        x: 183
+        y: 0
+        width: 60
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a1ed6ae7cabfa4648809c5583b164c8a
+      internalID: -1857270491
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -164,6 +206,8 @@ TextureImporter:
     nameFileIdTable:
       Train_Lo_0: -2079106888
       Train_Lo_1: 165824782
+      Train_Lo_2: -506736062
+      Train_Lo_3: -1857270491
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
