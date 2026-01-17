@@ -50,7 +50,7 @@ MonoBehaviour:
   addToMaxSpeed: 5
   maxSpeedCostIncrease: 500
   maxSpeedUpgradeAmountText: {fileID: 0}
-  maxSpeedUpgradeAmount: 25
+  maxSpeedUpgradeAmount: 50
   maxPassangersText: {fileID: 0}
   maxPassangerCostText: {fileID: 0}
   maxPassangerCost: 500

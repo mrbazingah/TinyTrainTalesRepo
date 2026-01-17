@@ -52,7 +52,7 @@ MonoBehaviour:
   networth: 0
   gems: 10
   gemsText: {fileID: 0}
-  maxSpeed: 850
+  maxSpeed: 80
   speedText: {fileID: 0}
   distance: 10
   destinationReached: 0
@@ -80,7 +80,13 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  unlockedRegions: []
+  unlockedRegions:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   unlockableRegions: []
   unlockedRegionIndexes: 
 --- !u!114 &995032294139566379
@@ -100,7 +106,7 @@ MonoBehaviour:
   spawnOffset: 4.4
   trainCollider: {fileID: 0}
   colliderOffset: 35
-  startPos: {x: -2.89, y: -1.15}
+  startPos: {x: -3.3, y: -1.15}
 --- !u!114 &1009562311121662478
 MonoBehaviour:
   m_ObjectHideFlags: 0
