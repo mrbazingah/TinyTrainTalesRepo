@@ -51278,12 +51278,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   smokePS: {fileID: 3698562619360685033}
-  isMoving: 0
+  isMoving: 1
   transitionTime: 0.5
-  moveStartX: -5
-  nonMoveStartX: 0
-  moveEndX: 0
-  nonMoveEndX: -5
+  moveStartX: 0
+  nonMoveStartX: -5
+  moveEndX: -5
+  nonMoveEndX: 0
 --- !u!1 &3746789135904082056
 GameObject:
   m_ObjectHideFlags: 0
@@ -56826,6 +56826,10 @@ PrefabInstance:
     - target: {fileID: 226441167980901094, guid: d7f2d7e6643153744bbdc766918d5eaf, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 995032294139566379, guid: d7f2d7e6643153744bbdc766918d5eaf, type: 3}
+      propertyPath: startPos.x
+      value: -3.5
       objectReference: {fileID: 0}
     - target: {fileID: 995032294139566379, guid: d7f2d7e6643153744bbdc766918d5eaf, type: 3}
       propertyPath: trainCollider
