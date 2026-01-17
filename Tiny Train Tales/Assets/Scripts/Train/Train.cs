@@ -219,4 +219,10 @@ public class Train : MonoBehaviour
     {
         return speed;
     }
+
+
+    public bool GetHasStopped()
+    {
+        return hasStopped;
+    }
 }
