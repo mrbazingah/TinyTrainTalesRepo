@@ -51280,8 +51280,10 @@ MonoBehaviour:
   smokePS: {fileID: 3698562619360685033}
   isMoving: 0
   transitionTime: 0.5
-  startX: -5
-  endX: 0
+  moveStartX: -5
+  nonMoveStartX: 0
+  moveEndX: 0
+  nonMoveEndX: -5
 --- !u!1 &3746789135904082056
 GameObject:
   m_ObjectHideFlags: 0

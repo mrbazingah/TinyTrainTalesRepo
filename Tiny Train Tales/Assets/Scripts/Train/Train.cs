@@ -22,10 +22,12 @@ public class Train : MonoBehaviour
     new Rigidbody2D rigidbody;
     GameManager gameManager;
     Station station;
+    DynamicSmokeEffect smokeEffect;
 
     void Awake()
     {
         gameManager = FindObjectOfType<GameManager>();
+        smokeEffect = FindObjectOfType<DynamicSmokeEffect>();
 
         FindRigidbody();
     }
@@ -155,6 +157,8 @@ public class Train : MonoBehaviour
 
                 gameManager.HandleArrival(true);
                 hasStopped = true;
+
+                smokeEffect.StopMode();
             }
         }
     }

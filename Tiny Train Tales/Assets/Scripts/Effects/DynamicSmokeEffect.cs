@@ -5,11 +5,10 @@ public class DynamicSmokeEffect : MonoBehaviour
     [SerializeField] ParticleSystem smokePS;
     [SerializeField] bool isMoving;
     [SerializeField] float transitionTime;
-    [SerializeField] float startX;
-    [SerializeField] float endX;
+    [SerializeField] float moveStartX, nonMoveStartX;
+    [SerializeField] float moveEndX, nonMoveEndX;
 
     float elapsedTime;
-    bool lastMode;
 
     ParticleSystem.ForceOverLifetimeModule forceModule;
     Train train;
@@ -20,29 +19,27 @@ public class DynamicSmokeEffect : MonoBehaviour
         train = FindObjectOfType<Train>();
     }
 
+    public void StopMode()
+    {
+        isMoving = false;
+        
+    }
+
     void Update()
     {
-        
-
-        if (isMoving != train.GetHasStopped())
+        if (!isMoving)
         {
-            lastMode = isMoving;
-            float sX = startX;
-            float eX = endX;
-
-            startX = eX;
-            endX = sX;
+            moveStartX = nonMoveStartX;
+            moveEndX = nonMoveEndX;
 
             elapsedTime = 0;
-
-            isMoving = !train.GetHasStopped();
         }
 
         if (elapsedTime < transitionTime)
         {
             elapsedTime += Time.deltaTime;
             float t = Mathf.Clamp01(elapsedTime / transitionTime);
-            forceModule.x = Mathf.Lerp(startX, endX, t);
+            forceModule.x = Mathf.Lerp(moveStartX, moveEndX, t);
         }
     }
 }
