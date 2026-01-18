@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 8322656542749032670}
   - component: {fileID: 5176582920640932130}
   - component: {fileID: 2664934697834147405}
+  - component: {fileID: 8384037393367847345}
   m_Layer: 6
   m_Name: SmokeParticleSystem
   m_TagString: Untagged
@@ -27,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 910054940553000400}
   serializedVersion: 2
   m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0.025, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -49,7 +50,7 @@ ParticleSystem:
   ringBufferLoopRange: {x: 0, y: 1}
   emitterVelocityMode: 1
   looping: 1
-  prewarm: 0
+  prewarm: 1
   playOnAwake: 1
   useUnscaledTime: 0
   autoRandomSeed: 1
@@ -116,7 +117,7 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 4
+      scalar: 3
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -2299,7 +2300,7 @@ ParticleSystem:
     z:
       serializedVersion: 2
       minMaxState: 0
-      scalar: -0.7
+      scalar: 0
       minScalar: 0
       maxCurve:
         serializedVersion: 2
@@ -4830,6 +4831,25 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
+--- !u!114 &8384037393367847345
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 910054940553000400}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f60818df39cbc24d83d21bfca7792b1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  smokePS: {fileID: 5176582920640932130}
+  isMoving: 1
+  transitionTime: 0.5
+  moveStartX: 0
+  nonMoveStartX: -5
+  moveEndX: -5
+  nonMoveEndX: 0
 --- !u!1 &1716677034344249987
 GameObject:
   m_ObjectHideFlags: 0
@@ -4855,7 +4875,7 @@ Transform:
   m_GameObject: {fileID: 1716677034344249987}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.058, y: 0.79, z: 0}
+  m_LocalPosition: {x: 1.208, y: 0.79, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
