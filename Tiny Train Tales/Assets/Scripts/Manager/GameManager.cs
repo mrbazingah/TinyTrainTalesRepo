@@ -339,7 +339,7 @@ public class GameManager : MonoBehaviour
     }
     #endregion
 
-     #region Regions
+    #region Regions
     void LoadUnlockedRegions()
     {
         for (int i = 0; i < allRegions.Length; i++)
@@ -715,4 +715,10 @@ public class GameManager : MonoBehaviour
         SaveAll();
     }
     #endregion
+
+    public void QuitGame()
+    {
+        Application.Quit();
+        Debug.Log("Quit Game");
+    }
 }
