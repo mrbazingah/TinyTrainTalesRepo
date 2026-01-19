@@ -4,7 +4,7 @@ using System.IO;
 
 public class BuildVersionDisplay : MonoBehaviour
 {
-    public TextMeshProUGUI versionText; // assign your UI Text here
+    [SerializeField] TextMeshProUGUI versionText; // assign your UI Text here
 
     void Start()
     {

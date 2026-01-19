@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 public class Train : MonoBehaviour
 {
@@ -9,8 +10,10 @@ public class Train : MonoBehaviour
     [SerializeField] float carSpeedOffset;
     [SerializeField] float carWeightOffset;
     [Space]
-    [SerializeField] Animator animator;
+    [SerializeField] List<Animator> trainAnimators;
+    [SerializeField] List <Animator> carAnimators;
     [SerializeField] float maxAnimationSpeed;
+    [SerializeField] float carAnimationSpeedOffset;
 
     bool isDriving;
     bool hasLoaded;
@@ -64,6 +67,11 @@ public class Train : MonoBehaviour
     public bool GetHasLoaded()
     {
         return hasLoaded;
+    }
+
+    public void AddCarAnimators(Animator newCarAnimator)
+    {
+        carAnimators.Add(newCarAnimator);
     }
 
     #region Movement
@@ -167,7 +175,16 @@ public class Train : MonoBehaviour
     {
         float currentSpeed = speed * 5f;
         float animatorSpeed = (currentSpeed / maxAnimationSpeed) * 2.5f;
-        animator.speed = animatorSpeed;
+        
+        for (int i = 0; i < trainAnimators.Count; i++)
+        {
+            trainAnimators[i].speed = animatorSpeed;
+        }
+
+        for (int i = 0; i < carAnimators.Count; i++)
+        {
+            carAnimators[i].speed = animatorSpeed * carAnimationSpeedOffset;
+        }
     }
 
     public void StopTrain()

@@ -9,6 +9,7 @@ public class DynamicSmokeEffect : MonoBehaviour
     [SerializeField] float moveEndX, nonMoveEndX;
 
     float elapsedTime;
+    bool hasStopped;
 
     ParticleSystem.ForceOverLifetimeModule forceModule;
     Train train;
@@ -22,17 +23,17 @@ public class DynamicSmokeEffect : MonoBehaviour
     public void StopMode()
     {
         isMoving = false;
-        
     }
 
     void Update()
     {
-        if (!isMoving)
+        if (!isMoving && !hasStopped)
         {
             moveStartX = nonMoveStartX;
             moveEndX = nonMoveEndX;
 
             elapsedTime = 0;
+            hasStopped = true;
         }
 
         if (elapsedTime < transitionTime)

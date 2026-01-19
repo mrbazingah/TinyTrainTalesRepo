@@ -34,11 +34,17 @@ public class Car : MonoBehaviour
 
     GameManager gameManager;
     CarManager carManager;
+    Train train;
+    Animator animator;
 
     void Awake()
     {
         gameManager = FindObjectOfType<GameManager>();
         carManager = FindObjectOfType<CarManager>();
+        train = FindObjectOfType<Train>();
+        animator = GetComponent<Animator>();
+
+        train?.AddCarAnimators(animator);
     }
 
     void Start()

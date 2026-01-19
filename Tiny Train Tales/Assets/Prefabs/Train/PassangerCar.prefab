@@ -593,6 +593,7 @@ GameObject:
   - component: {fileID: 1639146588245618903}
   - component: {fileID: 4719668783793606080}
   - component: {fileID: 1216298657668379615}
+  - component: {fileID: 928020212719740085}
   m_Layer: 0
   m_Name: PassangerCar
   m_TagString: Car
@@ -711,6 +712,27 @@ MonoBehaviour:
   - {fileID: 5321094320974365482}
   attributeColor: {r: 0.023529412, g: 1, b: 0, a: 1}
   attributesCanvas: {fileID: 1138765812076389130}
+--- !u!95 &928020212719740085
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1120970924442687937}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 47c5aa06ff4ac2642a4b772ad6c86ae0, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1138765812076389130
 GameObject:
   m_ObjectHideFlags: 0

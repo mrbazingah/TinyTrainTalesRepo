@@ -106,7 +106,7 @@ MonoBehaviour:
   spawnOffset: 4.4
   trainCollider: {fileID: 0}
   colliderOffset: 35
-  startPos: {x: -3.3, y: -1.15}
+  startPos: {x: -3.5, y: -1.15}
 --- !u!114 &1009562311121662478
 MonoBehaviour:
   m_ObjectHideFlags: 0
