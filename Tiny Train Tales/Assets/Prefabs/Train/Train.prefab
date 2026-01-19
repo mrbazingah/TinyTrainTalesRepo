@@ -28,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 910054940553000400}
   serializedVersion: 2
   m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -0.019, y: 0.037, z: -0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4845,7 +4845,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   smokePS: {fileID: 5176582920640932130}
   isMoving: 1
-  transitionTime: 0.3
+  transitionTime: 0.1
   moveStartX: 0
   nonMoveStartX: -5
   moveEndX: -5
@@ -5094,7 +5094,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -7, y: 0}
+  m_Offset: {x: -4.71292, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -5105,7 +5105,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 40, y: 1}
+  m_Size: {x: 44.574158, y: 1}
   m_EdgeRadius: 0
 --- !u!82 &1458013205709165888
 AudioSource:
@@ -5227,7 +5227,7 @@ MonoBehaviour:
   - {fileID: 0}
   carAnimators: []
   maxAnimationSpeed: 400
-  carAnimationSpeedOffset: 0.8
+  carAnimationSpeedOffset: 1.5
 --- !u!1 &9116409512620008671
 GameObject:
   m_ObjectHideFlags: 0

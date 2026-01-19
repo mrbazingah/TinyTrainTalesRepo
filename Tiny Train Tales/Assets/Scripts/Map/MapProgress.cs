@@ -13,7 +13,6 @@ public class MapProgress : MonoBehaviour
     GameManager gameManager;
     Slider progressSlider;
     RectTransform myRectTransform;
-    RectTransform handleRectTransform;
 
     void Awake()
     {
@@ -21,7 +20,6 @@ public class MapProgress : MonoBehaviour
         gameManager = FindObjectOfType<GameManager>();
         progressSlider = GetComponent<Slider>();
         myRectTransform = GetComponent<RectTransform>();
-        handleRectTransform = handle.GetComponent<RectTransform>();
     }
 
     void Update()

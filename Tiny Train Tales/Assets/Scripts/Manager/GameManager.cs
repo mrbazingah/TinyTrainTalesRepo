@@ -67,6 +67,7 @@ public class GameManager : MonoBehaviour
     CarManager carManager;
     AudioManager audioManager;
     CargoManager cargoManager;
+    DynamicSmokeEffect smokeEffect;
     #endregion
 
     void Awake()
@@ -83,6 +84,7 @@ public class GameManager : MonoBehaviour
         carManager = FindObjectOfType<CarManager>();
         audioManager = FindObjectOfType<AudioManager>();
         cargoManager = FindObjectOfType<CargoManager>();
+        smokeEffect = FindObjectOfType<DynamicSmokeEffect>();
 
         LoadUnlockedRegions();
     }
@@ -167,7 +169,7 @@ public class GameManager : MonoBehaviour
             }
             else
             {
-                Destroy(startStation, 5f);
+                Destroy(startStation, 10f);
             }
         }
         else if (PlayerPrefs.HasKey("Distance"))
@@ -719,6 +721,5 @@ public class GameManager : MonoBehaviour
     public void QuitGame()
     {
         Application.Quit();
-        Debug.Log("Quit Game");
     }
 }

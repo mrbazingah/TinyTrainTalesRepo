@@ -12,12 +12,10 @@ public class DynamicSmokeEffect : MonoBehaviour
     bool hasStopped;
 
     ParticleSystem.ForceOverLifetimeModule forceModule;
-    Train train;
 
     void Start()
     {
-        forceModule = smokePS.forceOverLifetime;    
-        train = FindObjectOfType<Train>();
+        forceModule = smokePS.forceOverLifetime;
     }
 
     public void StopMode()
