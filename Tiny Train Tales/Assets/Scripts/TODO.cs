@@ -6,9 +6,7 @@ public class TODO : MonoBehaviour
     //One for every city
     //Some to unlock next area
 
-    //Zoom in on map
     //Timer for upgrades
-    //Animate train wheels
     //Cargo
 
     //Make or update Sprites for:
@@ -26,5 +24,7 @@ public class TODO : MonoBehaviour
     //Shop Button
     //Music Symbol
     //SFX Symbol
-
+    //Train
+    //Train car
+    //Settings Button
 }
