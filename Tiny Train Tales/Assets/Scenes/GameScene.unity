@@ -57131,10 +57131,6 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 995032294139566379, guid: d7f2d7e6643153744bbdc766918d5eaf, type: 3}
-      propertyPath: spawnOffset
-      value: 4.55
-      objectReference: {fileID: 0}
-    - target: {fileID: 995032294139566379, guid: d7f2d7e6643153744bbdc766918d5eaf, type: 3}
       propertyPath: trainCollider
       value: 
       objectReference: {fileID: 2042117574}

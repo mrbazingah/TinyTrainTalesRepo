@@ -103,7 +103,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   carPrefab: {fileID: 1120970924442687937, guid: fac21b0e7390ac84bb8c1b5f943e6c2a, type: 3}
   currentCars: []
-  spawnOffset: 4.4
+  spawnOffset: 4.55
   trainCollider: {fileID: 0}
   colliderOffset: 35
   startPos: {x: -3.5, y: -1.15}
