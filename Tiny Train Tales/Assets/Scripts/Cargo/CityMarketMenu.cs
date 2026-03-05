@@ -553,9 +553,9 @@ public class CityMarketMenu : MonoBehaviour
 
                 cargoManager.SaveCargo();
 
-                if (cargoItemScript.GetItemName() == cargoDemand.GetItemName())
+                if (cargoDemand != null && cargoItemScript.GetItemName() == cargoDemand.GetItemName())
                 {
-                    cargoDemand.AddCount(finalStock);
+                    cargoDemand.AddCount(sellAmount);
                 }
             }
 

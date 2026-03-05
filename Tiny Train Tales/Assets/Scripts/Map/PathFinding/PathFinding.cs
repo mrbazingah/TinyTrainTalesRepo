@@ -39,7 +39,7 @@ public class PathFinding : MonoBehaviour
 
         // Initialize startNode with 0 cost since it is the starting point
         startNode.gCost = 0;
-        startNode.hCost = GetDistance(startCity, targetCity);
+        startNode.hCost = 0;
 
         List<Node> openSet = new List<Node>();
         HashSet<Node> closedSet = new HashSet<Node>();
@@ -88,7 +88,7 @@ public class PathFinding : MonoBehaviour
                     continue;
                 }
 
-                int tentativeGCost = currentNode.gCost + GetDistance(currentNode.City, neighborCity);
+                int tentativeGCost = currentNode.gCost + GetDefinedDistance(currentNode.City, neighborCity);
 
                 // Check if the neighbor is already in openSet
                 bool inOpenSet = false;
@@ -106,7 +106,7 @@ public class PathFinding : MonoBehaviour
                 if (tentativeGCost < neighborNode.gCost || !inOpenSet)
                 {
                     neighborNode.gCost = tentativeGCost;
-                    neighborNode.hCost = GetDistance(neighborCity, targetCity);
+                    neighborNode.hCost = 0;
                     neighborNode.parent = currentNode;
 
                     if (!inOpenSet)
@@ -135,10 +135,21 @@ public class PathFinding : MonoBehaviour
         return path;
     }
 
-    static int GetDistance(GameObject cityA, GameObject cityB)
+    static int GetDefinedDistance(GameObject cityA, GameObject cityB)
     {
-        // Uses Euclidean distance; adjust if you need a different metric.
-        return Mathf.RoundToInt(Vector3.Distance(cityA.transform.position, cityB.transform.position));
+        City cityScript = cityA.GetComponent<City>();
+        if (cityScript == null) return int.MaxValue / 2;
+
+        GameObject[] neighbors = cityScript.GetCityNeighbors();
+        int[] distances = cityScript.GetCityNeighborsDistance();
+
+        for (int i = 0; i < neighbors.Length; i++)
+        {
+            if (neighbors[i] == cityB)
+                return distances[i];
+        }
+
+        return int.MaxValue / 2; // not direct neighbors
     }
 
     class Node

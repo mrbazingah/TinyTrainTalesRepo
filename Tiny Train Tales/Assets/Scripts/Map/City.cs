@@ -216,7 +216,20 @@ public class City : MonoBehaviour
 
     void SetUpDemandCargo()
     {
+        if (cargoDemand == null)
+        {
+            Debug.LogWarning("CargoDemand not found in scene for city: " + gameObject.name);
+            return;
+        }
+
+        if (string.IsNullOrEmpty(cargoDemandName))
+        {
+            Debug.LogWarning("cargoDemandName is not set on city: " + gameObject.name);
+            return;
+        }
+
         currentCargoDemandCount = PlayerPrefs.GetInt("CargoDemandCount" + gameObject.name);
+        bool found = false;
         for (int i = 0; i < cargoManager.GetCargoItemsNames().Length; i++)
         {
             if (cargoManager.GetCargoItemsNames()[i] == cargoDemandName)
@@ -225,8 +238,14 @@ public class City : MonoBehaviour
                 cargoDemand.SetItemCount(currentCargoDemandCount, cargoDemandAmount);
                 cargoDemand.SetItemName(cargoDemandName);
                 cargoDemand.SetCity(this);
+                found = true;
                 break;
             }
+        }
+
+        if (!found)
+        {
+            Debug.LogWarning("cargoDemandName '" + cargoDemandName + "' on city " + gameObject.name + " does not match any cargo item name.");
         }
     }
 

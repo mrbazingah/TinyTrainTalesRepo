@@ -6,6 +6,7 @@ public class CargoDemand : MonoBehaviour
 {
     [SerializeField] Image itemIcon;
     [SerializeField] TextMeshProUGUI itemCountText;
+    [SerializeField] Slider slider;
 
     int itemCount;
     int itemMaxCount;
@@ -21,9 +22,13 @@ public class CargoDemand : MonoBehaviour
 
     public void SetItemCount(int count, int maxCount)
     {
-        itemCount = count;
         itemMaxCount = maxCount;
+        itemCount = Mathf.Clamp(count, 0, itemMaxCount);
         itemCountText.text = itemCount.ToString() + "/" + itemMaxCount.ToString();
+
+        slider.minValue = 0;
+        slider.maxValue = itemMaxCount;
+        slider.value = itemCount;
     }
 
     public void SetItemName(string newName)
@@ -39,10 +44,14 @@ public class CargoDemand : MonoBehaviour
 
     public void AddCount(int count)
     {
-        itemCount += count;
-        itemCountText.text = itemCount.ToString() + "/" + itemMaxCount.ToString();
+        int previous = itemCount;
+        itemCount = Mathf.Clamp(itemCount + count, 0, itemMaxCount);
+        int actualAdded = itemCount - previous;
 
-        currentCity.AddCargoCount(count);
+        itemCountText.text = itemCount.ToString() + "/" + itemMaxCount.ToString();
+        slider.value = itemCount;
+
+        currentCity.AddCargoCount(actualAdded);
     }
 
     #region Gets

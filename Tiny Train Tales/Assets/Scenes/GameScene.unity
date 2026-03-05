@@ -53153,6 +53153,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemIcon: {fileID: 7726908636046457148}
   itemCountText: {fileID: 777756251}
+  slider: {fileID: 1554863140}
 --- !u!1001 &5309311404839710246
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class MenuAnimationY : MonoBehaviour
@@ -34,8 +35,7 @@ public class MenuAnimationY : MonoBehaviour
             StartAnimation();
             SetMenuPosition();
 
-            otherMenu.StartAnimation();
-            otherMenu.SetMenuPosition();
+            StartCoroutine(OpenOtherMenuNextFrame());
         }
     }
 
@@ -71,6 +71,13 @@ public class MenuAnimationY : MonoBehaviour
                 }
             }
         }
+    }
+
+    IEnumerator OpenOtherMenuNextFrame()
+    {
+        yield return null;
+        otherMenu.StartAnimation();
+        otherMenu.SetMenuPosition();
     }
 
     public void SetMenuPosition()
