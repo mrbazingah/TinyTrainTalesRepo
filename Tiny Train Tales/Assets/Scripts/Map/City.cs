@@ -21,9 +21,8 @@ public class City : MonoBehaviour
     float cargoResetTime; 
     string cityName;
     string countryName;
-    int iterations;
-
     int currentCargoDemandCount;
+    bool cargoHasBeenCreated;
 
     bool isUnlocked = false;
 
@@ -81,7 +80,7 @@ public class City : MonoBehaviour
         }
 
         // --- Add countdown timer update ---
-        timeUntilReset = timeManager.GetTimeUntilReset(cargoResetTime, "CityTime" + gameObject.name);
+        timeUntilReset = timeManager.GetTimeUntilResetFromString(cargoResetTime, CitySaveManager.Instance.GetResetTime(gameObject.name));
 
         if (resetTimerText != null)
         {
@@ -124,35 +123,35 @@ public class City : MonoBehaviour
 
     public void CreateCargoItemForCity()
     {
+        cargoHasBeenCreated = true;
         resetTimerText = cityMarketMenu.GetResetTimerText();
 
-        if (timeManager.GetCurrentTime(cargoResetTime, "CityTime" + gameObject.name))
+        CitySaveData savedData = CitySaveManager.Instance.GetCityData(gameObject.name);
+
+        // If reset time has elapsed, discard saved data and regenerate
+        if (savedData != null && timeManager.GetCurrentTimeFromString(cargoResetTime, savedData.resetTime))
         {
-            PlayerPrefs.DeleteKey("CargoItemAmount" + gameObject.name);
+            CitySaveManager.Instance.DeleteCityData(gameObject.name);
+            savedData = null;
         }
 
-        int index = 0;
-        if (PlayerPrefs.HasKey("CargoItemAmount" + gameObject.name))
+        if (savedData != null && savedData.cargoItems != null && savedData.cargoItems.Count > 0)
         {
-            index = PlayerPrefs.GetInt("CargoItemAmount" + gameObject.name);
-
-            for (int i = 0; i < index; i++)
+            int loadCount = 0;
+            for (int i = 0; i < savedData.cargoItems.Count; i++)
             {
-                iterations++;
-                if (iterations > 2) { break; }
-
-                string saveString = PlayerPrefs.GetString("CitySaveString" + i.ToString() + gameObject.name);
-                GameObject newCargoItem = cargoManager.CreateSavedCargoItemForCity(saveString, gameObject.name);
+                if (loadCount >= 3) break;
+                GameObject newCargoItem = cargoManager.CreateSavedCargoItemForCity(savedData.cargoItems[i], gameObject.name);
                 cargo.Add(newCargoItem);
+                loadCount++;
             }
+            Debug.Log($"[City] {gameObject.name}: loaded {cargo.Count} saved cargo items");
         }
         else
         {
-            index = Random.Range(cargoManager.GetCityMinCargoAmount(), cargoManager.GetCityMaxCargoAmount() + 1);
+            int count = Random.Range(cargoManager.GetCityMinCargoAmount(), cargoManager.GetCityMaxCargoAmount() + 1);
 
-            PlayerPrefs.SetInt("CargoItemAmount" + gameObject.name, index);
-
-            for (int i = 0; i < index; i++)
+            for (int i = 0; i < count; i++)
             {
                 if (cargoManager == null) { return; }
 
@@ -165,13 +164,17 @@ public class City : MonoBehaviour
                 {
                     newCargoItem.SetActive(false);
                     Destroy(newCargoItem);
-
                     continue;
                 }
             }
 
-            timeManager.SaveCurrentTime("CityTime" + gameObject.name);
+            CitySaveData newData = CitySaveManager.Instance.GetCityData(gameObject.name) ?? new CitySaveData { cityName = gameObject.name };
+            newData.resetTime = timeManager.GetCurrentTimeString();
+            CitySaveManager.Instance.SetCityData(newData);
+            Debug.Log($"[City] {gameObject.name}: generated {cargo.Count} new cargo items");
         }
+
+        currentCargoDemandCount = savedData?.cargoDemandCount ?? 0;
 
         cityMarketMenu.SetCargoList(cargo);
 
@@ -228,7 +231,6 @@ public class City : MonoBehaviour
             return;
         }
 
-        currentCargoDemandCount = PlayerPrefs.GetInt("CargoDemandCount" + gameObject.name);
         bool found = false;
         for (int i = 0; i < cargoManager.GetCargoItemsNames().Length; i++)
         {
@@ -291,10 +293,21 @@ public class City : MonoBehaviour
 
     public void SaveCityCargo()
     {
-        PlayerPrefs.SetInt("CargoItemAmount" + gameObject.name, cargo.Count);
-        PlayerPrefs.SetInt("CargoDemandCount" + gameObject.name, currentCargoDemandCount);
+        if (!cargoHasBeenCreated) return;
 
-        for (int i = 0; i < cargo.Count; i++)
+        CitySaveData saveData = new CitySaveData();
+        saveData.cityName = gameObject.name;
+        saveData.cargoDemandCount = currentCargoDemandCount;
+        saveData.cargoItems = new List<CargoItemSaveData>();
+
+        // Preserve existing reset time
+        CitySaveData existing = CitySaveManager.Instance.GetCityData(gameObject.name);
+        if (existing != null)
+            saveData.resetTime = existing.resetTime;
+
+        Sprite[] sprites = cargoManager.GetCargoItemsSprites();
+
+        for (int i = cargo.Count - 1; i >= 0; i--)
         {
             if (cargo[i] == null)
             {
@@ -302,11 +315,27 @@ public class City : MonoBehaviour
                 continue;
             }
 
-            CargoItem cargoItemScript = cargo[i].GetComponent<CargoItem>();
-            string saveString = cargoItemScript.GetSaveString();
-            PlayerPrefs.SetString("CitySaveString" + i.ToString() + gameObject.name, saveString);
+            CargoItem itemScript = cargo[i].GetComponent<CargoItem>();
 
-            cargoItemScript.SaveCargoItem();
+            CargoItemSaveData itemData = new CargoItemSaveData();
+            itemData.itemName = itemScript.GetItemName();
+            itemData.itemCount = itemScript.GetItemCount();
+            itemData.itemPrice = itemScript.GetItemPrice();
+            itemData.purchasePrice = itemScript.GetPurchasePrice();
+
+            for (int j = 0; j < sprites.Length; j++)
+            {
+                if (itemScript.GetItemIcon().sprite == sprites[j])
+                {
+                    itemData.spriteIndex = j;
+                    break;
+                }
+            }
+
+            saveData.cargoItems.Add(itemData);
         }
+
+        CitySaveManager.Instance.SetCityData(saveData);
+        Debug.Log($"[City] {gameObject.name}: saved {saveData.cargoItems.Count} cargo items (demand: {currentCargoDemandCount})");
     }
 }

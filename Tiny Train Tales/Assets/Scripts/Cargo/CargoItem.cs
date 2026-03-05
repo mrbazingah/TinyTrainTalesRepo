@@ -58,35 +58,7 @@ public class CargoItem : MonoBehaviour
 
     public void LoadItemPlayerPrefs()
     {
-        if (PlayerPrefs.HasKey(saveString + "itemName"))
-        {
-            SetItemName(PlayerPrefs.GetString(saveString + "itemName"), cityName);
-            SetItemCount(PlayerPrefs.GetInt(saveString + "itemCount"));
-            SetItemPrice(PlayerPrefs.GetFloat(saveString + "itemPrice"));
-            SetItemIcon(cargoManager.GetCargoItemsSprites()[PlayerPrefs.GetInt(saveString + "itemSpriteIndex")]);
-
-            // NEW — load stored purchase price if exists
-            if (PlayerPrefs.HasKey(saveString + "purchasePrice"))
-            {
-                purchasePrice = PlayerPrefs.GetFloat(saveString + "purchasePrice");
-            }
-            else
-            {
-                purchasePrice = itemPrice;
-            }
-        }
-        else
-        {
-            if (cityName != "")
-            {
-                // Tell the City this item failed to load
-                City city = GameObject.Find(cityName)?.GetComponent<City>();
-                if (city != null)
-                {
-                    city.HandleMissingCargo(this.gameObject);
-                }
-            }
-        }
+        // Loading is now handled by CargoManager.LoadCargoItems() and CargoManager.CreateSavedCargoItemForCity() via CitySaveManager JSON
     }
 
     public void SetItemIcon(Sprite itemSprite)
@@ -145,9 +117,9 @@ public class CargoItem : MonoBehaviour
             {
                 itemPriceText.color = lossColor;
             }
-        }
 
-        PlayerPrefs.SetFloat(saveString + "itemPrice", itemPrice);
+            PlayerPrefs.SetFloat(saveString + "itemPrice", itemPrice);
+        }
     }
 
     public void SetPurchasePrice(float price)
@@ -188,7 +160,7 @@ public class CargoItem : MonoBehaviour
             CargoItem matchingItemScript = matchingItem.GetComponent<CargoItem>();
             float sellPrice = matchingItemScript.GetItemPrice();
 
-            // FIXED — use purchasePrice instead of itemPrice
+            // FIXED use purchasePrice instead of itemPrice
             profit = sellPrice - purchasePrice;
             itemPriceText.text = profit.ToString("0");
         }
@@ -275,21 +247,6 @@ public class CargoItem : MonoBehaviour
 
     public void SaveCargoItem()
     {
-        saveString = isInCity ? itemName + " " + cityName : itemName;
-
-        PlayerPrefs.SetString(saveString + "itemName", itemName);
-        PlayerPrefs.SetInt(saveString + "itemCount", itemCount);
-
-        PlayerPrefs.SetFloat(saveString + "itemPrice", itemPrice);
-
-        Sprite[] spriteArray = cargoManager.GetCargoItemsSprites();
-        for (int i = 0; i < spriteArray.Length; i++)
-        {
-            if (itemIcon.sprite == spriteArray[i])
-            {
-                PlayerPrefs.SetInt(saveString + "itemSpriteIndex", i);
-                break;
-            }
-        }
+        // Saving is now handled by CargoManager.SaveCargo() and City.SaveCityCargo() via CitySaveManager JSON
     }
 }

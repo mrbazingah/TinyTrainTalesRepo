@@ -53,4 +53,29 @@ public class TimeManager : MonoBehaviour
         return remaining;
     }
 
+    public bool GetCurrentTimeFromString(float hours, string savedTimeString)
+    {
+        if (string.IsNullOrEmpty(savedTimeString)) return false;
+
+        long binaryTime = Convert.ToInt64(savedTimeString);
+        DateTime savedTime = DateTime.FromBinary(binaryTime);
+        return (DateTime.Now - savedTime).TotalHours >= hours;
+    }
+
+    public TimeSpan GetTimeUntilResetFromString(float hours, string savedTimeString)
+    {
+        if (string.IsNullOrEmpty(savedTimeString)) return TimeSpan.Zero;
+
+        long binaryTime = Convert.ToInt64(savedTimeString);
+        DateTime savedTime = DateTime.FromBinary(binaryTime);
+        TimeSpan remaining = TimeSpan.FromHours(hours) - (DateTime.Now - savedTime);
+
+        return remaining.TotalSeconds < 0 ? TimeSpan.Zero : remaining;
+    }
+
+    public string GetCurrentTimeString()
+    {
+        return DateTime.Now.ToBinary().ToString();
+    }
+
 }

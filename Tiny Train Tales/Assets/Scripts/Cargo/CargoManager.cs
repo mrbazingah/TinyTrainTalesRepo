@@ -42,25 +42,40 @@ public class CargoManager : MonoBehaviour
 
     void LoadCargoItems()
     {
-        currentCargoCount = PlayerPrefs.GetInt("CurrentCargoAmount");
+        List<CargoItemSaveData> inventory = CitySaveManager.Instance.GetInventory();
+        currentCargoCount = CitySaveManager.Instance.GetCurrentCargoAmount();
 
-        if (PlayerPrefs.HasKey("NumberOfCargoItems"))
+        Vector2 lastPos = Vector2.zero;
+        for (int i = 0; i < inventory.Count; i++)
         {
-            int numberOfCargoItems = PlayerPrefs.GetInt("NumberOfCargoItems");
-            for (int i = 0; i < numberOfCargoItems; i++)
-            {
-                currentSaveString = PlayerPrefs.GetString("SaveString" + i.ToString());
-                CreateCargoItemForInventory(null, 0, 0);
-            }
+            CargoItemSaveData itemData = inventory[i];
+
+            GameObject newItem = Instantiate(cargoItemPrefab);
+            CargoItem itemScript = newItem.GetComponent<CargoItem>();
+
+            itemScript.SetIsInCity(false, "");
+            itemScript.SetItemName(itemData.itemName, "");
+            itemScript.SetItemCount(itemData.itemCount);
+            itemScript.SetItemPrice(itemData.itemPrice);
+            itemScript.SetItemIcon(cargoItemsSprites[itemData.spriteIndex]);
+            itemScript.SetPurchasePrice(itemData.purchasePrice);
+            itemScript.SetSaveString(itemData.itemName);
+
+            newItem.transform.SetParent(cargoItemParent.transform);
+            newItem.transform.localScale = Vector3.one;
+            newItem.transform.localPosition = i == 0 ? startPos : new Vector2(lastPos.x, lastPos.y - yOffset);
+            lastPos = newItem.transform.localPosition;
+
+            cargoItemList.Add(newItem);
         }
 
         if (currentCargoCount == 0 && cargoItemList.Count > 0)
         {
             for (int i = 0; i < cargoItemList.Count; i++)
-            {
                 currentCargoCount += cargoItemList[i].GetComponent<CargoItem>().GetItemCount();
-            }
         }
+
+        Debug.Log($"[CargoManager] Loaded {cargoItemList.Count} inventory items (total count: {currentCargoCount})");
     }
 
     public void AddCargo(GameObject newItem, int count, float price)
@@ -205,14 +220,18 @@ public class CargoManager : MonoBehaviour
         return cargoItem;
     }
 
-    public GameObject CreateSavedCargoItemForCity(string saveString, string cityName)
+    public GameObject CreateSavedCargoItemForCity(CargoItemSaveData itemData, string cityName)
     {
         GameObject cargoItem = Instantiate(cargoItemPrefab);
         CargoItem cargoItemScript = cargoItem.GetComponent<CargoItem>();
 
-        cargoItemScript.SetSaveString(saveString);
         cargoItemScript.SetIsInCity(true, cityName);
-        cargoItemScript.LoadItemPlayerPrefs();
+        cargoItemScript.SetItemName(itemData.itemName, cityName);
+        cargoItemScript.SetItemCount(itemData.itemCount);
+        cargoItemScript.SetItemPrice(itemData.itemPrice);
+        cargoItemScript.SetItemIcon(cargoItemsSprites[itemData.spriteIndex]);
+        cargoItemScript.SetPurchasePrice(itemData.purchasePrice);
+        cargoItemScript.SetSaveString(cityName + " " + itemData.itemName);
 
         return cargoItem;
     }
@@ -264,16 +283,31 @@ public class CargoManager : MonoBehaviour
 
     public void SaveCargo()
     {
-        PlayerPrefs.SetInt("NumberOfCargoItems", cargoItemList.Count);
-        PlayerPrefs.SetInt("CurrentCargoAmount", currentCargoCount);
+        List<CargoItemSaveData> inventory = new List<CargoItemSaveData>();
 
         for (int i = 0; i < cargoItemList.Count; i++)
         {
-            CargoItem cargoItemScript = cargoItemList[i].GetComponent<CargoItem>();
-            string saveString = cargoItemScript.GetSaveString();
-            PlayerPrefs.SetString("SaveString" + i.ToString(), saveString);
+            CargoItem itemScript = cargoItemList[i].GetComponent<CargoItem>();
 
-            cargoItemScript.SaveCargoItem();
+            CargoItemSaveData itemData = new CargoItemSaveData();
+            itemData.itemName = itemScript.GetItemName();
+            itemData.itemCount = itemScript.GetItemCount();
+            itemData.itemPrice = itemScript.GetItemPrice();
+            itemData.purchasePrice = itemScript.GetPurchasePrice();
+
+            for (int j = 0; j < cargoItemsSprites.Length; j++)
+            {
+                if (itemScript.GetItemIcon().sprite == cargoItemsSprites[j])
+                {
+                    itemData.spriteIndex = j;
+                    break;
+                }
+            }
+
+            inventory.Add(itemData);
         }
+
+        CitySaveManager.Instance.SetInventory(inventory, currentCargoCount);
+        Debug.Log($"[CargoManager] Saved {inventory.Count} inventory items (total count: {currentCargoCount})");
     }
 }

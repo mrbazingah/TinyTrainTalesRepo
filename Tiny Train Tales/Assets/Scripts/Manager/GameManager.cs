@@ -68,6 +68,7 @@ public class GameManager : MonoBehaviour
     AudioManager audioManager;
     CargoManager cargoManager;
     DynamicSmokeEffect smokeEffect;
+    CitySaveManager citySaveManager;
     #endregion
 
     void Awake()
@@ -85,6 +86,7 @@ public class GameManager : MonoBehaviour
         audioManager = FindObjectOfType<AudioManager>();
         cargoManager = FindObjectOfType<CargoManager>();
         smokeEffect = FindObjectOfType<DynamicSmokeEffect>();
+        citySaveManager = FindObjectOfType<CitySaveManager>();
 
         LoadUnlockedRegions();
     }
@@ -667,6 +669,7 @@ public class GameManager : MonoBehaviour
     public void DeleteAll()
     {
         PlayerPrefs.DeleteAll();
+        citySaveManager?.DeleteSaveFile();
 
         SceneManager.LoadScene("StartScene");
     }
@@ -710,6 +713,7 @@ public class GameManager : MonoBehaviour
         SaveProgress();
 
         PlayerPrefs.Save();
+        citySaveManager?.SaveToDisk();
     }
 
     void OnApplicationQuit()
