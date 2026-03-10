@@ -80,7 +80,7 @@ public class City : MonoBehaviour
         }
 
         // --- Add countdown timer update ---
-        timeUntilReset = timeManager.GetTimeUntilResetFromString(cargoResetTime, CitySaveManager.Instance.GetResetTime(gameObject.name));
+        timeUntilReset = timeManager.GetTimeUntilResetFromString(cargoResetTime, SaveSystem.Instance.GetResetTime(gameObject.name));
 
         if (resetTimerText != null)
         {
@@ -126,12 +126,12 @@ public class City : MonoBehaviour
         cargoHasBeenCreated = true;
         resetTimerText = cityMarketMenu.GetResetTimerText();
 
-        CitySaveData savedData = CitySaveManager.Instance.GetCityData(gameObject.name);
+        CitySaveData savedData = SaveSystem.Instance.GetCityData(gameObject.name);
 
         // If reset time has elapsed, discard saved data and regenerate
         if (savedData != null && timeManager.GetCurrentTimeFromString(cargoResetTime, savedData.resetTime))
         {
-            CitySaveManager.Instance.DeleteCityData(gameObject.name);
+            SaveSystem.Instance.DeleteCityData(gameObject.name);
             savedData = null;
         }
 
@@ -168,9 +168,9 @@ public class City : MonoBehaviour
                 }
             }
 
-            CitySaveData newData = CitySaveManager.Instance.GetCityData(gameObject.name) ?? new CitySaveData { cityName = gameObject.name };
+            CitySaveData newData = SaveSystem.Instance.GetCityData(gameObject.name) ?? new CitySaveData { cityName = gameObject.name };
             newData.resetTime = timeManager.GetCurrentTimeString();
-            CitySaveManager.Instance.SetCityData(newData);
+            SaveSystem.Instance.SetCityData(newData);
             Debug.Log($"[City] {gameObject.name}: generated {cargo.Count} new cargo items");
         }
 
@@ -301,7 +301,7 @@ public class City : MonoBehaviour
         saveData.cargoItems = new List<CargoItemSaveData>();
 
         // Preserve existing reset time
-        CitySaveData existing = CitySaveManager.Instance.GetCityData(gameObject.name);
+        CitySaveData existing = SaveSystem.Instance.GetCityData(gameObject.name);
         if (existing != null)
             saveData.resetTime = existing.resetTime;
 
@@ -335,7 +335,7 @@ public class City : MonoBehaviour
             saveData.cargoItems.Add(itemData);
         }
 
-        CitySaveManager.Instance.SetCityData(saveData);
+        SaveSystem.Instance.SetCityData(saveData);
         Debug.Log($"[City] {gameObject.name}: saved {saveData.cargoItems.Count} cargo items (demand: {currentCargoDemandCount})");
     }
 }

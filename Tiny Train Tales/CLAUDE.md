@@ -59,6 +59,12 @@ Unity 2D train game. Player travels between cities, buys/sells cargo, completes 
 **Root cause:** In `MenuAnimationY.Start()`, the map menu called `otherMenu.SetMenuPosition()` which physically moved the close button canvas to its open position. If the close button canvas's own `Start()` ran after this, `savedPos = transform.position` captured the open position instead of the closed one. When close was pressed, it animated "back" to the open position.
 **Fix:** Replaced direct `otherMenu.StartAnimation()` / `otherMenu.SetMenuPosition()` calls in `Start()` with a one-frame coroutine (`OpenOtherMenuNextFrame`), so all `Start()` methods finish first before the otherMenu is moved.
 
+### 6. Inventory not loading after scene reload (Station.cs)
+**Problem:** Player inventory was saved but not restored after leaving a station (scene reload).
+**Root cause:** `Station.LeaveStation()` called `cargoManager.SaveCargo()` which only updates `CitySaveManager` in-memory data, then immediately called `SceneManager.LoadScene()`. Since `CitySaveManager` has no `DontDestroyOnLoad`, it was destroyed and re-created on reload — and its `LoadFromDisk()` read the old file because `SaveToDisk()` was never called.
+**Fix:** Added `CitySaveManager.Instance?.SaveToDisk()` in `LeaveStation()` after all save calls and before the scene reload.
+- Note: `CityMenu.cs` (travel button) was already fine — it calls `gameManager.SaveAll()` which includes `SaveToDisk()`.
+
 ---
 
 ## Known Issues / TODO (from TODO.cs)

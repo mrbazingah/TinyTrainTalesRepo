@@ -79,6 +79,8 @@ public class Station : MonoBehaviour
 
         cityManager.GetNextCity().GetComponent<City>().SaveCityCargo();
 
+        SaveSystem.Instance?.SaveToDisk();
+
         PlayerPrefs.DeleteKey("Dont Destroy");
 
         string currentScene = SceneManager.GetActiveScene().name;

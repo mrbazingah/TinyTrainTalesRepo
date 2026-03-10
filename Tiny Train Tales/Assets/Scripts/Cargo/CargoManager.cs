@@ -42,8 +42,8 @@ public class CargoManager : MonoBehaviour
 
     void LoadCargoItems()
     {
-        List<CargoItemSaveData> inventory = CitySaveManager.Instance.GetInventory();
-        currentCargoCount = CitySaveManager.Instance.GetCurrentCargoAmount();
+        List<CargoItemSaveData> inventory = SaveSystem.Instance.GetInventory();
+        currentCargoCount = SaveSystem.Instance.GetCurrentCargoAmount();
 
         Vector2 lastPos = Vector2.zero;
         for (int i = 0; i < inventory.Count; i++)
@@ -307,7 +307,7 @@ public class CargoManager : MonoBehaviour
             inventory.Add(itemData);
         }
 
-        CitySaveManager.Instance.SetInventory(inventory, currentCargoCount);
+        SaveSystem.Instance.SetInventory(inventory, currentCargoCount);
         Debug.Log($"[CargoManager] Saved {inventory.Count} inventory items (total count: {currentCargoCount})");
     }
 }

@@ -68,7 +68,7 @@ public class GameManager : MonoBehaviour
     AudioManager audioManager;
     CargoManager cargoManager;
     DynamicSmokeEffect smokeEffect;
-    CitySaveManager citySaveManager;
+    SaveSystem citySaveManager;
     #endregion
 
     void Awake()
@@ -86,7 +86,7 @@ public class GameManager : MonoBehaviour
         audioManager = FindObjectOfType<AudioManager>();
         cargoManager = FindObjectOfType<CargoManager>();
         smokeEffect = FindObjectOfType<DynamicSmokeEffect>();
-        citySaveManager = FindObjectOfType<CitySaveManager>();
+        citySaveManager = FindObjectOfType<SaveSystem>();
 
         LoadUnlockedRegions();
     }

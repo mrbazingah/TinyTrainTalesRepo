@@ -26,17 +26,24 @@ public class CitySaveData
 public class AllCitiesSaveFile
 {
     public List<CitySaveData> cities = new List<CitySaveData>();
+}
+
+[Serializable]
+public class InventorySaveFile
+{
     public List<CargoItemSaveData> inventoryItems = new List<CargoItemSaveData>();
     public int currentCargoAmount;
 }
 
-public class CitySaveManager : MonoBehaviour
+public class SaveSystem : MonoBehaviour
 {
-    public static CitySaveManager Instance { get; private set; }
+    public static SaveSystem Instance { get; private set; }
 
     AllCitiesSaveFile saveFile = new AllCitiesSaveFile();
+    InventorySaveFile inventoryFile = new InventorySaveFile();
     Dictionary<string, CitySaveData> cityDict = new Dictionary<string, CitySaveData>();
     string savePath;
+    string inventoryPath;
 
     void Awake()
     {
@@ -48,6 +55,7 @@ public class CitySaveManager : MonoBehaviour
 
         Instance = this;
         savePath = Path.Combine(Application.persistentDataPath, "cities.json");
+        inventoryPath = Path.Combine(Application.persistentDataPath, "inventory.json");
         LoadFromDisk();
     }
 
@@ -55,41 +63,59 @@ public class CitySaveManager : MonoBehaviour
     {
         cityDict.Clear();
         saveFile = new AllCitiesSaveFile();
+        inventoryFile = new InventorySaveFile();
 
-        if (!File.Exists(savePath))
+        if (File.Exists(savePath))
         {
-            Debug.Log("[CitySaveManager] No save file found, starting fresh.");
-            return;
+            string json = File.ReadAllText(savePath);
+            AllCitiesSaveFile loaded = JsonUtility.FromJson<AllCitiesSaveFile>(json);
+            if (loaded != null)
+            {
+                saveFile = loaded;
+                if (saveFile.cities != null)
+                {
+                    foreach (CitySaveData city in saveFile.cities)
+                        cityDict[city.cityName] = city;
+                }
+            }
+        }
+        else
+        {
+            Debug.Log("[CitySaveManager] No cities save file found, starting fresh.");
         }
 
-        string json = File.ReadAllText(savePath);
-        AllCitiesSaveFile loaded = JsonUtility.FromJson<AllCitiesSaveFile>(json);
-        if (loaded == null) return;
-
-        saveFile = loaded;
-
-        if (saveFile.cities != null)
+        if (File.Exists(inventoryPath))
         {
-            foreach (CitySaveData city in saveFile.cities)
-                cityDict[city.cityName] = city;
+            string json = File.ReadAllText(inventoryPath);
+            InventorySaveFile loaded = JsonUtility.FromJson<InventorySaveFile>(json);
+            if (loaded != null)
+                inventoryFile = loaded;
+        }
+        else
+        {
+            Debug.Log("[CitySaveManager] No inventory save file found, starting fresh.");
         }
 
-        Debug.Log($"[CitySaveManager] Loaded {cityDict.Count} cities and {saveFile.inventoryItems?.Count ?? 0} inventory items from {savePath}");
+        Debug.Log($"[CitySaveManager] Loaded {cityDict.Count} cities and {inventoryFile.inventoryItems?.Count ?? 0} inventory items.");
     }
 
     public void SaveToDisk()
     {
         saveFile.cities = new List<CitySaveData>(cityDict.Values);
         File.WriteAllText(savePath, JsonUtility.ToJson(saveFile, true));
-        Debug.Log($"[CitySaveManager] Saved {saveFile.cities.Count} cities and {saveFile.inventoryItems?.Count ?? 0} inventory items to {savePath}");
+        File.WriteAllText(inventoryPath, JsonUtility.ToJson(inventoryFile, true));
+        Debug.Log($"[CitySaveManager] Saved {saveFile.cities.Count} cities and {inventoryFile.inventoryItems?.Count ?? 0} inventory items.");
     }
 
     public void DeleteSaveFile()
     {
         cityDict.Clear();
         saveFile = new AllCitiesSaveFile();
+        inventoryFile = new InventorySaveFile();
         if (File.Exists(savePath))
             File.Delete(savePath);
+        if (File.Exists(inventoryPath))
+            File.Delete(inventoryPath);
     }
 
     // --- City ---
@@ -134,17 +160,17 @@ public class CitySaveManager : MonoBehaviour
 
     public List<CargoItemSaveData> GetInventory()
     {
-        return saveFile.inventoryItems ?? new List<CargoItemSaveData>();
+        return inventoryFile.inventoryItems ?? new List<CargoItemSaveData>();
     }
 
     public int GetCurrentCargoAmount()
     {
-        return saveFile.currentCargoAmount;
+        return inventoryFile.currentCargoAmount;
     }
 
     public void SetInventory(List<CargoItemSaveData> items, int cargoAmount)
     {
-        saveFile.inventoryItems = items;
-        saveFile.currentCargoAmount = cargoAmount;
+        inventoryFile.inventoryItems = items;
+        inventoryFile.currentCargoAmount = cargoAmount;
     }
 }
