@@ -29,4 +29,6 @@ public class TODO : MonoBehaviour
     //Train
     //Train car
     //Settings Button
+
+    //Move cities and lines to correct place on map
 }
