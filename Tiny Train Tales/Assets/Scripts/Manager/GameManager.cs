@@ -67,7 +67,7 @@ public class GameManager : MonoBehaviour
     CarManager carManager;
     AudioManager audioManager;
     CargoManager cargoManager;
-    DynamicSmokeEffect smokeEffect;
+    UpgradeManager upgradeManager;
     SaveSystem saveSystem;
     #endregion
 
@@ -75,6 +75,8 @@ public class GameManager : MonoBehaviour
     {
         if (!PlayerPrefs.HasKey("HasStartedGame"))
         {
+            saveSystem?.DeleteSaveFile();
+            Debug.Log("[GameManager] Save file not found, reseting game");
             SceneManager.LoadScene("StartScene");
         }
 
@@ -85,7 +87,7 @@ public class GameManager : MonoBehaviour
         carManager = FindObjectOfType<CarManager>();
         audioManager = FindObjectOfType<AudioManager>();
         cargoManager = FindObjectOfType<CargoManager>();
-        smokeEffect = FindObjectOfType<DynamicSmokeEffect>();
+        upgradeManager = FindObjectOfType<UpgradeManager>();
         saveSystem = FindObjectOfType<SaveSystem>();
 
         LoadUnlockedRegions();
@@ -93,8 +95,9 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        PlayerPrefsSetUp();
-        LoadCurrency();
+        LoadPlayerPrefsData();
+        LoadCurrencyData();
+        LoadUpgradesData();
     }
 
     public void UpdateCityTexts()
@@ -102,17 +105,9 @@ public class GameManager : MonoBehaviour
         cityManager.UpdateCityTexts(currentCityText, destinationCityText);
     }
 
-    #region Load
-    void PlayerPrefsSetUp()
+    #region Load Data
+    void LoadPlayerPrefsData()
     {
-        if (PlayerPrefs.HasKey("MaxSpeed"))
-        {
-            maxSpeed = PlayerPrefs.GetFloat("MaxSpeed");
-        }
-        if (PlayerPrefs.HasKey("MaxPassangers"))
-        {
-            maxPassangers = PlayerPrefs.GetFloat("MaxPassangers");
-        }
         if (PlayerPrefs.HasKey("Passangers"))
         {
             passangers = PlayerPrefs.GetFloat("Passangers");
@@ -140,10 +135,6 @@ public class GameManager : MonoBehaviour
             {
                 autoLeaveStation.isOn = false;
             }
-        }
-        if (PlayerPrefs.HasKey("Profit"))
-        {
-            profitMultiplier = PlayerPrefs.GetFloat("Profit");
         }
         if (PlayerPrefs.HasKey("Distance") && PlayerPrefs.HasKey("RemainingDistance"))
         {
@@ -180,19 +171,28 @@ public class GameManager : MonoBehaviour
         remainingDistanceText.text = remainingDistance.ToString() + "km";
     }
 
-    void LoadCurrency()
+    void LoadCurrencyData()
     {
-        CurrencySaveData data = SaveSystem.Instance.GetCurrencyData();
+        CurrencySaveData data = saveSystem.GetCurrencyData();
         if (data != null)
         {
-            coins = data.savedCoins;
-            gems = data.savedGems;
-            networth = data.savedNetworth;
+            coins = data.coins;
+            gems = data.gems;
+            networth = data.networth;
+        }
+    }
+
+    void LoadUpgradesData()
+    {
+        UpgradeSaveData data = SaveSystem.Instance.GetUpgradeData();
+        if (data != null)
+        {
+            maxSpeed = data.maxSpeed;
+            maxPassangers = data.maxPassangers;
+            profitMultiplier = data.profitMultiplier;
         }
     }
     #endregion
-
-
 
     void Update()
     {
@@ -301,20 +301,17 @@ public class GameManager : MonoBehaviour
     public void AddToMaxSpeed(float amountAdded)
     {
         maxSpeed += amountAdded;
-        PlayerPrefs.SetFloat("MaxSpeed", maxSpeed);
     }
 
     public void AddToMaxPassangers(float amountAdded)
     {
         maxPassangers += amountAdded;
-        PlayerPrefs.SetFloat("MaxPassangers", maxPassangers);
     }
 
     public void AddToProfit(float amountAdded)
     {
         profitMultiplier += amountAdded;
         profitMultiplier = Mathf.Round(profitMultiplier * 100f) / 100f;
-        PlayerPrefs.SetFloat("Profit", profitMultiplier);
     }
 
     public float GetMaxSpeed()
@@ -629,12 +626,21 @@ public class GameManager : MonoBehaviour
     #region Save
     void SaveCurrency()
     {
-        SaveSystem.Instance.SetCurrencyData(new CurrencySaveData
+        saveSystem.SetCurrencyData(new CurrencySaveData
         {
-            savedGems = gems,
-            savedCoins = coins,
-            savedNetworth = networth
+            gems = gems,
+            coins = coins,
+            networth = networth
         });
+    }
+
+    void SaveUpgrades()
+    {
+        UpgradeSaveData data = SaveSystem.Instance.GetUpgradeData() ?? new UpgradeSaveData();
+        data.maxSpeed = maxSpeed;
+        data.maxPassangers = maxPassangers;
+        data.profitMultiplier = profitMultiplier;
+        SaveSystem.Instance.SetUpgradeData(data);
     }
 
     void SaveProgress()
@@ -704,8 +710,8 @@ public class GameManager : MonoBehaviour
             cars[i].SaveCar();
         }
 
-        PlayerPrefs.SetFloat("MaxPassangers", maxPassangers);
-        PlayerPrefs.SetFloat("MaxSpeed", maxSpeed);
+        SaveUpgrades();
+        upgradeManager?.SaveUpgradeData();
         PlayerPrefs.SetFloat("Passangers", passangers);
 
         SaveProgress();

@@ -2,7 +2,6 @@ using UnityEngine;
 
 public class DebugShortcuts : MonoBehaviour
 {
-#if UNITY_EDITOR
     [Header("Value Keybinds")]
     [SerializeField] KeyCode coinsKey;
     [SerializeField] KeyCode gemsKey;
@@ -107,5 +106,4 @@ public class DebugShortcuts : MonoBehaviour
             }
         }
     }
-#endif
 }

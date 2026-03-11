@@ -2,8 +2,6 @@ using UnityEngine;
 
 public class BackgroundGenerator : MonoBehaviour
 {
-    [SerializeField] GameObject blockParent;
-
     Train train;
     Rigidbody2D myRigidbody;
 

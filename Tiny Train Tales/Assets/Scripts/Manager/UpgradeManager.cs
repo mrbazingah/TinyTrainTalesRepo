@@ -92,42 +92,32 @@ public class UpgradeManager : MonoBehaviour
 
     void Start()
     {
-        if (PlayerPrefs.HasKey("MaxSpeedCost"))
-        {
-            maxSpeedCost = PlayerPrefs.GetFloat("MaxSpeedCost");
-        }
-        if (PlayerPrefs.HasKey("MaxPassangerCost"))
-        {
-            maxPassangerCost = PlayerPrefs.GetFloat("MaxPassangerCost");
-        }
-        if (PlayerPrefs.HasKey("AccelerationCost"))
-        {
-            accelerationCost = PlayerPrefs.GetFloat("AccelerationCost");
-        }
-        if (PlayerPrefs.HasKey("ProfitCost"))
-        {
-            profitCost = PlayerPrefs.GetFloat("ProfitCost");
-        }
-        if (PlayerPrefs.HasKey("CarsCost"))
-        {
-            carsCost = PlayerPrefs.GetFloat("CarsCost");
-        }
-        if (PlayerPrefs.HasKey("AmountOfCars"))
-        {
-            amountOfCars = PlayerPrefs.GetInt("AmountOfCars");
-        }
-
-        currentMaxSpeedAmount = PlayerPrefs.GetInt("CurrentMaxSpeedAmount");
-        currentMaxPassangerAmount = PlayerPrefs.GetInt("CurrentMaxPassangerAmount");
-        currentAccelerationAmount = PlayerPrefs.GetInt("CurrentAccelerationAmount");
-        currentProfitAmount = PlayerPrefs.GetInt("CurrentProfitAmount");
-        currentCarsAmount = PlayerPrefs.GetInt("CurrentCarsAmount");
+        LoadSavedData();
 
         accelerationCostText.text = accelerationCost.ToString();
         maxSpeedCostText.text = maxSpeedCost.ToString();
         maxPassangerCostText.text = maxPassangerCost.ToString();
         profitCostText.text = profitCost.ToString();
         carsCostText.text = carsCost.ToString();
+    }
+
+    void LoadSavedData()
+    {
+        UpgradeSaveData data = SaveSystem.Instance.GetUpgradeData();
+        if (data != null)
+        {
+            maxSpeedCost = data.maxSpeedCost;
+            maxPassangerCost = data.maxPassangerCost;
+            accelerationCost = data.accelerationCost;
+            profitCost = data.profitCost;
+            carsCost = data.carsCost;
+            amountOfCars = data.amountOfCars > 0 ? data.amountOfCars : amountOfCars;
+            currentMaxSpeedAmount = data.currentMaxSpeedAmount;
+            currentMaxPassangerAmount = data.currentMaxPassangerAmount;
+            currentAccelerationAmount = data.currentAccelerationAmount;
+            currentProfitAmount = data.currentProfitAmount;
+            currentCarsAmount = data.currentCarsAmount;
+        }
     }
 
     void Update()
@@ -220,12 +210,10 @@ public class UpgradeManager : MonoBehaviour
         maxSpeedCost += maxSpeedCostIncrease;
         maxSpeedCost = Mathf.Floor(maxSpeedCost);
         maxSpeedCostText.text = maxSpeedCost.ToString();
-
-        PlayerPrefs.SetFloat("MaxSpeedCost", maxSpeedCost);
         gameManager?.AddToMaxSpeed(addToMaxSpeed);
-
         currentMaxSpeedAmount++;
-        PlayerPrefs.SetInt("CurrentMaxSpeedAmount", currentMaxSpeedAmount);
+
+        SaveUpgradeData();
     }
 
     public void UpgradeMaxPassangers()
@@ -236,12 +224,10 @@ public class UpgradeManager : MonoBehaviour
         maxPassangerCost += maxPassangerCostIncrease;
         maxPassangerCost = Mathf.Floor(maxPassangerCost);
         maxPassangerCostText.text = maxPassangerCost.ToString();
-
-        PlayerPrefs.SetFloat("MaxPassangerCost", maxPassangerCost);
         gameManager?.AddToMaxPassangers(addToMaxPassangers);
-
         currentMaxPassangerAmount++;
-        PlayerPrefs.SetInt("CurrentMaxPassangerAmount", currentMaxPassangerAmount);
+
+        SaveUpgradeData();
     }
 
     public void UpgradeAcceleration()
@@ -252,12 +238,10 @@ public class UpgradeManager : MonoBehaviour
         accelerationCost += accelerationCostIncrease;
         accelerationCost = Mathf.Floor(accelerationCost);
         accelerationCostText.text = accelerationCost.ToString();
-
-        PlayerPrefs.SetFloat("AccelerationCost", accelerationCost);
         train?.AddToAcceleration(addToAcceleration);
-
         currentAccelerationAmount++;
-        PlayerPrefs.SetInt("CurrentAccelerationAmount", currentAccelerationAmount);
+
+        SaveUpgradeData();
     }
 
     public void UprgadeProfit()
@@ -268,12 +252,10 @@ public class UpgradeManager : MonoBehaviour
         profitCost += profitCostIncrease;
         profitCost = Mathf.Floor(profitCost);
         profitCostText.text = profitCost.ToString();
-
-        PlayerPrefs.SetFloat("ProfitCost", profitCost);
         gameManager?.AddToProfit(addToProfit);
-
         currentProfitAmount++;
-        PlayerPrefs.SetInt("CurrentProfitAmount", currentProfitAmount);
+
+        SaveUpgradeData();
     }
 
     public void UpgradeCars()
@@ -285,12 +267,26 @@ public class UpgradeManager : MonoBehaviour
         carsCost = Mathf.Floor(carsCost);
         carsCostText.text = carsCost.ToString();
         amountOfCars++;
-
-        PlayerPrefs.SetFloat("CarsCost", carsCost);
-        PlayerPrefs.SetInt("AmountOfCars", amountOfCars);
-
         currentCarsAmount++;
-        PlayerPrefs.SetInt("CurrentCarsAmount", currentCarsAmount);
+
+        SaveUpgradeData();
+    }
+
+    public void SaveUpgradeData()
+    {
+        UpgradeSaveData data = SaveSystem.Instance.GetUpgradeData() ?? new UpgradeSaveData();
+        data.maxSpeedCost = maxSpeedCost;
+        data.maxPassangerCost = maxPassangerCost;
+        data.accelerationCost = accelerationCost;
+        data.profitCost = profitCost;
+        data.carsCost = carsCost;
+        data.amountOfCars = amountOfCars;
+        data.currentMaxSpeedAmount = currentMaxSpeedAmount;
+        data.currentMaxPassangerAmount = currentMaxPassangerAmount;
+        data.currentAccelerationAmount = currentAccelerationAmount;
+        data.currentProfitAmount = currentProfitAmount;
+        data.currentCarsAmount = currentCarsAmount;
+        SaveSystem.Instance.SetUpgradeData(data);
     }
 
     public int GetAmountOfCars()
