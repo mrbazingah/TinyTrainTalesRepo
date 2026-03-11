@@ -14,7 +14,7 @@ Unity 2D train game. Player travels between cities, buys/sells cargo, completes 
 |---|---|
 | GameManager.cs | Coins, gems, speed, distance, passengers, save/load, region unlocking |
 | CityManager.cs | Tracks current/next/destination city, pathfinding calls, saving city state |
-| PathFinding.cs | A* / Dijkstra pathfinding between cities on the map |
+| PathFinding.cs | Dijkstra pathfinding between cities (h=0, uses Inspector-defined distances) |
 | City.cs | Individual city logic, cargo demand setup, cargo creation, saving |
 | CityMenu.cs | City popup menu, travel button, mouse-over detection |
 | CityMarketMenu.cs | Buy/sell cargo UI, demand tracking on sell, commit/reset market |
@@ -24,6 +24,10 @@ Unity 2D train game. Player travels between cities, buys/sells cargo, completes 
 | MenuAnimationY.cs | Slides UI panels in/out vertically. Static `mapMenuOpen` flag persists across scene reloads |
 | MapDragUI.cs | Map drag/pan logic, checks "OpenMap" PlayerPrefs to unlock movement on reload |
 | Region.cs | Region unlock logic, city activation |
+| Train.cs | Train movement, acceleration, speed, stopping at station, animation |
+| UpgradeManager.cs | Handles all upgrade purchases and costs, saves/loads via SaveSystem |
+| SaveSystem.cs | Singleton. All JSON save/load logic. Called via SaveSystem.Instance |
+| DebugShortcuts.cs | Keybind-based debug tool to add/remove coins, gems, speed, acceleration in-game |
 
 ## Workflow Agreement
 - User handles scene changes, GameObject placement, component wiring in Unity Editor
@@ -31,51 +35,119 @@ Unity 2D train game. Player travels between cities, buys/sells cargo, completes 
 
 ---
 
-## Fixes Made This Session
+## Save System Architecture
 
-### 1. CargoDemand display & sell tracking (CityMarketMenu.cs, City.cs)
-**Problem:** Demanded cargo not displaying, and selling demanded cargo not adding to the demand count.
-- `CityMarketMenu.BuySell()` was passing `finalStock` (remaining inventory) to `cargoDemand.AddCount()` instead of `sellAmount` (amount actually sold). Fixed to use `sellAmount`.
-- Added null guard and `Debug.LogWarning` to `City.SetUpDemandCargo()` so missing/unmatched `cargoDemandName` logs clearly instead of silently failing.
-- **Inspector checklist:** Each City needs `cargoDemandName` set to exactly match a name in CargoManager's `cargoItemsNames` array (case-sensitive). `cargoDemandAmount` must be > 0. CargoDemand GameObject must be active in scene.
+The game is migrating from PlayerPrefs to a JSON-based save system using `SaveSystem.cs`.
+`SaveSystem` is a singleton (`SaveSystem.Instance`) that lives in the scene and persists via DontDestroyOnLoad.
+All save files are stored in `Application.persistentDataPath` (same path for Editor and Windows builds).
 
-### 2. CargoDemand slider & cap (CargoDemand.cs)
-**Problem:** Demand count could exceed the max and slider was never updated.
-- Added `[SerializeField] Slider slider` field — assign in Inspector.
-- `SetItemCount()` now clamps count and sets slider min/max/value.
-- `AddCount()` now clamps before exceeding max and only passes the actually-added amount to `City.AddCargoCount()`.
+### JSON Save Files
 
-### 3. Pathfinding uses set distances not scene positions (PathFinding.cs)
-**Problem:** A* was using Euclidean world-space distance for both actual cost and heuristic. This ignored the `cityNeighborsDistances` values set in the Inspector.
-- Replaced `GetDistance()` (Euclidean) with `GetDefinedDistance()` which looks up the distance from the city's `cityNeighborsDistances` array.
-- Set `hCost = 0` everywhere — with arbitrary graph weights there is no admissible heuristic derivable from the graph alone, so Dijkstra's (h=0) is used. Guarantees optimal path. On a small city map the performance difference is zero.
-- Fallback returns `int.MaxValue / 2` for non-connected cities (half to avoid overflow).
+| File | Class | Contents |
+|---|---|---|
+| `cities.json` | `CitiesSaveFile` | Per-city cargo demand count, reset time, cargo items |
+| `inventory.json` | `InventorySaveFile` | Player cargo inventory + currentCargoAmount |
+| `train.json` | `TrainSaveFile` | trainSpeed, trainAcceleration |
+| `currency.json` | `CurrencySaveFile` | coins, gems, networth |
+| `upgrades.json` | `UpgradeSaveFile` | maxSpeed, maxPassangers, profitMultiplier, all upgrade costs and counts, amountOfCars |
+| `passenger.json` | `PassangerSaveFile` | passangers (current count) |
 
-### 4. Discarded pathfinding call (CityManager.cs)
-**Noted but not yet fixed:** `pathfinding.FindPath(currentCity, destinationCity, null)` at line 145 in `GetNextCityInPath()` — result is discarded. Wasteful call, should be removed.
+### Save/Load Pattern
+- `SaveToDisk()` — writes all files to disk. Called at end of `SaveAll()` in GameManager.
+- `LoadFromDisk()` — called in `Awake()`. Reads all files from disk.
+- Each domain has `Get___Data()` / `Set___Data()` accessors on SaveSystem.
+- **Read-modify-set pattern** must be used when multiple scripts share a file (e.g. upgrades.json is written by both GameManager and UpgradeManager).
+- `DeleteSaveFile()` — clears all in-memory data and deletes all JSON files.
 
-### 5. Map close button not closing after scene reload (MenuAnimationY.cs)
-**Problem:** After selecting a target city (which reloads the scene), the map auto-opens. Pressing close closed the map canvas but the close button canvas stayed visible.
-**Root cause:** In `MenuAnimationY.Start()`, the map menu called `otherMenu.SetMenuPosition()` which physically moved the close button canvas to its open position. If the close button canvas's own `Start()` ran after this, `savedPos = transform.position` captured the open position instead of the closed one. When close was pressed, it animated "back" to the open position.
-**Fix:** Replaced direct `otherMenu.StartAnimation()` / `otherMenu.SetMenuPosition()` calls in `Start()` with a one-frame coroutine (`OpenOtherMenuNextFrame`), so all `Start()` methods finish first before the otherMenu is moved.
+### What Still Uses PlayerPrefs
+- `"OpenMap"` — signals map should open on scene reload
+- `"CurrentCity"`, `"NextCity"`, `"DestinationCity"` — city state
+- `"Distance"`, `"RemainingDistance"` — journey progress (temporary, deleted on arrival)
+- `"AutoCollect"`, `"AutoLeave"` — toggle settings
+- `"UnlockedRegion" + index` — region unlock flags
+- `"HasStartedGame"` — checked in GameManager.Awake() to decide whether to load StartScene
 
-### 6. Inventory not loading after scene reload (Station.cs)
-**Problem:** Player inventory was saved but not restored after leaving a station (scene reload).
-**Root cause:** `Station.LeaveStation()` called `cargoManager.SaveCargo()` which only updates `CitySaveManager` in-memory data, then immediately called `SceneManager.LoadScene()`. Since `CitySaveManager` has no `DontDestroyOnLoad`, it was destroyed and re-created on reload — and its `LoadFromDisk()` read the old file because `SaveToDisk()` was never called.
-**Fix:** Added `CitySaveManager.Instance?.SaveToDisk()` in `LeaveStation()` after all save calls and before the scene reload.
-- Note: `CityMenu.cs` (travel button) was already fine — it calls `gameManager.SaveAll()` which includes `SaveToDisk()`.
+### Planned JSON Migrations (not yet done)
+- `regions.json` — unlocked region indexes (currently PlayerPrefs)
+
+### SaveAll() Call Order (GameManager.cs)
+1. SaveCurrency() → currency.json
+2. train?.SaveTrain() → train.json
+3. cam?.SavePos()
+4. questManager?.SaveQuests()
+5. carManager?.SaveCars()
+6. cargoManager?.SaveCargo() → inventory.json + cities.json
+7. cityManager?.SaveOnDeparture() or SaveCityOnQuit()
+8. MenuAnimationY buttons SavePos()
+9. Car[] SaveCar()
+10. SaveUpgrades() → upgrades.json (GameManager fields: maxSpeed, maxPassangers, profitMultiplier)
+11. upgradeManager?.SaveUpgradeData() → upgrades.json (UpgradeManager fields: costs, counts, amountOfCars)
+12. SavePassangers() → passenger.json
+13. SaveProgress() → PlayerPrefs Distance/RemainingDistance
+14. PlayerPrefs.Save()
+15. saveSystem?.SaveToDisk()
 
 ---
 
-## Known Issues / TODO (from TODO.cs)
+## Fixes & Changes Made
+
+### 1. CargoDemand display & sell tracking (CityMarketMenu.cs, City.cs)
+- `BuySell()` was passing `finalStock` instead of `sellAmount` to `cargoDemand.AddCount()`. Fixed.
+- Added null guard and `Debug.LogWarning` to `City.SetUpDemandCargo()` for missing/unmatched cargo names.
+- **Inspector checklist:** `cargoDemandName` must exactly match a name in CargoManager's `cargoItemsNames` array (case-sensitive). `cargoDemandAmount` must be > 0. CargoDemand GameObject must be active.
+
+### 2. CargoDemand slider & cap (CargoDemand.cs)
+- Added `[SerializeField] Slider slider` — assign in Inspector.
+- `SetItemCount()` now clamps count and sets slider min/max/value.
+- `AddCount()` clamps before exceeding max.
+
+### 3. Pathfinding uses Inspector distances (PathFinding.cs)
+- Replaced Euclidean `GetDistance()` with `GetDefinedDistance()` that reads `cityNeighborsDistances` from Inspector.
+- Set `hCost = 0` (Dijkstra) since arbitrary graph weights have no admissible heuristic.
+- Non-connected city fallback returns `int.MaxValue / 2`.
+
+### 4. Map close button after scene reload (MenuAnimationY.cs)
+- Root cause: `otherMenu.SetMenuPosition()` in `Start()` moved the close button canvas before its own `Start()` ran, causing it to capture the wrong `savedPos`.
+- Fix: replaced with a one-frame coroutine `OpenOtherMenuNextFrame` so all `Start()` methods complete first.
+
+### 5. Inventory not loading after scene reload (Station.cs)
+- Root cause: `LeaveStation()` called `SaveCargo()` (in-memory only) then immediately reloaded the scene, destroying SaveManager before `SaveToDisk()` was called.
+- Fix: added `CitySaveManager.Instance?.SaveToDisk()` before `SceneManager.LoadScene()`.
+
+### 6. Train save migrated to JSON (Train.cs)
+- `LoadTrain()` now reads from `SaveSystem.Instance.GetTrainData()` and assigns `speed` and `acceleration`.
+- `SaveTrain()` now calls `SaveSystem.Instance.SetTrainData(...)`.
+- Removed stray `PlayerPrefs.SetFloat` from `AddToAcceleration()`.
+
+### 7. Currency migrated to JSON (GameManager.cs)
+- `LoadCurrencyData()` reads from SaveSystem.
+- `SaveCurrency()` writes to SaveSystem.
+- Removed all PlayerPrefs reads/writes for coins, gems, networth.
+
+### 8. Upgrades migrated to JSON (GameManager.cs, UpgradeManager.cs)
+- `LoadUpgradesData()` in GameManager loads maxSpeed, maxPassangers, profitMultiplier from SaveSystem.
+- `SaveUpgrades()` in GameManager saves those three fields using read-modify-set.
+- `LoadSavedData()` in UpgradeManager loads all costs, counts, amountOfCars from SaveSystem.
+- `SaveUpgradeData()` (public) in UpgradeManager saves all cost/count fields using read-modify-set.
+- `upgradeManager?.SaveUpgradeData()` called from `SaveAll()` to ensure costs are always saved even if no upgrade was purchased.
+- Removed all PlayerPrefs reads/writes for upgrade values.
+
+### 9. Passengers migrated to JSON (GameManager.cs)
+- `LoadPassangerData()` reads from SaveSystem.
+- `SavePassangers()` writes to SaveSystem.
+- Removed PlayerPrefs write for Passangers in `AddAndSubtractPassangers()`.
+
+### 10. DebugShortcuts added (DebugShortcuts.cs)
+- Keybind-driven debug tool. Hold a value key + press increase/decrease key.
+- Supports: coins, gems, maxSpeed, acceleration.
+- Configured entirely in Inspector (no hardcoded keys or values).
+
+---
+
+## Known Issues / TODO
+- Discarded pathfinding call in `CityManager.GetNextCityInPath()` — result of `FindPath()` at line ~145 is never used. Should be removed.
+- Regions not yet migrated to JSON (still using PlayerPrefs `"UnlockedRegion" + index`).
 - Quests: one per city, some to unlock next area
 - Timer for upgrades
-- Cargo system
 - Sprites for everything (user handles)
-
-## PlayerPrefs Keys of Note
-- `"OpenMap"` — set before scene reload to signal map should open on load
-- `"CurrentCity"`, `"NextCity"`, `"DestinationCity"` — saved city state
-- `"CargoDemandCount" + cityName` — per-city demand progress
-- `"CargoItemAmount" + cityName` — number of cargo items in a city
-- `"NumberOfCargoItems"`, `"CurrentCargoAmount"` — player inventory
+- Encryption for save files — deferred until closer to release

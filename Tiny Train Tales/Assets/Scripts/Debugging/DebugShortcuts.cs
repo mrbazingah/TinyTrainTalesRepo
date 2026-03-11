@@ -39,6 +39,12 @@ public class DebugShortcuts : MonoBehaviour
     {
         if (Input.GetKey(coinsKey))
         {
+            if (gameManager == null)
+            {
+                Debug.Log("[DebugShortcuts] GameManager not found");
+                return;
+            }
+
             if (Input.GetKeyDown(increaseKey))
             {
                 gameManager.AddCoins(coinsValue);
@@ -57,6 +63,12 @@ public class DebugShortcuts : MonoBehaviour
     {
         if (Input.GetKey(gemsKey))
         {
+            if (gameManager == null)
+            {
+                Debug.Log("[DebugShortcuts] GameManager not found");
+                return;
+            }
+
             if (Input.GetKeyDown(increaseKey))
             {
                 gameManager.AddGems(gemsValue);
@@ -75,6 +87,12 @@ public class DebugShortcuts : MonoBehaviour
     {
         if (Input.GetKey(speedKey))
         {
+            if (gameManager == null)
+            {
+                Debug.Log("[DebugShortcuts] GameManager not found");
+                return;
+            }
+
             if (Input.GetKeyDown(increaseKey))
             {
                 gameManager.AddToMaxSpeed(speedValue);
@@ -93,6 +111,12 @@ public class DebugShortcuts : MonoBehaviour
     {
         if (Input.GetKey(accelerationKey))
         {
+            if (train == null)
+            {
+                Debug.Log("[DebugShortcuts] Train not found");
+                return;
+            }
+
             if (Input.GetKeyDown(increaseKey))
             {
                 train.AddToAcceleration(accelerationValue);

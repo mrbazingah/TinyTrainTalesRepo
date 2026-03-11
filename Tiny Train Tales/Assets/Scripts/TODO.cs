@@ -9,8 +9,6 @@ public class TODO : MonoBehaviour
     //Timer for upgrades
     //Cargo
 
-    //Saving System rehaul
-
     //Possible idea to add a day and night cycle
     //Would need to make a cycle for sky and make every sprite on screen darker
 
