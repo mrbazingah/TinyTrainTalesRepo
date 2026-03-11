@@ -8,7 +8,7 @@ public class DebugShortcuts : MonoBehaviour
     [SerializeField] KeyCode speedKey;
     [SerializeField] KeyCode accelerationKey;
 
-    [Header("Add or Remove Keybinds")]
+    [Header("Increase/Decrease Keybinds")]
     [SerializeField] KeyCode increaseKey;
     [SerializeField] KeyCode decreaseKey;
 

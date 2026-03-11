@@ -75,9 +75,8 @@ public class GameManager : MonoBehaviour
     {
         if (!PlayerPrefs.HasKey("HasStartedGame"))
         {
-            saveSystem?.DeleteSaveFile();
             Debug.Log("[GameManager] Save file not found, reseting game");
-            SceneManager.LoadScene("StartScene");
+            DeleteAll();
         }
 
         train = FindObjectOfType<Train>();
@@ -98,6 +97,7 @@ public class GameManager : MonoBehaviour
         LoadPlayerPrefsData();
         LoadCurrencyData();
         LoadUpgradesData();
+        LoadPassangerData();
     }
 
     public void UpdateCityTexts()
@@ -108,10 +108,6 @@ public class GameManager : MonoBehaviour
     #region Load Data
     void LoadPlayerPrefsData()
     {
-        if (PlayerPrefs.HasKey("Passangers"))
-        {
-            passangers = PlayerPrefs.GetFloat("Passangers");
-        }
         if (PlayerPrefs.HasKey("AutoCollect"))
         {
             int i = PlayerPrefs.GetInt("AutoCollect");
@@ -184,12 +180,21 @@ public class GameManager : MonoBehaviour
 
     void LoadUpgradesData()
     {
-        UpgradeSaveData data = SaveSystem.Instance.GetUpgradeData();
+        UpgradeSaveData data = saveSystem.GetUpgradeData();
         if (data != null)
         {
             maxSpeed = data.maxSpeed;
             maxPassangers = data.maxPassangers;
             profitMultiplier = data.profitMultiplier;
+        }
+    }
+
+    void LoadPassangerData()
+    {
+        PassangerSaveData data = saveSystem.GetPassangerData();
+        if (data != null)
+        {
+            passangers = data.passanger;
         }
     }
     #endregion
@@ -525,8 +530,6 @@ public class GameManager : MonoBehaviour
         station.GetPassangers(subPassangers, addPassangers, coinsAdded);
         AddCoins(coinsAdded);
 
-        PlayerPrefs.SetFloat("Passangers", passangers);
-
         PassangerQuest[] passangerQuests = FindObjectsOfType<PassangerQuest>();
         for (int i = 0; i < passangerQuests.Length; i++)
         {
@@ -636,11 +639,19 @@ public class GameManager : MonoBehaviour
 
     void SaveUpgrades()
     {
-        UpgradeSaveData data = SaveSystem.Instance.GetUpgradeData() ?? new UpgradeSaveData();
+        UpgradeSaveData data = saveSystem.GetUpgradeData() ?? new UpgradeSaveData();
         data.maxSpeed = maxSpeed;
         data.maxPassangers = maxPassangers;
         data.profitMultiplier = profitMultiplier;
-        SaveSystem.Instance.SetUpgradeData(data);
+        saveSystem.SetUpgradeData(data);
+    }
+
+    void SavePassangers()
+    {
+        saveSystem.SetPassangerData(new PassangerSaveData
+        {
+            passanger = passangers,
+        });
     }
 
     void SaveProgress()
@@ -712,8 +723,7 @@ public class GameManager : MonoBehaviour
 
         SaveUpgrades();
         upgradeManager?.SaveUpgradeData();
-        PlayerPrefs.SetFloat("Passangers", passangers);
-
+        SavePassangers();
         SaveProgress();
 
         PlayerPrefs.Save();
