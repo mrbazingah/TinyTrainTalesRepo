@@ -48,20 +48,22 @@ public class Train : MonoBehaviour
 
     public void LoadTrain()
     {
-        if (PlayerPrefs.HasKey("Acceleration") || PlayerPrefs.HasKey("Speed"))
+        TrainSaveData data = SaveSystem.Instance.GetTrainData();
+        if (data != null)
         {
-            speed = PlayerPrefs.GetFloat("Speed");
-            acceleration = PlayerPrefs.GetFloat("Acceleration");
+            speed = data.trainSpeed;
+            acceleration = data.trainAcceleration;
         }
-
         hasLoaded = true;
     }
 
     public void SaveTrain()
     {
-        PlayerPrefs.SetFloat("Speed", speed);
-        PlayerPrefs.SetFloat("Acceleration", acceleration);
-
+        SaveSystem.Instance.SetTrainData(new TrainSaveData
+        {
+            trainSpeed = speed,
+            trainAcceleration = acceleration
+        });
     }
 
     public bool GetHasLoaded()
@@ -217,7 +219,6 @@ public class Train : MonoBehaviour
     public void AddToAcceleration(float amountAdded)
     {
         acceleration += amountAdded;
-        PlayerPrefs.SetFloat("Acceleration", acceleration);
     }
     #endregion
 

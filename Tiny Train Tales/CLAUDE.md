@@ -70,7 +70,7 @@ Unity 2D train game. Player travels between cities, buys/sells cargo, completes 
 ## Known Issues / TODO (from TODO.cs)
 - Quests: one per city, some to unlock next area
 - Timer for upgrades
-- Cargo system (ongoing)
+- Cargo system
 - Sprites for everything (user handles)
 
 ## PlayerPrefs Keys of Note

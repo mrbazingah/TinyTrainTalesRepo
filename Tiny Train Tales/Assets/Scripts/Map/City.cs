@@ -80,7 +80,14 @@ public class City : MonoBehaviour
         }
 
         // --- Add countdown timer update ---
-        timeUntilReset = timeManager.GetTimeUntilResetFromString(cargoResetTime, SaveSystem.Instance.GetResetTime(gameObject.name));
+        if (SaveSystem.Instance != null)
+        {
+            timeUntilReset = timeManager.GetTimeUntilResetFromString(cargoResetTime, SaveSystem.Instance.GetResetTime(gameObject.name));
+        }
+        else
+        {
+            Debug.Log("SaveSystem.Instance not found");
+        }
 
         if (resetTimerText != null)
         {

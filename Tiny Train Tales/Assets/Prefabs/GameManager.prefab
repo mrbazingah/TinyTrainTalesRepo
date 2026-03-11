@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 226441167980901094}
   - component: {fileID: 6013072587387181096}
   - component: {fileID: 995032294139566379}
-  - component: {fileID: 6843319793397086600}
   - component: {fileID: 1009562311121662478}
+  - component: {fileID: 2973848855340673391}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -108,18 +108,6 @@ MonoBehaviour:
   trainCollider: {fileID: 0}
   colliderOffset: 35
   startPos: {x: -3.5, y: -1.15}
---- !u!114 &6843319793397086600
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3450606250641564517}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9f346e9ec6ffb1545a8a647a3b23c9b6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1009562311121662478
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -133,3 +121,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   versionText: {fileID: 0}
+--- !u!114 &2973848855340673391
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3450606250641564517}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad3e77a35677c9a43a2f3fc0dce4eb4c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
