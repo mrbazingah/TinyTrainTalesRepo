@@ -30,6 +30,13 @@ public class TrainSaveData
     public float trainAcceleration;
 }
 
+[Serializable]
+public class CurrencySaveData
+{
+    public float savedCoins;
+    public float savedGems;
+    public float savedNetworth;
+}
 
 [Serializable]
 public class CitiesSaveFile
@@ -50,6 +57,12 @@ public class TrainSaveFile
     public List<TrainSaveData> train = new List<TrainSaveData>();
 }
 
+[Serializable]
+public class CurrencySaveFile
+{
+    public List<CurrencySaveData> currency = new List<CurrencySaveData>();
+}
+
 public class SaveSystem : MonoBehaviour
 {
     public static SaveSystem Instance { get; private set; }
@@ -57,10 +70,12 @@ public class SaveSystem : MonoBehaviour
     CitiesSaveFile cityFile = new CitiesSaveFile();
     InventorySaveFile inventoryFile = new InventorySaveFile();
     TrainSaveFile trainFile = new TrainSaveFile();
+    CurrencySaveFile currencyFile = new CurrencySaveFile();
     Dictionary<string, CitySaveData> cityDict = new Dictionary<string, CitySaveData>();
     string citiesPath;
     string inventoryPath;
     string trainPath;
+    string currencyPath;
 
     void Awake()
     {
@@ -74,6 +89,7 @@ public class SaveSystem : MonoBehaviour
         citiesPath = Path.Combine(Application.persistentDataPath, "cities.json");
         inventoryPath = Path.Combine(Application.persistentDataPath, "inventory.json");
         trainPath = Path.Combine(Application.persistentDataPath, "train.json");
+        currencyPath = Path.Combine(Application.persistentDataPath, "currency.json");
         LoadFromDisk();
     }
 
@@ -83,6 +99,7 @@ public class SaveSystem : MonoBehaviour
         cityFile = new CitiesSaveFile();
         inventoryFile = new InventorySaveFile();
         trainFile = new TrainSaveFile();
+        currencyFile = new CurrencySaveFile();
 
         if (File.Exists(citiesPath))
         {
@@ -127,7 +144,19 @@ public class SaveSystem : MonoBehaviour
             Debug.Log("[SaveSystem] No train save file found, starting fresh.");
         }
 
-        Debug.Log($"[SaveSystem] Loaded {cityDict.Count} cities, {inventoryFile.inventoryItems?.Count ?? 0} inventory items, {trainFile.train?.Count ?? 0} train values");
+        if (File.Exists(currencyPath))
+        {
+            string json = File.ReadAllText(currencyPath);
+            CurrencySaveFile loaded = JsonUtility.FromJson<CurrencySaveFile>(json);
+            if (loaded != null)
+                currencyFile = loaded;
+        }
+        else
+        {
+            Debug.Log("[SaveSystem] No currency save file found, starting fresh.");
+        }
+
+        Debug.Log($"[SaveSystem] Loaded {cityDict.Count} cities, {inventoryFile.inventoryItems?.Count ?? 0} inventory items, {trainFile.train?.Count ?? 0} train values, {currencyFile.currency?.Count ?? 0} currency values");
     }
 
     public void SaveToDisk()
@@ -136,7 +165,8 @@ public class SaveSystem : MonoBehaviour
         File.WriteAllText(citiesPath, JsonUtility.ToJson(cityFile, true));
         File.WriteAllText(inventoryPath, JsonUtility.ToJson(inventoryFile, true));
         File.WriteAllText(trainPath, JsonUtility.ToJson(trainFile, true));
-        Debug.Log($"[SaveSystem] Saved {cityDict.Count} cities, {inventoryFile.inventoryItems?.Count ?? 0} inventory items, {trainFile.train?.Count ?? 0} train values");
+        File.WriteAllText(currencyPath, JsonUtility.ToJson(currencyFile, true));
+        Debug.Log($"[SaveSystem] Saved {cityDict.Count} cities, {inventoryFile.inventoryItems?.Count ?? 0} inventory items, {trainFile.train?.Count ?? 0} train values, {currencyFile.currency?.Count ?? 0} currency values");
     }
 
     public void DeleteSaveFile()
@@ -144,12 +174,17 @@ public class SaveSystem : MonoBehaviour
         cityDict.Clear();
         cityFile = new CitiesSaveFile();
         inventoryFile = new InventorySaveFile();
+        trainFile = new TrainSaveFile();
+        currencyFile = new CurrencySaveFile();
+
         if (File.Exists(citiesPath))
             File.Delete(citiesPath);
         if (File.Exists(inventoryPath))
             File.Delete(inventoryPath);
         if (File.Exists(trainPath))
             File.Delete(trainPath);
+        if (File.Exists(currencyPath))
+            File.Delete(currencyPath);
     }
 
     // --- City ---
@@ -219,5 +254,18 @@ public class SaveSystem : MonoBehaviour
     {
         trainFile.train.Clear();
         trainFile.train.Add(data);
+    }
+
+    // --- Currency ---
+
+    public CurrencySaveData GetCurrencyData()
+    {
+        return currencyFile.currency.Count > 0 ? currencyFile.currency[0] : null;
+    }
+
+    public void SetCurrencyData(CurrencySaveData data)
+    {
+        currencyFile.currency.Clear();
+        currencyFile.currency.Add(data);
     }
 }

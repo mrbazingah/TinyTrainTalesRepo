@@ -4,14 +4,14 @@ public class DebugShortcuts : MonoBehaviour
 {
 #if UNITY_EDITOR
     [Header("Value Keybinds")]
-    [SerializeField] KeyCode coinsShortcut;
-    [SerializeField] KeyCode gemsShortcut;
-    [SerializeField] KeyCode speedShortcut;
-    [SerializeField] KeyCode accelerationShortcut;
+    [SerializeField] KeyCode coinsKey;
+    [SerializeField] KeyCode gemsKey;
+    [SerializeField] KeyCode speedKey;
+    [SerializeField] KeyCode accelerationKey;
 
     [Header("Add or Remove Keybinds")]
-    [SerializeField] KeyCode increaseShortcut;
-    [SerializeField] KeyCode decreaseShortcut;
+    [SerializeField] KeyCode increaseKey;
+    [SerializeField] KeyCode decreaseKey;
 
     [Header("Values")]
     [SerializeField] float coinsValue;
@@ -38,15 +38,15 @@ public class DebugShortcuts : MonoBehaviour
 
     void Coins()
     {
-        if (Input.GetKey(coinsShortcut))
+        if (Input.GetKey(coinsKey))
         {
-            if (Input.GetKeyDown(increaseShortcut))
+            if (Input.GetKeyDown(increaseKey))
             {
                 gameManager.AddCoins(coinsValue);
                 Debug.Log($"[DebugShortcuts] Added {coinsValue} Coins * (Profit modifier)");
             }
             
-            if (Input.GetKeyDown(decreaseShortcut))
+            if (Input.GetKeyDown(decreaseKey))
             {
                 gameManager.AddCoins(-coinsValue);
                 Debug.Log($"[DebugShortcuts] Removed {coinsValue} Coins * (Profit modifier)");
@@ -56,15 +56,15 @@ public class DebugShortcuts : MonoBehaviour
 
     void Gems()
     {
-        if (Input.GetKey(gemsShortcut))
+        if (Input.GetKey(gemsKey))
         {
-            if (Input.GetKeyDown(increaseShortcut))
+            if (Input.GetKeyDown(increaseKey))
             {
                 gameManager.AddGems(gemsValue);
                 Debug.Log($"[DebugShortcuts] Added {gemsValue} Gems");
             }
 
-            if (Input.GetKeyDown(decreaseShortcut))
+            if (Input.GetKeyDown(decreaseKey))
             {
                 gameManager.AddGems(-gemsValue);
                 Debug.Log($"[DebugShortcuts] Removed {gemsValue} Gems");
@@ -74,15 +74,15 @@ public class DebugShortcuts : MonoBehaviour
 
     void Speed()
     {
-        if (Input.GetKey(speedShortcut))
+        if (Input.GetKey(speedKey))
         {
-            if (Input.GetKeyDown(increaseShortcut))
+            if (Input.GetKeyDown(increaseKey))
             {
                 gameManager.AddToMaxSpeed(speedValue);
                 Debug.Log($"[DebugShortcuts] Added {speedValue} to MaxSpeed");
             }
 
-            if (Input.GetKeyDown(decreaseShortcut))
+            if (Input.GetKeyDown(decreaseKey))
             {
                 gameManager.AddToMaxSpeed(-speedValue);
                 Debug.Log($"[DebugShortcuts] Removed {speedValue} from MaxSpeed");
@@ -92,15 +92,15 @@ public class DebugShortcuts : MonoBehaviour
 
     void Acceleration()
     {
-        if (Input.GetKey(accelerationShortcut))
+        if (Input.GetKey(accelerationKey))
         {
-            if (Input.GetKeyDown(increaseShortcut))
+            if (Input.GetKeyDown(increaseKey))
             {
                 train.AddToAcceleration(accelerationValue);
                 Debug.Log($"[DebugShortcuts] Added {accelerationValue} to Acceleration");
             }
 
-            if (Input.GetKeyDown(decreaseShortcut))
+            if (Input.GetKeyDown(decreaseKey))
             {
                 train.AddToAcceleration(-accelerationValue);
                 Debug.Log($"[DebugShortcuts] Removed {accelerationValue} from Acceleration");

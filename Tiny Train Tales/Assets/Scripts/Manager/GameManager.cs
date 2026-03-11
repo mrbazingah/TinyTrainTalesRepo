@@ -94,6 +94,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         PlayerPrefsSetUp();
+        LoadCurrency();
     }
 
     public void UpdateCityTexts()
@@ -101,28 +102,12 @@ public class GameManager : MonoBehaviour
         cityManager.UpdateCityTexts(currentCityText, destinationCityText);
     }
 
-    #region PlayerPrefs
+    #region Load
     void PlayerPrefsSetUp()
     {
         if (PlayerPrefs.HasKey("MaxSpeed"))
         {
             maxSpeed = PlayerPrefs.GetFloat("MaxSpeed");
-        }
-        if (PlayerPrefs.HasKey("Coins"))
-        {
-            coins = PlayerPrefs.GetFloat("Coins");
-        }
-        if (PlayerPrefs.HasKey("Networth"))
-        {
-            networth = PlayerPrefs.GetFloat("Networth");
-        }
-        else
-        {
-            networth = coins;
-        }
-        if (PlayerPrefs.HasKey("Gems"))
-        {
-            gems = PlayerPrefs.GetFloat("Gems");
         }
         if (PlayerPrefs.HasKey("MaxPassangers"))
         {
@@ -194,7 +179,20 @@ public class GameManager : MonoBehaviour
         remainingDistance = Mathf.Round(remainingDistance);
         remainingDistanceText.text = remainingDistance.ToString() + "km";
     }
+
+    void LoadCurrency()
+    {
+        CurrencySaveData data = SaveSystem.Instance.GetCurrencyData();
+        if (data != null)
+        {
+            coins = data.savedCoins;
+            gems = data.savedGems;
+            networth = data.savedNetworth;
+        }
+    }
     #endregion
+
+
 
     void Update()
     {
@@ -237,16 +235,12 @@ public class GameManager : MonoBehaviour
     public void AddCoins(float amountAdded)
     {
         coins += amountAdded * profitMultiplier;
-        PlayerPrefs.SetFloat("Coins", coins);
-
         networth += coins;
-        PlayerPrefs.SetFloat("Networth", networth);
     }
 
     public void BuyWithCoins(float cost)
     {
         coins -= cost;
-        PlayerPrefs.SetFloat("Coins", coins);
     }
 
     public float GetCoins()
@@ -265,16 +259,12 @@ public class GameManager : MonoBehaviour
     {
         gems += amount;
         gemsText.text = gems.ToString();
-
-        PlayerPrefs.SetFloat("Gems", gems);
     }
 
     public void BuyWithGems(float cost)
     {
         gems -= cost;
         gemsText.text = gems.ToString();
-
-        PlayerPrefs.SetFloat("Gems", gems);
     }
 
     public float GetGems()
@@ -637,6 +627,16 @@ public class GameManager : MonoBehaviour
     #endregion
 
     #region Save
+    void SaveCurrency()
+    {
+        SaveSystem.Instance.SetCurrencyData(new CurrencySaveData
+        {
+            savedGems = gems,
+            savedCoins = coins,
+            savedNetworth = networth
+        });
+    }
+
     void SaveProgress()
     {
         if (remainingDistance <= 0)
@@ -676,6 +676,7 @@ public class GameManager : MonoBehaviour
 
     public void SaveAll()
     {
+        SaveCurrency();
         train?.SaveTrain();
         cam?.SavePos();
         questManager?.SaveQuests();
@@ -705,9 +706,6 @@ public class GameManager : MonoBehaviour
 
         PlayerPrefs.SetFloat("MaxPassangers", maxPassangers);
         PlayerPrefs.SetFloat("MaxSpeed", maxSpeed);
-        PlayerPrefs.SetFloat("Coins", coins);
-        PlayerPrefs.SetFloat("Networth", networth);
-        PlayerPrefs.SetFloat("Gems", gems);
         PlayerPrefs.SetFloat("Passangers", passangers);
 
         SaveProgress();

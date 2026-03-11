@@ -9819,12 +9819,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e0bb8e49be5dcb419f805bc8ba092e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  coinsShortcut: 282
-  gemsShortcut: 283
-  speedShortcut: 284
-  accelerationShortcut: 285
-  increaseShortcut: 273
-  decreaseShortcut: 274
+  coinsKey: 282
+  gemsKey: 283
+  speedKey: 284
+  accelerationKey: 285
+  increaseKey: 273
+  decreaseKey: 274
   coinsValue: 10000
   gemsValue: 10
   speedValue: 20
