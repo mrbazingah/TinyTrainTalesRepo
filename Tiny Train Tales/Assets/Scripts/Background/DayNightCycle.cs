@@ -68,8 +68,10 @@ public class DayNightCycle : MonoBehaviour
 
     void Start()
     {
-        currentDayNightDuration = dayNightDuration;
-        currentMorningEveningDuration = morningEveningDuration;
+        if (currentDayNightDuration <= 0f)
+            currentDayNightDuration = dayNightDuration;
+        if (currentMorningEveningDuration <= 0f)
+            currentMorningEveningDuration = morningEveningDuration;
     }
 
     void Update()
@@ -121,6 +123,7 @@ public class DayNightCycle : MonoBehaviour
             currentDayNightDuration = currentDayNightDuration,
             currentMorningEveningDuration = currentMorningEveningDuration
         };
+
         SaveSystem.Instance.SetDayNightData(data);
     }
 }

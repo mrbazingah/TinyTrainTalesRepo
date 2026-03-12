@@ -18,6 +18,7 @@ public class Station : MonoBehaviour
     CityManager cityManager;
     CityMarketMenu cityCargoMenu;
     CargoManager cargoManager;
+    DayNightCycle dayNightCycle;
 
     void Awake()
     {
@@ -25,6 +26,7 @@ public class Station : MonoBehaviour
         cityManager = FindObjectOfType<CityManager>();
         cityCargoMenu = FindObjectOfType<CityMarketMenu>();
         cargoManager = FindObjectOfType<CargoManager>();
+        dayNightCycle = FindObjectOfType<DayNightCycle>();
     }
 
     void Start()
@@ -76,6 +78,7 @@ public class Station : MonoBehaviour
         cityManager?.SaveOnDeparture();
         cityManager?.ResetPath();
         cargoManager?.SaveCargo();
+        dayNightCycle?.SaveDayNightData();
 
         cityManager.GetNextCity().GetComponent<City>().SaveCityCargo();
 

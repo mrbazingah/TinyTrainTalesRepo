@@ -695,13 +695,13 @@ public class GameManager : MonoBehaviour
 
     public void SaveAll()
     {
-        SaveCurrency();
         train?.SaveTrain();
         cam?.SavePos();
         questManager?.SaveQuests();
         carManager?.SaveCars();
         cargoManager?.SaveCargo();
-        dayNightCycle.SaveDayNightData();
+        dayNightCycle?.SaveDayNightData();
+        upgradeManager?.SaveUpgradeData();
 
         if (hasArrivedAtStation)
         {
@@ -725,9 +725,9 @@ public class GameManager : MonoBehaviour
         }
 
         SaveUpgrades();
-        upgradeManager?.SaveUpgradeData();
         SavePassangers();
         SaveProgress();
+        SaveCurrency();
 
         PlayerPrefs.Save();
         saveSystem?.SaveToDisk();
