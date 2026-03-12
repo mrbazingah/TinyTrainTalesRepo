@@ -61,8 +61,6 @@ public class BlockMovement : MonoBehaviour
             }
         }
 
-        
-
         psMainModule = smokePS.main;
         psOriginalColor = psMainModule.startColor.color;
 

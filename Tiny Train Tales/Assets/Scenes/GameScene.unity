@@ -37993,9 +37993,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91eab7778580ad44685768706c455488, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dayNightDuration: 10
-  morningEveningDuration: 10
-  transitionDuration: 4
+  dayNightDuration: 60
+  morningEveningDuration: 30
+  transitionDuration: 7
   dayColor: {r: 1, g: 1, b: 1, a: 1}
   morningColor: {r: 0.93423134, g: 0.7287736, b: 0.9716981, a: 1}
   eveningColor: {r: 0.7, g: 0.6, b: 0.5, a: 1}
