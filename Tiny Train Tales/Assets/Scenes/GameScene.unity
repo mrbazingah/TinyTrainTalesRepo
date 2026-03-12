@@ -1113,6 +1113,22 @@ MonoBehaviour:
   dayObject: {fileID: 1210903889}
   eveningObject: {fileID: 12972168}
   nightObject: {fileID: 896205542}
+  morningRenderers:
+  - {fileID: 1034333284}
+  - {fileID: 1243085739}
+  - {fileID: 1872754429}
+  dayRenderers:
+  - {fileID: 1732378755}
+  - {fileID: 792808846}
+  - {fileID: 702668475}
+  eveningRenderers:
+  - {fileID: 1834263544}
+  - {fileID: 1038575659}
+  - {fileID: 638710668}
+  nightRenderers:
+  - {fileID: 1042141134}
+  - {fileID: 1958603285}
+  - {fileID: 1751086801}
   spriteRenderers: []
   includeTrain: 0
   smokePS: {fileID: 0}
@@ -6347,7 +6363,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &307202275
 Transform:
   m_ObjectHideFlags: 0
@@ -37977,8 +37993,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91eab7778580ad44685768706c455488, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dayNightDuration: 5
-  morningEveningDuration: 5
+  dayNightDuration: 10
+  morningEveningDuration: 10
+  transitionDuration: 4
   dayColor: {r: 1, g: 1, b: 1, a: 1}
   morningColor: {r: 0.93423134, g: 0.7287736, b: 0.9716981, a: 1}
   eveningColor: {r: 0.7, g: 0.6, b: 0.5, a: 1}
@@ -50133,6 +50150,10 @@ MonoBehaviour:
   dayObject: {fileID: 0}
   eveningObject: {fileID: 0}
   nightObject: {fileID: 0}
+  morningRenderers: []
+  dayRenderers: []
+  eveningRenderers: []
+  nightRenderers: []
   spriteRenderers:
   - {fileID: 794011120}
   - {fileID: 1472194231}
@@ -53550,6 +53571,10 @@ MonoBehaviour:
   dayObject: {fileID: 0}
   eveningObject: {fileID: 0}
   nightObject: {fileID: 0}
+  morningRenderers: []
+  dayRenderers: []
+  eveningRenderers: []
+  nightRenderers: []
   spriteRenderers: []
   includeTrain: 0
   smokePS: {fileID: 0}
@@ -55359,18 +55384,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Train
       objectReference: {fileID: 0}
-    - target: {fileID: 5176582920640932130, guid: 99cf9d11154a4484b9363d7ddcdb2782, type: 3}
-      propertyPath: InitialModule.startColor.maxColor.b
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5176582920640932130, guid: 99cf9d11154a4484b9363d7ddcdb2782, type: 3}
-      propertyPath: InitialModule.startColor.maxColor.g
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5176582920640932130, guid: 99cf9d11154a4484b9363d7ddcdb2782, type: 3}
-      propertyPath: InitialModule.startColor.maxColor.r
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 7211839878781286953, guid: 99cf9d11154a4484b9363d7ddcdb2782, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.94
@@ -55620,6 +55633,22 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3368237024372698397, guid: add178ffe0633914ca6d7a783a262349, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3539912243412507661, guid: add178ffe0633914ca6d7a783a262349, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5158783210279445875, guid: add178ffe0633914ca6d7a783a262349, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6498882727294919381, guid: add178ffe0633914ca6d7a783a262349, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7028376958403826710, guid: add178ffe0633914ca6d7a783a262349, type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -57388,6 +57417,10 @@ MonoBehaviour:
   dayObject: {fileID: 0}
   eveningObject: {fileID: 0}
   nightObject: {fileID: 0}
+  morningRenderers: []
+  dayRenderers: []
+  eveningRenderers: []
+  nightRenderers: []
   spriteRenderers:
   - {fileID: 3039807084525847795}
   - {fileID: 1080884176}
@@ -57837,6 +57870,10 @@ MonoBehaviour:
   dayObject: {fileID: 0}
   eveningObject: {fileID: 0}
   nightObject: {fileID: 0}
+  morningRenderers: []
+  dayRenderers: []
+  eveningRenderers: []
+  nightRenderers: []
   spriteRenderers:
   - {fileID: 1866724193271988609}
   - {fileID: 799949792096042162}
@@ -58127,6 +58164,10 @@ MonoBehaviour:
   dayObject: {fileID: 0}
   eveningObject: {fileID: 0}
   nightObject: {fileID: 0}
+  morningRenderers: []
+  dayRenderers: []
+  eveningRenderers: []
+  nightRenderers: []
   spriteRenderers:
   - {fileID: 452392449843751082}
   - {fileID: 4092276514626905496}

@@ -701,7 +701,7 @@ public class GameManager : MonoBehaviour
         questManager?.SaveQuests();
         carManager?.SaveCars();
         cargoManager?.SaveCargo();
-        dayNightCycle.SaveDayNight();
+        dayNightCycle.SaveDayNightData();
 
         if (hasArrivedAtStation)
         {

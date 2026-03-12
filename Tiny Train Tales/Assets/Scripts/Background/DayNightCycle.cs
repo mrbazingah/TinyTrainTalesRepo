@@ -4,6 +4,7 @@ public class DayNightCycle : MonoBehaviour
 {
     [SerializeField] float dayNightDuration;
     [SerializeField] float morningEveningDuration;
+    [SerializeField] float transitionDuration = 3f;
 
     [Header("Time of Day Colors")]
     [SerializeField] Color dayColor = Color.white;
@@ -13,6 +14,10 @@ public class DayNightCycle : MonoBehaviour
 
     float currentDayNightDuration;
     float currentMorningEveningDuration;
+
+    bool isTransitioning;
+    float transitionProgress;
+    TimeOfDay nextTime;
 
     public TimeOfDay currentTime;
 
@@ -28,6 +33,17 @@ public class DayNightCycle : MonoBehaviour
         };
     }
 
+    public Color GetBlendedColor()
+    {
+        if (!isTransitioning)
+            return GetTimeColor(currentTime);
+        return Color.Lerp(GetTimeColor(currentTime), GetTimeColor(nextTime), transitionProgress);
+    }
+
+    public bool IsTransitioning() => isTransitioning;
+    public float GetTransitionProgress() => transitionProgress;
+    public TimeOfDay GetNextTime() => nextTime;
+
     public enum TimeOfDay
     {
         Morning,
@@ -38,10 +54,10 @@ public class DayNightCycle : MonoBehaviour
 
     void Awake()
     {
-        LoadDayNight();
+        LoadDayNightData();
     }
 
-    public void LoadDayNight()
+    public void LoadDayNightData()
     {
         DayNightSaveData data = SaveSystem.Instance.GetDayNightData();
         if (data == null) return;
@@ -58,13 +74,25 @@ public class DayNightCycle : MonoBehaviour
 
     void Update()
     {
+        if (isTransitioning)
+        {
+            transitionProgress += Time.deltaTime / transitionDuration;
+            if (transitionProgress >= 1f)
+            {
+                transitionProgress = 0f;
+                currentTime = nextTime;
+                isTransitioning = false;
+            }
+            return;
+        }
+
         if (currentTime == TimeOfDay.Morning || currentTime == TimeOfDay.Evening)
         {
             currentMorningEveningDuration -= Time.deltaTime;
             if (currentMorningEveningDuration <= 0f)
             {
                 currentMorningEveningDuration = morningEveningDuration;
-                currentTime = currentTime == TimeOfDay.Morning ? TimeOfDay.Day : TimeOfDay.Night;
+                StartTransition(currentTime == TimeOfDay.Morning ? TimeOfDay.Day : TimeOfDay.Night);
             }
         }
         else
@@ -73,12 +101,19 @@ public class DayNightCycle : MonoBehaviour
             if (currentDayNightDuration <= 0f)
             {
                 currentDayNightDuration = dayNightDuration;
-                currentTime = currentTime == TimeOfDay.Day ? TimeOfDay.Evening : TimeOfDay.Morning;
+                StartTransition(currentTime == TimeOfDay.Day ? TimeOfDay.Evening : TimeOfDay.Morning);
             }
         }
     }
 
-    public void SaveDayNight()
+    void StartTransition(TimeOfDay to)
+    {
+        isTransitioning = true;
+        transitionProgress = 0f;
+        nextTime = to;
+    }
+
+    public void SaveDayNightData()
     {
         DayNightSaveData data = new DayNightSaveData
         {

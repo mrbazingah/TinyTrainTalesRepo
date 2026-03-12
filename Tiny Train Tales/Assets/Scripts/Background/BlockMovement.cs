@@ -15,6 +15,12 @@ public class BlockMovement : MonoBehaviour
     [SerializeField] GameObject eveningObject;
     [SerializeField] GameObject nightObject;
 
+    [Header("Sky Block Renderers (Block 4 only)")]
+    [SerializeField] SpriteRenderer[] morningRenderers;
+    [SerializeField] SpriteRenderer[] dayRenderers;
+    [SerializeField] SpriteRenderer[] eveningRenderers;
+    [SerializeField] SpriteRenderer[] nightRenderers;
+
     [Header("Non-Sky Block Tinting")]
     [SerializeField] List<SpriteRenderer> spriteRenderers;
     [SerializeField] bool includeTrain;
@@ -55,6 +61,8 @@ public class BlockMovement : MonoBehaviour
             }
         }
 
+        
+
         psMainModule = smokePS.main;
         psOriginalColor = psMainModule.startColor.color;
 
@@ -71,7 +79,7 @@ public class BlockMovement : MonoBehaviour
 
         if (spriteRenderers.Count > 0)
         {
-            Color blockColor = dayNightCycle.GetTimeColor(timeOfDay);
+            Color blockColor = dayNightCycle.GetBlendedColor();
             for (int i = 0; i < spriteRenderers.Count; i++)
             {
                 if (spriteRenderers[i] != null)
@@ -101,27 +109,23 @@ public class BlockMovement : MonoBehaviour
 
     void DayNightEvent()
     {
+        bool transitioning = dayNightCycle.IsTransitioning();
         DayNightCycle.TimeOfDay timeOfDay = dayNightCycle.currentTime;
-        if (timeOfDay == lastTimeOfDay) return;
-        lastTimeOfDay = timeOfDay;
-        Color blockColor = dayNightCycle.GetTimeColor(timeOfDay);
+
+        if (!transitioning && timeOfDay == lastTimeOfDay) return;
+
+        Color blockColor = transitioning ? dayNightCycle.GetBlendedColor() : dayNightCycle.GetTimeColor(timeOfDay);
 
         if (currentBlockNumber == 3)
         {
-            if (morningObject != null) morningObject.SetActive(timeOfDay == DayNightCycle.TimeOfDay.Morning);
-            if (dayObject != null)     dayObject.SetActive(timeOfDay == DayNightCycle.TimeOfDay.Day);
-            if (eveningObject != null) eveningObject.SetActive(timeOfDay == DayNightCycle.TimeOfDay.Evening);
-            if (nightObject != null)   nightObject.SetActive(timeOfDay == DayNightCycle.TimeOfDay.Night);
+            HandleSkyBlock(transitioning, timeOfDay);
         }
         else if (spriteRenderers.Count > 0)
         {
             for (int i = 0; i < spriteRenderers.Count; i++)
             {
                 if (spriteRenderers[i] != null)
-                {
-                    spriteRenderers[i].color = originalColors[i].normalColor;
-                    spriteRenderers[i].color *= blockColor;
-                }
+                    spriteRenderers[i].color = originalColors[i].normalColor * blockColor;
             }
         }
 
@@ -130,7 +134,76 @@ public class BlockMovement : MonoBehaviour
             psMainModule.startColor = new ParticleSystem.MinMaxGradient(psOriginalColor * blockColor);
             ApplyColorToExistingParticles(blockColor);
         }
+
+        if (!transitioning) lastTimeOfDay = timeOfDay;
     }
+
+    void HandleSkyBlock(bool transitioning, DayNightCycle.TimeOfDay timeOfDay)
+    {
+        if (transitioning)
+        {
+            GetSkyObject(dayNightCycle.GetNextTime())?.SetActive(true);
+
+            float alpha = 1f - dayNightCycle.GetTransitionProgress();
+            SpriteRenderer[] currentSRs = GetSkyRenderers(timeOfDay);
+            for (int i = 0; i < currentSRs.Length; i++)
+            {
+                if (currentSRs[i] != null)
+                {
+                    Color c = currentSRs[i].color;
+                    c.a = alpha;
+                    currentSRs[i].color = c;
+                }
+            }
+        }
+        else
+        {
+            // Transition completed or initial setup: deactivate old, activate new, reset alpha
+            if ((int)lastTimeOfDay >= 0)
+            {
+                SpriteRenderer[] oldSRs = GetSkyRenderers(lastTimeOfDay);
+                for (int i = 0; i < oldSRs.Length; i++)
+                {
+                    if (oldSRs[i] != null)
+                    {
+                        Color c = oldSRs[i].color;
+                        c.a = 1f;
+                        oldSRs[i].color = c;
+                    }
+                }
+                if (lastTimeOfDay == DayNightCycle.TimeOfDay.Night)
+                {
+                    for (int i = 0; i < nightRenderers.Length; i++)
+                        if (nightRenderers[i] != null) nightRenderers[i].sortingOrder = i;
+                }
+                GetSkyObject(lastTimeOfDay)?.SetActive(false);
+            }
+            if (timeOfDay == DayNightCycle.TimeOfDay.Night)
+            {
+                for (int i = 0; i < nightRenderers.Length; i++)
+                    if (nightRenderers[i] != null) nightRenderers[i].sortingOrder = 12 + i;
+            }
+            GetSkyObject(timeOfDay)?.SetActive(true);
+        }
+    }
+
+    SpriteRenderer[] GetSkyRenderers(DayNightCycle.TimeOfDay time) => time switch
+    {
+        DayNightCycle.TimeOfDay.Morning => morningRenderers,
+        DayNightCycle.TimeOfDay.Day     => dayRenderers,
+        DayNightCycle.TimeOfDay.Evening => eveningRenderers,
+        DayNightCycle.TimeOfDay.Night   => nightRenderers,
+        _                               => dayRenderers,
+    };
+
+    GameObject GetSkyObject(DayNightCycle.TimeOfDay time) => time switch
+    {
+        DayNightCycle.TimeOfDay.Morning => morningObject,
+        DayNightCycle.TimeOfDay.Day     => dayObject,
+        DayNightCycle.TimeOfDay.Evening => eveningObject,
+        DayNightCycle.TimeOfDay.Night   => nightObject,
+        _                               => dayObject,
+    };
 
     void ApplyColorToExistingParticles(Color blockColor)
     {
@@ -157,11 +230,8 @@ public class BlockMovement : MonoBehaviour
             cb.normalColor = trainSRs[i].color;
             originalColors.Add(cb);
 
-            DayNightCycle.TimeOfDay timeOfDay = dayNightCycle.currentTime;
-            Color blockColor = dayNightCycle.GetTimeColor(timeOfDay);
-
-            trainSRs[i].color = cb.normalColor;
-            trainSRs[i].color *= blockColor;
+            Color blockColor = dayNightCycle.GetBlendedColor();
+            trainSRs[i].color = cb.normalColor * blockColor;
         }
     }
 
