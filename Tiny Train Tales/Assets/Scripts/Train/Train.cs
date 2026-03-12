@@ -11,7 +11,7 @@ public class Train : MonoBehaviour
     [SerializeField] float carWeightOffset;
     [Space]
     [SerializeField] List<Animator> trainAnimators;
-    [SerializeField] List <Animator> carAnimators;
+    [SerializeField] List<Animator> carAnimators;
     [SerializeField] float maxAnimationSpeed;
     [SerializeField] float carAnimationSpeedOffset;
 
@@ -246,5 +246,18 @@ public class Train : MonoBehaviour
     public bool GetHasStopped()
     {
         return hasStopped;
+    }
+
+    public List<SpriteRenderer> GetSpriteRenderers()
+    {
+        List<SpriteRenderer> sRs = new List<SpriteRenderer>();
+        for (int i = 0; i < carAnimators.Count; i++)
+        {
+            sRs.Add(carAnimators[i].gameObject.GetComponent<SpriteRenderer>());
+        }
+
+        sRs.Add(GetComponentInChildren<SpriteRenderer>());
+
+        return sRs;
     }
 }

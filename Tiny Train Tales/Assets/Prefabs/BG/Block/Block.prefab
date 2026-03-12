@@ -326,7 +326,7 @@ SpriteRenderer:
   m_SortingLayer: 2
   m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: f68069d891113d64495a95c1cb651b9c, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.92941177}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -844,6 +844,7 @@ MonoBehaviour:
   - {fileID: 2551477354126730217}
   - {fileID: 3001221635574734106}
   - {fileID: 1299134214167483400}
+  includeTrain: 0
 --- !u!1 &7118551047017340982
 GameObject:
   m_ObjectHideFlags: 0
