@@ -36,6 +36,20 @@ public class DayNightCycle : MonoBehaviour
         Night,
     }
 
+    void Awake()
+    {
+        LoadDayNight();
+    }
+
+    public void LoadDayNight()
+    {
+        DayNightSaveData data = SaveSystem.Instance.GetDayNightData();
+        if (data == null) return;
+        currentTime = (TimeOfDay)data.currentTime;
+        currentDayNightDuration = data.currentDayNightDuration;
+        currentMorningEveningDuration = data.currentMorningEveningDuration;
+    }
+
     void Start()
     {
         currentDayNightDuration = dayNightDuration;
@@ -62,5 +76,16 @@ public class DayNightCycle : MonoBehaviour
                 currentTime = currentTime == TimeOfDay.Day ? TimeOfDay.Evening : TimeOfDay.Morning;
             }
         }
+    }
+
+    public void SaveDayNight()
+    {
+        DayNightSaveData data = new DayNightSaveData
+        {
+            currentTime = (int)currentTime,
+            currentDayNightDuration = currentDayNightDuration,
+            currentMorningEveningDuration = currentMorningEveningDuration
+        };
+        SaveSystem.Instance.SetDayNightData(data);
     }
 }

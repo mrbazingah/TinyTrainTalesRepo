@@ -69,6 +69,7 @@ public class GameManager : MonoBehaviour
     CargoManager cargoManager;
     UpgradeManager upgradeManager;
     SaveSystem saveSystem;
+    DayNightCycle dayNightCycle;
     #endregion
 
     void Awake()
@@ -88,6 +89,7 @@ public class GameManager : MonoBehaviour
         cargoManager = FindObjectOfType<CargoManager>();
         upgradeManager = FindObjectOfType<UpgradeManager>();
         saveSystem = FindObjectOfType<SaveSystem>();
+        dayNightCycle = FindObjectOfType<DayNightCycle>();
 
         LoadUnlockedRegions();
     }
@@ -699,6 +701,7 @@ public class GameManager : MonoBehaviour
         questManager?.SaveQuests();
         carManager?.SaveCars();
         cargoManager?.SaveCargo();
+        dayNightCycle.SaveDayNight();
 
         if (hasArrivedAtStation)
         {
