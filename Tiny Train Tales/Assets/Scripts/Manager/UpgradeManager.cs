@@ -39,7 +39,7 @@ public class UpgradeManager : MonoBehaviour
     [Space]
     [SerializeField] TextMeshProUGUI maxProfitUpgradeAmountText;
     [SerializeField] int maxProfitUpgradeAmount;
-    [Header("Cars")]
+    [Header("Max Cars")]
     [SerializeField] TextMeshProUGUI carsText;
     [SerializeField] TextMeshProUGUI carsCostText;
     [SerializeField] float carsCost;
@@ -47,6 +47,14 @@ public class UpgradeManager : MonoBehaviour
     [Space]
     [SerializeField] TextMeshProUGUI maxCarUpgradeAmountText;
     [SerializeField] int maxCarUpgradeAmount;
+    [Header("Max Cargo")]
+    [SerializeField] TextMeshProUGUI maxCargoText;
+    [SerializeField] TextMeshProUGUI maxCargoCostText;
+    [SerializeField] float maxCargoCost;
+    [SerializeField] float maxCargoCostIncrease;
+    [Space]
+    [SerializeField] TextMeshProUGUI maxCargoUpgradeAmountText;
+    [SerializeField] int maxCargoUpgradeAmount;
     [Header("Colors")]
     [SerializeField] Color originalColor;
     [SerializeField] Color cantAffordColor;
@@ -59,13 +67,15 @@ public class UpgradeManager : MonoBehaviour
     int currentMaxPassangerAmount;
     int currentAccelerationAmount;
     int currentProfitAmount;
-    int currentCarsAmount;
+    int currentMaxCarsAmount;
+    int currentMaxCargoAmount;
 
     ColorBlock accelerationColorBlock;
     ColorBlock maxSpeedColorBlock;
     ColorBlock maxPassangersColorBlock;
     ColorBlock profitColorBlock;
-    ColorBlock carsColorBlock;
+    ColorBlock maxCarsColorBlock;
+    ColorBlock maxCargoColorBlock;
 
     GameManager gameManager;
     Train train;
@@ -74,7 +84,8 @@ public class UpgradeManager : MonoBehaviour
     Button maxSpeedButton;
     Button maxPassangersButton;
     Button profitButton;
-    Button carsButton;
+    Button maxCarsButton;
+    Button maxCargoButton;
 
     void Awake()
     {
@@ -85,7 +96,8 @@ public class UpgradeManager : MonoBehaviour
         maxSpeedButton = maxSpeedCostText.GetComponentInParent<Button>();
         maxPassangersButton = maxPassangerCostText.GetComponentInParent<Button>();
         profitButton = profitCostText.GetComponentInParent<Button>();
-        carsButton = carsCostText.GetComponentInParent<Button>();
+        maxCarsButton = carsCostText.GetComponentInParent<Button>();
+        maxCargoButton = maxCargoCostText.GetComponentInParent<Button>();
 
         ChangeColor();
     }
@@ -99,6 +111,7 @@ public class UpgradeManager : MonoBehaviour
         maxPassangerCostText.text = maxPassangerCost.ToString();
         profitCostText.text = profitCost.ToString();
         carsCostText.text = carsCost.ToString();
+        maxCargoCostText.text = maxCargoCost.ToString();
     }
 
     void LoadSavedData()
@@ -116,7 +129,7 @@ public class UpgradeManager : MonoBehaviour
             currentMaxPassangerAmount = data.currentMaxPassangerAmount;
             currentAccelerationAmount = data.currentAccelerationAmount;
             currentProfitAmount = data.currentProfitAmount;
-            currentCarsAmount = data.currentCarsAmount;
+            currentMaxCarsAmount = data.currentCarsAmount;
         }
     }
 
@@ -132,14 +145,15 @@ public class UpgradeManager : MonoBehaviour
         Color accelartionColor = originalColor;
         Color maxPassangersColor = originalColor;
         Color profitColor = originalColor;
-        Color carsColor = originalColor;
+        Color maxCarsColor = originalColor;
+        Color maxCargoColor = originalColor;
 
         coins = gameManager.GetCoins();
-        if (coins < maxSpeedCost )
+        if (coins < maxSpeedCost || currentMaxSpeedAmount == maxSpeedUpgradeAmount)
         {
             maxSpeedColor = cantAffordColor;
         }
-        if (coins < accelerationCost)
+        if (coins < accelerationCost || currentAccelerationAmount == maxAccelerationUpgradeAmount)
         {
             accelartionColor = cantAffordColor;
         }
@@ -151,9 +165,13 @@ public class UpgradeManager : MonoBehaviour
         {
             maxPassangersColor = cantAffordColor;
         }
-        if (coins < carsCost)
+        if (coins < carsCost) 
         {
-            carsColor = cantAffordColor;
+            maxCarsColor = cantAffordColor;
+        }
+        if (coins < maxCargoCost)
+        {
+            maxCargoColor = cantAffordColor;
         }
 
         accelerationColorBlock = accelerationButton.colors;
@@ -180,11 +198,11 @@ public class UpgradeManager : MonoBehaviour
         profitColorBlock.selectedColor = profitColor;
         profitButton.colors = profitColorBlock;
 
-        carsColorBlock = carsButton.colors;
-        carsColorBlock.normalColor = carsColor;
-        carsColorBlock.highlightedColor = carsColor;
-        carsColorBlock.selectedColor = carsColor;
-        carsButton.colors = carsColorBlock;
+        maxCarsColorBlock = maxCarsButton.colors;
+        maxCarsColorBlock.normalColor = maxCarsColor;
+        maxCarsColorBlock.highlightedColor = maxCarsColor;
+        maxCarsColorBlock.selectedColor = maxCarsColor;
+        maxCarsButton.colors = maxCarsColorBlock;
     }
 
     void UpdateText()
@@ -199,7 +217,7 @@ public class UpgradeManager : MonoBehaviour
         maxPassangerUpgradeAmountText.text = currentMaxPassangerAmount.ToString();
         maxAccelerationUpgradeAmountText.text = currentAccelerationAmount + "/" + maxAccelerationUpgradeAmount;
         maxProfitUpgradeAmountText.text = currentProfitAmount + "/" + maxProfitUpgradeAmount;
-        maxCarUpgradeAmountText.text = currentCarsAmount + "/" + maxCarUpgradeAmount;
+        maxCarUpgradeAmountText.text = currentMaxCarsAmount + "/" + maxCarUpgradeAmount;
     }
 
     public void UpgradeMaxSpeed()
@@ -260,14 +278,14 @@ public class UpgradeManager : MonoBehaviour
 
     public void UpgradeCars()
     {
-        if (coins < carsCost || currentCarsAmount >= maxCarUpgradeAmount) { return; }
+        if (coins < carsCost || currentMaxCarsAmount >= maxCarUpgradeAmount) { return; }
 
         gameManager.BuyWithCoins(carsCost);
         carsCost += carsCostIncrease;
         carsCost = Mathf.Floor(carsCost);
         carsCostText.text = carsCost.ToString();
         amountOfCars++;
-        currentCarsAmount++;
+        currentMaxCarsAmount++;
 
         SaveUpgradeData();
     }
@@ -285,7 +303,7 @@ public class UpgradeManager : MonoBehaviour
         data.currentMaxPassangerAmount = currentMaxPassangerAmount;
         data.currentAccelerationAmount = currentAccelerationAmount;
         data.currentProfitAmount = currentProfitAmount;
-        data.currentCarsAmount = currentCarsAmount;
+        data.currentCarsAmount = currentMaxCarsAmount;
         SaveSystem.Instance.SetUpgradeData(data);
     }
 
