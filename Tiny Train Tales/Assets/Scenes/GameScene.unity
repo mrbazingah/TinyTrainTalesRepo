@@ -35922,7 +35922,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1459477806}
         m_TargetAssemblyTypeName: UpgradeManager, Assembly-CSharp
-        m_MethodName: UpgradeCars
+        m_MethodName: UpgradeMaxCargo
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -52296,9 +52296,21 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1541757479}
     - target: {fileID: 3104360152833878173, guid: f2929c3dec4229d4dbdbfcf07e0b3dc2, type: 3}
+      propertyPath: maxCargoCost
+      value: 1000
+      objectReference: {fileID: 0}
+    - target: {fileID: 3104360152833878173, guid: f2929c3dec4229d4dbdbfcf07e0b3dc2, type: 3}
+      propertyPath: maxCargoText
+      value: 
+      objectReference: {fileID: 1983831430}
+    - target: {fileID: 3104360152833878173, guid: f2929c3dec4229d4dbdbfcf07e0b3dc2, type: 3}
       propertyPath: maxSpeedText
       value: 
       objectReference: {fileID: 34222866}
+    - target: {fileID: 3104360152833878173, guid: f2929c3dec4229d4dbdbfcf07e0b3dc2, type: 3}
+      propertyPath: addToMaxCargo
+      value: 15
+      objectReference: {fileID: 0}
     - target: {fileID: 3104360152833878173, guid: f2929c3dec4229d4dbdbfcf07e0b3dc2, type: 3}
       propertyPath: profitCostText
       value: 
@@ -52307,6 +52319,10 @@ PrefabInstance:
       propertyPath: accelerationText
       value: 
       objectReference: {fileID: 2076777957}
+    - target: {fileID: 3104360152833878173, guid: f2929c3dec4229d4dbdbfcf07e0b3dc2, type: 3}
+      propertyPath: maxCargoCostText
+      value: 
+      objectReference: {fileID: 1681283139}
     - target: {fileID: 3104360152833878173, guid: f2929c3dec4229d4dbdbfcf07e0b3dc2, type: 3}
       propertyPath: maxSpeedCostText
       value: 
@@ -52320,13 +52336,25 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1265809140}
     - target: {fileID: 3104360152833878173, guid: f2929c3dec4229d4dbdbfcf07e0b3dc2, type: 3}
+      propertyPath: maxCargoCostIncrease
+      value: 500
+      objectReference: {fileID: 0}
+    - target: {fileID: 3104360152833878173, guid: f2929c3dec4229d4dbdbfcf07e0b3dc2, type: 3}
       propertyPath: maxPassangerCostText
       value: 
       objectReference: {fileID: 654572736}
     - target: {fileID: 3104360152833878173, guid: f2929c3dec4229d4dbdbfcf07e0b3dc2, type: 3}
+      propertyPath: maxCargoUpgradeAmount
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 3104360152833878173, guid: f2929c3dec4229d4dbdbfcf07e0b3dc2, type: 3}
       propertyPath: maxCarUpgradeAmountText
       value: 
       objectReference: {fileID: 1156876386}
+    - target: {fileID: 3104360152833878173, guid: f2929c3dec4229d4dbdbfcf07e0b3dc2, type: 3}
+      propertyPath: maxCargoUpgradeAmountText
+      value: 
+      objectReference: {fileID: 687876693}
     - target: {fileID: 3104360152833878173, guid: f2929c3dec4229d4dbdbfcf07e0b3dc2, type: 3}
       propertyPath: maxSpeedUpgradeAmountText
       value: 

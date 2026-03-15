@@ -180,13 +180,13 @@ public class Train : MonoBehaviour
         
         for (int i = 0; i < trainAnimators.Count; i++)
         {
-            if (animatorSpeed < 0) return;
+            if (animatorSpeed < 0) break;
             trainAnimators[i].speed = animatorSpeed;
         }
 
         for (int i = 0; i < carAnimators.Count; i++)
         {
-            if (animatorSpeed < 0) return;
+            if (animatorSpeed < 0) break;
             carAnimators[i].speed = animatorSpeed * carAnimationSpeedOffset;
         }
     }
