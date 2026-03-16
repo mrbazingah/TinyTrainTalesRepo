@@ -49,12 +49,14 @@ public class UpgradeSaveData
     public float accelerationCost;
     public float profitCost;
     public float carsCost;
+    public float maxCargoCost;
     public int amountOfCars;
     public int currentMaxSpeedAmount;
     public int currentMaxPassangerAmount;
     public int currentAccelerationAmount;
     public int currentProfitAmount;
     public int currentCarsAmount;
+    public int currentMaxCargoAmount;
 }
 
 [Serializable]

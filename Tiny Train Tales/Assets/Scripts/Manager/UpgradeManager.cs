@@ -127,12 +127,14 @@ public class UpgradeManager : MonoBehaviour
             accelerationCost = data.accelerationCost;
             profitCost = data.profitCost;
             carsCost = data.carsCost;
+            maxCargoCost = data.maxCargoCost;
             amountOfCars = data.amountOfCars > 0 ? data.amountOfCars : amountOfCars;
             currentMaxSpeedAmount = data.currentMaxSpeedAmount;
             currentMaxPassangerAmount = data.currentMaxPassangerAmount;
             currentAccelerationAmount = data.currentAccelerationAmount;
             currentProfitAmount = data.currentProfitAmount;
             currentMaxCarsAmount = data.currentCarsAmount;
+            currentMaxCargoAmount = data.currentMaxCargoAmount;
         }
     }
 
@@ -324,11 +326,13 @@ public class UpgradeManager : MonoBehaviour
         data.profitCost = profitCost;
         data.carsCost = carsCost;
         data.amountOfCars = amountOfCars;
+        data.maxCargoCost = maxCargoCost;
         data.currentMaxSpeedAmount = currentMaxSpeedAmount;
         data.currentMaxPassangerAmount = currentMaxPassangerAmount;
         data.currentAccelerationAmount = currentAccelerationAmount;
         data.currentProfitAmount = currentProfitAmount;
         data.currentCarsAmount = currentMaxCarsAmount;
+        data.currentMaxCargoAmount = currentMaxCargoAmount;
         SaveSystem.Instance.SetUpgradeData(data);
     }
 
