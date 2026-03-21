@@ -52296,10 +52296,6 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1541757479}
     - target: {fileID: 3104360152833878173, guid: f2929c3dec4229d4dbdbfcf07e0b3dc2, type: 3}
-      propertyPath: maxCargoCost
-      value: 1000
-      objectReference: {fileID: 0}
-    - target: {fileID: 3104360152833878173, guid: f2929c3dec4229d4dbdbfcf07e0b3dc2, type: 3}
       propertyPath: maxCargoText
       value: 
       objectReference: {fileID: 1983831430}
@@ -52307,10 +52303,6 @@ PrefabInstance:
       propertyPath: maxSpeedText
       value: 
       objectReference: {fileID: 34222866}
-    - target: {fileID: 3104360152833878173, guid: f2929c3dec4229d4dbdbfcf07e0b3dc2, type: 3}
-      propertyPath: addToMaxCargo
-      value: 15
-      objectReference: {fileID: 0}
     - target: {fileID: 3104360152833878173, guid: f2929c3dec4229d4dbdbfcf07e0b3dc2, type: 3}
       propertyPath: profitCostText
       value: 
@@ -52336,17 +52328,9 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1265809140}
     - target: {fileID: 3104360152833878173, guid: f2929c3dec4229d4dbdbfcf07e0b3dc2, type: 3}
-      propertyPath: maxCargoCostIncrease
-      value: 500
-      objectReference: {fileID: 0}
-    - target: {fileID: 3104360152833878173, guid: f2929c3dec4229d4dbdbfcf07e0b3dc2, type: 3}
       propertyPath: maxPassangerCostText
       value: 
       objectReference: {fileID: 654572736}
-    - target: {fileID: 3104360152833878173, guid: f2929c3dec4229d4dbdbfcf07e0b3dc2, type: 3}
-      propertyPath: maxCargoUpgradeAmount
-      value: 15
-      objectReference: {fileID: 0}
     - target: {fileID: 3104360152833878173, guid: f2929c3dec4229d4dbdbfcf07e0b3dc2, type: 3}
       propertyPath: maxCarUpgradeAmountText
       value: 
