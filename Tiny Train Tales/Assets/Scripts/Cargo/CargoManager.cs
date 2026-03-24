@@ -44,6 +44,8 @@ public class CargoManager : MonoBehaviour
     {
         List<CargoItemSaveData> inventory = SaveSystem.Instance.GetInventory();
         currentCargoCount = SaveSystem.Instance.GetCurrentCargoAmount();
+        int savedMaxCargo = SaveSystem.Instance.GetMaxCargoCount();
+        if (savedMaxCargo > 0) maxCargoCount = savedMaxCargo;
 
         Vector2 lastPos = Vector2.zero;
         for (int i = 0; i < inventory.Count; i++)
@@ -311,6 +313,6 @@ public class CargoManager : MonoBehaviour
             inventory.Add(itemData);
         }
 
-        SaveSystem.Instance.SetInventory(inventory, currentCargoCount);
+        SaveSystem.Instance.SetInventory(inventory, currentCargoCount, maxCargoCount);
     }
 }

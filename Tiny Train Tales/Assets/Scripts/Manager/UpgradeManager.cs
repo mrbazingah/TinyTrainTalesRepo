@@ -209,7 +209,7 @@ public class UpgradeManager : MonoBehaviour
         maxCarsColorBlock.selectedColor = maxCarsColor;
         maxCarsButton.colors = maxCarsColorBlock;
 
-        maxCargoColorBlock = maxCarsButton.colors;
+        maxCargoColorBlock = maxCargoButton.colors;
         maxCargoColorBlock.normalColor = maxCargoColor;
         maxCargoColorBlock.highlightedColor = maxCargoColor;
         maxCargoColorBlock.selectedColor = maxCargoColor;
@@ -305,7 +305,7 @@ public class UpgradeManager : MonoBehaviour
 
     public void UpgradeMaxCargo()
     {
-        if (coins < maxCargoCost || currentMaxCargoAmount >= maxCargoUpgradeAmount)
+        if (coins < maxCargoCost || currentMaxCargoAmount >= maxCargoUpgradeAmount) { return; }
 
         gameManager.BuyWithCoins(maxCargoCost);
         maxCargoCost += maxCargoCostIncrease;

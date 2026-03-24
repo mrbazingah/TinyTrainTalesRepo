@@ -90,6 +90,7 @@ public class InventorySaveFile
 {
     public List<CargoItemSaveData> inventoryItems = new List<CargoItemSaveData>();
     public int currentCargoAmount;
+    public int maxCargoCount;
 }
 
 [Serializable]
@@ -347,10 +348,16 @@ public class SaveSystem : MonoBehaviour
         return inventoryFile.currentCargoAmount;
     }
 
-    public void SetInventory(List<CargoItemSaveData> items, int cargoAmount)
+    public int GetMaxCargoCount()
+    {
+        return inventoryFile.maxCargoCount;
+    }
+
+    public void SetInventory(List<CargoItemSaveData> items, int cargoAmount, int maxCargoCount)
     {
         inventoryFile.inventoryItems = items;
         inventoryFile.currentCargoAmount = cargoAmount;
+        inventoryFile.maxCargoCount = maxCargoCount;
     }
 
     // --- Train ---
