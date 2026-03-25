@@ -49449,10 +49449,6 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 34222866}
     - target: {fileID: 3104360152833878173, guid: f2929c3dec4229d4dbdbfcf07e0b3dc2, type: 3}
-      propertyPath: addToMaxCargo
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 3104360152833878173, guid: f2929c3dec4229d4dbdbfcf07e0b3dc2, type: 3}
       propertyPath: profitCostText
       value: 
       objectReference: {fileID: 65905397}
