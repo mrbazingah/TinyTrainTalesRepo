@@ -75,8 +75,15 @@ MonoBehaviour:
   carsCostText: {fileID: 0}
   carsCost: 1000
   carsCostIncrease: 500
-  maxCarUpgradeAmountText: {fileID: 0}
-  maxCarUpgradeAmount: 25
+  carsUpgradeAmountText: {fileID: 0}
+  carUpgradeAmount: 0
+  maxCargoText: {fileID: 0}
+  maxCargoCostText: {fileID: 0}
+  maxCargoCost: 1000
+  addToMaxCargo: 10
+  maxCargoCostIncrease: 500
+  maxCargoUpgradeAmountText: {fileID: 0}
+  maxCargoUpgradeAmount: 30
   originalColor: {r: 1, g: 1, b: 1, a: 1}
   cantAffordColor: {r: 0.7058824, g: 0.7058824, b: 0.7058824, a: 1}
   doneColor: {r: 0.21124823, g: 0.7264151, b: 0.10051019, a: 1}

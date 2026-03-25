@@ -49,12 +49,14 @@ public class UpgradeSaveData
     public float accelerationCost;
     public float profitCost;
     public float carsCost;
+    public float maxCargoCost;
     public int amountOfCars;
     public int currentMaxSpeedAmount;
     public int currentMaxPassangerAmount;
     public int currentAccelerationAmount;
     public int currentProfitAmount;
     public int currentCarsAmount;
+    public int currentMaxCargoAmount;
 }
 
 [Serializable]
@@ -80,6 +82,7 @@ public class InventorySaveFile
 {
     public List<CargoItemSaveData> inventoryItems = new List<CargoItemSaveData>();
     public int currentCargoAmount;
+    public int maxCargoAmount;
 }
 
 [Serializable]
@@ -311,10 +314,16 @@ public class SaveSystem : MonoBehaviour
         return inventoryFile.currentCargoAmount;
     }
 
-    public void SetInventory(List<CargoItemSaveData> items, int cargoAmount)
+    public int GetMaxCargoAmount()
+    {
+        return inventoryFile.maxCargoAmount;
+    }
+
+    public void SetInventory(List<CargoItemSaveData> items, int cargoAmount, int maxCargoAmount)
     {
         inventoryFile.inventoryItems = items;
         inventoryFile.currentCargoAmount = cargoAmount;
+        inventoryFile.maxCargoAmount = maxCargoAmount;
     }
 
     // --- Train ---
