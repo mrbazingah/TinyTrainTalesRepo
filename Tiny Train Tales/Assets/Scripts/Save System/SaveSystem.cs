@@ -49,26 +49,20 @@ public class UpgradeSaveData
     public float accelerationCost;
     public float profitCost;
     public float carsCost;
+    public float maxCargoCost;
     public int amountOfCars;
     public int currentMaxSpeedAmount;
     public int currentMaxPassangerAmount;
     public int currentAccelerationAmount;
     public int currentProfitAmount;
     public int currentCarsAmount;
+    public int currentMaxCargoAmount;
 }
 
 [Serializable]
 public class PassangerSaveData
 {
     public float passanger;
-}
-
-[Serializable]
-public class DayNightSaveData
-{
-    public int currentTime;
-    public float currentDayNightDuration;
-    public float currentMorningEveningDuration;
 }
 
 [Serializable]
@@ -88,6 +82,7 @@ public class InventorySaveFile
 {
     public List<CargoItemSaveData> inventoryItems = new List<CargoItemSaveData>();
     public int currentCargoAmount;
+    public int maxCargoAmount;
 }
 
 [Serializable]
@@ -108,12 +103,6 @@ public class PassangerSaveFile
     public List<PassangerSaveData> passangers = new List<PassangerSaveData>();
 }
 
-[Serializable]
-public class DayNightSaveFile
-{
-    public List<DayNightSaveData> dayNight = new List<DayNightSaveData>();
-}
-
 public class SaveSystem : MonoBehaviour
 {
     public static SaveSystem Instance { get; private set; }
@@ -124,7 +113,6 @@ public class SaveSystem : MonoBehaviour
     CurrencySaveFile currencyFile = new CurrencySaveFile();
     UpgradeSaveFile upgradeFile = new UpgradeSaveFile();
     PassangerSaveFile passangerFile = new PassangerSaveFile();
-    DayNightSaveFile dayNightFile = new DayNightSaveFile();
     Dictionary<string, CitySaveData> cityDict = new Dictionary<string, CitySaveData>();
     string citiesPath;
     string inventoryPath;
@@ -132,7 +120,6 @@ public class SaveSystem : MonoBehaviour
     string currencyPath;
     string upgradePath;
     string passangerPath;
-    string dayNightPath;
 
     void Awake()
     {
@@ -149,7 +136,6 @@ public class SaveSystem : MonoBehaviour
         currencyPath = Path.Combine(Application.persistentDataPath, "currency.json");
         upgradePath = Path.Combine(Application.persistentDataPath, "upgrades.json");
         passangerPath = Path.Combine(Application.persistentDataPath, "passanger.json");
-        dayNightPath = Path.Combine(Application.persistentDataPath, "daynight.json");
         LoadFromDisk();
     }
 
@@ -162,7 +148,6 @@ public class SaveSystem : MonoBehaviour
         currencyFile = new CurrencySaveFile();
         upgradeFile = new UpgradeSaveFile();
         passangerFile = new PassangerSaveFile();
-        dayNightFile = new DayNightSaveFile();
 
         if (File.Exists(citiesPath))
         {
@@ -242,18 +227,6 @@ public class SaveSystem : MonoBehaviour
         {
             Debug.Log("[SaveSystem] No passanger save file found, starting fresh.");
         }
-
-        if (File.Exists(dayNightPath))
-        {
-            string json = File.ReadAllText(dayNightPath);
-            DayNightSaveFile loaded = JsonUtility.FromJson<DayNightSaveFile>(json);
-            if (loaded != null)
-                dayNightFile = loaded;
-        }
-        else
-        {
-            Debug.Log("[SaveSystem] No day night save file found, starting fresh.");
-        }
     }
 
     public void SaveToDisk()
@@ -265,7 +238,6 @@ public class SaveSystem : MonoBehaviour
         File.WriteAllText(currencyPath, JsonUtility.ToJson(currencyFile, true));
         File.WriteAllText(upgradePath, JsonUtility.ToJson(upgradeFile, true));
         File.WriteAllText(passangerPath, JsonUtility.ToJson(passangerFile, true));
-        File.WriteAllText(dayNightPath, JsonUtility.ToJson(dayNightFile, true));
     }
 
     public void DeleteSaveFile()
@@ -277,7 +249,6 @@ public class SaveSystem : MonoBehaviour
         currencyFile = new CurrencySaveFile();
         upgradeFile = new UpgradeSaveFile();
         passangerFile = new PassangerSaveFile();
-        dayNightFile = new DayNightSaveFile();
 
         if (File.Exists(citiesPath))
             File.Delete(citiesPath);
@@ -291,8 +262,6 @@ public class SaveSystem : MonoBehaviour
             File.Delete(upgradePath);
         if (File.Exists(passangerPath))
             File.Delete(passangerPath);
-        if (File.Exists(dayNightPath))
-            File.Delete(dayNightPath);
     }
 
     // --- City ---
@@ -345,10 +314,16 @@ public class SaveSystem : MonoBehaviour
         return inventoryFile.currentCargoAmount;
     }
 
-    public void SetInventory(List<CargoItemSaveData> items, int cargoAmount)
+    public int GetMaxCargoAmount()
+    {
+        return inventoryFile.maxCargoAmount;
+    }
+
+    public void SetInventory(List<CargoItemSaveData> items, int cargoAmount, int maxCargoAmount)
     {
         inventoryFile.inventoryItems = items;
         inventoryFile.currentCargoAmount = cargoAmount;
+        inventoryFile.maxCargoAmount = maxCargoAmount;
     }
 
     // --- Train ---
@@ -401,18 +376,5 @@ public class SaveSystem : MonoBehaviour
     {
         passangerFile.passangers.Clear();
         passangerFile.passangers.Add(data);
-    }
-
-    // --- Day Night ---
-
-    public DayNightSaveData GetDayNightData()
-    {
-        return dayNightFile.dayNight.Count > 0 ? dayNightFile.dayNight[0] : null;
-    }
-
-    public void SetDayNightData(DayNightSaveData data)
-    {
-        dayNightFile.dayNight.Clear();
-        dayNightFile.dayNight.Add(data);
     }
 }

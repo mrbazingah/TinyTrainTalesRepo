@@ -11,11 +11,10 @@ public class BackgroundGenerator : MonoBehaviour
         myRigidbody = GetComponent<Rigidbody2D>();
     }
 
-    public GameObject SpawnBlock(float yPos, float spawnOffset, GameObject blockPrefab)
+    public void SpawnBlock(float yPos, float spawnOffset, GameObject blockPrefab)
     {
         Vector2 spawnPos = new Vector2(blockPrefab.transform.position.x + spawnOffset, yPos);
         GameObject spawned = Instantiate(blockPrefab, spawnPos, Quaternion.identity);
-        return spawned;
     }
 
     public void RemoveBlock(GameObject block)
