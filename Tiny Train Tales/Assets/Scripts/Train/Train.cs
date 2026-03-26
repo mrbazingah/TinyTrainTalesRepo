@@ -242,6 +242,19 @@ public class Train : MonoBehaviour
         return speed;
     }
 
+    public List<SpriteRenderer> GetSpriteRenderers()
+    {
+        List<SpriteRenderer> srs = new List<SpriteRenderer>();
+
+        for (int i = 0; i < carAnimators.Count; i++)
+        {
+            srs.Add(carAnimators[i].gameObject.GetComponent<SpriteRenderer>());
+        }
+
+        srs.Add(GetComponentInChildren<SpriteRenderer>());
+
+        return srs;
+    }
 
     public bool GetHasStopped()
     {
