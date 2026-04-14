@@ -19,6 +19,8 @@ public class DayNightCycle : MonoBehaviour
     float transitionProgress;
     TimeOfDay nextTime;
 
+    SaveSystem saveSystem;
+
     public TimeOfDay currentTime;
 
     public Color GetTimeColor(TimeOfDay time)
@@ -52,22 +54,22 @@ public class DayNightCycle : MonoBehaviour
         Night,
     }
 
-    /*
     void Awake()
     {
+        saveSystem = FindObjectOfType<SaveSystem>();
+
         LoadDayNightData();
     }
 
-    
     public void LoadDayNightData()
     {
-        DayNightSaveData data = SaveSystem.Instance.GetDayNightData();
+        if (saveSystem == null) { return; }
+        DayNightSaveData data = saveSystem.GetDayNightData();
         if (data == null) return;
         currentTime = (TimeOfDay)data.currentTime;
         currentDayNightDuration = data.currentDayNightDuration;
         currentMorningEveningDuration = data.currentMorningEveningDuration;
     }
-    */
 
     void Start()
     {
@@ -118,9 +120,10 @@ public class DayNightCycle : MonoBehaviour
         nextTime = to;
     }
 
-    /*
     public void SaveDayNightData()
     {
+        if (saveSystem == null) { return; }
+
         DayNightSaveData data = new DayNightSaveData
         {
             currentTime = (int)currentTime,
@@ -128,7 +131,6 @@ public class DayNightCycle : MonoBehaviour
             currentMorningEveningDuration = currentMorningEveningDuration
         };
 
-        SaveSystem.Instance.SetDayNightData(data);
+        saveSystem.SetDayNightData(data);
     }
-    */
 }

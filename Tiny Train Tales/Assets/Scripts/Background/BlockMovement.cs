@@ -243,8 +243,8 @@ public class BlockMovement : MonoBehaviour
     {
         if (other.name == "Train" && canSpawn)
         {
-            //GameObject spawned = backgroundGenerator.SpawnBlock(transform.position.y, spawnOffset, gameObject);
-            //spawned.GetComponent<BlockMovement>().SetOriginalColor(originalColors);
+            GameObject spawned = backgroundGenerator.SpawnBlock(transform.position.y, spawnOffset, gameObject);
+            spawned.GetComponent<BlockMovement>().SetOriginalColor(originalColors);
         }
     }
 

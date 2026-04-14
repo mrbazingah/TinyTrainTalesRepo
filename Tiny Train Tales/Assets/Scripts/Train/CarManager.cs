@@ -17,10 +17,6 @@ public class CarManager : MonoBehaviour
     void Awake()
     {
         gameManager = FindObjectOfType<GameManager>();
-        if (gameManager == null)
-        {
-            Debug.LogError("GameManager not found in the scene!");
-        }
     }
 
     void Start()

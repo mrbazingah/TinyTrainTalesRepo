@@ -11,7 +11,7 @@ public class Train : MonoBehaviour
     [SerializeField] float carWeightOffset;
     [Space]
     [SerializeField] List<Animator> trainAnimators;
-    [SerializeField] List <Animator> carAnimators;
+    [SerializeField] List<Animator> carAnimators;
     [SerializeField] float maxAnimationSpeed;
     [SerializeField] float carAnimationSpeedOffset;
 
@@ -180,11 +180,13 @@ public class Train : MonoBehaviour
         
         for (int i = 0; i < trainAnimators.Count; i++)
         {
+            if (animatorSpeed < 0) break;
             trainAnimators[i].speed = animatorSpeed;
         }
 
         for (int i = 0; i < carAnimators.Count; i++)
         {
+            if (animatorSpeed < 0) break;
             carAnimators[i].speed = animatorSpeed * carAnimationSpeedOffset;
         }
     }
@@ -242,22 +244,22 @@ public class Train : MonoBehaviour
         return speed;
     }
 
-    public List<SpriteRenderer> GetSpriteRenderers()
-    {
-        List<SpriteRenderer> srs = new List<SpriteRenderer>();
-
-        for (int i = 0; i < carAnimators.Count; i++)
-        {
-            srs.Add(carAnimators[i].gameObject.GetComponent<SpriteRenderer>());
-        }
-
-        srs.Add(GetComponentInChildren<SpriteRenderer>());
-
-        return srs;
-    }
 
     public bool GetHasStopped()
     {
         return hasStopped;
+    }
+
+    public List<SpriteRenderer> GetSpriteRenderers()
+    {
+        List<SpriteRenderer> sRs = new List<SpriteRenderer>();
+        for (int i = 0; i < carAnimators.Count; i++)
+        {
+            sRs.Add(carAnimators[i].gameObject.GetComponent<SpriteRenderer>());
+        }
+
+        sRs.Add(GetComponentInChildren<SpriteRenderer>());
+
+        return sRs;
     }
 }

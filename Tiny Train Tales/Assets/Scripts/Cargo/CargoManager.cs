@@ -44,7 +44,7 @@ public class CargoManager : MonoBehaviour
     {
         List<CargoItemSaveData> inventory = SaveSystem.Instance.GetInventory();
         currentCargoCount = SaveSystem.Instance.GetCurrentCargoAmount();
-        int savedMaxCargo = SaveSystem.Instance.GetMaxCargoAmount();
+        int savedMaxCargo = SaveSystem.Instance.GetMaxCargoCount();
         if (savedMaxCargo > 0) maxCargoCount = savedMaxCargo;
 
         Vector2 lastPos = Vector2.zero;
@@ -76,8 +76,6 @@ public class CargoManager : MonoBehaviour
             for (int i = 0; i < cargoItemList.Count; i++)
                 currentCargoCount += cargoItemList[i].GetComponent<CargoItem>().GetItemCount();
         }
-
-        Debug.Log($"[CargoManager] Loaded {cargoItemList.Count} inventory items (total count: {currentCargoCount})");
     }
 
     public void AddCargo(GameObject newItem, int count, float price)
@@ -238,14 +236,15 @@ public class CargoManager : MonoBehaviour
         return cargoItem;
     }
 
+    public void AddToMaxCargo(int addedMaxCargo)
+    {
+        maxCargoCount += addedMaxCargo;
+        cargoCountText.text = currentCargoCount.ToString() + maxCargoCount.ToString();
+    }
+
     void Update()
     {
         cargoCountText.text = currentCargoCount.ToString() + "/" + maxCargoCount.ToString();
-    }
-
-    public void AddToMaxCargoCount(int addedAmount)
-    {
-        maxCargoCount += addedAmount;
     }
 
     public int GetCityMinCargoAmount()
@@ -315,6 +314,5 @@ public class CargoManager : MonoBehaviour
         }
 
         SaveSystem.Instance.SetInventory(inventory, currentCargoCount, maxCargoCount);
-        Debug.Log($"[CargoManager] Saved {inventory.Count} inventory items (total count: {currentCargoCount})");
     }
 }
